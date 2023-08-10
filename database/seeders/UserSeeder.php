@@ -19,9 +19,10 @@ class UserSeeder extends Seeder
     {
         User::create(
             ['name' => 'Administrador',
-            'email'=>'admin@fastmoda.com.co', 
+            'last_name' => 'Admin',
+            'email'=>'admin@fastmoda.com', 
             'password' => Hash::make('lilipink')]
-        );
+        )->assignRole('Admin');
         
     }
 }

@@ -26,6 +26,15 @@
                             />
                         </div>
                         <div class="form-group">
+                            <label class="col-auto col-form-label">Apellido</label>
+                            <input 
+                                type="text"
+                                class="form-control rounded-pill"
+                                name="last_name"
+                                aria-label="Default" required
+                            />
+                        </div>
+                        <div class="form-group">
                             <label class="col-auto col-form-label">Correo</label>
                             <input 
                                 type="text"

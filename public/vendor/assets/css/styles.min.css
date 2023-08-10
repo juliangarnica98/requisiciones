@@ -16427,7 +16427,7 @@ fieldset:disabled .btn {
 }
 .nav-small-cap {
   margin-top: 24px;
-  color: #2a3547;
+  color: #fff;
   font-size: 12px;
   font-weight: 700;
   padding: 3px 12px;
@@ -16438,7 +16438,8 @@ fieldset:disabled .btn {
   display: none;
 }
 .sidebar-nav ul .sidebar-item .sidebar-link {
-  color: #2a3547;
+  color: #fff;
+  /* color: #2a3547; */
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -16466,8 +16467,8 @@ fieldset:disabled .btn {
   font-size: 21px;
 }
 .sidebar-nav ul .sidebar-item .sidebar-link:hover {
-  background-color: rgba(93, 135, 255, 0.1);
-  color: #5d87ff;
+  background-color: rgba(3,168,162,0.7);
+  color: #fff;
 }
 .sidebar-nav ul .sidebar-item .sidebar-link:hover.has-arrow:after {
   border-color: #5d87ff;
@@ -16478,11 +16479,15 @@ fieldset:disabled .btn {
 .sidebar-nav ul .sidebar-item .link-disabled {
   opacity: 0.38;
 }
-.sidebar-nav ul .sidebar-item.selected > .sidebar-link,
-.sidebar-nav ul .sidebar-item.selected > .sidebar-link.active,
-.sidebar-nav ul .sidebar-item > .sidebar-link.active {
-  background-color: #5d87ff;
+
+/* .sidebar-nav ul .sidebar-item.selected > .sidebar-link,
+.sidebar-nav ul .sidebar-item.selected > .sidebar-link.router-link-exact-active,
+.sidebar-nav ul .sidebar-item > .sidebar-link.router-link-exact-active {
+  background-color: rgba(232,81,153,1) ;
   color: #fff;
+} */
+.card-box{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .sidebar-nav .sidebar-list .sidebar-list-item {
   padding: 8px 0;

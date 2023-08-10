@@ -1,10 +1,16 @@
 <template>
     <div>
-        <header class="app-header">
+        <header class="app-header border-bottom">
+           
             <nav class="navbar navbar-expand-lg navbar-light">
               <ul class="navbar-nav">
+                
               </ul>
               <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+                <ul class="navbar-nav flex-row ms-auto justify-content-center aling-items-center" >
+                  <h3 class=" text-center" style="font-style: italic;">Bienvenido {{ this.name }}</h3>
+                </ul>
+                
                 <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                  
                   <li class="nav-item dropdown">
@@ -14,7 +20,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                       <div class="message-body">
-                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                        <!-- <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
                           <i class="ti ti-user fs-6"></i>
                           <p class="mb-0 fs-3">My Profile</p>
                         </a>
@@ -25,7 +31,7 @@
                         <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
                           <i class="ti ti-list-check fs-6"></i>
                           <p class="mb-0 fs-3">My Task</p>
-                        </a>
+                        </a> -->
                         <!-- <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a> -->
                         <a class="dropdown-item" href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a>
                           <form id="logout-form" action="/logout" method="POST" class="d-none">
@@ -42,7 +48,7 @@
 </template>
 <script>
 export default {
-    props: ["token"],
+  props: ["token",'name'],
     data: () => ({
         csrf: document
             .querySelector('meta[name="csrf-token"]')

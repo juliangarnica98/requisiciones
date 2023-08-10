@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Sex;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserSeeder::class);
+        $this->call(
+            [
+                
+                AreaFactorySeeder::class,
+                ActivationChargeSeeder::class,
+                CategorySeeder::class,
+                CenterDistributionSeeder::class,
+                ChargeSeeder::class,
+                CitySeeder::class,
+                ManagementSeeder::class,
+                RegionalSeeder::class,
+                SexSeeder::class,
+                TypeActivationSeeder::class,
+
+                RolSeeder::class,
+                UserSeeder::class,
+                AreaManagementSeeder::class
+            ]
+        );
+       
     }
 }

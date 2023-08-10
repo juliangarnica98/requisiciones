@@ -1,7 +1,9 @@
 <?php
 
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -17,14 +19,35 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // return view('welcome');
-    return redirect('/panel');
+    return redirect('/dashboard');
 });
 
 Auth::routes();
 
 Route::get('/entrevista/{id}', [App\Http\Controllers\InterviewController::class, 'index'])->name('entrevista');
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
-Route::get('/usuarios', [App\Http\Controllers\HomeController::class, 'index'])->name('usuarios');
-Route::get('/entrevistas', [App\Http\Controllers\HomeController::class, 'index'])->name('entrevistas');
-Route::get('/requisiciones', [App\Http\Controllers\HomeController::class, 'index'])->name('requisiciones');
+
+
+Route::group(['middleware' => ['auth','role:Admin']], function() {
+    //rutas de navegacion
+    Route::get('/dashboard', [App\Http\Controllers\admin\HomeController::class, 'index']);
+    Route::get('/usuarios', [App\Http\Controllers\admin\HomeController::class, 'index']);
+    Route::get('/entrevistas', [App\Http\Controllers\admin\HomeController::class, 'index']);
+    Route::get('/requisiciones', [App\Http\Controllers\admin\HomeController::class, 'index']);
+    //rutas de usuarios
+    Route::get('/getusuaios', [App\Http\Controllers\admin\UserController::class, 'index']);
+    Route::get('/getusuario/{id}', [App\Http\Controllers\admin\UserController::class, 'show']);
+    Route::get('/usuario/{id}',[App\Http\Controllers\admin\HomeController::class, 'index']);
+    Route::put('/usuario/{id}', [App\Http\Controllers\admin\UserController::class, 'update']);
+    Route::delete('/deleteuser/{id}', [App\Http\Controllers\admin\UserController::class, 'destroy']);
+    //rutas de requisicion
+    Route::get('/requisiciones/crear', [App\Http\Controllers\admin\HomeController::class, 'index']);
+    Route::get('/getrequisition', [App\Http\Controllers\admin\RequisitionController::class, 'index']);
+    Route::get('/getdatarequisition', [App\Http\Controllers\admin\RequisitionController::class, 'getData']);
+    Route::post('/requisicion/store', [App\Http\Controllers\admin\RequisitionController::class, 'store']);
+});
+
+Route::group(['prefix' => 'boss','middleware' => ['auth','role:Boss']], function() {
+    Route::get('/requisiciones', [App\Http\Controllers\boss\HomeController::class, 'index'])->name('boss.requisiciones');
+    Route::get('/crear-requisicion', [App\Http\Controllers\boss\HomeController::class, 'index'])->name('boss.crarrequisicion');
+});

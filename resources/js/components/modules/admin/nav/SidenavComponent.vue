@@ -1,101 +1,202 @@
 <template>
-  <div>
-    <aside class="left-sidebar">
-      <div>
-        <div class="brand-logo d-flex align-items-center justify-content-center">
-          <a href="./index.html" class="text-nowrap logo-img">
-            <img src="../../../../../../public/imgs/logo.png" width="180" alt="" />
+  <div>    
+      <aside class="sidebar">
+        <div class="brand-logo d-flex align-items-center">
+          <a href="#" class="text-nowrap" >
+            <img src="../../../../../../public/imgs/logo.png" width="200" alt="" />
           </a>
-          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-            <i class="ti ti-x fs-8"></i>
-          </div>
         </div>
-        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-          <ul id="sidebarnav" >
-            <li class="nav-small-cap" >
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">PRINCIPAL</span>
-            </li>
-            <li class="sidebar-item" >
-
-              <router-link class="sidebar-link" to="/dashboard" aria-expanded="false">
-                <span>
-                  <i class="ti ti-layout-dashboard"></i>
-                </span>
-                <span class="hide-menu">Dashboard</span>
-              </router-link>
-
-            </li>
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">USUARIOS</span>
-            </li>
-        
+        <nav class="sidebar-nav">  
+          <ul>
             <li class="sidebar-item">
-              <!-- <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-user"></i>
-                </span>
-                <span class="hide-menu">Todos los usuarios</span>
-              </a> -->
-              <router-link class="sidebar-link" to="/usuarios" aria-expanded="false">
-                <span>
-                  <i class="ti ti-user"></i>
-                </span>
-                <span class="hide-menu">Todos los usuarios</span>
-              </router-link>
-            </li>
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">RETIROS</span>
+              <a href="#"><i class="fas fa-chart-line"></i> DASHBOARD</a>
             </li>
             <li class="sidebar-item">
-              <router-link class="sidebar-link" to="/entrevistas" aria-expanded="false">
-                <span>
-                  <i class="ti ti-clipboard"></i>
-                </span>
-                <span class="hide-menu">Ver entrevistas</span>
-              </router-link>
-            </li>
-            
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">REQUISICIONES</span>
-            </li>
-            <li class="sidebar-item">
-              <router-link class="sidebar-link" to="/requisiciones" aria-expanded="false">
-                <span>
-                  <i class="ti ti-eye"></i>
-                </span>
-                <span class="hide-menu">Ver requisiciones</span>
+              <router-link class="" to="/usuarios" aria-expanded="false" >
+                <i class="fas fa-users"></i> USUARIOS
               </router-link>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-plus"></i>
-                </span>
-                <span class="hide-menu">Crear requisición</span>
-              </a>
+              <a href="#"><i class="fas fa-spell-check"></i> ENTREVISTAS</a>
+              <ul class="nav-flyout">
+                <li>
+                  <router-link class="" to="/entrevistas" aria-expanded="false" >
+                      <i class="fas fa-eye"></i>VER
+                  </router-link>
+                </li>
+                <li>
+                  <a href="#"><i class="fas fa-file-pdf"></i> REPORTES</a>
+                </li>
+              </ul>
             </li>
-
-            
-            
+            <li class="sidebar-item">
+              <a href="#"><i class="fas fa-briefcase"></i> <span class=""> REQUISICIONES</span></a>
+              <ul class="nav-flyout">
+                <li>
+                  <router-link class="" to="/requisiciones" aria-expanded="false" >
+                    <i class="fas fa-eye"></i> VER
+                  </router-link>
+                </li>
+                <li>
+                  <router-link class="" to="/requisiciones/crear" aria-expanded="false" >
+                    <i class="fas fa-plus"></i> CREAR
+                  </router-link>
+                </li>
+                <li>
+                  <a href="#"><i class="fas fa-file-pdf"></i> REPORTES</a>
+                </li>
+                 <li>
+                </li>
+              </ul>
+            </li>
           </ul>
-         
         </nav>
-        <!-- End Sidebar navigation -->
-      </div>
-      <!-- End Sidebar scroll-->
-    </aside>
+      </aside>
+    
   </div>
 </template>
 <style scoped>
-  #sidebarnav{
+  @charset "UTF-8";
+  @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600);
+  .sidebar-item .active-link{
+    background-color: rgba(232,81,153,1) ;
+  }
+  a {
+    text-decoration: none;
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    transition: all 0.6s ease;
+  }
+  a:hover {
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    transition: all 0.6s ease;
+  }
+  
+  .app {
+    height: 100vh;
+  }
+  
+  /* -------------
+  Sidebar
+  ----------------*/
+  .sidebar {
+    position: fixed;
+    width: 20%;
+    height: 100vh;
+    top: 0;
+    overflow: hidden;
+    background-color: #19222a;
+    -webkit-transform: translateZ(0);
+    visibility: visible;
+    -webkit-backface-visibility: hidden;
+  }
+  .sidebar header {
+    background-color: #09f;
+    width: 100%;
+    display: block;
+    padding: 0.75em 1em;
+  }
+  
+  /* -------------
+  Sidebar Nav
+  ----------------*/
+  .sidebar-nav {
+    position: fixed;
+    background-color: #19222a;
+    height: 100%;
+    font-weight: 500;
+    font-size: 1.4em;
+    overflow: auto;
+    padding-top: 40%;
+    z-index: 9;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    /* -------------
+    Chev elements
+    ----------------*/
+    /* -------------
+    Nav-Flyout
+    ----------------*/
+    /* -------------
+    Hover
+    ----------------*/
+  }
+  .sidebar-nav ul {
+    list-style: none;
+    display: block;
     padding: 0;
+    margin: 0;
   }
-  .nav-small-cap{
-    text-align: center;
+  .sidebar-nav ul li {
+    margin-left: 0;
+    padding-left: 0;
+    display: inline-block;
+    width: 100%;
+    /* -------------
+    Sidebar: icons
+    ----------------*/
   }
-  a:link, a:visited { text-decoration: none; }
+  .sidebar-nav ul li a {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.75em;
+    padding: 1.05em 1em;
+    position: relative;
+    display: block;
+  }
+  .sidebar-nav ul li a:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    transition: all 0.6s ease;
+  }
+  .sidebar-nav ul li i {
+    font-size: 1.8em;
+    padding-right: 0.5em;
+    width: 9em;
+    display: inline;
+    vertical-align: middle;
+  }
+  .sidebar-nav > ul > li > a:after {
+    content: '';
+    font-family: ionicons;
+    font-size: 2em;
+    width: 10px;
+    color: #fff;
+    position: absolute;
+    right: 0.75em;
+    top: 5%;
+  }
+  .sidebar-nav .nav-flyout {
+    position: absolute;
+    background-color: #080D11;
+    z-index: 9;
+    left: 2.5em;
+    
+    height: 100vh;
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+    transform: translateX(100%);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  .sidebar-nav .nav-flyout a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  .sidebar-nav ul > li:hover .nav-flyout {
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
 </style>
+<script>
+
+</script>

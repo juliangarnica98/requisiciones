@@ -15,8 +15,12 @@
   <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/assets/images/logos/favicon.png') }}" />
   <link rel="stylesheet" href="{{ asset('vendor/assets/css/styles.min.css') }}" />
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
+  
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <script src="{{ asset('js/app.js') }}" defer></script>
+
+  <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
 
 </head>

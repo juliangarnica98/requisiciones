@@ -24,6 +24,12 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "vue-router": "^3.6.5"
+        "moment": "^2.29.4",
+        "toastify-js": "^1.12.0",
+        "vue-alertify": "^1.1.0",
+        "vue-router": "^3.6.5",
+        "vue-sweetalert2": "^5.0.5",
+        "vue-toasted": "^1.1.28",
+        "vue2-toast": "^2.1.0"
     }
 }

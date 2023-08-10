@@ -1,6 +1,6 @@
 <template>
   <div>
-    <aside class="left-sidebar">
+    <aside class="left-sidebar bg-liliyoi">
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-center">
           <a href="./index.html" class="text-nowrap logo-img">
@@ -12,71 +12,26 @@
         </div>
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
           <ul id="sidebarnav" >
-            <li class="nav-small-cap" >
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">PRINCIPAL</span>
-            </li>
-            <li class="sidebar-item" >
-
-              <router-link class="sidebar-link" to="/dashboard" aria-expanded="false">
-                <span>
-                  <i class="ti ti-layout-dashboard"></i>
-                </span>
-                <span class="hide-menu">Dashboard</span>
-              </router-link>
-
-            </li>
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">USUARIOS</span>
-            </li>
-        
-            <li class="sidebar-item">
-              <!-- <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-user"></i>
-                </span>
-                <span class="hide-menu">Todos los usuarios</span>
-              </a> -->
-              <router-link class="sidebar-link" to="/usuarios" aria-expanded="false">
-                <span>
-                  <i class="ti ti-user"></i>
-                </span>
-                <span class="hide-menu">Todos los usuarios</span>
-              </router-link>
-            </li>
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">RETIROS</span>
-            </li>
-            <li class="sidebar-item">
-              <router-link class="sidebar-link" to="/entrevistas" aria-expanded="false">
-                <span>
-                  <i class="ti ti-clipboard"></i>
-                </span>
-                <span class="hide-menu">Ver entrevistas</span>
-              </router-link>
-            </li>
-            
+          
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
               <span class="hide-menu">REQUISICIONES</span>
             </li>
             <li class="sidebar-item">
-              <router-link class="sidebar-link" to="/requisiciones" aria-expanded="false">
+              <router-link class="sidebar-link" to="/boss/requisiciones" aria-expanded="false">
                 <span>
                   <i class="ti ti-eye"></i>
                 </span>
-                <span class="hide-menu">Ver requisiciones</span>
+                <span class="hide-menu">Mis requisiciones</span>
               </router-link>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
+              <router-link class="sidebar-link" to="/boss/crear-requisicion" aria-expanded="false">
                 <span>
                   <i class="ti ti-plus"></i>
                 </span>
                 <span class="hide-menu">Crear requisición</span>
-              </a>
+              </router-link>
             </li>
 
             
@@ -98,4 +53,11 @@
     text-align: center;
   }
   a:link, a:visited { text-decoration: none; }
+  .bg-liliyoi{
+    background-color: black;
+  }
+  .sidebar-item .active-link{
+    background-color: rgba(232,81,153,1) ;
+    color: #fff;
+  }
 </style>
