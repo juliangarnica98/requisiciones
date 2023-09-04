@@ -157,9 +157,31 @@ class RequisitionController extends Controller
     }
 
 
-    public function show($id)
+    public function show($area, $id)
     {
-        //
+        switch ($area) {
+            case 'admin':
+                $data=Administration::where('id',$id)->with(['activation_charge','activation.type_activation','city','sex','requisition.user'])->first();
+                break;
+            case 'tienda':
+                $data=Store::where('id',$id)->with(['activation_charge','category','regional','activation.type_activation','city','sex','requisition.user'])->first();
+                break;
+            case 'cedi':
+                $data=Cedi::where('id',$id)->with(['activation_charge','center_distribution','activation.type_activation','city','sex','requisition.user'])->first();
+                break;
+            case 'factory':
+                $data=Factory::where('id',$id)->with(['activation_charge','activation.type_activation','city','sex','requisition.user'])->first();
+                break;
+            case 'venta_nal':
+                $data=National_sale::where('id',$id)->with(['activation_charge','activation.type_activation','city','sex','requisition.user'])->first();
+        
+                break;
+            default:
+                break;
+        }
+        return $data;
+        // dd($data);
+
     }
 
 

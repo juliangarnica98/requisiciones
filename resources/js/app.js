@@ -12,10 +12,14 @@ Vue.component('login-component', require('./components/auth/login/Login.vue').de
 Vue.component('register-component', require('./components/auth/register/Register.vue').default);
 Vue.component('admin-component', require('./components/modules/admin/IndexComponent.vue').default);
 Vue.component('boss-component', require('./components/modules/user/IndexComponent.vue').default);
+Vue.component('interview-component', require('./components/modules/InterviewComponent.vue').default);
 
 
 import router from './routes'
-import Toasted from 'vue-toasted';
+// import Toasted from 'vue-toasted';
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
@@ -25,12 +29,11 @@ const options = {
   confirmButtonText: 'CONFIRMAR',
   cancelButtonText: `CANCELAR`,
 };
-const toastOptions = {
-  position: 'bottom-right',
-  duration :5000,
-}
+const option = {}
 
-Vue.use(Toasted, toastOptions)
+
+
+Vue.use(Toast, option);
 Vue.use(VueSweetalert2, options);
 
 const app = new Vue({

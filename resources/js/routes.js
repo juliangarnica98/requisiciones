@@ -15,16 +15,12 @@ export default new Router({
             component: require('./components/modules/admin/Requisitions/IndexComponent').default 
         },
         { 
-            path: '/requisiciones/crear', 
+            path: '/requisicion', 
             component: require('./components/modules/admin/Requisitions/StoreComponent').default 
         },
         { 
-            path: '/requisiciones/reportes', 
-            component: require('./components/modules/admin/Requisitions/ReportComponent').default 
-        },
-        { 
             path: '/entrevistas', 
-            component: require('./components/modules/admin/Interviews/InterviewsComponent').default 
+            component: require('./components/modules/admin/Interviews/IndexComponent').default 
         },
         { 
             name:'usuarios', 
@@ -34,6 +30,11 @@ export default new Router({
             name:'usuario',
             path: '/usuario/:id', 
             component: require('./components/modules/admin/Users/EditComponent').default 
+        },
+        { 
+            name:'requisicion',
+            path: '/requisiciones/:area/:id', 
+            component: require('./components/modules/admin/Requisitions/ShowComponent').default 
         },
         //rutas jefe
         { 

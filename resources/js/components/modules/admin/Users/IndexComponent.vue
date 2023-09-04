@@ -2,13 +2,13 @@
     <div class=" page-container" id="page-content">
         <!-- <Nav :actual="this.rut_act"></Nav> -->
         <div>
-            <h1>Usuarios</h1>
+            <h1 class="text-center title">USUARIOS</h1>
         </div>
         <div class="padding pt-5">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
                     <div class="row pt-2" >
-                        <div class="card border-none rounded-pill table-head">
+                        <div class="card border-none  table-head">
                             <div class="card-body ">
                                 <div class="row">
                                     <div class="col-md-2 text-center"><b>NOMBRE</b></div>
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div v-for="(user,index) in users" class="card border-none table-body rounded-pill ">
+                        <div v-for="(user,index) in users" class="card border-none table-body ">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-2 text-center"><b>{{user.name}}</b></div>
@@ -100,17 +100,21 @@
 };
 </script>
 <style scoped>
+    .title{
+        color: var(--text-dark-color);
+    }
     .border-none{
         border: 0;
     }
     .table-head{
-        background-color:#e85199 ;
-        color: #fff;
+        background:var(--primary-color);;
+        color: var(--toggle-color);
     }
     .table-body{
         /*border-color: red;*/
         /*border: 1px solid #03a8a2;*/
-        background-color: rgba(3,168,162,0.5);
+        background-color: #00aB9f;
+        color: var(--toggle-color);
     }
     .link{
         text-decoration:none;
