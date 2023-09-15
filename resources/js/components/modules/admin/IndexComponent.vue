@@ -1,6 +1,6 @@
 <template>
     <div class="body">
-        <nav class="sidebar">
+        <nav class="sidebar close">
             <header>
                 <div class="image-text">
                     <span class="image">
@@ -466,7 +466,7 @@ header .image-text .header-text {
     left: 250px;
     height: auto;
     min-height: 100%;
-    width: calc(100% - 250px);
+    width: calc(100% - 88px);
     background: var(--body-color);
     transition: var(--tran-05);
 

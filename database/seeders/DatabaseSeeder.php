@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Level_satisfaction;
 use App\Models\Sex;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(
             [
-                
                 AreaFactorySeeder::class,
                 ActivationChargeSeeder::class,
                 CategorySeeder::class,
@@ -27,10 +27,13 @@ class DatabaseSeeder extends Seeder
                 RegionalSeeder::class,
                 SexSeeder::class,
                 TypeActivationSeeder::class,
-
                 RolSeeder::class,
                 UserSeeder::class,
-                AreaManagementSeeder::class
+                AreaManagementSeeder::class,
+                LevelSatisfactionSeeder::class,
+                QuestionSatisfactionSeeder::class,
+                RetirementCitySeeder::class,
+                RetirementPositionSeeder::class,
             ]
         );
        

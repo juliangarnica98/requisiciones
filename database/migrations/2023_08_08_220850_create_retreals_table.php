@@ -18,6 +18,10 @@ class CreateRetrealsTable extends Migration
             $table->timestamps();
             $table->boolean('status')->default(0);
             $table->string('num_document');
+
+            $table->string('area')->nullable();
+
+
             $table->string('name')->nullable();
             $table->string('time')->nullable();
             $table->date('date_entry')->nullable();
@@ -25,19 +29,21 @@ class CreateRetrealsTable extends Migration
             $table->string('name_boss')->nullable();
             $table->string('charge_boss')->nullable();
 
+            $table->string('reason_retreat')->nullable();
+
+            $table->string('benefits')->nullable();
+            $table->string('training')->nullable();
             $table->string('reinforcement')->nullable();
             $table->string('positive_aspects')->nullable();
-            $table->string('training')->nullable();
-            $table->string('benefits')->nullable();
+            
+            
 
 
             $table->foreignId('retirement_positions_id')->nullable()->constrained('retirement_positions')->onDelete('cascade');
 
             $table->foreignId('retirement_city_id')->nullable()->constrained('retirement_cities')->onDelete('cascade');
 
-            $table->foreignId('area_id')->nullable()->constrained('areas')->onDelete('cascade');
 
-            $table->foreignId('reason_retreat_id')->nullable()->constrained('reason_retreats')->onDelete('cascade');
 
             
 

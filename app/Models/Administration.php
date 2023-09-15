@@ -19,7 +19,6 @@ class Administration extends Model
     public function management(){
         return $this->belongsTo(Management::class);
     }
-
     public function activation_charge(){
         return $this->belongsTo(Activation_charge::class);
     }

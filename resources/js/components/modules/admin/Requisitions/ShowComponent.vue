@@ -12,11 +12,12 @@
         <!-- {{ requisition }} -->
 
         <div class="row d-flex justify-content-center mt-5 pt-5">
+            <!-- card datos especificos-->
             <div class="col-md-4">
                 <div class="card ">
                     <div class="card-body">
                         <h4 class="text-center">
-                            DATOS ESPECIFICOS 
+                            DATOS ESPECIFICOS
                         </h4>
                         <hr>
                         <h5 class="text-center">
@@ -41,6 +42,30 @@
                     </div>
                 </div>
             </div>
+
+
+
+            <!-- card datos especificos administrativos -->
+            <div class="col-md-4" v-if="requisition.management">
+                <div class="card ">
+                    <div  class="">
+                        <div class="card-body">
+                            <h4 class="text-center">
+                                DATOS ADMINISTRATIVOS
+                            </h4>
+                            <hr>
+                            <h5 class="text-center">
+                                Gerencia: {{ requisition.management.description }}
+                            </h5>
+                            <h5 class="text-center">
+                                Area: {{ requisition.area_management.description }}
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- card datos especificos tienda -->
             <div class="col-md-4" v-if="requisition.regional">
                 <div class="card ">
                     <div  class="">
@@ -62,12 +87,14 @@
                     </div>
                 </div>
             </div>
+
+            <!-- card datos especificos cedis -->
             <div class="col-md-4" v-if="requisition.center_distribution">
                 <div class="card ">
                     <div class="">
                         <div class="card-body">
                             <h4 class="text-center">
-                                DATOS DE LA CEDI
+                                DATOS CEDI
                             </h4>
                             <hr>
                             <h5 class="text-center">
@@ -77,7 +104,46 @@
                     </div>
                 </div>
             </div>
+
+            <!-- card datos especificos factory -->
+            <div class="col-md-4" v-if="requisition.area_factory">
+                <div class="card ">
+                    <div class="">
+                        <div class="card-body">
+                            <h4 class="text-center">
+                                DATOS FACTORY
+                            </h4>
+                            <hr>
+                            <h5 class="text-center">
+                                Area: {{ requisition.area_factory.description }}
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
            
+            <!-- card datos especificos factory -->
+            <div class="col-md-4" v-if="requisition.charge">
+                <div class="card ">
+                    <div class="">
+                        <div class="card-body">
+                            <h4 class="text-center">
+                                DATOS VENTA NACIONAL
+                            </h4>
+                            <hr>
+                            <h5 class="text-center">
+                                Cargo: {{ requisition.charge.description }}
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+
+
+
+
+            <!-- card para plan de cambio -->
             <div class="col-md-4" v-if="requisition.activation.change_name">
                 <div class="card "  >
                     <div class="card-body">
@@ -97,7 +163,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" v-if="requisition.activation.change_name">
+
+            <!-- card para reemplazo -->
+            <div class="col-md-4" v-if="requisition.activation.replacement_name">
                 <div class="card "  >
                     <div class="card-body">
                         <h4 class="text-center">
@@ -105,17 +173,61 @@
                         </h4>
                         <hr>
                         <h5 class="text-center">
-                            Nombre: {{ requisition.activation.change_name }}
+                            Nombre de a quien reemplaza: {{ requisition.activation.replacement_name }}
                         </h5>
                         <h5 class="text-center">
-                            Identificación: {{ requisition.activation.change_ide }}
-                        </h5>
-                        <h5 class="text-center">
-                            Razon: {{ requisition.activation.change_reason }}
+                            Cedula de a quien reemplaza: {{ requisition.activation.replacement_ide }}
                         </h5>
                     </div>
                 </div>
             </div>
+
+            <!-- card para reintegro -->
+            <div class="col-md-4" v-if="requisition.activation.refund_date_retirement">
+                <div class="card "  >
+                    <div class="card-body">
+                        <h4 class="text-center">
+                            REINTEGRO
+                        </h4>
+                        <hr>
+                        <h5 class="text-center">
+                            Fecha de retiro: {{ requisition.activation.refund_date_retirement }}
+                        </h5>
+                        <h5 class="text-center">
+                            Fecha de reingreso: {{ requisition.activation.refund_date }}
+                        </h5>
+                        <h5 class="text-center">
+                            Cedula del colaborador: {{ requisition.activation.refund_ide }}
+                        </h5>
+                        <h5 class="text-center">
+                            Nombre del colaborador: {{ requisition.activation.refund_name }}
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <!-- card para apertura de tienda -->
+            <div class="col-md-4" v-if="requisition.activation.opening_date">
+                <div class="card "  >
+                    <div class="card-body">
+                        <h4 class="text-center">
+                            REINTEGRO
+                        </h4>
+                        <hr>
+                        <h5 class="text-center">
+                            Nombre de la tienda: {{ requisition.activation.opening_store }}
+                        </h5>
+                        <h5 class="text-center">
+                            Fecha de apertura: {{ requisition.activation.opening_date }}
+                        </h5>
+                        <h5 class="text-center">
+                            Categoria: {{ requisition.activation.opening_category }}
+                        </h5>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
         <!-- <div class="row d-flex justify-content-center mt-1 "> -->
         <!-- </div> -->

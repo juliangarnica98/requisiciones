@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class SatisfactionSeeder extends Seeder
 {
@@ -13,6 +14,11 @@ class SatisfactionSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $data = [
+            ['description' => 'HOMBRE'],
+            ['description' => 'MUJER'],
+            ['description' => 'INDIFERENTE'],
+        ];
+        DB::table('sexes')->insert($data); 
     }
 }

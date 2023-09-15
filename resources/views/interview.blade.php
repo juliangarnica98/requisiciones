@@ -2,7 +2,7 @@
     <body style="background-color: #fff">
         <div class="">
             <div class="wrapper" id="app">
-                <interview-component></interview-component>
+                <interview-component :document='{{json_encode($id)}}'></interview-component>
             </div>
         </div>
     </body>

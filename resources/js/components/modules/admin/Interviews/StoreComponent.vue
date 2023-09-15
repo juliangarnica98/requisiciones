@@ -31,7 +31,11 @@
         methods:{
             storeInterview(){
               axios.post('/entrevista/store', this.form).then((res) => {
-                this.$toast.success(res.data);
+                if(res.data == 'error'){
+                  this.$toast.error("Ya se ha creado anteriormente");
+                }else{
+                  this.$toast.success(res.data);
+                }
               });
             },
             

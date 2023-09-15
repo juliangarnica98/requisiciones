@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RetirementCitySeeder extends Seeder
 {
@@ -13,6 +14,16 @@ class RetirementCitySeeder extends Seeder
      */
     public function run()
     {
-        //
+        $data = [
+            ['description' => 'BOGOTÁ'],
+            ['description' => 'CALI'],
+            ['description' => 'BARRANQUILLA'],
+            ['description' => 'IBAGUE'],
+            ['description' => 'MEDELLIN'],  
+            ['description' => 'BUCARAMANGA'],  
+            ['description' => 'CARTAGENA'],  
+            ['description' => 'ARMENIA'],  
+        ];
+        DB::table('retirement_cities')->insert($data); 
     }
 }

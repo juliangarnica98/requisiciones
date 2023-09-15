@@ -27,12 +27,16 @@ class InterviewController extends Controller
     public function store(Request $request)
     {
         if ($request->num_document) {
+
+            $find = Retreal::where('num_document',$request->num_document)->first();
+            if($find){
+                return 'error';
+            }
             $retreal = new Retreal();
             $retreal->num_document = $request->num_document;
             $retreal->save();
             return 'Se ha creado la entrevista para el documento'.$request->num_document;
         }
-       
     }
 
     /**

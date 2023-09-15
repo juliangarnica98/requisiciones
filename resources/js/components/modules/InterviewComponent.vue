@@ -2,509 +2,600 @@
     <div class="back-lili">
         <div class="container">
             <div class="pt-5">
-                <h1 class="text-center text-white pt-5">Entrevista de retiro</h1>
+                <h1 class="text-center text-white pt-5">
+                    ENTREVISTA DE RETIRO
+                </h1>
             </div>
+            <a @click="limpiar" class="btn-flotante">LIMPIAR FORMULARIO</a>
             <div class="row d-flex justify-content-center pt-4">
                 <div class="col-md-8">
-    
-                    <template class="card" id="step1" v-if="currentStep ==1">
-    
-                            <div class="row card card-cont">
-                                <div class="card-body">
-                                    <div class="">
-                                        <small class="h6 fw-bold">POR FAVOR SELECCIONA EL AREA PARA SOLICITAR ACTIVACIÓN </small><small class="h5 text-danger" >*</small>
-                                        <select v-model="form.area" class="form-select mt-3" aria-label="Default select example" @change="onChageCast(0,form.area)">
-                                            <option selected value="">SELECCIONA UNA OPCION</option>
-                                            <option value="1">TIENDA</option>
-                                            <option value="2">ADMINISTRATIVOS</option>
-                                            <option value="3">CEDI</option>
-                                            <option value="4">FACTORY</option>
-                                            <option value="5">VENTA NAL</option>
-                                        </select>
-                                    </div>
+                    <template class="card" id="step1" v-if="currentStep == 1">
+                        <div class="row card card-cont">
+                            <div class="card-body">
+                                <div class="">
+                                    <small class="h6 fw-bold"
+                                        >POR FAVOR SELECCIONA EL AREA QUE
+                                        PERTENECES</small
+                                    ><small class="h5 text-danger">*</small>
+                                    <select
+                                        v-model="form.area"
+                                        class="form-select mt-3"
+                                        aria-label="Default select example"
+                                    >
+                                        <option selected value="">
+                                            SELECCIONA UNA OPCION
+                                        </option>
+                                        <option value="1">CEDI</option>
+                                        <option value="2">
+                                            ADMINISTRATIVOS
+                                        </option>
+                                        <option value="3">
+                                            COMERCIAL(TIENDAS)
+                                        </option>
+                                        <option value="4">
+                                            COMERCIAL VENTA NAL
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
-    
+                        </div>
                     </template>
-    
-    
+
                     <template id="step2">
-    
-                        <div class="row card card-cont animate__animated animate__bounceInUp" v-if="form.area == '1'">
+                        <div
+                            class="row card card-cont animate__animated animate__bounceInUp"
+                            v-if="form.area != ''"
+                        >
                             <div class="card-body">
-                                <div  class="">
-                                    <small class="h6 fw-bold">SELECCIONA LA REGIONAL</small><small class="h5 text-danger" >*</small>
-                                    <select v-model="form.regional" class="form-select" aria-label="Default select example" @change="onChageCast(1,form.regional)">
-                                        <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option v-for="regional in regionales" :value="regional.id">{{regional.description}}</option>
-                                    </select>
+                                <div class="">
+                                    <small class="h6 fw-bold"
+                                        >NOMBRE COMPLETO</small
+                                    ><small class="h5 text-danger">*</small>
+                                    <input
+                                        v-model="form.nombre"
+                                        type="text"
+                                        class="form-control"
+                                        id=""
+                                        placeholder=""
+                                    />
                                 </div>
                             </div>
                         </div>
-    
-    
-                        <div class="row card card-cont animate__animated animate__bounceInUp" v-if="form.area == '2'" >
+                    </template>
+
+                    <template id="step3">
+                        <div
+                            v-if="form.nombre != ''"
+                            class="row card card-cont animate__animated animate__bounceInUp"
+                        >
                             <div class="card-body">
-                                <div  class="">
-                                    <small class="h6 fw-bold">SELECCIONA LA GERENCIA</small><small class="h5 text-danger" >*</small>
-                                    <select v-model="form.gerencia" class="form-select" aria-label="Default select example" @change="onChageCast(1,form.gerencia)">
-                                        <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option v-for="gerencia in gerencias" :value="gerencia.id">{{gerencia.description}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="row card card-cont animate__animated animate__bounceInUp" v-if="form.area == '3'">
-                            <div class="card-body">
-                                <div  class="">
-                                    <small class="h6 fw-bold">SELECCIONA EL CEDI</small><small class="h5 text-danger" >*</small>
-                                    <select v-model="form.centro_distribucion" class="form-select" aria-label="Default select example" @change="onChageCast(1,form.centro_distribucion)">
-                                        <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option v-for="cedi in cedis" :value="cedi.id">{{ cedi.description }}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="row card card-cont animate__animated animate__bounceInUp" v-if="form.area == '4'">
-                            <div class="card-body">
-                                <div  class="">
-                                    <small class="h6 fw-bold">SELECCIONA EL AREA</small><small class="h5 text-danger" >*</small>
-                                    <select v-model="form.area_facroty" class="form-select" aria-label="Default select example" @change="onChageCast(1,form.area_facroty)">
-                                        <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option v-for="area_factory in areas_factory" :value="area_factory.id">{{area_factory.description}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-    
-                        <div class="row card card-cont animate__animated animate__bounceInUp" v-if="form.area == '5'">
-                            <div class="card-body">
-                                <div  class="">
-                                    <small class="h6 fw-bold">SELECCIONA EL CARGO</small><small class="h5 text-danger" >*</small>
-                                    <select v-model="form.cargo_uniq" class="form-select" aria-label="Default select example" @change="onChageCast(1,form.cargo_uniq)">
-                                        <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option v-for="cargo_uniq in cargos_uniq" :value="cargo_uniq.id">{{ cargo_uniq.description }}</option>
+                                <div class="mb-3">
+                                    <small class="h6 fw-bold"
+                                        >SELECCIONA A CONTINUACIÓN TU
+                                        CARGO</small
+                                    ><small class="h5 text-danger">*</small>
+                                    <select
+                                        v-model="form.cargo"
+                                        class="form-select"
+                                        aria-label="Default select example"
+                                    >
+                                        <option selected value="">
+                                            SELECCIONA UNA OPCION
+                                        </option>
+                                        <option v-for="position in positions" :value="position.id">{{position.description}}</option>
+                                        <!-- <option v-for="categoria in categorias" :value="categoria.id">{{categoria.description}}</option> -->
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </template>
-    
-    
-                    <template id="step3">
-                        <div v-if="form.regional != ''" class="row card card-cont animate__animated animate__bounceInUp">
-                            <div class="card-body">
+
+                    <template id="step4">
+                        <div
+                            v-if="
+                                form.cargo != '' &&
+                                (form.area == '1' || form.area == '2')
+                            "
+                        >
+                            <div
+                                class="row card card-cont animate__animated animate__bounceInUp"
+                            >
                                 <div class="mb-3">
-                                    <small class="h6 fw-bold">NOMBRE DE LA TIENDA</small><small class="h5 text-danger" >*</small>
-                                    <input v-model="form.nombre" type="text" class="form-control" id="" placeholder="">
-                                    <small class="h6 fw-bold">CATEGORIA DE LA TIENDA</small><small class="h5 text-danger" >*</small>
-                                    <select v-model="form.categoria" class="form-select" aria-label="Default select example" @change="onChageCast(2,form.categoria)">
-                                        <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option v-for="categoria in categorias" :value="categoria.id">{{categoria.description}}</option>
-                                    </select>
+                                    <div class="card-body">
+                                        <small class="h6 fw-bold"
+                                            >¿CUÁL FUE TU FECHA DE
+                                            INGRESO?</small
+                                        ><small class="h5 text-danger">*</small>
+                                        <input
+                                            v-model="form.fechaingreso"
+                                            type="date"
+                                            class="form-control"
+                                            id=""
+                                            placeholder=""
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="row card card-cont animate__animated animate__bounceInUp"
+                            >
+                                <div class="mb-3">
+                                    <div class="card-body">
+                                        <small class="h6 fw-bold"
+                                            >¿CUÁL FUE TU FECHA DE
+                                            RETIRO?</small
+                                        ><small class="h5 text-danger">*</small>
+                                        <input
+                                            v-model="form.fecharetiro"
+                                            type="date"
+                                            class="form-control"
+                                            id=""
+                                            placeholder=""
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div v-if="form.gerencia != ''" class="row card card-cont animate__animated animate__bounceInUp">
-                            <div class="card-body">
+                        <div
+                            v-if="
+                                form.cargo != '' &&
+                                (form.area == '3' || form.area == '4')
+                            "
+                        >
+                            <div
+                                v-if="form.area == '3'"
+                                class="row card card-cont animate__animated animate__bounceInUp"
+                            >
                                 <div class="mb-3">
-                                    <small class="h6 fw-bold">SELECCIONA EL ÁREA</small><small class="h5 text-danger" >*</small>
-                                    <div v-if="form.gerencia">
-                                        <select  v-model="form.area_gerencia" class="form-select" aria-label="Default select example" @change="onChageCast(2,form.area_gerencia)">
-                                            <option selected value="">SELECCIONA UNA OPCION</option>
-                                            <option v-for="area in areas" v-if="area.management_id == form.gerencia" :value="area.id">{{ area.description }}</option>
+                                    <div class="card-body">
+                                        <small class="h6 fw-bold"
+                                            >¿DE QUE CIUDAD ERES? </small
+                                        ><small class="h5 text-danger">*</small>
+                                        <select
+                                        v-model="form.ciudad"
+                                        class="form-select"
+                                        aria-label="Default select example"
+                                    >
+                                        <option selected value="">
+                                            SELECCIONA UNA OPCION
+                                        </option>
+                                        <option v-for="city in cities" :value="city.id">{{city.description}}</option>
+                                        <!-- <option v-for="categoria in categorias" :value="categoria.id">{{categoria.description}}</option> -->
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="row card card-cont animate__animated animate__bounceInUp"
+                            >
+                                <div class="mb-3">
+                                    <div class="card-body">
+                                        <small class="h6 fw-bold"
+                                            >¿CUANTO TIEMPO ESTUVISTE LABORANDO
+                                            CON NOSOTROS?</small
+                                        ><small class="h5 text-danger">*</small>
+                                        <select
+                                            v-model="form.tiempo"
+                                            class="form-select"
+                                            aria-label="Default select example"
+                                        >
+                                            <option value="menos de 3 meses">
+                                                MENOS DE 3 MESES
+                                            </option>
+                                            <option value="mas de 3 meses">
+                                                MÁS DE 3 MESES
+                                            </option>
+                                            <option value="no recuerdo">
+                                                NO RECUERDO
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </template>
-    
-    
-                    <template id="step4">
-                        <div v-if="((form.categoria != '') && (form.nombre != '')) || form.area_gerencia != '' || form.centro_distribucion != '' 
-                        || form.area_facroty != '' || form.cargo_uniq != ''" class="row card card-cont animate__animated animate__bounceInUp">
-                            <div class="card-body">
-                                <div class="mb-3">
-    
-                                    <small class="h6 fw-bold">RELACIONA LA CIUDAD EN LA QUE SE ENCUENTRA LA VACANTE</small><small class="h5 text-danger" >*</small>
-                                    <select v-model="form.ciudad" class="form-select" aria-label="Default select example" @change="onChageCast(3,form.ciudad)">
-                                        <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option v-for="ciudad in ciudades" :value="ciudad.id">{{ciudad.description}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-    
-    
+
                     <template id="step5">
-                        <div v-if="form.ciudad != ''" class="row card card-cont animate__animated animate__bounceInUp">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <small class="h6 fw-bold">TIPO DE VACANTE</small><small class="h5 text-danger" >*</small>
-                                    <select v-model="form.tipo_vacante" class="form-select" aria-label="Default select example" @change="onChageCast(4,form.tipo_vacante)">
-                                        <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option v-for="tipo in tipo_vacantes" :value="tipo.id">{{tipo.description}}</option>
-                                    </select>
+                        <div
+                            v-if="
+                                (form.fechaingreso != '' &&
+                                    form.fecharetiro != '') ||
+                                (form.ciudad != '' && form.tiempo != '') ||
+                                (form.area == '4' && form.tiempo != '')
+                            "
+                        >
+                            <div
+                                class="row card card-cont animate__animated animate__bounceInUp"
+                            >
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <small class="h6 fw-bold"
+                                            >NOMBRE DE JEFE DIRECTO </small
+                                        ><small class="h5 text-danger">*</small>
+                                        <input
+                                            v-model="form.nombreJefe"
+                                            type="text"
+                                            class="form-control"
+                                            id=""
+                                            placeholder=""
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="row card card-cont animate__animated animate__bounceInUp"
+                            >
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <small class="h6 fw-bold"
+                                            >CARGO DE JEFE DIRECTO </small
+                                        ><small class="h5 text-danger">*</small>
+                                        <input
+                                            v-model="form.cargoJefe"
+                                            type="text"
+                                            class="form-control"
+                                            id=""
+                                            placeholder=""
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </template>
-    
-    
+
                     <template id="step6">
-                        <div v-if="form.tipo_vacante == '1'" class="row card card-cont animate__animated animate__bounceInUp">
+                        <div
+                            v-if="
+                                form.cargoJefe != '' &&
+                                (form.area == '1' || form.area == '2')
+                            "
+                            class="row card card-cont animate__animated animate__bounceInUp"
+                        >
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <small class="h6 fw-bold">NOMBRE DE A QUIEN REEMPLAZA</small><small class="h5 text-danger" >*</small>
-                                    <input v-model="form.replacement_name" type="text" class="form-control" id="" placeholder="">
-                                    <small class="h6 fw-bold">CEDULA DE A QUIEN REEMPLAZA</small><small class="h5 text-danger" >*</small>
-                                    <input v-model="form.replacement_ide" type="text" class="form-control" id="" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                        <div v-if="form.tipo_vacante == '2'" class="row card card-cont animate__animated animate__bounceInUp">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <small class="h6 fw-bold">¿Quién es la persona a la que reemplazaría?</small><small class="h5 text-danger" >*</small>
-                                    <input v-model="form.change_name" type="text" class="form-control" id="" placeholder="">
-                                    <small class="h6 fw-bold">¿Cuál es la cedula del colaborador que se va a retirar?</small><small class="h5 text-danger" >*</small>
-                                    <input v-model="form.change_ide" type="text" class="form-control" id="" placeholder="">
-                                    <small class="h6 fw-bold">¿Por que se ejecuta el plan de cambio?</small><small class="h5 text-danger" >*</small>
-                                    <select v-model="form.change_reason" class="form-select" aria-label="Default select example">
-                                        <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option value="Desempeño">Desempeño</option>
-                                        <option value="Periodo de prueba">Periodo de prueba</option>
-                                        <option value="Renuncia voluntaria">Renuncia voluntaria</option>
+                                    <small class="h6 fw-bold"
+                                        >MOTIVO DE RETIRO</small
+                                    ><small class="h5 text-danger">*</small>
+                                    <select
+                                        v-model="form.motivoRetiro"
+                                        class="form-select"
+                                        aria-label="Default select example"
+                                    >
+                                        <option
+                                            selected
+                                            value="traslado de tienda o zona"
+                                        >
+                                            TRASLADO DE TIENDA O ZONA
+                                        </option>
+                                        <option value="mejor oferta laboral">
+                                            MEJOR OFERTA LABORAL
+                                        </option>
+                                        <option value="estudio">ESTUDIO</option>
+                                        <option value="otro">OTRO</option>
                                     </select>
+                                    <div
+                                        class=""
+                                        v-if="form.motivoRetiro == 'otro'"
+                                    >
+                                        <small class="h6 fw-bold"
+                                            >OTRO MOTIVO DE RETIRO </small
+                                        ><small class="h5 text-danger">*</small>
+                                        <input
+                                            v-model="form.otroMotivo"
+                                            type="text"
+                                            class="form-control"
+                                            id=""
+                                            placeholder=""
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div v-if="form.tipo_vacante == '4'" class="row card card-cont animate__animated animate__bounceInUp">
+                        <div
+                            v-if="
+                                form.cargoJefe != '' &&
+                                (form.area == '3' || form.area == '4')
+                            "
+                            class="row card card-cont animate__animated animate__bounceInUp"
+                        >
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <small class="h6 fw-bold">FECHA DE RETIRO POR VACIO LABORAL</small><small class="h5 text-danger" >*</small>
-                                    <input v-model="form.refund_date_retirement" type="date" class="form-control" id="" placeholder="">
-                                    <small class="h6 fw-bold">FECHA DE REINGRESO A LA COMPAÑIA</small><small class="h5 text-danger" >*</small>
-                                    <input v-model="form.refund_date" type="date" class="form-control" id="" placeholder="">
-                                    <small class="h6 fw-bold">CEDULA DEL COLABORADOR</small><small class="h5 text-danger" >*</small>
-                                    <input v-model="form.refund_ide" type="text" class="form-control" id="" placeholder="">
-                                    <small class="h6 fw-bold">NOMBRE COMPLETO DEL COLABORADOR</small><small class="h5 text-danger" >*</small>
-                                    <input v-model="form.refund_name" type="text" class="form-control" id="" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                        <div v-if="form.tipo_vacante == '5'" class="row card card-cont animate__animated animate__bounceInUp">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <small class="h6 fw-bold">NOMBRE DE LA TIENDA</small><small class="h5 text-danger" >*</small>
-                                    <input v-model="form.opening_store" type="text" class="form-control" id="" placeholder="">
-                                    <small class="h6 fw-bold">FECHA ESTIMADA DE APERTURA</small><small class="h5 text-danger" >*</small>
-                                    <input v-model="form.opening_date" type="date" class="form-control" id="" placeholder="">
-                                    <small class="h6 fw-bold">CATEGORIA DE TIENDA</small><small class="h5 text-danger" >*</small>
-                                    <select v-model="form.opening_category" class="form-select" aria-label="Default select example">
-                                        <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option value="YAHAD">YAHAD</option>
-                                        <option value="AAA">AAA</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
-                                        <option value="C">C</option>
-                                        <option value="D">D</option>
+                                    <small class="h6 fw-bold"
+                                        >MOTIVO DE RETIRO</small
+                                    ><small class="h5 text-danger">*</small>
+                                    <select
+                                        v-model="form.motivoRetiro"
+                                        class="form-select"
+                                        aria-label="Default select example"
+                                    >
+                                        <option value="mejor oferta laboral">
+                                            MEJOR OFERTA LABORAL
+                                        </option>
+                                        <option
+                                            selected
+                                            value="relacion laboral con el jefe direc"
+                                        >
+                                            RELACIÓN LABORAL CON EL JEFE DIRECTO
+                                        </option>
+                                        <option value="ambiente laboral">
+                                            AMBIENTE LABORAL
+                                        </option>
+                                        <option value="otro">OTRO</option>
                                     </select>
+                                    <div
+                                        class=""
+                                        v-if="form.motivoRetiro == 'otro'"
+                                    >
+                                        <small class="h6 fw-bold"
+                                            >OTRO MOTIVO DE RETIRO </small
+                                        ><small class="h5 text-danger">*</small>
+                                        <input
+                                            v-model="form.otroMotivo"
+                                            type="text"
+                                            class="form-control"
+                                            id=""
+                                            placeholder=""
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </template>
-    
-    
+
                     <template id="step7">
-                        <div v-if="(form.replacement_name != '' && form.replacement_ide !='')
-                        || (form.change_ide!= '' && form.change_name !='' && form.change_reason != '')
-                        || (form.refund_date_retirement!='' && form.refund_date !='' && form.refund_ide!=''&&form.refund_name!='')
-                        || (form.opening_category!=''&& form.opening_date !=''&& form.opening_store!=''
-                        || form.tipo_vacante == '3')" class="row card card-cont animate__animated animate__bounceInUp">
+                        <div
+                            v-if="form.motivoRetiro != ''"
+                            class="row card card-cont animate__animated animate__bounceInUp"
+                        >
+                            <!-- <form @click="validate()"> -->
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <small class="h6 fw-bold">SELECCIONA EL SEXO DEL COLABORADOR SOLICITADO</small><small class="h5 text-danger" >*</small>
-                                    <select v-model="form.sexo_vacante" class="form-select" aria-label="Default select example" @change="onChageCast(5,form.sexo_vacante)">
-                                        <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option v-for="sexo in lista_sexos" :value="sexo.id">{{sexo.description}}</option>
-                                    </select>
+                                    <small class="h6 fw-bold"
+                                        >NIVEL DE SATISFACCIÓN</small
+                                    ><small class="h5 text-danger">*</small>
+                                    <div
+                                        v-for="(
+                                            question, index
+                                        ) in question_satisfaction"
+                                    >
+                                        <label for="">{{
+                                            question.description
+                                        }}</label>
+                                        <select
+                                            :key="index"
+                                            v-model="question.selected"
+                                            class="form-select"
+                                            aria-label="Default select example"
+                                            required
+                                            @change="satisfaction(index)"
+                                        >
+                                            <option
+                                                v-for="satisfaction in level_satisfaction"
+                                                :value="satisfaction.id"
+                                            >
+                                                {{ satisfaction.description }}
+                                            </option>
+                                        </select>
+                                        <!-- <small v-if="question.alert">Campo requeriddoooooo</small> -->
+                                    </div>
+                                    <!-- <input type="submit" value="Submit" /> -->
                                 </div>
                             </div>
+                            <!-- </form> -->
                         </div>
+                        <!-- {{ validator }} -->
                     </template>
-    
-    
+
                     <template id="step8">
-                        <div v-if="form.sexo_vacante != ''" class="row card card-cont animate__animated animate__bounceInUp">
+                        <div class="row card card-cont animate__animated animate__bounceInUp" v-if="validator">
                             <div class="card-body">
-                                <div class="mb-3">
-                                    <small class="h6 fw-bold">SELECCIONA EL CARGO A SOLICITAR</small><small class="h5 text-danger" >*</small>
-                                    <select v-model="form.cargo_activacion" class="form-select" aria-label="Default select example" @change="onChageCast(6,form.cargo_activacion)">
+                                <div  class="">
+                                    <small class="h6 fw-bold">¿ ACCEDISTE A ALGUNOS BENEFICIOS ENTREGADOS POR LA EMPRESA COMO PRÉSTAMOS, CONVENIOS,ENTRE OTROS?</small><small class="h5 text-danger" >*</small>
+                                    <select v-model="form.beneficios" class="form-select" aria-label="Default select example" >
                                         <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option v-for="cargo in lista_cargos" :value="cargo.id">{{cargo.description}}</option>
+                                        <option value="1">SI</option>
+                                        <option value="2">NO</option>
+                                        <option value="3">NO CONOZCO ESTOS BENEFICIOS</option>
+                                    </select>
+                                </div>
+                                <div  class="">
+                                    <small class="h6 fw-bold">¿ RECIBISTE ALGÚN TIIPO DE CAPACITACIÓN O ENTRENAMIENTO DURANTE EL TIEMPO QUE ESTUVISTE EN LA EMPRESA?</small><small class="h5 text-danger" >*</small>
+                                    <select v-model="form.entrenamiento" class="form-select" aria-label="Default select example" >
+                                        <option selected value="">SELECCIONA UNA OPCION</option>
+                                        <option value="1">SI</option>
+                                        <option value="2">NO</option>
+                                       
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </template>
-    
-    
+
                     <template id="step9">
-                        <div v-if="form.cargo_activacion != ''" class="row card card-cont animate__animated animate__bounceInUp">
+                        <div class="row card card-cont animate__animated animate__bounceInUp" v-if="form.beneficios != '' && form.entrenamiento != ''">
                             <div class="card-body">
-                                <div class="mb-3">
-                                    <small class="h6 fw-bold">COMENTARIOS</small>
-                                    <input v-model="form.comentarios" type="text" class="form-control" id="" placeholder="">
+                                <div  class="">
+                                    <small class="h6 fw-bold">ASPECTOS A FORTALECER</small><small class="h5 text-danger" >*</small>
+                                    <select v-model="form.fortalecer" class="form-select" aria-label="Default select example" >
+                                        <option selected value="">SELECCIONA UNA OPCION</option>
+                                        <option value="1">TIPO DE CONTRATO</option>
+                                        <option value="2">DISTANCIA DE TU RESIDENCIA A TU LUGAR DE TRABAJO</option>
+                                        <option value="3">HONORARIOS</option>
+                                        <option value="4">SALARIO</option>
+                                        <option value="5">AMBIENTE LABORAL</option>
+                                    </select>
                                 </div>
-                            </div>
-    
-                        </div>       
-                    </template>
-    
-    
-                    <template id="" class="">
-                        <div v-if="form.cargo_activacion != ''" class="row  animate__animated animate__bounceInUp">
-                            <div class="col-md-12 d-grid gap-2">
-                                <button  @click="createRequisition" type="button"  class="btn btn-lili  mb-5">REGISTRAR</button>
+                                <div  class="">
+                                    <small class="h6 fw-bold">ASPECTOS POSITIVOS</small><small class="h5 text-danger" >*</small>
+                                    <textarea class="form-control" v-model="form.aspectos" placeholder="Cuéntanos en este espacio aspectos positivos que identificaste durante tu trayectoria en nuestra empresa."></textarea>
+                                </div>
                             </div>
                         </div>
                     </template>
-    
+
+                    <template id="" class="">
+                        <div
+                            v-if="form.aspectos != ''"
+                            class="row animate__animated animate__bounceInUp"
+                        >
+                            <div class="col-md-12 d-grid gap-2">
+                                <button
+                                    @click="guardar"
+                                    type="submit"
+                                    class="btn btn-lili mb-5"
+                                >
+                                    REGISTRAR
+                                </button>
+                            </div>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 <script>
-    export default{
-        data() {
-            return {
-                form:{
-                    area:"",
-                    regional:"",
-                    gerencia:"",
-                    centro_distribucion:"",
-                    area_facroty:"",
-                    cargo_uniq:"",
-                    nombre:"",
-                    categoria:"",                  
-                    area_gerencia:"",
-                    ciudad:"",
-                    tipo_vacante:"",
-                    replacement_ide:"",
-                    replacement_name:"",
-                    change_name:"",
-                    change_ide:"",
-                    change_reason:"",
-                    refund_date_retirement:"",
-                    refund_date:"",
-                    refund_ide:"",
-                    refund_name:"",
-                    opening_store:"",
-                    opening_date:"",
-                    opening_category:"",
-                    sexo_vacante:"",
-                    cargo_activacion:"",
-                    comentarios:""
-                    
-                },
-                regionales:[],
-                categorias:[],
-                ciudades:[],
-                gerencias:[],
-                areas:[],
-                cedis:[],
-                areas_factory:[],
-                cargos_uniq:[],
-                tipo_vacantes:[],
-                lista_sexos:[],
-                lista_cargos:[],
-                currentStep:1,
-                progress:0,
-            }
-        },
-        methods:{
-            getData(){
-                axios.get('/getdataentrevista')
-                .then((res) => {
-                      this.regionales=res.data.regionals;
-                      this.categorias=res.data.categories;
-                      this.ciudades=res.data.cities;
-                      this.gerencias=res.data.management;
-                      this.areas=res.data.area_managements;
-                      this.cedis=res.data.center_distributions;
-                      this.areas_factory=res.data.area_factories;
-                      this.cargos_uniq=res.data.charges;
-                      this.tipo_vacantes = res.data.type_activations;
-                      this.lista_sexos=res.data.sexes;
-                      this.lista_cargos=res.data.activation_charges;
-                      
-                    
-                });
+export default {
+    props: {
+        document: String,
+    },
+    data() {
+        return {
+            form: {
+                area: "",
+                identificacion: "",
+                num_document: this.$props.document,
+                nombre: "",
+                cargo: "",
+                fechaingreso: "",
+                fecharetiro: "",
+                ciudad: "",
+                tiempo: "",
+                cargoJefe: "",
+                nombreJefe: "",
+                motivoRetiro: "",
+                otroMotivo: "",
+                beneficios: "",
+                entrenamiento: "",
+                aspectos: "",
+                fortalecer: "",
+                question:[],
             },
-            createRequisition(){
-                axios.post('/requisicion/store', this.form).then((res) => {
-                this.$toasted.success(res.data);
-                this.$router.push('/requisiciones');
-                // this.$router.go(-1);
-            });
-            },
-            onChageCast(key, value){
-                switch (key) {
-                    case 0:
-                        if(value == "") {         
-                            this.form.regional="",
-                            this.form.gerencia="",
-                            this.form.centro_distribucion="",
-                            this.form.area_facroty="",
-                            this.form.cargo_uniq="",
-                            this.form.nombre="",
-                            this.form.categoria="",                  
-                            this.form.area_gerencia="",
-                            this.form.ciudad="",
-                            this.form.tipo_vacante=""
-                            
-                            this.form.replacement_ide="",
-                            this.form.replacement_name="",
-                            this.form.change_name="",
-                            this.form.change_ide="",
-                            this.form.change_reason="",
-                            this.form.refund_date_retirement="",
-                            this.form.refund_date="",
-                            this.form.refund_ide="",
-                            this.form.refund_name="",
-                            this.form.opening_store="",
-                            this.form.opening_date="",
-                            this.form.opening_category="",
+            
+            question_satisfaction: [],
+            level_satisfaction: [],
+            cities:[],
+            positions:[],
+            
+            array_validation: [],
+            validator: false,
 
-                            this.form.sexo_vacante="",
-                            this.form.cargo_activacion="",
-                            this.form.comentarios=""
-                        }
-                        break;
-                    case 1:
-                        if(value == "") {
-                            this.form.nombre="",
-                            this.form.categoria="",                  
-                            this.form.area_gerencia="",
-                            this.form.ciudad="",
-                            this.form.tipo_vacante="",
-                            this.form.replacement_ide="",
-                            this.form.replacement_name="",
-                            this.form.change_name="",
-                            this.form.change_ide="",
-                            this.form.change_reason="",
-                            this.form.refund_date_retirement="",
-                            this.form.refund_date="",
-                            this.form.refund_ide="",
-                            this.form.refund_name="",
-                            this.form.opening_store="",
-                            this.form.opening_date="",
-                            this.form.opening_category="",
-                            this.form.sexo_vacante="",
-                            this.form.cargo_activacion="",
-                            this.form.comentarios=""
-                        }
-                        break;
-                    case 2:
-                        if(value == "") {
-                            this.form.ciudad="",
-                            this.form.tipo_vacante="",
-                            this.form.replacement_ide="",
-                            this.form.replacement_name="",
-                            this.form.change_name="",
-                            this.form.change_ide="",
-                            this.form.change_reason="",
-                            this.form.refund_date_retirement="",
-                            this.form.refund_date="",
-                            this.form.refund_ide="",
-                            this.form.refund_name="",
-                            this.form.opening_store="",
-                            this.form.opening_date="",
-                            this.form.opening_category="",
-                            this.form.sexo_vacante="",
-                            this.form.cargo_activacion="",
-                            this.form.comentarios=""
-                        }
-                        break;
-                    case 3:
-                        if(value == "") {
-                            this.form.tipo_vacante="",
-                            this.form.replacement_ide="",
-                            this.form.replacement_name="",
-                            this.form.change_name="",
-                            this.form.change_ide="",
-                            this.form.change_reason="",
-                            this.form.refund_date_retirement="",
-                            this.form.refund_date="",
-                            this.form.refund_ide="",
-                            this.form.refund_name="",
-                            this.form.opening_store="",
-                            this.form.opening_date="",
-                            this.form.opening_category="",
-                            this.form.sexo_vacante="",
-                            this.form.cargo_activacion="",
-                            this.form.comentarios=""
-                        }
-                        break;
-                    case 4:
-                        if(value == "") {
-                            this.form.replacement_ide="",
-                            this.form.replacement_name="",
-                            this.form.change_name="",
-                            this.form.change_ide="",
-                            this.form.change_reason="",
-                            this.form.refund_date_retirement="",
-                            this.form.refund_date="",
-                            this.form.refund_ide="",
-                            this.form.refund_name="",
-                            this.form.opening_store="",
-                            this.form.opening_date="",
-                            this.form.opening_category="",
-                            this.form.sexo_vacante="",
-                            this.form.cargo_activacion="",
-                            this.form.comentarios=""
-                        }
-                        break;
-                    case 5:
-                        if(value == "") {
-                            this.form.cargo_activacion="",
-                            this.form.comentarios=""
-                        }
-                    case 6:
-                        if(value == "") {
-                            this.form.comentarios=""
-                        }
-                        break;
-                    default:
-                        break;
-                }
+            currentStep: 1,
+            progress: 0,
+        };
+    },
+    methods: {
+        getData() {
+            axios.get("/getdataentrevista").then((res) => {
+                this.level_satisfaction = res.data.level_satisfaction;
+                res.data.question_satisfaction.forEach((element) => {
+                    element.selected = null;
+                    element.alert = false;
+                });
+                this.array_validation = new Array(res.data.question_satisfaction.length).fill(0)
+                this.question_satisfaction = res.data.question_satisfaction;
+                this.cities = res.data.cities;
+                this.positions = res.data.positions;
+            });
+        },
+        guardar() {
+            this.form.question = this.question_satisfaction;
+            axios.post("/entrevista/crear", this.form).then((res) => {
+                this.$toasted.success(res.data);
+                this.$router.push('/login');
+            });
+        },
+        respuestaFuntion(value) {
+            return "question" + value;
+        },
+        satisfaction(index){
+            console.log(index);
+            this.array_validation[index]=1; 
+            let val = this.array_validation.includes(0);
+            if(val == false){
+                this.validator=true;
             }
         },
-        computed:{
-            progreso(){
-                return this.progress+'%';
-            }
-        },
-        mounted () {
+        limpiar(){
+            this.form={
+                area: "",
+                identificacion: "",
+                num_document: this.$props.document,
+                nombre: "",
+                cargo: "",
+                fechaingreso: "",
+                fecharetiro: "",
+                ciudad: "",
+                tiempo: "",
+                cargoJefe: "",
+                nombreJefe: "",
+                motivoRetiro: "",
+                otroMotivo: "",
+                beneficios: "",
+                entrenamiento: "",
+                aspectos: "",
+                fortalecer: "",
+            },
+            this.question_satisfaction= [];
             this.getData();
+        }
+
+    },
+    computed: {
+        progreso() {
+            return this.progress + "%";
         },
-    }
+    },
+    mounted() {
+        this.getData();
+    },
+};
 </script>
 <style scoped>
-.bg-lili{
-    background-color:#E52B7F ;
+.btn-flotante {
+	font-size: 16px; /* Cambiar el tamaño de la tipografia */
+	color: #ffffff; /* Color del texto */
+	background-color: #E6007E; /* Color de fondo */
+	padding: 10px 20px; /* Relleno del boton */
+	position: fixed;
+	top: 40px;
+	right: 40px;
+	transition: all 300ms ease 0ms;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	z-index: 99;
+    border-radius: 25px;
+    text-decoration: none;
+    cursor: pointer;
 }
-.card-cont{
-    background:rgba(255,255,255,0.8);
-    /*background: rgb(0,168,159);*/
-    /*border: linear-gradient(90deg, rgba(0,168,159,0.8) 0%, rgba(229,45,127,0.8) 100%) solid 2px;*/
+.btn-flotante:hover {
+	background-color: #000000; /* Color de fondo al pasar el cursor */
+    color: #ffffff;
+	box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+	transform: translateY(-7px);
+}
+@media only screen and (max-width: 600px) {
+ 	.btn-flotante {
+		font-size: 16px;
+		padding: 12px 20px;
+		top: 20px;
+		right: 20px;
+	}
+} 
+.bg-lili {
+    background-color: #e52b7f;
+}
+.card-cont {
+    background: rgba(255, 255, 255, 0.8);
 }
 .btn-lili {
     background-color: white;
@@ -516,19 +607,23 @@
     color: rgba(3, 168, 162, 0.9);
     border-radius: 25px;
 }
-select{
+select {
     border: #e85199 solid 1px;
 }
-input{
+input {
     border: #e85199 solid 1px;
+    text-transform: uppercase;
 }
-.back-lili{
-    background-image: url('./../../../../public/images/fondo.jpg');
+textarea {
+    border: #e85199 solid 1px;
+    text-transform: uppercase;
+}
+.back-lili {
+    background-image: url("./../../../../public/images/fondo.jpg");
     min-height: 100%;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-
 }
 </style>

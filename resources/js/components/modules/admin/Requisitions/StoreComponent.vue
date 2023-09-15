@@ -35,7 +35,7 @@
                     <div class="row card card-cont " v-if="form.area == '1'">
                         <div class="card-body">
                             <div  class="">
-                                <h6 class="text-center">SELECCIONA LA REGIONA<small class="h5 text-danger" >*</small></h6>
+                                <h6 class="text-center">SELECCIONA LA REGIONAL<small class="h5 text-danger" >*</small></h6>
                                 <select v-model="form.regional" class="form-select" aria-label="Default select example" @change="onChageCast(1,form.regional)">
                                     <option selected value="">SELECCIONA UNA OPCION</option>
                                     <option v-for="regional in regionales" :value="regional.id">{{regional.description}}</option>

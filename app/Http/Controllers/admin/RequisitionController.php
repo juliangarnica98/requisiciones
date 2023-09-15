@@ -79,7 +79,7 @@ class RequisitionController extends Controller
             $activation->change_ide= $request->change_ide;
             $activation->change_reason= $request->change_reason;
             $activation->refund_date_retirement= $request->refund_date_retirement;
-            $activation->refund_date= $request->arrefund_dateea;
+            $activation->refund_date= $request->refund_date;
             $activation->refund_ide= $request->refund_ide;
             $activation->refund_name= $request->refund_name;
             $activation->opening_store= $request->opening_store;
@@ -161,7 +161,7 @@ class RequisitionController extends Controller
     {
         switch ($area) {
             case 'admin':
-                $data=Administration::where('id',$id)->with(['activation_charge','activation.type_activation','city','sex','requisition.user'])->first();
+                $data=Administration::where('id',$id)->with(['activation_charge','activation.type_activation','city','sex','requisition.user','area_management','management'])->first();
                 break;
             case 'tienda':
                 $data=Store::where('id',$id)->with(['activation_charge','category','regional','activation.type_activation','city','sex','requisition.user'])->first();
@@ -170,17 +170,17 @@ class RequisitionController extends Controller
                 $data=Cedi::where('id',$id)->with(['activation_charge','center_distribution','activation.type_activation','city','sex','requisition.user'])->first();
                 break;
             case 'factory':
-                $data=Factory::where('id',$id)->with(['activation_charge','activation.type_activation','city','sex','requisition.user'])->first();
+                $data=Factory::where('id',$id)->with(['activation_charge','activation.type_activation','city','sex','requisition.user','area_factory'])->first();
                 break;
             case 'venta_nal':
-                $data=National_sale::where('id',$id)->with(['activation_charge','activation.type_activation','city','sex','requisition.user'])->first();
+                $data=National_sale::where('id',$id)->with(['activation_charge','activation.type_activation','city','sex','requisition.user','charge'])->first();
         
                 break;
             default:
                 break;
         }
         return $data;
-        // dd($data);
+        //  dd($data);
 
     }
 

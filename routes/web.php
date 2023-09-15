@@ -26,6 +26,7 @@ Auth::routes();
 
 Route::get('/respuesta/{id}', [App\Http\Controllers\InterviewController::class, 'index'])->name('entrevista');
 Route::get('/getdataentrevista', [App\Http\Controllers\InterviewController::class, 'getData']);
+Route::post('/entrevista/crear', [App\Http\Controllers\InterviewController::class, 'store']);
 // Route::post('/entrevista/store', [App\Http\Controllers\admin\RequisitionController::class, 'store']);
 
 
