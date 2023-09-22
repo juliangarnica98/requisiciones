@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Retreal;
+use App\Models\Satisfaction;
 use Illuminate\Http\Request;
 
 class InterviewController extends Controller
@@ -13,9 +14,10 @@ class InterviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getData()
     {
-        //
+        $data['retreal']=Retreal::with(['retirement_cities','retirement_positions'])->get();
+        return $data;
     }
 
     /**
@@ -28,14 +30,14 @@ class InterviewController extends Controller
     {
         if ($request->num_document) {
 
-            $find = Retreal::where('num_document',$request->num_document)->first();
+            $find = Retreal::where('num_document',$request->num_document)->where('status',0)->first();
             if($find){
                 return 'error';
             }
             $retreal = new Retreal();
             $retreal->num_document = $request->num_document;
             $retreal->save();
-            return 'Se ha creado la entrevista para el documento'.$request->num_document;
+            return 'Se ha creado la entrevista para el documento '.$request->num_document;
         }
     }
 
@@ -47,7 +49,9 @@ class InterviewController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['retreal']=Retreal::where('id',$id)->with(['retirement_cities','retirement_positions'])->first();
+        $data['satisfactions']=Satisfaction::where('retreal_id',$id)->with(['level_satifactions','question_satifactions'])->get();
+        return $data ;
     }
 
     /**

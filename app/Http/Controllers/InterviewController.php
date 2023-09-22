@@ -25,6 +25,7 @@ use App\Models\Regional;
 use App\Models\Requisition;
 use App\Models\Retirement_city;
 use App\Models\Retirement_position;
+use App\Models\Satisfaction;
 use App\Models\Sex;
 use App\Models\Store;
 use App\Models\Type_activation;
@@ -67,33 +68,46 @@ class InterviewController extends Controller
      */
     public function store(Request $request)
     {
-        DB::beginTransaction();
-        try {
-            
-            // area: "",
-            // identificacion: "",
-            // num_document: this.$props.document,
-            // nombre: "",
-            // cargo: "",
-            // fechaingreso: "",
-            // fecharetiro: "",
-            // ciudad: "",
-            // tiempo: "",
-            // cargoJefe: "",
-            // nombreJefe: "",
-            // motivoRetiro: "",
-            // otroMotivo: "",
-            // beneficios: "",
-            // entrenamiento: "",
-            // aspectos: "",
-            // fortalecer: "",
+        // DB::beginTransaction();
+        // try {        
+            $retreal = Retreal::where('num_document',$request->num_document)->first();
+            $retreal->status = 1;
+            $retreal->num_document = $request->num_document;
+            $retreal->area = $request->area;
+            $retreal->name = $request->nombre;
+            $retreal->date_entry = $request->fechaingreso;
+            $retreal->date_output = $request->fecharetiro;
+            $retreal->time = $request->tiempo;
+            $retreal->name_boss = $request->nombreJefe;
+            $retreal->charge_boss = $request->cargoJefe;
+            $retreal->reason_retreat = $request->otroMotivo == ''? $request->motivoRetiro : $request->otroMotivo;
+            $retreal->benefits = $request->beneficios;
+            $retreal->training = $request->entrenamiento;
+            $retreal->reinforcement = $request->fortalecer;
+            $retreal->positive_aspects = $request->aspectos;
+            $retreal->retirement_positions_id = $request->cargo;
+            $retreal->retirement_city_id = $request->ciudad;
+            $retreal->save();
+
             $question = $request->question;
 
-            DB::commit();
-            return 'SE HA REGISTRADO TU ENTREVISA';
-        } catch (\Exception $e) {
-            DB::rollback();
-        }
+            foreach ($question as $value) {
+                
+                $satisfaction = new Satisfaction();
+                $satisfaction->retreal_id = $retreal->id;
+                $level_satisfaction = Level_satisfaction::where('id',$value['selected'])->first();
+                $question_satisfaction = Question_satisfaction::where('description',$value['description'])->first();
+                $satisfaction->question_satisfaction_id = $question_satisfaction->id;
+                $satisfaction->level_satisfaction_id = $level_satisfaction->id;
+
+                $satisfaction->save();
+            }
+            return 'Se ha registrado tu entrevista correctamente';
+        //     DB::commit();
+            
+        // } catch (\Exception $e) {
+            
+        // }
       
     }
 

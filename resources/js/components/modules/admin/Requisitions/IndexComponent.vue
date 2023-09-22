@@ -43,7 +43,7 @@
                     <div class="row">
                         <div v-for="rq in listaRequisition" class="card border-none table-body ">
                             <div class="card-body">
-                                <div class="row">
+                                <div class="row ">
                                     <div class="col-md-2 text-center"><b>{{rq.requisition.user.name}}</b></div>
                                     <div class="col-md-2 text-center"><b>{{ rq.created_at | fecha}} </b></div>
                                     <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>

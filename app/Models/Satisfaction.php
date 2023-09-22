@@ -12,11 +12,11 @@ class Satisfaction extends Model
     protected $guarded = [];
 
     public function level_satifactions(){
-        return $this->hasMany(Level_satisfaction::class);
+        return $this->hasMany(Level_satisfaction::class,'id','level_satisfaction_id');
     }
 
     public function question_satifactions(){
-        return $this->hasMany(Question_satisfaction::class);
+        return $this->hasMany(Question_satisfaction::class,'id','question_satisfaction_id');
     }
 
     public function retreals(){

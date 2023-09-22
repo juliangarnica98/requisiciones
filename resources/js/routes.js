@@ -8,7 +8,7 @@ export default new Router({
         //rutas admin
         { 
             path: '/dashboard', 
-            component: require('./components/modules/admin/Dashboard/DashboardComponent').default 
+            component: require('./components/modules/admin/Dashboard/IndexComponent').default 
         },
         { 
             path: '/requisiciones', 
@@ -21,6 +21,11 @@ export default new Router({
         { 
             path: '/entrevistas', 
             component: require('./components/modules/admin/Interviews/IndexComponent').default 
+        },
+        { 
+            name:'entrevista',
+            path: '/entrevistas/:id', 
+            component: require('./components/modules/admin/Interviews/ShowComponent').default 
         },
         { 
             name:'usuarios', 

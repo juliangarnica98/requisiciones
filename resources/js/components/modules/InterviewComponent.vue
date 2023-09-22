@@ -463,7 +463,7 @@ export default {
         return {
             form: {
                 area: "",
-                identificacion: "",
+                // identificacion: "",
                 num_document: this.$props.document,
                 nombre: "",
                 cargo: "",
@@ -509,11 +509,21 @@ export default {
             });
         },
         guardar() {
-            this.form.question = this.question_satisfaction;
-            axios.post("/entrevista/crear", this.form).then((res) => {
-                this.$toasted.success(res.data);
-                this.$router.push('/login');
-            });
+
+            this.$swal({
+                title: '¿Estás seguro de enviar la entrevista?',
+                showCancelButton: true,
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    this.form.question = this.question_satisfaction;
+                    axios.post("/entrevista/crear", this.form).then((res) => {
+                        this.$toast.success(res.data);
+                        this.$router.push('/login');
+                        setTimeout("location.reload()", 5000);
+                    });
+                }
+                })
+            
         },
         respuestaFuntion(value) {
             return "question" + value;
@@ -529,7 +539,7 @@ export default {
         limpiar(){
             this.form={
                 area: "",
-                identificacion: "",
+                // identificacion: "",
                 num_document: this.$props.document,
                 nombre: "",
                 cargo: "",

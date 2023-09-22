@@ -21,12 +21,18 @@
 <script>
 
     export default {  
+        
         data() {
             return {
               form:{
                 num_document:"",
               },
             }
+        },
+        props:{
+          function:{
+            type:Function,
+          }
         },
         methods:{
             storeInterview(){
@@ -35,6 +41,8 @@
                   this.$toast.error("Ya se ha creado anteriormente");
                 }else{
                   this.$toast.success(res.data);
+                  this.form.num_document="";
+                  this.$emit('traerdata');
                 }
               });
             },

@@ -12,10 +12,10 @@ class Retreal extends Model
     protected $guarded = [];
 
     public function retirement_positions(){
-        return $this->hasMany(Retirement_position::class);
+        return $this->hasOne(Retirement_position::class, 'id','retirement_city_id');
     }
     public function retirement_cities(){
-        return $this->hasMany(Retirement_city::class);
+        return $this->hasOne(Retirement_city::class, 'id','retirement_positions_id');
     }
     public function satisfation(){
         return $this->belongsTo(Satisfaction::class);

@@ -53,6 +53,9 @@ Route::group(['middleware' => ['auth','role:Admin']], function() {
     Route::post('/requisicion/store', [App\Http\Controllers\admin\RequisitionController::class, 'store']);
     //rutas de entrevista
     Route::post('/entrevista/store', [App\Http\Controllers\admin\InterviewController::class, 'store']);
+    Route::get('/entrevistas/{id}',[App\Http\Controllers\admin\HomeController::class, 'index']);
+    Route::get('/getdatainterview', [App\Http\Controllers\admin\InterviewController::class, 'getData']);
+    Route::get('/getentrevistas/{id}',[App\Http\Controllers\admin\InterviewController::class, 'show']);
 });
 
 Route::group(['prefix' => 'boss','middleware' => ['auth','role:Boss']], function() {
