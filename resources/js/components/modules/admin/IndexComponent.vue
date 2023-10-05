@@ -15,11 +15,11 @@
             </header>
             <div class="menu-bar">
                 <div class="menu">
-                    <li class="search-box">
+                    <!-- <li class="search-box">
                         <i class="bx bx-search icon"></i>
                         <input type="text" placeholder="Search..." />
-                    </li>
-                    <ul class="menu-links">
+                    </li> -->
+                    <ul class="menu-links pt-5">
                         <li class="nav-link">
                             <router-link
                                 class="router-link"
@@ -158,9 +158,9 @@ export default {
                 home.style.width= "calc(100% - 255px)";
             }
         });
-        searchBtn.addEventListener("click", () => {
-            sidebar.classList.remove("close");
-        });
+        // searchBtn.addEventListener("click", () => {
+        //     sidebar.classList.remove("close");
+        // });
 
         modeSwitch.addEventListener("click", () => {
             body.classList.toggle("dark");
@@ -199,7 +199,8 @@ export default {
     --tran-05: all 0.5s ease;
 }
 .body {
-    height: 100vh;
+    height: auto;
+    min-height: 100%;
     background: var(--body-color);
     transition: var(--tran-03);
 }

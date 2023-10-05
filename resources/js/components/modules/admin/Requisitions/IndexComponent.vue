@@ -3,7 +3,6 @@
         <!-- <Nav :actual="this.rut_act"></Nav> -->
         <div>
             <h1 class="text-center title">REQUISICIONES</h1>
-            
         </div>
         <!-- {{ listaRequisition }} -->
         <div class="row d-flex justify-content-center pt-5">
@@ -34,30 +33,32 @@
                                     <div class="col-md-2 text-center"><b>FECHA</b></div>
                                     <div class="col-md-2 text-center"><b>CARGO</b> </div>
                                     <div class="col-md-2 text-center"><b>CIUDAD</b> </div>
-                                    <div class="col-md-2 text-center"><b>SEXO</b></div>
-                                    <div class="col-md-2 text-center"><b>VER</b></div>
+                                    <div class="col-md-2 text-center"><b>ESTADO</b></div>
+                                    <div class="col-md-2 text-center"><b>ACCIONES</b></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div v-for="rq in listaRequisition" class="card border-none table-body ">
+                        <div v-for="rq in listaRequisition.data" class="card border-none table-body ">
                             <div class="card-body">
                                 <div class="row ">
                                     <div class="col-md-2 text-center"><b>{{rq.requisition.user.name}}</b></div>
                                     <div class="col-md-2 text-center"><b>{{ rq.created_at | fecha}} </b></div>
                                     <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
                                     <div class="col-md-2 text-center"><b>{{rq.city.description}}</b> </div>
-                                    <div class="col-md-2 text-center"><b>{{rq.sex.description}}</b> </div>
+                                    <div class="col-md-2 text-center"><b>{{rq.status}}</b> </div>
                                     <div class="col-md-2 text-center">
+                                            
                                             <div class="col-md-12">
+                                                <a class="link" data-bs-toggle="modal" :data-bs-target="'#'+area+'-'+rq.id"><i class="fas fa-edit"></i></a>    
+                                                <Edit @traerdata="getRequisitions" :estado="rq.status" :area="area" :id="rq.id"/>
                                                 <router-link class="link" :to="{name:'requisicion',params:{area: area, id: rq.id}}" aria-expanded="false" >
                                                     <span class="h4" >
                                                         <i class="fas fa-eye"></i>
                                                     </span>
                                                 </router-link>
                                             </div>
-                                            
                                         </div>
                                     </div>
                                 </div>
@@ -68,6 +69,10 @@
                     
                 </div>
             </div>
+            <pagination class="d-flex justify-content-center" :data="listaRequisition" @pagination-change-page="getRequisitions">
+                <span slot="prev-nav">ANTERIOR</span>
+                <span slot="next-nav">SIGUIENTE</span>
+            </pagination>
         </div>
    
 </template>
@@ -75,7 +80,9 @@
 <script>
 
 import moment from 'moment'
+import Edit from './Editcomponent.vue'
     export default {
+        components:{Edit},
         data() {
             return {
                 area:"tienda",
@@ -84,17 +91,17 @@ import moment from 'moment'
                 cedi:false,
                 factory:false,
                 venta_nal:false,
-                listaRequisition:[],
-                listaRequisitionAdmin:[],
-                listaRequisitionCedi:[],
-                listaRequisitionStore:[],
-                listaRequisitionNational_sale:[],
-                listaRequisitionFactory:[],
+                listaRequisition:{},
+                listaRequisitionAdmin:{},
+                listaRequisitionCedi:{},
+                listaRequisitionStore:{},
+                listaRequisitionNational_sale:{},
+                listaRequisitionFactory:{},
             }
         },
         methods:{
-            getRequisitions(){
-                axios.get('/getrequisition')
+            getRequisitions(page = 1){
+                axios.get('/getrequisition?page='+page)
                 .then((res) => { 
                     this.listaRequisition = res.data.store;  
                     this.listaRequisitionAdmin = res.data.admin; 

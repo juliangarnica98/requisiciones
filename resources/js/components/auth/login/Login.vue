@@ -11,7 +11,7 @@
         <div class="main" :class="'d-flex justify-content-center'">
             <div class="col-md-6 col-sm-12">
                 <div class="login-form">
-                    <form method="POST" action="/login">
+                    <form method="POST" action="/login" @submit="chekform" id="login">
                         <input type="hidden" name="_token" :value="csrf" />
                         <div class="">
                             <label class="col-auto col-form-label"
@@ -22,6 +22,7 @@
                                 class="form-control rounded-pill"
                                 name="email"
                                 aria-label="Default"
+                                v-model="email"
                             />
                         </div>
                         <div class="form-group">
@@ -29,22 +30,21 @@
                                 >Contraseña</label
                             >
                             <input
+                                v-model="passowrd"
                                 name="password"
                                 type="password"
                                 class="form-control rounded-pill"
                             />
                         </div>
-                        <button
+                        <input
                             class="btn col-12 gradient-custom-2 mb-3 mt-3 rounded-pill btn-lili"
-                            type="submit"
+                            type="submit" value="INICIA SESIÓN"
                         >
-                            INICIA SESIÓN
-                        </button>
-                        <a
+                        <!-- <a
                             class="btn col-12 gradient-custom-2 mb-3 rounded-pill btn-yoi"
                             href="/register"
                             >REGISTRATE
-                        </a>
+                        </a> -->
                     </form>
                 </div>
             </div>
@@ -54,11 +54,46 @@
 
 <script>
 export default {
+    props:{
+        mensaje:Object,
+    },
     data: () => ({
         csrf: document
-            .querySelector('meta[name="csrf-token"]')
-            .getAttribute("content"),
+            .querySelector('meta[name="csrf-token"]').getAttribute("content"),          
+            email:'',
+            passowrd:'',
+            erros:[],
+            laravel_error:{},
+
+
     }),
+    methods:{
+        chekform(e){
+            this.errors=[]
+            if (!this.email) {
+                this.errors.push('El correo es obligatorio')
+            }
+            if(!this.passowrd){
+                this.errors.push('La contraseña es obligatoria')
+            }
+            if (this.errors.length) {
+                this.errors.reverse().forEach((element) =>this.$toast.info(element));
+            }else{
+                return true;
+            }
+        e.preventDefault();
+        
+        },
+        mostrarError(){
+            this.laravel_error = this.$props.mensaje;
+            if(this.laravel_error){
+                this.$toast.error('Credenciales incorrectas. Por favor, intenta de nuevo.')
+            }
+        }
+    },
+    mounted(){
+        this.mostrarError();
+    }
 };
 </script>
 

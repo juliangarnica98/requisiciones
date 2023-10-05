@@ -4,6 +4,14 @@
         <div>
             <h1 class="text-center title">USUARIOS</h1>
         </div>
+        <div class="row  pt-5">
+            <div class="col-md-1">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-lili" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-plus"></i></button>
+                    <Store @traerdata="getUsers"></Store>
+                </div>
+            </div>   
+        </div>
         <div class="padding pt-5">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
@@ -15,20 +23,55 @@
                                     <div class="col-md-2 text-center"><b>APELLIDO</b></div>
                                     <div class="col-md-2 text-center"><b>EMAIL</b> </div>
                                     <div class="col-md-2 text-center"><b>ROL</b> </div>
-                                    <div class="col-md-4 text-center"><b>ACCIONES</b></div>
+                                    <div class="col-md-2 text-center"><b>ÁREA</b> </div>
+                                    <div class="col-md-2 text-center"><b>ACCIONES</b></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div v-for="(user,index) in users" class="card border-none table-body ">
+                        <div v-for="(user,index) in users.data" class="card border-none table-body ">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-2 text-center"><b>{{user.name}}</b></div>
                                     <div class="col-md-2 text-center"><b>{{user.last_name}}</b></div>
                                     <div class="col-md-2 text-center"><b>{{user.email}}</b> </div>
-                                    <div class="col-md-2 text-center"><b>ROL</b> </div>
-                                    <div class="col-md-4 text-center"><b>
+                                    <!-- <div class="col-md-2 text-center"><b>ROL</b> </div> -->
+                                    <div class="col-md-2 text-center">
+                                        <div class="" v-if="user.roles[0].name=='Boss'">
+                                            <B>JEFE</B>
+                                        </div>
+                                        <div class="" v-if="user.roles[0].name=='Admin'">
+                                            <B>ADMIN</B>
+                                        </div>
+                                        <div class="" v-if="user.roles[0].name=='Generalist'">
+                                            <B>GENERALISTA</B>
+                                        </div>
+                                        <div class="" v-if="user.roles[0].name=='Director'">
+                                            <B>DIRECTOR</B>
+                                        </div>
+                                        <div class="" v-if="user.roles[0].name=='Recruiter'">
+                                            <B>RECLUTADOR</B>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center"><b>
+                                        <div class="" v-if="user.area=='1'">
+                                            <B>TIENDA</B>
+                                        </div>
+                                        <div class="" v-if="user.area=='2'">
+                                            <B>ADMINISTRATIVO</B>
+                                        </div>
+                                        <div class="" v-if="user.area=='3'">
+                                            <B>CEDI</B>
+                                        </div>
+                                        <div class="" v-if="user.area=='4'">
+                                            <B>FACTORY</B>
+                                        </div>
+                                        <div class="" v-if="user.area=='5'">
+                                            <B>VENTA NAL</B>
+                                        </div>
+                                    </b> </div>
+                                    <div class="col-md-2 text-center"><b>
                                         <div class="row d-flex justify-content-center">
                                             <div class="col-md-3">
                                                 <a class="link" v-if="user.id!=1" @click="deleteUser(user.id)" style="cursor: pointer;"> 
@@ -51,6 +94,10 @@
                             </div>
                         </div>
                     </div>
+                    <pagination class="d-flex justify-content-center" :data="users" @pagination-change-page="getUsers">
+                        <span slot="prev-nav">ANTERIOR</span>
+                        <span slot="next-nav">SIGUIENTE</span>
+                    </pagination>
                     
                     
                 </div>
@@ -60,10 +107,12 @@
 </template>
 
 <script>
- export default {
+    import Store from './StoreComponent.vue';
+    export default {
+    components:{Store},
     data() {
         return{
-            users:[],
+            users:{},
             rut_act:this.$router.currentRoute.path,
         }
     },
@@ -71,8 +120,8 @@
         ver:function(){
             // console.log('Hola Julio')
         },
-        getUsers:function(){
-            axios.get('/getusuaios')
+        getUsers(page = 1){
+            axios.get('/getusuaios?page='+page)
             .then((res) => { 
                 this.users = res.data;     
             });
@@ -83,9 +132,9 @@
                 showCancelButton: true,
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`//127.0.0.1:8000/deleteuser/${id}`)
+                    axios.delete(`/deleteuser/${id}`)
                     .then((res) => {
-                        this.$toasted.success(res.data)
+                        this.$toast.success(res.data)
                         this.getUsers();
                     });
                 }
@@ -125,5 +174,22 @@
         color: #e85199;
         cursor: pointer;
     }
+    .btn-lili {
+        padding: 10px 0;
+        /*border: #e85199 solid 1px;*/
+        background-color: var(--text-color);
+        color: var(--primary-color-light);
+        
+    }
+    .btn-lili2 {
+        /*border: rgba(3, 168, 162, 1) solid 1px;*/
+        background-color: var(--primary-color);
+        color: var(--primary-color-light);
+    } 
+    .btn-lili:hover {
+        /*border: rgba(3, 168, 162, 1) solid 1px;*/
+        background-color: var(--text-dark-color);
+        color: var(--primary-color-light);
 
+    }
 </style>

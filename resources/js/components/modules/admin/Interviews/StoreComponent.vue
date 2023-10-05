@@ -4,7 +4,26 @@
           <div class="modal-content" >
             <div class="modal-body">
                 <h5 class="text-center title">INGRESE LA CEDULA</h5>
-                <input type="text" class="form-control" v-model="form.num_document" id="" placeholder="">
+                <input type="number" class="form-control" v-model="form.num_document" id="" placeholder="">
+                <select
+                  v-model="form.area"
+                  class="form-select mt-3"
+                  aria-label="Default select example"
+              >
+                  <option selected value="">
+                      SELECCIONA EL ÁREA
+                  </option>
+                  <option value="1">CEDI</option>
+                  <option value="2">
+                      ADMINISTRATIVOS
+                  </option>
+                  <option value="3">
+                      COMERCIAL(TIENDAS)
+                  </option>
+                  <option value="4">
+                      COMERCIAL VENTA NAL
+                  </option>
+              </select>
             </div>
             <div class="row d-flex justify-content-center pb-2">
               <div class="col-md-5 d-grid gap-2">
@@ -26,6 +45,7 @@
             return {
               form:{
                 num_document:"",
+                area:"",
               },
             }
         },

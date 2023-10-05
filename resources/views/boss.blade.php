@@ -1,6 +1,6 @@
 
 @extends('layouts.head')
-    <body style="background-color: #fff">
+    <body>
         <div class="">
             <div class="wrapper" id="app">
                 <boss-component :name='{{json_encode($user_name)}}'></boss-component>

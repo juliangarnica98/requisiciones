@@ -43,7 +43,8 @@ class InterviewController extends Controller
     {
          $retreal = Retreal::where('num_document',$id)->first();
          if($retreal){
-             return view('interview',compact('id'));
+            $area = $retreal->area;
+             return view('interview',compact('id','area'));
          }else{
              return response()->view('errors.404', [], 404);
         }
@@ -73,7 +74,7 @@ class InterviewController extends Controller
             $retreal = Retreal::where('num_document',$request->num_document)->first();
             $retreal->status = 1;
             $retreal->num_document = $request->num_document;
-            $retreal->area = $request->area;
+            // $retreal->area = $request->area;
             $retreal->name = $request->nombre;
             $retreal->date_entry = $request->fechaingreso;
             $retreal->date_output = $request->fecharetiro;

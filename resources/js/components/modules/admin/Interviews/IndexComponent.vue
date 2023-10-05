@@ -12,9 +12,6 @@
                     <Modal @traerdata="getRequisitions"></Modal>
                 </div>
             </div>   
-            <!-- <div class="col-md-11">
-
-            </div>        -->
         </div>
         <div class="padding  pt-4">
             <div class="d-flex justify-content-center">
@@ -34,7 +31,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="card border-none table-body"  v-for="entrevista in lista_entrevista">
+                        <div class="card border-none table-body"  v-for="entrevista in lista_entrevista.data">
                             <div class="card-body">
                                 <div class="row" >
                                     <div class="col-md-2 text-center"><b>{{ entrevista.created_at | fecha}} </b></div>
@@ -62,14 +59,21 @@
                                                 </router-link>
                                             </div>
                                             
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
+                    </div>
+                    <pagination class="d-flex justify-content-center" :data="lista_entrevista" @pagination-change-page="getRequisitions">
+                        <span slot="prev-nav">ANTERIOR</span>
+                        <span slot="next-nav">SIGUIENTE</span>
+                    </pagination>
+                      
                     </div>
                 </div>
             </div>
+            
         </div>
         
         <!-- <Modal></Modal> -->
@@ -83,15 +87,16 @@
         components:{Modal},
         data() {
             return {
-                lista_entrevista:[],
-                
+                lista_entrevista:{},
             }
         },
         methods:{
-            getRequisitions(){
-                axios.get('/getdatainterview')
+            getRequisitions(page=1){
+                axios.get('/getdatainterview?page='+page)
                 .then((res) => { 
-                    this.lista_entrevista = res.data.retreal;
+                    
+                    
+                    this.lista_entrevista = Object.assign(res.data.retreal, {});
                     
                 });
                 console.log("Entrevistas");
@@ -110,6 +115,7 @@
     }
 </script>
 <style scoped>
+
     .title{
         color: var(--text-dark-color);
     }

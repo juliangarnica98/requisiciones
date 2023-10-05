@@ -9,23 +9,13 @@ use Illuminate\Http\Request;
 
 class InterviewController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function getData()
     {
-        $data['retreal']=Retreal::with(['retirement_cities','retirement_positions'])->get();
-        return $data;
+        $data['retreal']=Retreal::with(['retirement_cities','retirement_positions'])->paginate(4);
+        return response()->json($data) ;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         if ($request->num_document) {
@@ -36,6 +26,7 @@ class InterviewController extends Controller
             }
             $retreal = new Retreal();
             $retreal->num_document = $request->num_document;
+            $retreal->area = $request->area;
             $retreal->save();
             return 'Se ha creado la entrevista para el documento '.$request->num_document;
         }

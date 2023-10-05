@@ -9,228 +9,224 @@
         </div>
 
 
-        <!-- {{ requisition }} -->
-
-        <div class="row d-flex justify-content-center mt-5 pt-5">
-            <!-- card datos especificos-->
-            <div class="col-md-4">
-                <div class="card ">
-                    <div class="card-body">
-                        <h4 class="text-center">
-                            DATOS ESPECIFICOS
-                        </h4>
-                        <hr>
-                        <h5 class="text-center">
-                            Encargado: {{ requisition.requisition.user.name }}
-                            {{ requisition.requisition.user.last_name }}
-                        </h5>
-                        <h5 class="text-center">
-                            Ciudad: {{ requisition.city.description }}
-                        </h5>
-                        <h5 class="text-center">
-                            Sexo: {{ requisition.sex.description }}
-                        </h5>
-                        <h5 class="text-center">
-                            Tipo vacante: {{ requisition.activation.type_activation.description }}
-                        </h5>
-                        <h5 class="text-center">
-                            Cargo: {{ requisition.activation_charge.description }}
-                        </h5>
-                        <h5 class="text-center">
-                            Comentarios: {{ requisition.comentaries }}
-                        </h5>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!-- card datos especificos administrativos -->
-            <div class="col-md-4" v-if="requisition.management">
-                <div class="card ">
-                    <div  class="">
+        <div class="" v-if="Object.keys(requisition).length >0">
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <div class="col-md-8" v-if="requisition.city.description">
+                    <div class="card ">
                         <div class="card-body">
                             <h4 class="text-center">
-                                DATOS ADMINISTRATIVOS
+                                DATOS ESPECIFICOS
                             </h4>
                             <hr>
                             <h5 class="text-center">
-                                Gerencia: {{ requisition.management.description }}
+                                Ciudad: {{ requisition.city.description }}
                             </h5>
                             <h5 class="text-center">
-                                Area: {{ requisition.area_management.description }}
+                                Sexo: {{ requisition.sex.description }}
+                            </h5>
+                            <h5 class="text-center">
+                                Tipo vacante: {{ requisition.activation.type_activation.description }}
+                            </h5>
+                            <h5 class="text-center">
+                                Cargo: {{ requisition.activation_charge.description }}
+                            </h5>
+                            <h5 class="text-center">
+                                Comentarios: {{ requisition.comentaries }}
                             </h5>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- card datos especificos tienda -->
-            <div class="col-md-4" v-if="requisition.regional">
-                <div class="card ">
-                    <div  class="">
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card datos especificos administrativos -->
+                <div class="col-md-8" v-if="requisition.management">
+                    <div class="card ">
+                        <div  class="">
+                            <div class="card-body">
+                                <h4 class="text-center">
+                                    DATOS ADMINISTRATIVOS
+                                </h4>
+                                <hr>
+                                <h5 class="text-center">
+                                    Gerencia: {{ requisition.management.description }}
+                                </h5>
+                                <h5 class="text-center">
+                                    Area: {{ requisition.area_management.description }}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card datos especificos tienda -->
+                <div class="col-md-8" v-if="requisition.regional">
+                    <div class="card ">
+                        <div  class="">
+                            <div class="card-body">
+                                <h4 class="text-center">
+                                    DATOS DE LA TIENDA
+                                </h4>
+                                <hr>
+                                <h5 class="text-center">
+                                    Regional: {{ requisition.regional.description }}
+                                </h5>
+                                <h5 class="text-center">
+                                    Nombre de la tienda: {{ requisition.name_store }}
+                                </h5>
+                                <h5 class="text-center">
+                                    Categoria: {{ requisition.category.description }}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card datos especificos cedis -->
+                <div class="col-md-8" v-if="requisition.center_distribution">
+                    <div class="card ">
+                        <div class="">
+                            <div class="card-body">
+                                <h4 class="text-center">
+                                    DATOS CEDI
+                                </h4>
+                                <hr>
+                                <h5 class="text-center">
+                                    Centro de distribucion: {{ requisition.center_distribution.description }}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card datos especificos factory -->
+                <div class="col-md-8" v-if="requisition.area_factory">
+                    <div class="card ">
+                        <div class="">
+                            <div class="card-body">
+                                <h4 class="text-center">
+                                    DATOS FACTORY
+                                </h4>
+                                <hr>
+                                <h5 class="text-center">
+                                    Area: {{ requisition.area_factory.description }}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card datos especificos factory -->
+                <div class="col-md-8" v-if="requisition.charge">
+                    <div class="card ">
+                        <div class="">
+                            <div class="card-body">
+                                <h4 class="text-center">
+                                    DATOS VENTA NACIONAL
+                                </h4>
+                                <hr>
+                                <h5 class="text-center">
+                                    Cargo: {{ requisition.charge.description }}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card para plan de cambio -->
+                <div class="col-md-8" v-if="requisition.activation.change_name">
+                    <div class="card "  >
                         <div class="card-body">
                             <h4 class="text-center">
-                                DATOS DE LA TIENDA
+                                PLAN DE CAMBIO
                             </h4>
                             <hr>
                             <h5 class="text-center">
-                                Regional: {{ requisition.regional.description }}
+                                Nombre: {{ requisition.activation.change_name }}
                             </h5>
                             <h5 class="text-center">
-                                Nombre de la tienda: {{ requisition.name_store }}
+                                Identificación: {{ requisition.activation.change_ide }}
                             </h5>
                             <h5 class="text-center">
-                                Categoria: {{ requisition.category.description }}
+                                Razon: {{ requisition.activation.change_reason }}
                             </h5>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- card datos especificos cedis -->
-            <div class="col-md-4" v-if="requisition.center_distribution">
-                <div class="card ">
-                    <div class="">
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card para reemplazo -->
+                <div class="col-md-8" v-if="requisition.activation.replacement_name">
+                    <div class="card "  >
                         <div class="card-body">
                             <h4 class="text-center">
-                                DATOS CEDI
+                                REEMPLAZO
                             </h4>
                             <hr>
                             <h5 class="text-center">
-                                Centro de distribucion: {{ requisition.center_distribution.description }}
+                                Nombre de a quien reemplaza: {{ requisition.activation.replacement_name }}
+                            </h5>
+                            <h5 class="text-center">
+                                Cedula de a quien reemplaza: {{ requisition.activation.replacement_ide }}
                             </h5>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- card datos especificos factory -->
-            <div class="col-md-4" v-if="requisition.area_factory">
-                <div class="card ">
-                    <div class="">
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card para reintegro -->
+                <div class="col-md-8" v-if="requisition.activation.refund_date_retirement">
+                    <div class="card "  >
                         <div class="card-body">
                             <h4 class="text-center">
-                                DATOS FACTORY
+                                REINTEGRO
                             </h4>
                             <hr>
                             <h5 class="text-center">
-                                Area: {{ requisition.area_factory.description }}
+                                Fecha de retiro: {{ requisition.activation.refund_date_retirement }}
+                            </h5>
+                            <h5 class="text-center">
+                                Fecha de reingreso: {{ requisition.activation.refund_date }}
+                            </h5>
+                            <h5 class="text-center">
+                                Cedula del colaborador: {{ requisition.activation.refund_ide }}
+                            </h5>
+                            <h5 class="text-center">
+                                Nombre del colaborador: {{ requisition.activation.refund_name }}
                             </h5>
                         </div>
                     </div>
                 </div>
             </div>
-           
-            <!-- card datos especificos factory -->
-            <div class="col-md-4" v-if="requisition.charge">
-                <div class="card ">
-                    <div class="">
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card para apertura de tienda -->
+                <div class="col-md-8" v-if="requisition.activation.opening_date">
+                    <div class="card "  >
                         <div class="card-body">
                             <h4 class="text-center">
-                                DATOS VENTA NACIONAL
+                                REINTEGRO
                             </h4>
                             <hr>
                             <h5 class="text-center">
-                                Cargo: {{ requisition.charge.description }}
+                                Nombre de la tienda: {{ requisition.activation.opening_store }}
                             </h5>
+                            <h5 class="text-center">
+                                Fecha de apertura: {{ requisition.activation.opening_date }}
+                            </h5>
+                            <h5 class="text-center">
+                                Categoria: {{ requisition.activation.opening_category }}
+                            </h5>
+    
                         </div>
                     </div>
                 </div>
             </div>
-           
-
-
-
-
-            <!-- card para plan de cambio -->
-            <div class="col-md-4" v-if="requisition.activation.change_name">
-                <div class="card "  >
-                    <div class="card-body">
-                        <h4 class="text-center">
-                            PLAN DE CAMBIO
-                        </h4>
-                        <hr>
-                        <h5 class="text-center">
-                            Nombre: {{ requisition.activation.change_name }}
-                        </h5>
-                        <h5 class="text-center">
-                            Identificación: {{ requisition.activation.change_ide }}
-                        </h5>
-                        <h5 class="text-center">
-                            Razon: {{ requisition.activation.change_reason }}
-                        </h5>
-                    </div>
-                </div>
-            </div>
-
-            <!-- card para reemplazo -->
-            <div class="col-md-4" v-if="requisition.activation.replacement_name">
-                <div class="card "  >
-                    <div class="card-body">
-                        <h4 class="text-center">
-                            REEMPLAZO
-                        </h4>
-                        <hr>
-                        <h5 class="text-center">
-                            Nombre de a quien reemplaza: {{ requisition.activation.replacement_name }}
-                        </h5>
-                        <h5 class="text-center">
-                            Cedula de a quien reemplaza: {{ requisition.activation.replacement_ide }}
-                        </h5>
-                    </div>
-                </div>
-            </div>
-
-            <!-- card para reintegro -->
-            <div class="col-md-4" v-if="requisition.activation.refund_date_retirement">
-                <div class="card "  >
-                    <div class="card-body">
-                        <h4 class="text-center">
-                            REINTEGRO
-                        </h4>
-                        <hr>
-                        <h5 class="text-center">
-                            Fecha de retiro: {{ requisition.activation.refund_date_retirement }}
-                        </h5>
-                        <h5 class="text-center">
-                            Fecha de reingreso: {{ requisition.activation.refund_date }}
-                        </h5>
-                        <h5 class="text-center">
-                            Cedula del colaborador: {{ requisition.activation.refund_ide }}
-                        </h5>
-                        <h5 class="text-center">
-                            Nombre del colaborador: {{ requisition.activation.refund_name }}
-                        </h5>
-                    </div>
-                </div>
-            </div>
-
-            <!-- card para apertura de tienda -->
-            <div class="col-md-4" v-if="requisition.activation.opening_date">
-                <div class="card "  >
-                    <div class="card-body">
-                        <h4 class="text-center">
-                            REINTEGRO
-                        </h4>
-                        <hr>
-                        <h5 class="text-center">
-                            Nombre de la tienda: {{ requisition.activation.opening_store }}
-                        </h5>
-                        <h5 class="text-center">
-                            Fecha de apertura: {{ requisition.activation.opening_date }}
-                        </h5>
-                        <h5 class="text-center">
-                            Categoria: {{ requisition.activation.opening_category }}
-                        </h5>
-
-                    </div>
-                </div>
-            </div>
-
+    
         </div>
-        <!-- <div class="row d-flex justify-content-center mt-1 "> -->
-        <!-- </div> -->
     </div>
 </template>
 
@@ -262,7 +258,7 @@ export default {
 <style scoped>
 .card{
     border: none;
-    background-color: var(--primary-color);
+    background-color: #00ab9f;
     color: var(--toggle-color);
 }
 .title {
@@ -290,5 +286,6 @@ export default {
     color: var(--text-color);
     cursor: pointer;
 }
+
 
 </style>

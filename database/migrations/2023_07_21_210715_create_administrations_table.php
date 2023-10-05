@@ -16,7 +16,8 @@ class CreateAdministrationsTable extends Migration
         Schema::create('administrations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('comentaries')->nullable();
+            $table->text('comentaries')->nullable();
+            $table->string('status')->default('ABIERTA');
 
             $table->unsignedBigInteger('requisition_id');
             $table->foreign('requisition_id')->references('id')->on('requisitions');

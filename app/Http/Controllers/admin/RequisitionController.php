@@ -51,12 +51,12 @@ class RequisitionController extends Controller
 
     public function index()
     {
-        $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->get();
-        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->get();
-        $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->get();
-        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->get();
-        $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->get();
-        return $data;
+        $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
+        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->paginate(5);
+        $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
+        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
+        $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
+        return response()->json($data);
     }
 
 
@@ -180,19 +180,39 @@ class RequisitionController extends Controller
                 break;
         }
         return $data;
-        //  dd($data);
 
     }
-
-
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
-    }
-
-
-    public function destroy($id)
-    {
-        //
+        switch ($request->area) {
+            case 'admin':
+                $data=Administration::where('id',$request->id)->first();
+                $data->status=$request->estado;
+                $data->save();
+                break;
+            case 'tienda':
+                $data=Store::where('id',$request->id)->first();
+                $data->status=$request->estado;
+                $data->save();
+                break;
+            case 'cedi':
+                $data=Cedi::where('id',$request->id)->first();
+                $data->status=$request->estado;
+                $data->save();
+                break;
+            case 'factory':
+                $data=Factory::where('id',$request->id)->first();
+                $data->status=$request->estado;
+                $data->save();
+                break;
+            case 'venta_nal':
+                $data=National_sale::where('id',$request->id)->first();
+                $data->status=$request->estado;
+                $data->save();
+                break;
+            default:
+                break;
+        }
+        return "Se ha modificado estado con exito";
     }
 }

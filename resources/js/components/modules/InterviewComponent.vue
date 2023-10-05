@@ -9,7 +9,7 @@
             <a @click="limpiar" class="btn-flotante">LIMPIAR FORMULARIO</a>
             <div class="row d-flex justify-content-center pt-4">
                 <div class="col-md-8">
-                    <template class="card" id="step1" v-if="currentStep == 1">
+                    <!-- <template class="card" id="step1" v-if="currentStep == 1">
                         <div class="row card card-cont">
                             <div class="card-body">
                                 <div class="">
@@ -39,12 +39,12 @@
                                 </div>
                             </div>
                         </div>
-                    </template>
+                    </template> -->
 
-                    <template id="step2">
+                    <template id="step2"  v-if="currentStep == 1">
                         <div
                             class="row card card-cont animate__animated animate__bounceInUp"
-                            v-if="form.area != ''"
+                            
                         >
                             <div class="card-body">
                                 <div class="">
@@ -458,11 +458,13 @@
 export default {
     props: {
         document: String,
+        area: String
+
     },
     data() {
         return {
             form: {
-                area: "",
+                area: this.$props.area,
                 // identificacion: "",
                 num_document: this.$props.document,
                 nombre: "",

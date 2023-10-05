@@ -526,6 +526,7 @@ select{
 }
 input{
     border: #00a89f solid 1px;
+    text-transform: uppercase;
 }
 
 

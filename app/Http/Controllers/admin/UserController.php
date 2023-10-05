@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -14,13 +16,27 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = User::all()->toArray();
+        $users = User::with('roles')->paginate(5);
         return $users;    
     }
 
     public function store(Request $request)
     {
-
+        $find = User::where('email',$request->email)->first();
+        if($find){
+            return 'error';
+        }else{
+            User::create(
+                ['name' => $request->name,
+                'last_name' => $request->last_name,
+                'area' => $request->area,
+                'regional' => $request->regional,
+                'email'=> $request->email, 
+                'password' => Hash::make($request->password)]
+            )->assignRole($request->rol);
+    
+            return 'Se ha creado el usuario correctamente';        
+        }
     }
 
     public function show($id)
