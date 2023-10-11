@@ -136,62 +136,61 @@
                                 </div>
                             </div>
                         </div>
-                        <div
-                            v-if="
-                                form.cargo != '' &&
-                                (form.area == '3' || form.area == '4')
-                            "
-                        >
-                            <div
-                                v-if="form.area == '3'"
-                                class="row card card-cont animate__animated animate__bounceInUp"
-                            >
+                        <div  v-if="form.cargo != '' && (form.area == '3' || form.area == '4')">
+                            <div v-if="form.area == '3'" class="row card card-cont animate__animated animate__bounceInUp">
                                 <div class="mb-3">
                                     <div class="card-body">
-                                        <small class="h6 fw-bold"
-                                            >¿DE QUE CIUDAD ERES? </small
-                                        ><small class="h5 text-danger">*</small>
-                                        <select
-                                        v-model="form.ciudad"
-                                        class="form-select"
-                                        aria-label="Default select example"
-                                    >
-                                        <option selected value="">
-                                            SELECCIONA UNA OPCION
-                                        </option>
-                                        <option v-for="city in cities" :value="city.id">{{city.description}}</option>
-                                        <!-- <option v-for="categoria in categorias" :value="categoria.id">{{categoria.description}}</option> -->
-                                    </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="row card card-cont animate__animated animate__bounceInUp"
-                            >
-                                <div class="mb-3">
-                                    <div class="card-body">
-                                        <small class="h6 fw-bold"
-                                            >¿CUANTO TIEMPO ESTUVISTE LABORANDO
-                                            CON NOSOTROS?</small
-                                        ><small class="h5 text-danger">*</small>
-                                        <select
-                                            v-model="form.tiempo"
-                                            class="form-select"
-                                            aria-label="Default select example"
-                                        >
-                                            <option value="menos de 3 meses">
-                                                MENOS DE 3 MESES
-                                            </option>
-                                            <option value="mas de 3 meses">
-                                                MÁS DE 3 MESES
-                                            </option>
-                                            <option value="no recuerdo">
-                                                NO RECUERDO
-                                            </option>
+                                        <small class="h6 fw-bold">¿DE QUE CIUDAD ERES? </small><small class="h5 text-danger">*</small>
+                                        <select v-model="form.ciudad" class="form-select" aria-label="Default select example">
+                                            <option selected value="">SELECCIONA UNA OPCION</option>
+                                            <option v-for="city in cities" :value="city.id">{{city.description}}</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row card card-cont animate__animated animate__bounceInUp">
+                                <div class="mb-3">
+                                    <div class="card-body">
+                                        <small class="h6 fw-bold">¿CUANTO TIEMPO ESTUVISTE LABORANDO CON NOSOTROS?</small><small class="h5 text-danger">*</small>
+                                        <select v-model="form.tiempo" class="form-select" aria-label="Default select example">
+                                            <option value="menos de 3 meses">MENOS DE 3 MESES</option>
+                                            <option value="mas de 3 meses">MÁS DE 3 MESES</option>  
+                                            <option value="no recuerdo">NO RECUERDO</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row card card-cont animate__animated animate__bounceInUp">
+                                <div class="mb-3">
+                                    <div class="card-body">
+                                        <small class="h6 fw-bold">¿A QUE REGIONAL PERTENECIAS?</small><small class="h5 text-danger">*</small>
+                                        <select v-model="form.regional" class="form-select" aria-label="Default select example">
+                                            <option value="REGIONAL SUR">REGIONAL SUR</option>
+                                            <option value="REGIONAL ANTIOQUIA Y SANTANDERES">REGIONAL ANTIOQUIA Y SANTANDERES</option>  
+                                            <option value="REGIONAL CENTRO NORTE">REGIONAL CENTRO NORTE</option>
+                                            <option value="REGIONAL COSTA">REGIONAL COSTA</option>
+                                            <option value="REGIONAL CENTRO SUR">REGIONAL CENTRO SUR</option>
+                                            <option value="CANAL WHOLESALE / VENTA NACIONAL">CANAL WHOLESALE / VENTA NACIONAL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row card card-cont animate__animated animate__bounceInUp">
+                                <div class="mb-3">
+                                    <div class="card-body">
+                                        <small class="h6 fw-bold">¿CON CUAL MARCA TRABAJASTE CON NOSOTROS EL MAYOR TIEMPO QUE ESTUVISTE VINCULADO?</small><small class="h5 text-danger">*</small>
+                                        <select v-model="form.marca" class="form-select" aria-label="Default select example">
+                                            <option value="LLP">LLP</option>
+                                            <option value="YOI">YOI</option>  
+                                            <option value="YAHAD">YAHAD</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </template>
 
@@ -200,7 +199,7 @@
                             v-if="
                                 (form.fechaingreso != '' &&
                                     form.fecharetiro != '') ||
-                                (form.ciudad != '' && form.tiempo != '') ||
+                                (form.ciudad != '' && form.tiempo != '' && form.marca != ''&& form.regional != '') ||
                                 (form.area == '4' && form.tiempo != '')
                             "
                         >
@@ -280,13 +279,13 @@
                                         <small class="h6 fw-bold"
                                             >OTRO MOTIVO DE RETIRO </small
                                         ><small class="h5 text-danger">*</small>
-                                        <input
+                                        <textarea
                                             v-model="form.otroMotivo"
                                             type="text"
                                             class="form-control"
                                             id=""
-                                            placeholder=""
-                                        />
+                                            placeholder="Cuéntanos ¿Cuál fue tu motivo de retiro?"
+                                        ></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -303,23 +302,13 @@
                                     <small class="h6 fw-bold"
                                         >MOTIVO DE RETIRO</small
                                     ><small class="h5 text-danger">*</small>
-                                    <select
-                                        v-model="form.motivoRetiro"
-                                        class="form-select"
-                                        aria-label="Default select example"
-                                    >
-                                        <option value="mejor oferta laboral">
-                                            MEJOR OFERTA LABORAL
-                                        </option>
-                                        <option
-                                            selected
-                                            value="relacion laboral con el jefe direc"
-                                        >
-                                            RELACIÓN LABORAL CON EL JEFE DIRECTO
-                                        </option>
-                                        <option value="ambiente laboral">
-                                            AMBIENTE LABORAL
-                                        </option>
+                                    <select v-model="form.motivoRetiro" class="form-select" aria-label="Default select example">
+                                        <option selected value="traslado de tienda o zona">TRASLADO DE TIENDA O ZONA</option>
+                                        <option value="mejor oferta laboral">MEJOR OFERTA LABORAL</option>
+                                        <option value="estudio">ESTUDIO</option>
+                                        <option value="salud">SALUD</option>
+                                        <option value="calamidad familiar">CALAMIDAD FAMILIAR</option>
+                                        <option value="distancia de la residencia al lugar de trabajo">DISTANCIA DE LA RESIDENCIA AL LUGAR DE TRABAJO</option>
                                         <option value="otro">OTRO</option>
                                     </select>
                                     <div
@@ -353,6 +342,9 @@
                                     <small class="h6 fw-bold"
                                         >NIVEL DE SATISFACCIÓN</small
                                     ><small class="h5 text-danger">*</small>
+                                    <small class="h6 fw-bold"
+                                        >Basado en tu experiencia en la compañia califica las siguientes variables</small
+                                    >
                                     <div
                                         v-for="(
                                             question, index
@@ -469,6 +461,8 @@ export default {
                 num_document: this.$props.document,
                 nombre: "",
                 cargo: "",
+                regional:"",
+                marca:"",
                 fechaingreso: "",
                 fecharetiro: "",
                 ciudad: "",
@@ -545,6 +539,8 @@ export default {
                 num_document: this.$props.document,
                 nombre: "",
                 cargo: "",
+                regional:"",
+                marca:"",
                 fechaingreso: "",
                 fecharetiro: "",
                 ciudad: "",

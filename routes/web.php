@@ -32,6 +32,7 @@ Route::post('/entrevista/crear', [App\Http\Controllers\InterviewController::clas
 
 
 Route::group(['middleware' => ['auth','role:Admin']], function() {
+    
     //rutas de navegacion
     Route::get('/dashboard', [App\Http\Controllers\admin\HomeController::class, 'index']);
     Route::get('/usuarios', [App\Http\Controllers\admin\HomeController::class, 'index']);
@@ -58,6 +59,8 @@ Route::group(['middleware' => ['auth','role:Admin']], function() {
     Route::get('/entrevistas/{id}',[App\Http\Controllers\admin\HomeController::class, 'index']);
     Route::get('/getdatainterview', [App\Http\Controllers\admin\InterviewController::class, 'getData']);
     Route::get('/getentrevistas/{id}',[App\Http\Controllers\admin\InterviewController::class, 'show']);
+    //rutas de dashboard
+    Route::get('/getdatainterview/{id}',[App\Http\Controllers\admin\Dashboard::class, 'getdata']);
 });
 
 Route::group(['prefix' => 'boss','middleware' => ['auth','role:Boss']], function() {

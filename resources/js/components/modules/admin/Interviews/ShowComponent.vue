@@ -74,7 +74,8 @@
                                 CARGO
                             </div>
                             <div class="col-md-6 table-body rounded p-3 text-center">
-                                {{  respuesta_entrevista.retirement_positions.hasOwnProperty('description') ? 'existe' : 'no existe' }}
+                                {{ respuesta_entrevista.retirement_positions.description }}
+                                <!-- {{  respuesta_entrevista.retirement_positions.hasOwnProperty('description') ? 'existe' : 'no existe' }} -->
                             </div>                        
                         </div>
                     </div>
@@ -95,7 +96,36 @@
                     </div>
                 </div>
             </div>
-    
+
+            <div class="row d-flex justify-content-center pt-0 " v-if="respuesta_entrevista.regional != null">
+                <div class="col-md-8 rounded">
+                    <div class="card ">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-6 table-head rounded p-3 text-center">
+                                REGIONAL
+                            </div>
+                            <div class="col-md-6 table-body rounded p-3 text-center">
+                                {{ respuesta_entrevista.regional }}
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-center pt-0 " v-if="respuesta_entrevista.marca != null">
+                <div class="col-md-8 rounded">
+                    <div class="card ">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-6 table-head rounded p-3 text-center">
+                                MARCA
+                            </div>
+                            <div class="col-md-6 table-body rounded p-3 text-center">
+                                {{ respuesta_entrevista.marca }}
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
     
             <!-- IF TIEMPO -->
             <div class="row d-flex justify-content-center pt-0 " v-if="respuesta_entrevista.time != null">

@@ -14,17 +14,17 @@ class RetirementPositionSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
-            ['description' => 'DESARROLLADOR'],
-            ['description' => 'JEFE DE GH'],
-            ['description' => 'DBA'],
-            ['description' => 'ANALISTA DE NÓMINA'],
-            ['description' => 'AUXILIAR CONTABLE'],  
-            ['description' => 'MONTACARGUISTA'],  
-            ['description' => 'JEFE DE ZONA'],  
-            ['description' => 'ANALISTA DE SELECCIÓN'],  
-        ];
-        DB::table('retirement_positions')->insert($data); 
+        // $data = [
+        //     ['description' => 'DESARROLLADOR'],
+        //     ['description' => 'JEFE DE GH'],
+        //     ['description' => 'DBA'],
+        //     ['description' => 'ANALISTA DE NÓMINA'],
+        //     ['description' => 'AUXILIAR CONTABLE'],  
+        //     ['description' => 'MONTACARGUISTA'],  
+        //     ['description' => 'JEFE DE ZONA'],  
+        //     ['description' => 'ANALISTA DE SELECCIÓN'],  
+        // ];
+        // DB::table('retirement_positions')->insert($data); 
     
     }
 }

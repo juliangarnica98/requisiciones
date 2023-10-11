@@ -79,6 +79,8 @@ class InterviewController extends Controller
             $retreal->date_entry = $request->fechaingreso;
             $retreal->date_output = $request->fecharetiro;
             $retreal->time = $request->tiempo;
+            $retreal->marca = $request->marca;
+            $retreal->regional = $request->regional;
             $retreal->name_boss = $request->nombreJefe;
             $retreal->charge_boss = $request->cargoJefe;
             $retreal->reason_retreat = $request->otroMotivo == ''? $request->motivoRetiro : $request->otroMotivo;

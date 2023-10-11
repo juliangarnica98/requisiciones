@@ -40,7 +40,7 @@ class InterviewController extends Controller
      */
     public function show($id)
     {
-        $data['retreal']=Retreal::where('id',$id)->with(['retirement_cities','retirement_positions'])->first();
+        $data['retreal']=Retreal::where('id',$id)->with(['retirement_positions','retirement_cities'])->first();
         $data['satisfactions']=Satisfaction::where('retreal_id',$id)->with(['level_satifactions','question_satifactions'])->get();
         return $data ;
     }

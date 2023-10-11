@@ -20,6 +20,8 @@ class CreateRetrealsTable extends Migration
             $table->string('num_document');
 
             $table->string('area')->nullable();
+            $table->string('regional')->nullable();
+            $table->string('marca')->nullable();
 
 
             $table->string('name')->nullable();
