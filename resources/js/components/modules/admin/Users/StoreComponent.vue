@@ -11,178 +11,85 @@
                 <div class="modal-body">
                     <form id="register" @submit.prevent="checkform">
                         <!-- <input type="hidden" name="_token" :value="csrf" /> -->
-                        <div class="form-group">
-                            <label class="col-auto col-form-label title"
-                                >NOMBRE</label
-                            >
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="name"
-                                id="name"
-                                v-model="form.name"
-                                aria-label="Default"
-                            />
+                        <div class="form-group"><label class="col-auto col-form-label title">NOMBRE</label>
+                            <input type="text" class="form-control" name="name" id="name" v-model="form.name" aria-label="Default"/>
                         </div>
                         <div class="form-group">
-                            <label class="col-auto col-form-label title"
-                                >APELLIDO</label
-                            >
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="last_name"
-                                id="last_name"
-                                v-model="form.last_name"
-                                aria-label="Default"
-                            />
+                            <label class="col-auto col-form-label title">APELLIDO</label>
+                            <input type="text" class="form-control" name="last_name" id="last_name" v-model="form.last_name" aria-label="Default"/>
                         </div>
                         <div class="form-group">
-                            <label class="col-auto col-form-label title"
-                                >ROL</label
-                            >
-                            <select
-                                name="rol"
-                                class="form-select"
-                                aria-label="Default select example"
-                                id="rol"
-                                v-model="form.rol"
-                            >
+                            <label class="col-auto col-form-label title">ROL</label>
+                            <select  name="rol" class="form-select" aria-label="Default select example" id="rol" v-model="form.rol">
                                 <option selected value="">
-                                    Selecciona una opcción
+                                    SELECCIONA UNA OPCIÓN
                                 </option>
-                                <option value="Director">Director</option>
-                                <option value="Boss">Jefe</option>
-                                <option value="Generalist">Generalista</option>
-                                <option value="Recruiter">Reclutador</option>
+                                <option value="Director">DIRECTOR</option>
+                                <option value="Boss">JEFE</option>
+                                <option value="Generalist">GENERALISTA</option>
+                                <option value="Recruiter">RECLUTADOR</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label class="col-auto col-form-label title"
-                                >ÁREA</label
-                            >
-                            <select
-                                name="area"
-                                class="form-select"
-                                aria-label="Default select example"
-                                id="area"
-                                v-model="form.area"
-                            >
+                        <div class="form-group" v-if="form.rol=='Boss' ||form.rol=='Director'">
+                            <label class="col-auto col-form-label title">ÁREA</label>
+                            <select name="area"  class="form-select" aria-label="Default select example" id="area" v-model="form.area">
                                 <option selected value="">
-                                    Selecciona una opcción
+                                    SELECCIONA UNA OPCIÓN
                                 </option>
-                                <option value="1">Tienda</option>
-                                <option value="2">Administrativo</option>
-                                <option value="3">Cedi</option>
-                                <option value="4">Factory</option>
-                                <option value="5">Venta Nal</option>
+                                <option value="1">TIENDA</option>
+                                <option value="2">ADMINISTRATIVO</option>
+                                <option value="3">CEDI</option>
+                                <option value="4">FACTORY</option>
+                                <option value="5">VENTA NAL</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <div v-if="form.area == '1'">
-                                <label class="col-auto col-form-label title"
-                                    >REGIONAL</label
-                                >
-                                <select
-                                    name="regional"
-                                    class="form-select"
-                                    aria-label="Default select example"
-                                    id="regional"
-                                    v-model="form.regional"
-                                >
+                                <label class="col-auto col-form-label title">REGIONAL</label>
+                                <select name="regional" class="form-select" aria-label="Default select example" id="regional" v-model="form.regional">
                                     <option selected value="">
                                         Selecciona una opcción
                                     </option>
-                                    <option value="Centro-norte">
-                                        Centro-norte
-                                    </option>
-                                    <option value="Centro-sur">
-                                        Centro-sur
-                                    </option>
-                                    <option value="Sur">Sur</option>
-                                    <option value="Costa">Costa</option>
-                                    <option value="Antioquia-Santander">
-                                        Antioquia-Santander
-                                    </option>
+                                    <option value="REGIONAL SUR">REGIONAL SUR</option>
+                                    <option value="REGIONAL ANTIOQUIA Y SANTANDERES">REGIONAL ANTIOQUIA Y SANTANDERES</option>  
+                                    <option value="REGIONAL CENTRO NORTE">REGIONAL CENTRO NORTE</option>
+                                    <option value="REGIONAL COSTA">REGIONAL COSTA</option>
+                                    <option value="REGIONAL CENTRO SUR">REGIONAL CENTRO SUR</option>
+                                    <option value="CANAL WHOLESALE / VENTA NACIONAL">CANAL WHOLESALE / VENTA NACIONAL</option>
                                 </select>
                             </div>
                             <div v-if="form.area == '5'">
-                                <label class="col-auto col-form-label title"
-                                    >REGIONAL</label
-                                >
-                                <select
-                                    name="regional"
-                                    class="form-select"
-                                    aria-label="Default select example"
-                                    id="regional"
-                                    v-model="form.regional"
-                                >
+                                <label class="col-auto col-form-label title">REGIONAL</label>
+                                <select name="regional" class="form-select"  aria-label="Default select example" id="regional" v-model="form.regional">
                                     <option selected value="">
                                         Selecciona una opcción
                                     </option>
-                                    <option value="Norte">Norte</option>
-                                    <option value="Centro">Centro</option>
-                                    <option value="Sur">Sur</option>
+                                    <option value="NORTE">NORTE</option>
+                                    <option value="NORTE">NORTE</option>
+                                    <option value="SUR">SUR</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-auto col-form-label title"
-                                >CORREO</label
-                            >
-                            <input
-                                type="text"
-                                class="form-control"
-                                name="email"
-                                id="email"
-                                v-model="form.email"
-                                aria-label="Default"
-                            />
+                            <label class="col-auto col-form-label title" >CORREO</label>
+                            <input type="text" class="form-control" name="email" id="email" v-model="form.email" aria-label="Default"/>
                         </div>
                         <div class="form-group">
-                            <label class="col-auto col-form-label title"
-                                >CONTRASEÑA</label
-                            >
-                            <input
-                                name="password"
-                                type="text"
-                                class="form-control"
-                                autocomplete="new-password"
-                                id="password"
-                                v-model="form.password"
-                            />
+                            <label class="col-auto col-form-label title">CONTRASEÑA</label>
+                            <input name="password" type="text" class="form-control" autocomplete="new-password" id="password" v-model="form.password"/>
                         </div>
                         <div class="form-group">
-                            <label class="col-auto col-form-label title"
-                                >CONFIRMAR CONTRASEÑA</label
-                            >
-                            <input
-                                name="password_confirmation"
-                                type="text"
-                                class="form-control"
-                                autocomplete="new-password"
-                                id="password_confirmation"
-                                v-model="form.password_confirmation"
-                            />
+                            <label class="col-auto col-form-label title">CONFIRMAR CONTRASEÑA</label>
+                            <input name="password_confirmation" type="text"  class="form-control" autocomplete="new-password" id="password_confirmation" v-model="form.password_confirmation"/>
                         </div>
                         <div class="row d-flex justify-content-center pt-2">
                             <div class="col-md-5 d-grid gap-2">
-                                <input
-                                    type="submit"
-                                    class="btn btn-crear"
-                                    value="CREAR"
-                                />
+                                <input type="submit" class="btn btn-crear" value="CREAR"/>
                             </div>
                             <div class="col-md-5 d-grid gap-2">
-                                <button
-                                    type="button"
-                                    class="btn btn-cerrar"
-                                    data-bs-dismiss="modal"
-                                >
-                                    CERRAR
-                                </button>
+                                <button type="button" class="btn btn-cerrar" data-bs-dismiss="modal"> CERRAR </button>
                             </div>
                         </div>
                     </form>
@@ -227,9 +134,7 @@ export default {
             if (!this.form.rol) {
                 this.form.errors.push("El rol es obligatorio.");
             }
-            if (!this.form.area) {
-                this.form.errors.push("El área es obligatorio.");
-            }
+
 
             if (!this.form.email) {
                 this.form.errors.push("El correo electrónico es obligatorio.");
@@ -320,4 +225,10 @@ export default {
     background-color: var(--text-dark-color);
     color: var(--primary-color-light);
 }
+/* input{
+    text-transform: uppercase;
+}
+select{
+    text-transform: uppercase;
+} */
 </style>

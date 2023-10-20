@@ -20,21 +20,22 @@
                         <input type="text" placeholder="Search..." />
                     </li> -->
                  
-                    <!-- <ul class="menu-links pt-5">
+                    <ul class="menu-links pt-5">
                         <li class="nav-link">
                             <router-link
                                 class="router-link"
                                 to="/director/requisiciones-regional"
                                 aria-expanded="false"
                             >
-                                <i class="bx bxs-user-account icon"></i>
+                                <!-- <i class="bx bxs-user-account icon"></i> -->
+                                <i class='bx bxs-user-detail icon'></i>
                                 <span class="text nav-text"
-                                    >REQUISICIONES REGIONAL</span
+                                    >REGIONALES</span
                                 >
                             </router-link>
                         </li>
-                    </ul> -->
-                    <ul class="menu-links pt-5">
+                    </ul>
+                    <ul class="menu-links">
                         <li class="nav-link">
                             <router-link
                                 class="router-link"
@@ -43,7 +44,7 @@
                             >
                                 <i class="bx bxs-user-account icon"></i>
                                 <span class="text nav-text"
-                                    >VER MIS REQUISICIONES</span
+                                    >MIS REQUISICIONES</span
                                 >
                             </router-link>
                         </li>

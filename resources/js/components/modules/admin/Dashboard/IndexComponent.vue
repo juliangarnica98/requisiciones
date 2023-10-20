@@ -1,28 +1,28 @@
 <template>
     <div class="page-container" id="page-content">
         <!-- <Nav :actual="this.rut_act"></Nav> -->
-        <div>
+        <!-- <div>
             <h1 class="text-center title">DASHBOARD</h1>
-        </div>
-        <div class="padding pt-5">
+        </div> -->
+        <div class="padding pt-1">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
                     <div class="row">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title"><b>ENTREVISTAS</b></h5>
+                        <div class="">
+                            <div class="">
+                                <h1 class="text-center title">DASHBOARD ENTREVISTAS</h1>
                                 <Int></Int>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title"> <b>REQUISICIONES</b></h5>
+                                <h1 class="text-center title">DASHBOARD REQUISICIONES</h1>
                                 <Req></Req>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -50,5 +50,15 @@ export default {
 .table-head{
     background:var(--primary-color);;
     color: var(--toggle-color);
+}
+.btn-lili {
+    background-color: #e85199;
+    color: white;
+    border-radius: 25px;
+}
+.btn-lili:hover {
+    background-color: rgba(3, 168, 162, 0.9);
+    color: white;
+    border-radius: 25px;
 }
 </style>

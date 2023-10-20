@@ -9,38 +9,6 @@
             <a @click="limpiar" class="btn-flotante">LIMPIAR FORMULARIO</a>
             <div class="row d-flex justify-content-center pt-4">
                 <div class="col-md-8">
-                    <!-- <template class="card" id="step1" v-if="currentStep == 1">
-                        <div class="row card card-cont">
-                            <div class="card-body">
-                                <div class="">
-                                    <small class="h6 fw-bold"
-                                        >POR FAVOR SELECCIONA EL AREA QUE
-                                        PERTENECES</small
-                                    ><small class="h5 text-danger">*</small>
-                                    <select
-                                        v-model="form.area"
-                                        class="form-select mt-3"
-                                        aria-label="Default select example"
-                                    >
-                                        <option selected value="">
-                                            SELECCIONA UNA OPCION
-                                        </option>
-                                        <option value="1">CEDI</option>
-                                        <option value="2">
-                                            ADMINISTRATIVOS
-                                        </option>
-                                        <option value="3">
-                                            COMERCIAL(TIENDAS)
-                                        </option>
-                                        <option value="4">
-                                            COMERCIAL VENTA NAL
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </template> -->
-
                     <template id="step2"  v-if="currentStep == 1">
                         <div
                             class="row card card-cont animate__animated animate__bounceInUp"
@@ -70,20 +38,21 @@
                         >
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <small class="h6 fw-bold"
-                                        >SELECCIONA A CONTINUACIÓN TU
-                                        CARGO</small
-                                    ><small class="h5 text-danger">*</small>
-                                    <select
-                                        v-model="form.cargo"
-                                        class="form-select"
-                                        aria-label="Default select example"
-                                    >
-                                        <option selected value="">
-                                            SELECCIONA UNA OPCION
-                                        </option>
+                                    <small class="h6 fw-bold">SELECCIONA A CONTINUACIÓN TU CARGO</small ><small class="h5 text-danger">*</small>
+                                    <select class="form-control " name="form.cargo" id="cargo" v-model="form.cargo" v-if="form.area=='3'">
+                                        <!-- <option value="">CARGO</option> -->
+                                        <option value="ASESOR PUNTO DE COMPRA">ASESOR PUNTO DE COMPRA</option>
+                                        <option value="ASESOR INTEGRAL">ASESOR INTEGRAL</option>
+                                        <option value="ASESOR INTEGRAL TEMPORADA">ASESOR INTEGRAL TEMPORADA</option>
+                                        <option value="AUXILIAR INTEGRAL">AUXILIAR INTEGRAL</option>
+                                        <option value="COORDINADOR DE TIENDA">COORDINADOR DE TIENDA</option>
+                                        <option value="LIDER DE TIENDA">LIDER DE TIENDA</option>
+                                        <option value="JEFE DE ZONA">JEFE DE ZONA</option>
+                                        <option value="VISUAL MERCHANDISING">VISUAL MERCHANDISING</option>
+                                    </select>
+                                    <select  v-model="form.cargo" class="form-select" aria-label="Default select example" v-if="form.area!='3'">
+                                        <option selected value="">SELECCIONA UNA OPCION</option>
                                         <option v-for="position in positions" :value="position.id">{{position.description}}</option>
-                                        <!-- <option v-for="categoria in categorias" :value="categoria.id">{{categoria.description}}</option> -->
                                     </select>
                                 </div>
                             </div>
@@ -252,56 +221,24 @@
                         >
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <small class="h6 fw-bold"
-                                        >MOTIVO DE RETIRO</small
-                                    ><small class="h5 text-danger">*</small>
-                                    <select
-                                        v-model="form.motivoRetiro"
-                                        class="form-select"
-                                        aria-label="Default select example"
-                                    >
-                                        <option
-                                            selected
-                                            value="traslado de tienda o zona"
-                                        >
-                                            TRASLADO DE TIENDA O ZONA
-                                        </option>
-                                        <option value="mejor oferta laboral">
-                                            MEJOR OFERTA LABORAL
-                                        </option>
+                                    <small class="h6 fw-bold">MOTIVO DE RETIRO</small><small class="h5 text-danger">*</small>
+                                        <select v-model="form.motivoRetiro" class="form-select"  aria-label="Default select example">
+                                        <option selected  value="traslado de tienda o zona">TRASLADO DE TIENDA O ZONA</option>
+                                        <option value="mejor oferta laboral">MEJOR OFERTA LABORAL</option>
                                         <option value="estudio">ESTUDIO</option>
                                         <option value="otro">OTRO</option>
                                     </select>
-                                    <div
-                                        class=""
-                                        v-if="form.motivoRetiro == 'otro'"
-                                    >
-                                        <small class="h6 fw-bold"
-                                            >OTRO MOTIVO DE RETIRO </small
-                                        ><small class="h5 text-danger">*</small>
-                                        <textarea
-                                            v-model="form.otroMotivo"
-                                            type="text"
-                                            class="form-control"
-                                            id=""
-                                            placeholder="Cuéntanos ¿Cuál fue tu motivo de retiro?"
-                                        ></textarea>
+                                    <div class="" v-if="form.motivoRetiro == 'otro'">
+                                        <small class="h6 fw-bold">OTRO MOTIVO DE RETIRO </small><small class="h5 text-danger">*</small>
+                                        <textarea v-model="form.otroMotivo" type="text" class="form-control" id="" placeholder="Cuéntanos ¿Cuál fue tu motivo de retiro?"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div
-                            v-if="
-                                form.cargoJefe != '' &&
-                                (form.area == '3' || form.area == '4')
-                            "
-                            class="row card card-cont animate__animated animate__bounceInUp"
-                        >
+                        <div v-if=" form.cargoJefe != '' && (form.area == '3' || form.area == '4')" class="row card card-cont animate__animated animate__bounceInUp">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <small class="h6 fw-bold"
-                                        >MOTIVO DE RETIRO</small
-                                    ><small class="h5 text-danger">*</small>
+                                    <small class="h6 fw-bold">MOTIVO DE RETIRO</small><small class="h5 text-danger">*</small>
                                     <select v-model="form.motivoRetiro" class="form-select" aria-label="Default select example">
                                         <option selected value="traslado de tienda o zona">TRASLADO DE TIENDA O ZONA</option>
                                         <option value="mejor oferta laboral">MEJOR OFERTA LABORAL</option>
@@ -311,20 +248,9 @@
                                         <option value="distancia de la residencia al lugar de trabajo">DISTANCIA DE LA RESIDENCIA AL LUGAR DE TRABAJO</option>
                                         <option value="otro">OTRO</option>
                                     </select>
-                                    <div
-                                        class=""
-                                        v-if="form.motivoRetiro == 'otro'"
-                                    >
-                                        <small class="h6 fw-bold"
-                                            >OTRO MOTIVO DE RETIRO </small
-                                        ><small class="h5 text-danger">*</small>
-                                        <input
-                                            v-model="form.otroMotivo"
-                                            type="text"
-                                            class="form-control"
-                                            id=""
-                                            placeholder=""
-                                        />
+                                    <div class="" v-if="form.motivoRetiro == 'otro'">
+                                        <small class="h6 fw-bold">OTRO MOTIVO DE RETIRO </small><small class="h5 text-danger">*</small>
+                                        <textarea v-model="form.otroMotivo" type="text" class="form-control" id="" placeholder="Cuéntanos ¿Cuál fue tu motivo de retiro?"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -419,7 +345,21 @@
                                 </div>
                                 <div  class="">
                                     <small class="h6 fw-bold">ASPECTOS POSITIVOS</small><small class="h5 text-danger" >*</small>
-                                    <textarea class="form-control" v-model="form.aspectos" placeholder="Cuéntanos en este espacio aspectos positivos que identificaste durante tu trayectoria en nuestra empresa."></textarea>
+                                    <!-- <textarea class="form-control" v-model="form.aspectos" placeholder="Cuéntanos en este espacio aspectos positivos que identificaste durante tu trayectoria en nuestra empresa."></textarea> -->
+                                    <select v-model="form.aspectos" class="form-select" aria-label="Default select example" >
+                                        <option selected value="">SELECCIONA UNA OPCION</option>
+                                        <option value="SALARIO">SALARIO</option>
+                                        <option value="ACTIVIDADES DE BIENESTAR">ACTIVIDADES DE BIENESTAR</option>
+                                        <option value="CLIMA LABORAL (RELACION CON JEFE Y/O COMPAÑEROS) ">CLIMA LABORAL (RELACION CON JEFE Y/O COMPAÑEROS) </option>
+                                        <option value="FORMACIÓN (INDUCCIÓN CORPORATIVA, INDUCCIÓN AL CARGO)">FORMACIÓN (INDUCCIÓN CORPORATIVA, INDUCCIÓN AL CARGO)</option>
+                                        <option value="HORARIOS">HORARIOS</option>
+                                        <option value="APRENDIZAJE">APRENDIZAJE</option>
+                                        <option value="DISTANCIA">DISTANCIA</option>
+                                        <option value="PUNTUALIDAD EN LOS PAGOS">PUNTUALIDAD EN LOS PAGOS</option>
+                                        <option value="INSTALACIONES FÍSICAS">INSTALACIONES FÍSICAS</option>
+                                        <option value="HERRAMIENTAS DE TRABAJO">HERRAMIENTAS DE TRABAJO</option>
+                                        <option value="DESAYUNOS ADMINISTRATIVOS">DESAYUNOS ADMINISTRATIVOS</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -534,7 +474,7 @@ export default {
         },
         limpiar(){
             this.form={
-                area: "",
+                area: this.$props.area,
                 // identificacion: "",
                 num_document: this.$props.document,
                 nombre: "",
@@ -554,6 +494,7 @@ export default {
                 aspectos: "",
                 fortalecer: "",
             },
+            this.validator=false;
             this.question_satisfaction= [];
             this.getData();
         }
@@ -635,3 +576,7 @@ textarea {
     background-size: cover;
 }
 </style>
+
+
+
+

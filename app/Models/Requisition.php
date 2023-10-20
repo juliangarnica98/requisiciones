@@ -29,4 +29,6 @@ class Requisition extends Model
     public function national_sales(){
         return $this->hasMany(National_sale::class);
     }
+
+    
 }

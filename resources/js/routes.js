@@ -69,6 +69,10 @@ export default new Router({
             path: '/director/requisicion/:id', 
             component: require('./components/modules/director/Requisitions/ShowComponent').default 
         },
+        { 
+            path: '/director/requisiciones-regional', 
+            component: require('./components/modules/director/Requisitions/ShowAllComponent').default 
+        },
         //rutas recruiter
         { 
             path: '/recruiter/dashboard', 

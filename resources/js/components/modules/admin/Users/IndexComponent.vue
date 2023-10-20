@@ -33,9 +33,9 @@
                         <div v-for="(user,index) in users.data" class="card border-none table-body ">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-2 text-center"><b>{{user.name}}</b></div>
-                                    <div class="col-md-2 text-center"><b>{{user.last_name}}</b></div>
-                                    <div class="col-md-2 text-center"><b>{{user.email}}</b> </div>
+                                    <div class="col-md-2 text-center"><b style="text-transform: uppercase;">{{user.name}}</b></div>
+                                    <div class="col-md-2 text-center"><b style="text-transform: uppercase;">{{user.last_name}}</b></div>
+                                    <div class="col-md-2 text-center"><b >{{user.email}}</b> </div>
                                     <!-- <div class="col-md-2 text-center"><b>ROL</b> </div> -->
                                     <div class="col-md-2 text-center">
                                         <div class="" v-if="user.roles[0].name=='Boss'">

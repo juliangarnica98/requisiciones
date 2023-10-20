@@ -23,6 +23,30 @@
                 <button class="btn btn-lili" :class="{'btn-lili2':venta_nal}" @click="updateList(5)">VENTA NACIONAL</button>
             </div>
         </div>
+        <div class="row d-flex justify-content-center pt-3"   >
+            <div class="col-md-3">
+                <select v-if="area == 'tienda'" class=" form-select" name="filtro_regional" id="filtro_regional" v-model="filtro_regional" @change="traerJefesRegional($event)">
+                    <option value="">SELEECIONAR REGIONAL</option>
+                    <option value="" v-for="regi in regionales" :value="regi.description"> {{ regi.description }}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select  class=" form-select" name="filtro_jefe" id="filtro_jefe" v-model="filtro_jefe"  v-if="filtro_regional!='' && area == 'tienda'" @change="filtrarJefe($event)">
+                    <option value="">SELECCIONAR JEFE</option>
+                    <option value="" v-for="jefe in jefes_zona" :value="jefe.id"> {{ jefe.name }} {{ jefe.last_name }}</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class=" form-select" name="filtro_estado" id="filtro_estado" v-model="filtro_estado" @change="filtrarEstado($event)">
+                    <option value="">SELECCIONAR ESTADO</option>
+                    <option value="CANCELADA">CANCELADA</option>
+                    <option value="ABIERTA">ABIERTA</option>
+                    <option value="EN GESTION">EN GESTION</option>
+                    <option value="CERRADA">CERRADA</option>
+                </select>
+            </div>
+        </div>
+
         <div class="padding  pt-4">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
@@ -88,6 +112,13 @@ import Edit from './EditComponent.vue'
         },
         data() {
             return {
+                filtro_regional:"",
+                filtro_jefe:"",
+                filtro_estado:"",
+
+                regionales:{},
+                jefes_zona:{},
+
                 area:"tienda",
                 admin:false,
                 tienda:true,
@@ -112,6 +143,7 @@ import Edit from './EditComponent.vue'
                     this.listaRequisitionFactory = res.data.factory;   
                     this.listaRequisitionNational_sale = res.data.national_sale;
                     this.listaRequisitionStore= res.data.store;
+                    this.regionales=res.data.regional;
                 });
             },
             updateList(id){
@@ -167,7 +199,61 @@ import Edit from './EditComponent.vue'
                         break;
                 }
                 
-            }
+            },
+            traerJefesRegional(event){
+                axios.get(`/generalist/getjefes/`+event.target.value+`/`+this.area)
+                .then((res) => { 
+                    this.jefes_zona = res.data.jefe;  
+                    this.listaRequisitionStore= res.data.store;
+                    this.listaRequisition = this.listaRequisitionStore;
+                });
+            },
+            filtrarJefe(event){
+                
+                if (event.target.value){
+                    axios.get(`/generalist/getfiltro/`+this.area+`/`+event.target.value+`/`+this.filtro_estado)
+                    .then((res) => { 
+                        this.listaRequisitionStore= res.data.store;
+                        this.listaRequisition = this.listaRequisitionStore;
+                    });
+                }
+            },
+
+            filtrarEstado(event){
+                if (this.filtro_jefe == '') {
+                    axios.get(`/generalist/getfiltro/`+this.area+`/sin_jefe/`+event.target.value)
+                    .then((res) => { 
+                        if (res.data.store) {
+                            this.listaRequisitionStore= res.data.store;
+                            this.listaRequisition = this.listaRequisitionStore;
+                        }else if(res.data.admin){
+                            this.listaRequisitionAdmin= res.data.admin;
+                            this.listaRequisition = this.listaRequisitionAdmin;
+                        }
+                        else if(res.data.cedi){
+                            this.listaRequisitionCedi= res.data.cedi;
+                            this.listaRequisition = this.listaRequisitionCedi;
+                        }
+                        else if(res.data.factory){
+                            this.listaRequisitionFactory= res.data.factory;
+                            this.listaRequisition = this.listaRequisitionFactory;
+                        }
+                        else if(res.data.national_sale){
+                            this.listaRequisitionNational_sale= res.data.national_sale;
+                            this.listaRequisition = this.listaRequisitionNational_sale;
+                        }
+       
+                    });
+                } else {
+                    axios.get(`/generalist/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+event.target.value)
+                    .then((res) => { 
+                        if (res.data.store) {
+                            this.listaRequisitionStore= res.data.store;
+                            this.listaRequisition = this.listaRequisitionStore;
+                        }
+                    });
+                }
+            },
         },
         mounted() {
             this.getRequisitions();
@@ -224,5 +310,20 @@ import Edit from './EditComponent.vue'
         background-color: var(--primary-color);
         color: var(--toggle-color);
     } 
+    select{
+        background-color: transparent;
+        border-top:none ;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: var(--primary-color) 2px solid;
+        color: var(--text-dark-color);
+        border-radius: 0;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    option{
+        text-transform: uppercase;
+        color: #00aB9f;
+    }
     
 </style>

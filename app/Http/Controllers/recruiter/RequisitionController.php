@@ -21,6 +21,7 @@ use App\Models\Requisition;
 use App\Models\Sex;
 use App\Models\Store;
 use App\Models\Type_activation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -56,6 +57,7 @@ class RequisitionController extends Controller
         $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
         $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
         $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
+        $data['regional']=Regional::get();
         return response()->json($data);
     }
 
@@ -214,5 +216,45 @@ class RequisitionController extends Controller
                 break;
         }
         return "Se ha modificado estado con exito";
+    }
+
+    public function getboss($regional,$area){
+
+        $reional = Regional::where('description',$regional)->first();
+        if($area == "tienda"){
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('regional_id',$reional->id)->paginate(5);
+        }
+        $data['jefe'] = User::where('regional',$regional)->get(); 
+        return response()->json($data);
+    }
+
+    public function getfilter($area,$jefe,$estado = null){
+
+        if($area == "tienda" && $jefe != "sin_jefe"){
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) use($jefe){$q->where('user_id', $jefe);})->paginate(5);
+        }
+        if($area == "tienda" && $jefe != "sin_jefe" && $estado != null){
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) use($jefe){$q->where('user_id', $jefe);})->where('status',$estado)->paginate(5);
+        }
+        else if($area == "tienda" && $jefe == "sin_jefe"){
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+        }
+
+        else if($area == "admin"){
+            $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+        }
+        else if($area == "cedi"){
+            $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+        }
+        else if($area == "factory"){
+            $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+        }
+        else if($area == "venta_nal"){
+            $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+        }
+    
+        return response()->json($data);
     }
 }

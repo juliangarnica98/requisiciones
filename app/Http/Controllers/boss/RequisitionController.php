@@ -206,37 +206,9 @@ class RequisitionController extends Controller
     }
     public function update(Request $request)
     {
-        $user = User::where('id',auth()->id())->first();
-        $area = $user->area;
-        switch ($area) {
-            case '2':
-                $data=Administration::where('id',$request->id)->first();
+        $data=Store::where('id',$request->id)->first();
                 $data->status=$request->estado;
                 $data->save();
-                break;
-            case '1':
-                $data=Store::where('id',$request->id)->first();
-                $data->status=$request->estado;
-                $data->save();
-                break;
-            case '3':
-                $data=Cedi::where('id',$request->id)->first();
-                $data->status=$request->estado;
-                $data->save();
-                break;
-            case '4':
-                $data=Factory::where('id',$request->id)->first();
-                $data->status=$request->estado;
-                $data->save();
-                break;
-            case '5':
-                $data=National_sale::where('id',$request->id)->first();
-                $data->status=$request->estado;
-                $data->save();
-                break;
-            default:
-                break;
-        }
         return "Se ha modificado estado con exito";
     }
 }

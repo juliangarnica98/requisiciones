@@ -16,7 +16,7 @@ class RegionalSeeder extends Seeder
     {
         // DB::table('regionals')->truncate();
         $data = [
-            ['description' => 'REGIONAL ANTIOQUIA Y SANTANDER'],
+            ['description' => 'REGIONAL ANTIOQUIA Y SANTANDERES'],
             ['description' => 'REGIONAL COSTA'],
             ['description' => 'REGIONAL CENTRO NORTE'],
             ['description' => 'REGIONAL SUR'],

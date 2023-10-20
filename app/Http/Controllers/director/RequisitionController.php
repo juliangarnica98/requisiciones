@@ -31,7 +31,7 @@ class RequisitionController extends Controller
 {
     public function index()
     {
-        $userId = auth()->id();    
+        $userId = auth()->id();
         $user = User::find($userId);
 
         if ($user->area == '1') {
@@ -61,6 +61,17 @@ class RequisitionController extends Controller
         }
         return response()->json($data);
     }
+    public function index2()
+    {
+        
+        $userId = auth()->id();
+        $user = User::find($userId);
+        
+        $regional = Regional::where('description',$user->regional)->first();
+        // dd($regional);
+        $data=Store::with(['activation_charge','activation','city','sex','requisition.user'])->where('regional_id',$regional->id)->paginate(5);
+        return response()->json($data);
+    }
 
     public function getData()
     {
@@ -82,15 +93,15 @@ class RequisitionController extends Controller
 
     public function store(Request $request)
     {
-       
+
         DB::beginTransaction();
 
         try {
-          
+
             $requisition = new Requisition();
             $requisition->user_id=auth()->id();
             $requisition->save();
-    
+
             $type_activation = Type_activation::find($request->tipo_vacante);
             $activation= new Activation();
             $activation->replacement_ide= $request->replacement_ide;
@@ -106,7 +117,7 @@ class RequisitionController extends Controller
             $activation->opening_date= $request->opening_date;
             $activation->opening_category= $request->opening_category;
             $type_activation->activations()->save($activation);
-    
+
             if($request->area == 1){
                 $store = new Store();
                 $store->requisition_id = $requisition->id;
@@ -172,7 +183,7 @@ class RequisitionController extends Controller
             return 'error';
         }
 
-        
+
 
     }
 
@@ -195,7 +206,7 @@ class RequisitionController extends Controller
                 break;
             case '5':
                 $data=National_sale::where('id',$id)->with(['activation_charge','activation.type_activation','city','sex','requisition.user','charge'])->first();
-        
+
                 break;
             default:
                 break;
@@ -205,37 +216,9 @@ class RequisitionController extends Controller
     }
     public function update(Request $request)
     {
-        $user = User::where('id',auth()->id())->first();
-        $area = $user->area;
-        switch ($area) {
-            case '2':
-                $data=Administration::where('id',$request->id)->first();
+        $data=Store::where('id',$request->id)->first();
                 $data->status=$request->estado;
                 $data->save();
-                break;
-            case '1':
-                $data=Store::where('id',$request->id)->first();
-                $data->status=$request->estado;
-                $data->save();
-                break;
-            case '3':
-                $data=Cedi::where('id',$request->id)->first();
-                $data->status=$request->estado;
-                $data->save();
-                break;
-            case '4':
-                $data=Factory::where('id',$request->id)->first();
-                $data->status=$request->estado;
-                $data->save();
-                break;
-            case '5':
-                $data=National_sale::where('id',$request->id)->first();
-                $data->status=$request->estado;
-                $data->save();
-                break;
-            default:
-                break;
-        }
         return "Se ha modificado estado con exito";
     }
 }

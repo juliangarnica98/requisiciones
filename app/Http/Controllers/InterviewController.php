@@ -41,7 +41,7 @@ class InterviewController extends Controller
      */
     public function index($id)
     {
-         $retreal = Retreal::where('num_document',$id)->first();
+         $retreal = Retreal::where('num_document',$id)->where('status',0)->first();
          if($retreal){
             $area = $retreal->area;
              return view('interview',compact('id','area'));
@@ -71,10 +71,11 @@ class InterviewController extends Controller
     {
         // DB::beginTransaction();
         // try {        
+
             $retreal = Retreal::where('num_document',$request->num_document)->first();
             $retreal->status = 1;
             $retreal->num_document = $request->num_document;
-            // $retreal->area = $request->area;
+            // $tipo_cargo = $request->cargo;
             $retreal->name = $request->nombre;
             $retreal->date_entry = $request->fechaingreso;
             $retreal->date_output = $request->fecharetiro;
@@ -83,12 +84,21 @@ class InterviewController extends Controller
             $retreal->regional = $request->regional;
             $retreal->name_boss = $request->nombreJefe;
             $retreal->charge_boss = $request->cargoJefe;
-            $retreal->reason_retreat = $request->otroMotivo == ''? $request->motivoRetiro : $request->otroMotivo;
+
+            $retreal->reason_retreat = $request->motivoRetiro ;
+            $retreal->other_reason_retreat = $request->otroMotivo;
+
             $retreal->benefits = $request->beneficios;
             $retreal->training = $request->entrenamiento;
             $retreal->reinforcement = $request->fortalecer;
             $retreal->positive_aspects = $request->aspectos;
-            $retreal->retirement_positions_id = $request->cargo;
+            if(gettype($request->cargo)=="integer"){
+                $cargo_rq = $request->cargo;
+            }else{
+                $cargo = Retirement_position::where('description',$request->cargo)->first();
+                $cargo_rq = $cargo->id;
+            }
+            $retreal->retirement_positions_id = $cargo_rq;
             $retreal->retirement_city_id = $request->ciudad;
             $retreal->save();
 

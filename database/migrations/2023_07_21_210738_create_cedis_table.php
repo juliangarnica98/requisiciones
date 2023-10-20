@@ -18,6 +18,7 @@ class CreateCedisTable extends Migration
             $table->timestamps();
             $table->text('comentaries')->nullable();
             $table->string('status')->default('ABIERTA');
+            $table->string('reclutador')->default('NO ASIGNADA');
             
             $table->unsignedBigInteger('requisition_id');
             $table->foreign('requisition_id')->references('id')->on('requisitions');

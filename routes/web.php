@@ -30,6 +30,10 @@ Route::post('/entrevista/crear', [App\Http\Controllers\InterviewController::clas
 // Route::post('/entrevista/store', [App\Http\Controllers\admin\RequisitionController::class, 'store']);
 
 
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/getdatainterview/{id}/{init}/{end}/{marca?}/{cargo?}',[App\Http\Controllers\admin\Dashboard::class, 'getdata']);
+});
+
 
 Route::group(['middleware' => ['auth','role:Admin']], function() {
     
@@ -54,13 +58,16 @@ Route::group(['middleware' => ['auth','role:Admin']], function() {
     Route::get('/getdatarequisition', [App\Http\Controllers\admin\RequisitionController::class, 'getData']);
     Route::post('/requisicion/store', [App\Http\Controllers\admin\RequisitionController::class, 'store']);
     Route::post('/requisicion/edit', [App\Http\Controllers\admin\RequisitionController::class, 'update']);
+    //rutas filtros
+    Route::get('/getjefes/{regional}/{area}', [App\Http\Controllers\admin\RequisitionController::class, 'getboss']);
+    Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
     //rutas de entrevista
     Route::post('/entrevista/store', [App\Http\Controllers\admin\InterviewController::class, 'store']);
     Route::get('/entrevistas/{id}',[App\Http\Controllers\admin\HomeController::class, 'index']);
     Route::get('/getdatainterview', [App\Http\Controllers\admin\InterviewController::class, 'getData']);
     Route::get('/getentrevistas/{id}',[App\Http\Controllers\admin\InterviewController::class, 'show']);
     //rutas de dashboard
-    Route::get('/getdatainterview/{id}',[App\Http\Controllers\admin\Dashboard::class, 'getdata']);
+    // Route::get('/getdatainterview/{id}/{init}/{end}',[App\Http\Controllers\admin\Dashboard::class, 'getdata']);
 });
 
 Route::group(['prefix' => 'boss','middleware' => ['auth','role:Boss']], function() {
@@ -81,12 +88,15 @@ Route::group(['prefix' => 'director','middleware' => ['auth','role:Director']], 
     Route::get('/requisicionesregional', [App\Http\Controllers\director\HomeController::class, 'index'])->name('director.requisicionesregional');
     Route::get('/requisiciones', [App\Http\Controllers\director\HomeController::class, 'index'])->name('director.requisiciones');
     Route::get('/crear-requisicion', [App\Http\Controllers\director\HomeController::class, 'index'])->name('director.crarrequisicion');
+    Route::get('/requisiciones-regional', [App\Http\Controllers\director\HomeController::class, 'index']);
+    
     //rutas de requisicion
     Route::get('/getdatarequisition', [App\Http\Controllers\director\RequisitionController::class, 'getData']);
     Route::post('/requisicion/store', [App\Http\Controllers\director\RequisitionController::class, 'store']);
     Route::get('/getrequisition', [App\Http\Controllers\director\RequisitionController::class, 'index']);
     Route::get('/requisicion/{id}',[App\Http\Controllers\director\HomeController::class, 'index']);
     Route::get('/getrequisicion/{id}',[App\Http\Controllers\director\RequisitionController::class, 'show']);
+    Route::get('/getrequisicion-regional',[App\Http\Controllers\director\RequisitionController::class, 'index2']);
     Route::post('/requisicion/edit', [App\Http\Controllers\director\RequisitionController::class, 'update']);
 });
 
@@ -111,6 +121,10 @@ Route::group(['prefix' => 'recruiter','middleware' => ['auth','role:Recruiter']]
     Route::get('/entrevistas/{id}',[App\Http\Controllers\recruiter\HomeController::class, 'index']);
     Route::get('/getdatainterview', [App\Http\Controllers\recruiter\InterviewController::class, 'getData']);
     Route::get('/getentrevistas/{id}',[App\Http\Controllers\recruiter\InterviewController::class, 'show']);
+
+    //rutas filtros
+    Route::get('/getjefes/{regional}/{area}', [App\Http\Controllers\admin\RequisitionController::class, 'getboss']);
+    Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
 });
 
 
@@ -134,4 +148,8 @@ Route::group(['prefix' => 'generalist','middleware' => ['auth','role:Generalist'
     Route::get('/entrevistas/{id}',[App\Http\Controllers\generalist\HomeController::class, 'index']);
     Route::get('/getdatainterview', [App\Http\Controllers\generalist\InterviewController::class, 'getData']);
     Route::get('/getentrevistas/{id}',[App\Http\Controllers\generalist\InterviewController::class, 'show']);
+
+    //rutas filtros
+    Route::get('/getjefes/{regional}/{area}', [App\Http\Controllers\admin\RequisitionController::class, 'getboss']);
+    Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
 });

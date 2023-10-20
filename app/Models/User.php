@@ -24,7 +24,7 @@ class User extends Authenticatable
         'area',
         'email',
         'password',
-        'reginal'
+        'regional'
     ];
 
     /**

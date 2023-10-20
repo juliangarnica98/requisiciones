@@ -32,6 +32,7 @@ class CreateRetrealsTable extends Migration
             $table->string('charge_boss')->nullable();
 
             $table->string('reason_retreat')->nullable();
+            $table->string('other_reason_retreat')->nullable();
 
             $table->string('benefits')->nullable();
             $table->string('training')->nullable();

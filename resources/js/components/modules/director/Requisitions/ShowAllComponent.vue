@@ -2,7 +2,7 @@
     <div class="" id="page-content">
         <!-- <Nav :actual="this.rut_act"></Nav> -->
         <div>
-            <h1 class="text-center title">MIS REQUISICIONES</h1>
+            <h1 class="text-center title">REQUISICIONES REGIONAL</h1>
             
         </div>
 
@@ -15,9 +15,9 @@
                                 <div class="row">
                                 
                                     <div class="col-md-2 text-center"><b>FECHA</b></div>
+                                    <div class="col-md-2 text-center"><b>CREADOR</b></div>
                                     <div class="col-md-2 text-center"><b>CARGO</b> </div>
                                     <div class="col-md-2 text-center"><b>CIUDAD</b> </div>
-                                    <div class="col-md-2 text-center"><b>SEXO</b></div>
                                     <div class="col-md-2 text-center"><b>ESTADO</b></div>
                                     <div class="col-md-2 text-center"><b>VER</b></div>
                                 </div>
@@ -30,14 +30,13 @@
                                 <div class="row ">
                                     
                                     <div class="col-md-2 text-center"><b>{{ rq.created_at | fecha}} </b></div>
-                                    <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
+                                    <div class="col-md-2 text-center"><b>{{rq.requisition.user.name}}</b> </div>
                                     <div class="col-md-2 text-center"><b>{{rq.city.description}}</b> </div>
                                     <div class="col-md-2 text-center"><b>{{rq.sex.description}}</b> </div>
                                     <div class="col-md-2 text-center"><b>{{rq.status}}</b> </div>
                                     <div class="col-md-2 text-center">
                                         <div class="col-md-12">
-                                                <a class="link" data-bs-toggle="modal" :data-bs-target="'#'+rq.id"><i class="fas fa-edit"></i></a>    
-                                                <Edit @traerdata="getRequisitions" :estado="rq.status" :id="rq.id"></Edit>
+                                                <!-- <a class="link" data-bs-toggle="modal" :data-bs-target="'#'+rq.id"><i class="fas fa-edit"></i></a>     -->
                                                 <router-link class="link" :to="{name:'directorrequisicion',params:{ id: rq.id}}" aria-expanded="false" >
                                                     <span class="h4" >
                                                         <i class="fas fa-eye"></i>
@@ -55,10 +54,10 @@
                     
                 </div>
             </div>
-            <pagination class="d-flex justify-content-center" :data="listaRequisition" @pagination-change-page="getRequisitions">
+            <!-- <pagination class="d-flex justify-content-center" :data="listaRequisition" @pagination-change-page="getRequisitions">
                 <span slot="prev-nav">ANTERIOR</span>
                 <span slot="next-nav">SIGUIENTE</span>
-            </pagination>
+            </pagination> -->
         </div>
    
 </template>
@@ -66,9 +65,9 @@
 <script>
 
 import moment from 'moment'
-import Edit from './EditComponent.vue'
+// import Edit from './EditComponent.vue'
     export default {
-        components:{Edit},
+        // components:{Edit},
         data() {
             return {
                 listaRequisition:{},
@@ -76,8 +75,8 @@ import Edit from './EditComponent.vue'
         },
         methods:{
             getRequisitions(page = 1){
-                
-                axios.get('/director/getrequisition?page='+page)
+                console.log(11);
+                axios.get('/director/getrequisicion-regional?page='+page)
                 .then((res) => { 
                     this.listaRequisition = res.data;
                 });
