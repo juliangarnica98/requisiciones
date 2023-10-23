@@ -13,6 +13,10 @@
                 </div>
             </div>   
         </div>
+        <div class="row justify-content-center mt-3" >
+            <div class="col-md-4 text-center pt-3 pb-3 border-left" style="background-color: rgb(97, 102,175);color:white;">SIN REALIZAR <i class="far fa-check-circle "></i></div>
+            <div class="col-md-4 text-center pt-3 pb-3 border-right" style="background-color: rgb(255, 194,51);color:white">REALIZADA <i class="fas fa-window-close"></i></div>
+        </div>
         <div class="padding  pt-4">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
@@ -31,34 +35,30 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="card border-none table-body"  v-for="entrevista in lista_entrevista.data">
-                            <div class="card-body">
-                                <div class="row" >
-                                    <div class="col-md-2 text-center"><b>{{ entrevista.created_at | fecha}} </b></div>
-                                    <div class="col-md-2 text-center"><b>
-                                        <div v-if="entrevista.status == 0" class="">
-                                            Sin realizar   
+                        <div class=""  v-for="entrevista in lista_entrevista.data">
+                            <div class="card border-none" :class="{ estado_abierto: entrevista.status == 0, estado_cancelado: entrevista.status == 1}">
+                                <div class="card-body">
+                                    <div class="row" >
+                                        <div class="col-md-2 text-center"><b>{{ entrevista.created_at | fecha}} </b></div>
+                                        <div class="col-md-2 text-center d-flex justify-content-center">
+                                            <div :class="{cir_est_abi: entrevista.status == 0, cir_est_can: entrevista.status == 1 }"></div>
                                         </div>
-                                        <div v-else>
-                                            Realizada
+                                        <div class="col-md-2 text-center"><b>{{ entrevista.name }}</b> </div>
+                                        <div class="col-md-2 text-center"><b>{{ entrevista.num_document }}</b> </div>
+                                        <div class="col-md-2 text-center" v-if="entrevista.area==1"><b>CEDI</b> </div>
+                                        <div class="col-md-2 text-center" v-if="entrevista.area==2"><b> ADMINISTRATIVOS</b> </div>
+                                        <div class="col-md-2 text-center" v-if="entrevista.area==3"><b> COMERCIAL(TIENDAS)</b> </div>
+                                        <div class="col-md-2 text-center" v-if="entrevista.area==4"><b>COMERCIAL VENTA NAL</b> </div>
+                                        <div class="col-md-2 text-center">
+                                                <div class="col-md-12" v-if="entrevista.status==1">
+                                                    <router-link class="link" :to="{name:'entrevista',params:{ id: entrevista.id}}" aria-expanded="false" >
+                                                        <span class="h4" >
+                                                            <i class="fas fa-eye"></i>
+                                                        </span>
+                                                    </router-link>
+                                                </div>
+                                                
                                         </div>
-
-                                    </b></div>
-                                    <div class="col-md-2 text-center"><b>{{ entrevista.name }}</b> </div>
-                                    <div class="col-md-2 text-center"><b>{{ entrevista.num_document }}</b> </div>
-                                    <div class="col-md-2 text-center" v-if="entrevista.area==1"><b>CEDI</b> </div>
-                                    <div class="col-md-2 text-center" v-if="entrevista.area==2"><b> ADMINISTRATIVOS</b> </div>
-                                    <div class="col-md-2 text-center" v-if="entrevista.area==3"><b> COMERCIAL(TIENDAS)</b> </div>
-                                    <div class="col-md-2 text-center" v-if="entrevista.area==4"><b>COMERCIAL VENTA NAL</b> </div>
-                                    <div class="col-md-2 text-center">
-                                            <div class="col-md-12" v-if="entrevista.status==1">
-                                                <router-link class="link" :to="{name:'entrevista',params:{ id: entrevista.id}}" aria-expanded="false" >
-                                                    <span class="h4" >
-                                                        <i class="fas fa-eye"></i>
-                                                    </span>
-                                                </router-link>
-                                            </div>
-                                            
                                     </div>
                                 </div>
                             </div>
@@ -159,5 +159,54 @@
         background-color: var(--text-dark-color);
         color: var(--primary-color-light);
 
+    }
+    
+    .estado_abierto{
+        border: 3px solid rgb(97, 102,175);
+        color: rgb(0, 0, 0);
+    }
+    .estado_cerrado{
+        border: 3px solid #4CAF50;
+        color: rgb(0, 0, 0);
+    }
+    .estado_engestion{
+        border: 3px solid rgb(243, 133,155);
+        color: rgb(0, 0, 0);
+    }
+    .estado_cancelado{
+        border: 3px solid rgb(255, 194,51);
+        color: rgb(0, 0, 0);
+    }
+    .border-left{
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+    .border-right{
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+    .cir_est_abi{
+        background: rgb(97, 102,175);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+    .cir_est_cer{
+        background: #4CAF50;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+    .cir_est_eng{
+        background:  rgb(243, 133,155);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+    .cir_est_can{
+        background: rgb(255, 194,51);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
     }
 </style>

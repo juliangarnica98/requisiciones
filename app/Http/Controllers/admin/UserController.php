@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Requisition;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,8 +17,9 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = User::with('roles')->paginate(5);
-        return $users;    
+        
+        $data['users'] = User::with('roles')->paginate(5);
+        return $data;    
     }
 
     public function store(Request $request)
@@ -61,8 +63,17 @@ class UserController extends Controller
     }
     public function destroy($id)
     {
+        $requisition = Requisition::where('user_id',$id)->first();
+        if($requisition){
+            return response()->json('ERROR');
+        }
         $user = User::find($id);
         $user->delete();
         return response()->json('SE HA ELIMINADO CORRECTAMENTE');
+    }
+    public function asignar($id)
+    {
+        $requisition = Requisition::where('user_id',$id)->get();
+        
     }
 }

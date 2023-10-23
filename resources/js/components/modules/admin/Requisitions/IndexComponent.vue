@@ -5,19 +5,19 @@
         </div>
         <div class="row d-flex justify-content-center pt-5">
             <div class="col-sm-2  d-grid gap-2">
-                <button class="btn btn-lili" :class="{'btn-lili2':admin}" @click="updateList(1)">ADMINISTRATIVOS</button>
+                <button class="btn btn-lili" :class="{'btn-lili2':admin}" @click="updateList(1)">ADMINISTRATIVOS <i class="fas fa-users"></i></button>
             </div>
             <div class="col-sm-2 d-grid gap-2">
-                <button class="btn btn-lili" :class="{'btn-lili2':tienda}" @click="updateList(2)">TIENDAS</button>
+                <button class="btn btn-lili" :class="{'btn-lili2':tienda}" @click="updateList(2)">TIENDAS <i class="fas fa-store"></i></button>
             </div>
             <div class="col-sm-2 d-grid gap-2">
-                <button class="btn btn-lili" :class="{'btn-lili2':cedi}" @click="updateList(3)">CEDIS</button>
+                <button class="btn btn-lili" :class="{'btn-lili2':cedi}" @click="updateList(3)">CEDIS <i class="fas fa-users"></i></button>
             </div>
             <div class="col-sm-2 d-grid gap-2">
-                <button class="btn btn-lili" :class="{'btn-lili2':factory}" @click="updateList(4)">FACTORY</button>
+                <button class="btn btn-lili" :class="{'btn-lili2':factory}" @click="updateList(4)">MAGENTEX <i class="fas fa-industry"></i></button>
             </div>
             <div class="col-sm-2 d-grid gap-2">
-                <button class="btn btn-lili" :class="{'btn-lili2':venta_nal}" @click="updateList(5)">VENTA NACIONAL</button>
+                <button class="btn btn-lili" :class="{'btn-lili2':venta_nal}" @click="updateList(5)">VENTA NACIONAL <i class="fas fa-globe-americas"></i></button>
             </div>
         </div>
 
@@ -47,51 +47,58 @@
             </div>
         </div>
 
-
-
-
+        <div class="row justify-content-center mt-3" >
+            <div class="col-md-2 text-center pt-3 pb-3 border-left" style="background-color: rgb(97, 102,175);color:white;">ABIERTA <i class="far fa-check-circle "></i></div>
+            <div class="col-md-2 text-center pt-3 pb-3" style="background-color:  rgb(243, 133,155);color:white">EN GESTION <i class="fas fa-user-edit"></i></div>
+            <div class="col-md-2 text-center pt-3 pb-3" style="background-color:  #4CAF50;color:white">CERRADA <i class="fas fa-check-double"></i></div>
+            <div class="col-md-2 text-center pt-3 pb-3 border-right" style="background-color: rgb(255, 194,51);color:white">CANCELADA <i class="fas fa-window-close"></i></div>
+        </div>
 
         <div class="padding  pt-3">
             <div class="d-flex justify-content-center">
-                <div class="col-lg-12 grid-margin">
-                    <div class="row pt-2" >
+                <div class="col-lg-12 grid-margin " >
+
+                    <div class="row pt-3" >
                         <div class="card border-none  table-head">
                             <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-md-2 text-center"><b>CREADOR</b></div>
-                                    <div class="col-md-2 text-center"><b>FECHA</b></div>
+                                <div class="row ">
+                                    <div class="col-md-3 text-center"><b>CREADOR - FECHA</b></div>
+                                    <div class="col-md-1 text-center"><b>ESTADO</b></div>
                                     <div class="col-md-2 text-center"><b>CARGO</b> </div>
                                     <div class="col-md-2 text-center"><b>CIUDAD</b> </div>
-                                    <div class="col-md-2 text-center"><b>ESTADO</b></div>
+                                    <div class="col-md-2 text-center"><b>RECLUTADOR</b></div>
                                     <div class="col-md-2 text-center"><b>ACCIONES</b></div>
                                 </div>                                
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div v-for="rq in listaRequisition.data" class="card border-none table-body ">
-                            <div class="card-body">
-                                <div class="row ">
-                                    <div class="col-md-2 text-center"><b style="text-transform: uppercase;">{{rq.requisition.user.name}} {{rq.requisition.user.last_name}}</b></div>
-                                    <div class="col-md-2 text-center"><b>{{ rq.created_at | fecha}} </b></div>
-                                    <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
-                                    <div class="col-md-2 text-center"><b  style="text-transform: uppercase;">{{rq.city.description}}</b> </div>
-                                    <div class="col-md-2 text-center"><b>{{rq.status}}</b> </div>
-                                    <div class="col-md-2 text-center">
-                                            
-                                            <div class="col-md-12">
-                                                <a class="link" data-bs-toggle="modal" :data-bs-target="'#'+area+'-'+rq.id"><i class="fas fa-edit"></i></a>    
-                                                <Edit @traerdata="getRequisitions" :estado="rq.status" :area="area" :id="rq.id"/>
-                                                <router-link class="link" :to="{name:'requisicion',params:{area: area, id: rq.id}}" aria-expanded="false" >
-                                                    <span class="h4" >
-                                                        <i class="fas fa-eye"></i>
-                                                    </span>
-                                                </router-link>
+                        <div v-for="rq in listaRequisition.data" class="">
+                            <div class="card border-none" :class="{ estado_abierto: rq.status == 'ABIERTA', estado_cerrado: rq.status == 'CERRADA' ,estado_engestion: rq.status == 'EN GESTION',estado_cancelado: rq.status == 'CANCELADA' }">
+                                <div class="card-body">
+                                    <div class="row ">
+                                        <div class="col-md-3 text-center"> <b style="text-transform: uppercase;"> {{rq.requisition.user.name}} {{rq.requisition.user.last_name}} - {{ rq.created_at | fecha}}</b></div>
+                                        <div class="col-md-1 text-center d-flex justify-content-center aling-items-center"><b> <div :class="{ cir_est_abi: rq.status == 'ABIERTA', cir_est_cer: rq.status == 'CERRADA' ,cir_est_eng: rq.status == 'EN GESTION',cir_est_can: rq.status == 'CANCELADA' }"></div></b></div>
+                                        <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
+                                        <div class="col-md-2 text-center"><b  style="text-transform: uppercase;">{{rq.city.description}}</b> </div>
+                                        <div class="col-md-2 text-center"><b>{{rq.reclutador}}</b> </div>
+                                        <div class="col-md-2 text-center">
+                                                
+                                                <div class="col-md-12">
+                                                    <a class="link" data-bs-toggle="modal" :data-bs-target="'#'+area+'-'+rq.id"><i class="fas fa-edit"></i></a>    
+                                                    <Edit @traerdata="getRequisitions2" :estado="rq.status" :area="area" :id="rq.id"/>
+                                                    <router-link class="link" :to="{name:'requisicion',params:{area: area, id: rq.id}}" aria-expanded="false" >
+                                                        <span class="h4" >
+                                                            <i class="fas fa-eye"></i>
+                                                        </span>
+                                                    </router-link>
+                                                    
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                     
@@ -141,6 +148,31 @@ import Edit from './Editcomponent.vue'
                 axios.get('/getrequisition?page='+page)
                 .then((res) => { 
                     this.listaRequisition = res.data.store;  
+                    this.listaRequisitionAdmin = res.data.admin; 
+                    this.listaRequisitionCedi = res.data.cedi;
+                    this.listaRequisitionFactory = res.data.factory;   
+                    this.listaRequisitionNational_sale = res.data.national_sale;
+                    this.listaRequisitionStore= res.data.store;
+                    this.regionales=res.data.regional;
+                });
+            },
+            getRequisitions2(page = 1){
+                axios.get('/getrequisition?page='+page)
+                .then((res) => { 
+                    if (this.area == 'tienda') {
+                        this.listaRequisition = res.data.store;  
+                    } else if(this.area == 'admin') {
+                        this.listaRequisition = res.data.admin;  
+                    }
+                    else if(this.area == 'cedi') {
+                        this.listaRequisition = res.data.cedi; 
+                    }
+                    else if(this.area == 'factory') {
+                        this.listaRequisition = res.data.factory; 
+                    }
+                    else if(this.area == 'venta_nal') {
+                        this.listaRequisition = res.data.national_sale; 
+                    }
                     this.listaRequisitionAdmin = res.data.admin; 
                     this.listaRequisitionCedi = res.data.cedi;
                     this.listaRequisitionFactory = res.data.factory;   
@@ -329,6 +361,55 @@ import Edit from './Editcomponent.vue'
     option{
         text-transform: uppercase;
         color: #00aB9f;
+    }
+
+    .estado_abierto{
+        border: 3px solid rgb(97, 102,175);
+        color: rgb(0, 0, 0);
+    }
+    .estado_cerrado{
+        border: 3px solid #4CAF50;
+        color: rgb(0, 0, 0);
+    }
+    .estado_engestion{
+        border: 3px solid rgb(243, 133,155);
+        color: rgb(0, 0, 0);
+    }
+    .estado_cancelado{
+        border: 3px solid rgb(255, 194,51);
+        color: rgb(0, 0, 0);
+    }
+    .border-left{
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+    .border-right{
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+    .cir_est_abi{
+        background: rgb(97, 102,175);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+    .cir_est_cer{
+        background: #4CAF50;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+    .cir_est_eng{
+        background:  rgb(243, 133,155);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+    .cir_est_can{
+        background: rgb(255, 194,51);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
     }
 
 </style>

@@ -1,23 +1,15 @@
 <template>
-    <div>
-        <div class="sidenav">
-            <div class="d-flex justify-content-center centrar-vertical">
-                <div :class="['text-white']">
-                    <h2 :class="'text-center'">Página de inicio de sesión</h2>
-                    <p>Inicia sesión o regístrate desde aquí para acceder.</p>
-                </div>
-            </div>
-        </div>
-        <div class="main" :class="'d-flex justify-content-center'">
+    <div class="fondo">
+        <div class="" :class="'d-flex justify-content-center '">
             <div class="col-md-6 col-sm-12">
-                <div class="login-form">
+                <div class="login-form card py-5 px-5" style="border: 3px solid #E6007E;opacity:0.9">
                     <form method="POST" action="/login" @submit="chekform" id="login">
                         <input type="hidden" name="_token" :value="csrf" />
                         <div class="">
                             <label class="col-auto col-form-label"
-                                >Correo</label
+                                >CORREO</label
                             >
-                            <input
+                            <input style="border: #6266AE 3px solid;"
                                 type="text"
                                 class="form-control rounded-pill"
                                 name="email"
@@ -27,9 +19,9 @@
                         </div>
                         <div class="form-group">
                             <label class="col-auto col-form-label"
-                                >Contraseña</label
+                                >CONTRASEÑA</label
                             >
-                            <input
+                            <input style="border: #6266AE 3px solid;"
                                 v-model="passowrd"
                                 name="password"
                                 type="password"
@@ -40,11 +32,6 @@
                             class="btn col-12 gradient-custom-2 mb-3 mt-3 rounded-pill btn-lili"
                             type="submit" value="INICIA SESIÓN"
                         >
-                        <!-- <a
-                            class="btn col-12 gradient-custom-2 mb-3 rounded-pill btn-yoi"
-                            href="/register"
-                            >REGISTRATE
-                        </a> -->
                     </form>
                 </div>
             </div>
@@ -64,6 +51,7 @@ export default {
             passowrd:'',
             erros:[],
             laravel_error:{},
+
 
 
     }),
@@ -98,6 +86,14 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.fondo{
+    background: url('/images/fondo_login.jpg');
+    min-height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .sidenav {
     height: 100%;
     background-color: #000;
@@ -122,13 +118,14 @@ export default {
     }
 
     .register-form {
-        margin-top: 10%;
+        margin-top: 0;
     }
 }
 
 @media screen and (min-width: 768px) {
     .main {
         margin-left: 40%;
+        
     }
 
     .sidenav {
@@ -140,14 +137,12 @@ export default {
     }
 
     .login-form {
-        margin-top: 50%;
-    }
-
-    .register-form {
+        width: 70%;
+        margin-left: 15%;
         margin-top: 20%;
     }
-}
 
+}
 .login-main-text h2 {
     font-weight: 300;
 }
@@ -161,6 +156,7 @@ export default {
 }
 .btn-lili {
     background-color: #e52b7f !important;
+    color: #fff;
     transition: 0.5s !important;
     font-weight: bold !important;
     /* font-size: 1.1rem ; */

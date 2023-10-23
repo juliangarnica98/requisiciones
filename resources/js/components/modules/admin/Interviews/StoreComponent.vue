@@ -56,15 +56,19 @@
         },
         methods:{
             storeInterview(){
-              axios.post('/entrevista/store', this.form).then((res) => {
-                if(res.data == 'error'){
-                  this.$toast.error("Ya se ha creado anteriormente");
-                }else{
-                  this.$toast.success(res.data);
-                  this.form.num_document="";
-                  this.$emit('traerdata');
-                }
-              });
+              if(this.form.num_document == "" || this.form.area == ""){
+                this.$toast.error("Hay campos vacios")
+              }else{
+                axios.post('/entrevista/store', this.form).then((res) => {
+                  if(res.data == 'error'){
+                    this.$toast.error("Ya se ha creado anteriormente");
+                  }else{
+                    this.$toast.success(res.data);
+                    this.form.num_document="";
+                    this.$emit('traerdata');
+                  }
+                });
+              }
             },
             
         },

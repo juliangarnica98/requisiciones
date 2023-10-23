@@ -12,6 +12,7 @@
                 </div>
             </div>   
         </div>
+        {{ this.validation }}
         <div class="padding pt-5">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
@@ -73,13 +74,20 @@
                                     </b> </div>
                                     <div class="col-md-2 text-center"><b>
                                         <div class="row d-flex justify-content-center">
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" >
                                                 <a class="link" v-if="user.id!=1" @click="deleteUser(user.id)" style="cursor: pointer;"> 
                                                     <span class="h4" >
                                                         <i class="ti ti-trash"></i>
                                                     </span>
                                                 </a>
                                             </div>
+                                            <!-- <div class="col-md-3" v-else>
+                                                <a class="link" v-if="user.id!=1" @click="deleteUser(user.id)" style="cursor: pointer;"> 
+                                                    <span class="h4" >
+                                                        <i class="ti ti-reload"></i>
+                                                    </span>
+                                                </a>
+                                            </div> -->
                                             <div class="col-md-3">
                                                 <router-link class="link" :to="{name:'usuario',params:{id: user.id}}" aria-expanded="false" >
                                                     <span class="h4" >
@@ -114,6 +122,7 @@
         return{
             users:{},
             rut_act:this.$router.currentRoute.path,
+            validation:"",
         }
     },
     methods:{
@@ -123,7 +132,8 @@
         getUsers(page = 1){
             axios.get('/getusuaios?page='+page)
             .then((res) => { 
-                this.users = res.data;     
+                this.users = res.data.users;     
+                this.validation = res.data.validation;
             });
         },
         deleteUser: function (id){
@@ -134,8 +144,13 @@
                 if (result.isConfirmed) {
                     axios.delete(`/deleteuser/${id}`)
                     .then((res) => {
-                        this.$toast.success(res.data)
-                        this.getUsers();
+                        console.log(res);
+                        if (res.data == 'ERROR') {
+                            this.$toast.error("DEBE REASIGNAR EL USUARIO")
+                        } else {
+                            this.$toast.success(res.data)
+                            this.getUsers();
+                        }
                     });
                 }
                 })
