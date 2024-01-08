@@ -1,36 +1,21 @@
 <template>
     <div class="body">
-        <nav class="sidebar close">
+        <nav class="sidebar">
             <header>
                 <div class="image-text">
                     <span class="image">
                         <img :src="this.image" alt="" />
                     </span>
                     <div class="text header-text">
-                        <span class="name">Requisiciones</span>
-                        <span class="profesion">Entrevistas</span>
+                        <span class="name">{{name}}</span>
+                        <span class="profesion">{{last_name}}</span>
                     </div>
                 </div>
                 <i class="bx bx-chevron-right toggle"></i>
             </header>
             <div class="menu-bar">
                 <div class="menu">
-                    <!-- <li class="search-box">
-                        <i class="bx bx-search icon"></i>
-                        <input type="text" placeholder="Search..." />
-                    </li> -->
-                    <ul class="menu-links pt-5">
-                        <li class="nav-link">
-                            <router-link
-                                class="router-link"
-                                to="/recruiter/dashboard"
-                                aria-expanded="false"
-                            >
-                                <i class="bx bx-home icon"></i>
-                                <span class="text nav-text">DASHBORAD</span>
-                            </router-link>
-                        </li>
-                    </ul>
+                    <div class="pt-5"></div>
                     <ul class="menu-links">
                         <li class="nav-link">
                             <router-link
@@ -57,17 +42,6 @@
                                     >VER REQUISICIONES</span
                                 >
                             </router-link>
-                        </li>
-                    </ul>
-                    <ul class="menu-links">
-                        <li class="nav-link">
-                            <router-link class="router-link" to="/recruiter/requisicion" aria-expanded="false" >
-                                <i class="bx bxs-user-plus icon"></i>
-                                <span class="text nav-text"
-                                    >CREAR REQUISICIONES</span
-                                >
-                            </router-link>
-
                         </li>
                     </ul>
                 </div>
@@ -109,16 +83,13 @@
         </nav>
 
         <section class="home">
-            <!-- <div class="text">Dashboard</div> -->
-           
                 <router-view></router-view>
-            
         </section>
     </div>
 </template>
 <script>
 export default {
-    props: ["token", "name"],
+    props: ["token", "name","last_name"],
     data() {
         return {
             image: "/images/lili.png",
@@ -144,10 +115,6 @@ export default {
                 home.style.width= "calc(100% - 255px)";
             }
         });
-        // searchBtn.addEventListener("click", () => {
-        //     sidebar.classList.remove("close");
-        // });
-
         modeSwitch.addEventListener("click", () => {
             body.classList.toggle("dark");
 
@@ -448,17 +415,16 @@ header .image-text .header-text {
 }
 
 .home {
-    padding: 40px;
+    padding: 20px;
     position: relative;
     left: 250px;
     height: auto;
     min-height: 100%;
-    width: calc(100% - 88px);
+    width: calc(100% - 255px);
     background: var(--body-color);
     transition: var(--tran-05);
 
 }
-
 
 .sidebar.close ~ .home {
     left: 88px;

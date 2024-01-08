@@ -1,14 +1,14 @@
 <template>
     <div class="body">
-        <nav class="sidebar close">
+        <nav class="sidebar">
             <header>
                 <div class="image-text">
                     <span class="image">
                         <img :src="this.image" alt="" />
                     </span>
                     <div class="text header-text">
-                        <span class="name">Requisiciones</span>
-                        <span class="profesion">Entrevistas</span>
+                        <span class="name">{{ name }}</span>
+                        <span class="profesion">{{ last_name }}</span>
                     </div>
                 </div>
                 <i class="bx bx-chevron-right toggle"></i>
@@ -96,7 +96,7 @@
 </template>
 <script>
 export default {
-    props: ["token", "name"],
+    props: ["token", "name","last_name"],
     data() {
         return {
             image: "/images/lili.png",
@@ -426,12 +426,12 @@ header .image-text .header-text {
 }
 
 .home {
-    padding: 40px;
+    padding: 20px;
     position: relative;
     left: 250px;
     height: auto;
     min-height: 100%;
-    width: calc(100% - 88px);
+    width: calc(100% - 255px);
     background: var(--body-color);
     transition: var(--tran-05);
 

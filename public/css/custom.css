@@ -11,7 +11,7 @@
   
   :root{
     /* === Colors === */
-    --body-color: rgba(208, 150, 173, 0.1);
+    --body-color: linear-gradient(90deg, rgba(101,97,169,0.1) 28%, rgba(230,0,126,0.1) 73%);
     --sidebar-color:#FFF;
     --primary-color:#E6007E;
     --primary-color-light:#F6F5FF;
@@ -272,3 +272,69 @@
     left: 24px;
   }
   
+  body{
+    overflow:auto;
+  }
+  body::-webkit-scrollbar {
+      -webkit-appearance: none;
+  }
+
+  body::-webkit-scrollbar:vertical {
+      width:12px;
+  }
+
+  body::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
+      display: none;
+  } 
+
+  body::-webkit-scrollbar:horizontal {
+      height: 10px;
+  }
+
+  body::-webkit-scrollbar-thumb {
+      background-color: rgb(97, 102,175);
+      border-radius: 20px;
+      border: 1px solid #f1f2f3;
+  }
+
+  body::-webkit-scrollbar-track {
+      border-radius: 10px;  
+  }
+
+  .pagination {
+    --bs-pagination-padding-x: 0.75rem;
+    --bs-pagination-padding-y: 0.375rem;
+    --bs-pagination-font-size: 0.9rem;
+    --bs-pagination-color: var(--bs-link-color);
+    --bs-pagination-bg: var(--bs-body-bg);
+    --bs-pagination-border-width: var(--bs-border-width);
+    --bs-pagination-border-color: var(--bs-border-color);
+    --bs-pagination-border-radius: var(--bs-border-radius);
+    --bs-pagination-hover-color: var(--bs-link-hover-color);
+    --bs-pagination-hover-bg: var(--bs-tertiary-bg);
+    --bs-pagination-hover-border-color: var(--bs-border-color);
+    --bs-pagination-focus-color: var(--bs-link-hover-color);
+    --bs-pagination-focus-bg: var(--bs-secondary-bg);
+    --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgb(97, 102,175);
+    --bs-pagination-active-color: #fff;
+    --bs-pagination-active-bg: rgb(97, 102,175);
+    --bs-pagination-active-border-color: rgb(97, 102,175);
+    --bs-pagination-disabled-color: var(--bs-secondary-color);
+    --bs-pagination-disabled-bg: var(--bs-secondary-bg);
+    --bs-pagination-disabled-border-color: var(--bs-border-color);
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+  }
+  
+  .page-link {
+    position: relative;
+    display: block;
+    padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+    font-size: var(--bs-pagination-font-size);
+    color: rgb(97, 102,175);
+    text-decoration: none;
+    background-color: var(--bs-pagination-bg);
+    border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }

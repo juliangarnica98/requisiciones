@@ -4,14 +4,15 @@
           <div class="modal-content" >
             <div class="modal-body">
                 <h5 class="text-center title">SELECCIONE EL ESTADO DE LA REQUISICION</h5>
+                <h5 class="text-center title">ESTADO ACTUAL: {{ form.estado }}</h5>
                 <div v-if="form.estado == 'ABIERTA'">
-                  <select v-model="form.estado" class="form-select mt-3" aria-label="Default select example">
+                  <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
                       <option value="ABIERTA">ABIERTA</option>
                       <option value="CANCELADA">CANCELADA</option>
                   </select>
                 </div>
                 <div v-if="form.estado == 'CANCELADA'">
-                  <select v-model="form.estado" class="form-select mt-3" aria-label="Default select example">
+                  <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
                       <option value="CANCELADA">CANCELADA</option>
                   </select>
                 </div>
@@ -38,6 +39,9 @@
           },
           id:{
             type:Number
+          },
+          area:{
+            type:Number
           }
         },
         data() {
@@ -45,7 +49,9 @@
               form:{
                 estado:this.$props.estado,
                 id:this.$props.id,
-                id_modal:this.$props.id
+                id_modal:this.$props.id,
+                area:this.$props.area,
+                estado_envio:""
               },
             }
         },
@@ -60,6 +66,7 @@
                 // }
                 this.$toast.success(res.data);
                 this.$emit('traerdata');
+                this.form.estado = this.form.estado_envio;
               });
             },
         },

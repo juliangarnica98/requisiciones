@@ -3,7 +3,7 @@
         <div class="row pb-1 d-flex justify-content-center">
         </div>
         <div>
-            <h1 class="text-center title">CREAR REQUISICIÓN</h1>
+            <h1 class="text-start title">CREAR REQUISICIÓN </h1>
         </div>
         <div class="row d-flex justify-content-center pt-4">
             <div class="col-md-11">
@@ -498,8 +498,12 @@
     }
 </script>
 <style scoped>
+h6{
+    font-weight: bold;
+}
 .title{
     color: var(--text-dark-color);
+    font-size: 1.5rem;
 }
 
 .bg-lili{
@@ -507,8 +511,10 @@
 }
 .card-cont{
     border: none;
-    background-color: #00aB9f;
-    color: var(--text-dark-color);
+    background-color: rgb(97, 102,175);
+
+    
+    color: #fff;
     
 }
 .btn-lili {
@@ -517,15 +523,15 @@
     border-radius: 25px;
 }
 .btn-lili:hover {
-    background-color: rgba(3, 168, 162, 0.9);
+    background-color:rgb(97, 102,175);
     color: white;
     border-radius: 25px;
 }
 select{
-    border: #00a89f solid 1px;
+    border: rgb(97, 102,175) solid 1px;
 }
 input{
-    border: #00a89f solid 1px;
+    border: rgb(97, 102,175) solid 1px;
     text-transform: uppercase;
 }
 

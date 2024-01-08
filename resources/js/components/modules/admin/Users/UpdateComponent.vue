@@ -1,31 +1,18 @@
-<!-- <template>
-    <div class="modal fade" :id="form.id_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<template>
+    <div class="modal fade" :id="form.id_modal" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content" >
             <div class="modal-body">
-                <h5 class="text-center title">SELECCIONE EL ESTADO DE LA REQUISICION</h5>
-                <div v-if="form.estado == 'ABIERTA'">
-                  <select v-model="form.estado" class="form-select mt-3" aria-label="Default select example">
-                      <option value="ABIERTA">ABIERTA</option>
-                      <option value="EN GESTION">EN GESTIÓN</option>
-                      <option value="CERRADA">CERRADA</option>
-                  </select>
-                </div>
-                <div v-if="form.estado == 'EN GESTION'">
-                  <select v-model="form.estado" class="form-select mt-3" aria-label="Default select example">
-                      <option value="EN GESTION">EN GESTIÓN</option>
-                      <option value="CERRADA">CERRADA</option>
-                  </select>
-                </div>
-                <div v-if="form.estado == 'CERRADA'">
-                  <select v-model="form.estado" class="form-select mt-3" aria-label="Default select example">
-                      <option value="CERRADA">CERRADA</option>
+                <h5 class="text-center title"> <b>SELECCIONE NUEVO JEFE</b></h5>
+                <div>
+                  <select v-model="form.new_user" class="form-select mt-3" aria-label="Default select example">
+                      <option class="py-2" v-for="user in form.users" :value="user.id">{{ user.name}} {{ user.last_name}}</option>
                   </select>
                 </div>
             </div>
             <div class="row d-flex justify-content-center pb-2">
               <div class="col-md-5 d-grid gap-2">
-                <button type="button" @click="EditInterview()" class="btn btn-crear ">MODIFICAR</button>
+                <button type="button" @click="EditBoss()" class="btn btn-crear ">REASIGNAR</button>
               </div>
               <div class="col-md-5 d-grid gap-2">
                 <button type="button" class="btn btn-cerrar "  data-bs-dismiss="modal">CERRAR</button>
@@ -40,53 +27,65 @@
     export default {  
         
         props:{
-          estado:{
+          user:{
+            type:Number,
+          },
+          rol:{
             type:String,
           },
           area:{
             type:String,
           },
-          id:{
-            type:Number
-          }
+          regional:{
+            type:String,
+          },
+
         },
         data() {
             return {
               form:{
-                // estado: null,
-                // area: null,
-                // id: null,
-                // id_modal: null
-                estado:this.$props.estado,
-                area: this.$props.area,
-                id:this.$props.id,
-                id_modal:this.$props.area+'-'+this.$props.id
+                users:{},
+                new_user:"",
+                rol:this.$props.rol,
+                user:this.$props.user,
+                id_modal:this.$props.user
               },
+              upda:{
+                user:"",
+                new_user:""
+              }
             }
         },
         methods:{
-            EditInterview(){
-              axios.post('/requisicion/edit', this.form).then((res) => {
-                // if(res.data == 'error'){
-                //   this.$toast.error("No se puede modificar el estado");
-                // }else{
-                //   this.$toast.success(res.data);
-                //   this.$emit('traerdata');
-                // }
-                this.$toast.success(res.data);
-                this.$emit('traerdata');
-              });
+            EditBoss(){
+              if(this.form.new_user == ""){
+                this.$toast.info('SE DEBE SELECCIONAR UN JEFE')
+              }else{
+                console.log(111);
+                this.upda.user = this.user
+                this.upda.new_user = this.form.new_user
+                axios.post('/newjefe/reasignar',this.upda).then((res) => {
+
+                  this.$toast.success(res.data)
+                  });
+              }
             },
-        },
-        watch: {
-          area(){
-            this.form.estado = this.estado
-            this.form.area = this.area
-            this.form.id = this.id
-            this.form.id_modal = this.area+'-'+this.id           
-          }
-        },
-    
+            getBosss(){
+              if(this.regional == null){
+                axios.get(`/jefe/reasignar/`+this.rol+`/`+this.area+`/`+this.regional).then((res) => {
+                  this.form.users = res.data.users;
+                });
+              }else{
+                axios.get(`/jefe/reasignar/`+this.rol+`/`+this.area+`/`+this.regional).then((res) => {
+                  this.form.users = res.data.users;
+                });
+              }
+              
+            }
+        },    
+        mounted(){
+          this.getBosss();
+        }
     }
 </script>
 <style scoped>
@@ -114,6 +113,11 @@
         background-color: var(--text-dark-color);
         color: var(--primary-color-light);
     }
+    option{
+      padding-top: 10px;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+    }
     
 
-</style> -->
+</style>

@@ -227,7 +227,7 @@ class ActivationChargeSeeder extends Seeder
             array (
                 'id' => 35,
                 
-                'description' => 'APC TEMPORADA',
+                'description' => 'APC',
             ),
             35 => 
             array (

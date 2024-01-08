@@ -44,7 +44,7 @@
                                         <option value="ASESOR PUNTO DE COMPRA">ASESOR PUNTO DE COMPRA</option>
                                         <option value="ASESOR INTEGRAL">ASESOR INTEGRAL</option>
                                         <option value="ASESOR INTEGRAL TEMPORADA">ASESOR INTEGRAL TEMPORADA</option>
-                                        <option value="AUXILIAR INTEGRAL">AUXILIAR INTEGRAL</option>
+                                        <option value="CAJERO">CAJERO</option>
                                         <option value="COORDINADOR DE TIENDA">COORDINADOR DE TIENDA</option>
                                         <option value="LIDER DE TIENDA">LIDER DE TIENDA</option>
                                         <option value="JEFE DE ZONA">JEFE DE ZONA</option>
@@ -136,13 +136,28 @@
                                 <div class="mb-3">
                                     <div class="card-body">
                                         <small class="h6 fw-bold">¿A QUE REGIONAL PERTENECIAS?</small><small class="h5 text-danger">*</small>
-                                        <select v-model="form.regional" class="form-select" aria-label="Default select example">
-                                            <option value="REGIONAL SUR">REGIONAL SUR</option>
+                                        <select v-model="form.regional" class="form-select" aria-label="Default select example" @change="getDatatienda">
                                             <option value="REGIONAL ANTIOQUIA Y SANTANDERES">REGIONAL ANTIOQUIA Y SANTANDERES</option>  
-                                            <option value="REGIONAL CENTRO NORTE">REGIONAL CENTRO NORTE</option>
                                             <option value="REGIONAL COSTA">REGIONAL COSTA</option>
+                                            <option value="REGIONAL CENTRO NORTE">REGIONAL CENTRO NORTE</option>
+                                            <option value="REGIONAL SUR">REGIONAL SUR</option>
                                             <option value="REGIONAL CENTRO SUR">REGIONAL CENTRO SUR</option>
                                             <option value="CANAL WHOLESALE / VENTA NACIONAL">CANAL WHOLESALE / VENTA NACIONAL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-if="form.regional== 'REGIONAL ANTIOQUIA Y SANTANDERES' 
+                            ||form.regional== 'REGIONAL COSTA' 
+                            ||form.regional== 'REGIONAL CENTRO NORTE'
+                            ||form.regional== 'REGIONAL SUR'
+                            ||form.regional== 'REGIONAL CENTRO SUR'
+                            " class="row card card-cont animate__animated animate__bounceInUp">
+                                <div class="mb-3">
+                                    <div class="card-body">
+                                        <small class="h6 fw-bold">ESCOGE LA TIENDA A LA QUE PERTENECIAS</small><small class="h5 text-danger">*</small>
+                                        <select v-model="form.tienda" class="form-select" aria-label="Default select example">
+                                            <option value="" v-for="tienda in tiendas" :value="tienda.description"> {{ tienda.description }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -259,7 +274,7 @@
 
                     <template id="step7">
                         <div
-                            v-if="form.motivoRetiro != ''"
+                            v-if="(form.motivoRetiro != '' && form.motivoRetiro != 'otro') || (form.motivoRetiro == 'otro' && form.otroMotivo != '')"
                             class="row card card-cont animate__animated animate__bounceInUp"
                         >
                             <!-- <form @click="validate()"> -->
@@ -402,6 +417,7 @@ export default {
                 nombre: "",
                 cargo: "",
                 regional:"",
+                tienda:"",
                 marca:"",
                 fechaingreso: "",
                 fecharetiro: "",
@@ -419,6 +435,7 @@ export default {
             },
             
             question_satisfaction: [],
+            tiendas: [],
             level_satisfaction: [],
             cities:[],
             positions:[],
@@ -431,6 +448,7 @@ export default {
         };
     },
     methods: {
+     
         getData() {
             axios.get("/getdataentrevista").then((res) => {
                 this.level_satisfaction = res.data.level_satisfaction;
@@ -444,6 +462,11 @@ export default {
                 this.positions = res.data.positions;
             });
         },
+        getDatatienda() {
+            axios.get("/getDataTienda/"+this.form.regional).then((res) => {
+                this.tiendas = res.data.tiendas
+            });
+        },
         guardar() {
 
             this.$swal({
@@ -451,12 +474,29 @@ export default {
                 showCancelButton: true,
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    this.form.question = this.question_satisfaction;
-                    axios.post("/entrevista/crear", this.form).then((res) => {
-                        this.$toast.success(res.data);
-                        this.$router.push('/login');
-                        setTimeout("location.reload()", 5000);
-                    });
+
+
+                    if (((this.form.area == '3' || this.form.area == '4')&& this.form.regional == '')
+                        || ((this.form.area == '3' || this.form.area == '4')&& this.form.nombreJefe == '')
+                        || ((this.form.area == '3' || this.form.area == '4')&& this.form.marca == '')
+                        || ((this.form.area == '3')&& this.form.tienda == '')
+                    ){
+                        this.$toast.error("HAY CAMPOS VACIOS");
+                    }else if((this.form.regional == 'REGIONAL ANTIOQUIA Y SANTANDERES' 
+                            ||this.form.regional== 'REGIONAL COSTA' 
+                            ||this.form.regional== 'REGIONAL CENTRO NORTE'
+                            ||this.form.regional== 'REGIONAL SUR'
+                            ||this.form.regional== 'REGIONAL CENTRO SUR')&& this.form.tienda == ''){
+                            this.$toast.error("HAY CAMPOS VACIOS");
+                    }else {
+                        this.$toast.success("HAY CAMPOS VACIOS");
+                        // this.form.question = this.question_satisfaction;
+                        // axios.post("/entrevista/crear", this.form).then((res) => {
+                        //     this.$toast.success(res.data);
+                        //     this.$router.push('/login');
+                        //     setTimeout("location.reload()", 5000);
+                        // });
+                    }
                 }
                 })
             
@@ -480,6 +520,8 @@ export default {
                 nombre: "",
                 cargo: "",
                 regional:"",
+                tienda:"",
+              
                 marca:"",
                 fechaingreso: "",
                 fecharetiro: "",

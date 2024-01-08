@@ -41,6 +41,10 @@ export default new Router({
             path: '/requisiciones/:area/:id', 
             component: require('./components/modules/admin/Requisitions/ShowComponent').default 
         },
+        { 
+            path: '/misrequisiciones', 
+            component: require('./components/modules/admin/Requisitions/EditComponent2').default 
+        },
         //rutas jefe
         { 
             path: '/boss/requisiciones', 
@@ -100,6 +104,10 @@ export default new Router({
             path: '/recruiter/requisiciones/:area/:id', 
             component: require('./components/modules/recruiter/Requisitions/ShowComponent').default 
         },
+        { 
+            path: '/recruiter/misrequisiciones', 
+            component: require('./components/modules/recruiter/Requisitions/EditComponent2').default 
+        },
         //rutas generalist
         { 
             path: '/generalist/dashboard', 
@@ -118,6 +126,14 @@ export default new Router({
             component: require('./components/modules/generalist/Interviews/IndexComponent').default 
         },
         { 
+            path: '/generalist/misrequisiciones', 
+            component: require('./components/modules/generalist/Requisitions/EditComponent2').default 
+        },
+        { 
+            path: '/generalist/charges', 
+            component: require('./components/modules/generalist/Charges/IndexComponent').default 
+        },
+        { 
             name:'/generalist/entrevista',
             path: '/generalist/entrevistas/:id', 
             component: require('./components/modules/generalist/Interviews/ShowComponent').default 
@@ -127,9 +143,16 @@ export default new Router({
             path: '/generalist/requisiciones/:area/:id', 
             component: require('./components/modules/generalist/Requisitions/ShowComponent').default 
         },
+        { 
+            path:'/generalist/holidays',
+            component: require('./components/modules/generalist/Holidays/IndexComponent').default 
+        },
+        { 
+            path:'/generalist/tiendas',
+            component: require('./components/modules/generalist/Tiendas/IndexComponent').default 
+        },
 
     ],
     mode:'history',
     linkActiveClass:'active-link',
-    // linkExactActiveClass: "exact-active",
 })

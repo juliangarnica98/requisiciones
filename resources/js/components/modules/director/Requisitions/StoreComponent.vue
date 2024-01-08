@@ -3,36 +3,16 @@
         <div class="row pb-1 d-flex justify-content-center">
         </div>
         <div>
-            <h1 class="text-center title">CREAR REQUISICIÓN</h1>
+            <h1 class="text-start title">CREAR REQUISICIÓN</h1>
         </div>
         <div class="row d-flex justify-content-center pt-4">
             <div class="col-md-11">
-
-                <!-- <template class="card" id="step1" v-if="currentStep ==1">
-
-                        <div class="row card card-cont">
-                            <div class="card-body">
-
-                                <div class="">
-                                    <h6 class="text-center">POR FAVOR SELECCIONA EL AREA PARA SOLICITAR ACTIVACIÓN <small class="h5 text-danger" >*</small></h6>
-                                    <select v-model="form.area" class="form-select mt-3" aria-label="Default select example" @change="onChageCast(0,form.area)">
-                                        <option selected value="">SELECCIONA UNA OPCION</option>
-                                        <option value="1">TIENDA</option>
-                                        <option value="2">ADMINISTRATIVOS</option>
-                                        <option value="3">CEDI</option>
-                                        <option value="4">FACTORY</option>
-                                        <option value="5">VENTA NAL</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                </template> -->
+               
 
 
                 <template id="step2">
 
-                    <div class="row card card-cont " v-if="form.area == '1'">
+                    <!-- <div class="row card card-cont " v-if="form.area == '1'">
                         <div class="card-body">
                             <div  class="">
                                 <h6 class="text-center">SELECCIONA LA REGIONAL<small class="h5 text-danger" >*</small></h6>
@@ -42,7 +22,7 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
                     <div class="row card card-cont " v-if="form.area == '2'" >
@@ -96,11 +76,13 @@
 
 
                 <template id="step3">
-                    <div v-if="form.regional != ''" class="row card card-cont ">
+                    <div v-if="form.regional != '' && form.area == '1'" class="row card card-cont ">
                         <div class="card-body">
                             <div class="mb-3">
                                 <h6 class="text-center">NOMBRE DE LA TIENDA<small class="h5 text-danger" >*</small></h6>
-                                <input v-model="form.nombre" type="text" class="form-control" id="" placeholder="">
+                                <select class=" form-select" name="filtro_regional" id="filtro_regional" v-model="form.nombre" >
+                                    <option value="" v-for="tiendas in lista_tiendas" :value="tiendas.description"> {{ tiendas.description }}</option>
+                                </select>
                                 <small>CATEGORIA DE LA TIENDA</small><small class="h5 text-danger" >*</small>
                                 <select v-model="form.categoria" class="form-select" aria-label="Default select example" @change="onChageCast(2,form.categoria)">
                                     <option selected value="">SELECCIONA UNA OPCION</option>
@@ -325,6 +307,7 @@
                 tipo_vacantes:[],
                 lista_sexos:[],
                 lista_cargos:[],
+                lista_tiendas:[],
                 currentStep:1,
                 progress:0,
             }
@@ -345,8 +328,8 @@
                       this.lista_sexos=res.data.sexes;
                       this.lista_cargos=res.data.activation_charges;
                       this.form.area=res.data.area;
-                      
-                    
+                      this.form.regional=res.data.regional;
+                      this.lista_tiendas=res.data.tiendas;
                 });
             },
             createRequisition(){
@@ -501,6 +484,7 @@
 <style scoped>
 .title{
     color: var(--text-dark-color);
+    font-size: 1.5rem;
 }
 
 .bg-lili{
@@ -508,8 +492,8 @@
 }
 .card-cont{
     border: none;
-    background-color: #00aB9f;
-    color: var(--text-dark-color);
+    background-color: rgb(97, 102,175);
+    color: #fff;
     
 }
 .btn-lili {
@@ -518,15 +502,15 @@
     border-radius: 25px;
 }
 .btn-lili:hover {
-    background-color: rgba(3, 168, 162, 0.9);
+    background-color: rgb(97, 102,175);
     color: white;
     border-radius: 25px;
 }
 select{
-    border: #00a89f solid 1px;
+    border: rgb(97, 102,175) solid 1px;
 }
 input{
-    border: #00a89f solid 1px;
+    border: rgb(97, 102,175) solid 1px;
     text-transform: uppercase;
 }
 

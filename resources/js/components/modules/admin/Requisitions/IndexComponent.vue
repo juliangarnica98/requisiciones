@@ -1,9 +1,9 @@
 <template>
     <div class="" id="page-content">
         <div>
-            <h1 class="text-center title">REQUISICIONES</h1>
+            <h1 class="text-start title">REQUISICIONES </h1>
         </div>
-        <div class="row d-flex justify-content-center pt-5">
+        <div class="row d-flex justify-content-center pt-2">
             <div class="col-sm-2  d-grid gap-2">
                 <button class="btn btn-lili" :class="{'btn-lili2':admin}" @click="updateList(1)">ADMINISTRATIVOS <i class="fas fa-users"></i></button>
             </div>
@@ -39,7 +39,7 @@
             <div class="col-md-3">
                 <select class=" form-select" name="filtro_estado" id="filtro_estado" v-model="filtro_estado" @change="filtrarEstado($event)">
                     <option value="">SELECCIONAR ESTADO</option>
-                    <option value="CANCELADA">CANCELADA</option>
+                    <option value="CANCELAR">CANCELADA</option>
                     <option value="ABIERTA">ABIERTA</option>
                     <option value="EN GESTION">EN GESTION</option>
                     <option value="CERRADA">CERRADA</option>
@@ -49,9 +49,9 @@
 
         <div class="row justify-content-center mt-3" >
             <div class="col-md-2 text-center pt-3 pb-3 border-left" style="background-color: rgb(97, 102,175);color:white;">ABIERTA <i class="far fa-check-circle "></i></div>
-            <div class="col-md-2 text-center pt-3 pb-3" style="background-color:  rgb(243, 133,155);color:white">EN GESTION <i class="fas fa-user-edit"></i></div>
-            <div class="col-md-2 text-center pt-3 pb-3" style="background-color:  #4CAF50;color:white">CERRADA <i class="fas fa-check-double"></i></div>
-            <div class="col-md-2 text-center pt-3 pb-3 border-right" style="background-color: rgb(255, 194,51);color:white">CANCELADA <i class="fas fa-window-close"></i></div>
+            <div class="col-md-2 text-center pt-3 pb-3" style="background-color:  #a87bc7;color:white">EN GESTION <i class="fas fa-user-edit"></i></div>
+            <div class="col-md-2 text-center pt-3 pb-3" style="background-color:  #e92c91;color:white">CERRADA <i class="fas fa-check-double"></i></div>
+            <div class="col-md-2 text-center pt-3 pb-3 border-right" style="background-color: #f252a7;color:white">CANCELADA <i class="fas fa-window-close"></i></div>
         </div>
 
         <div class="padding  pt-3">
@@ -73,22 +73,27 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div v-for="rq in listaRequisition.data" class="">
+                        <div v-for="rq in listaRequisition.data" class="card-requition">
                             <div class="card border-none" :class="{ estado_abierto: rq.status == 'ABIERTA', estado_cerrado: rq.status == 'CERRADA' ,estado_engestion: rq.status == 'EN GESTION',estado_cancelado: rq.status == 'CANCELADA' }">
                                 <div class="card-body">
                                     <div class="row ">
                                         <div class="col-md-3 text-center"> <b style="text-transform: uppercase;"> {{rq.requisition.user.name}} {{rq.requisition.user.last_name}} - {{ rq.created_at | fecha}}</b></div>
-                                        <div class="col-md-1 text-center d-flex justify-content-center aling-items-center"><b> <div :class="{ cir_est_abi: rq.status == 'ABIERTA', cir_est_cer: rq.status == 'CERRADA' ,cir_est_eng: rq.status == 'EN GESTION',cir_est_can: rq.status == 'CANCELADA' }"></div></b></div>
+                                        <div class="col-md-1 text-center d-flex justify-content-center aling-items-center h6"><b> 
+                                            <div class="" v-if="rq.status=='ABIERTA'"> <i class="far fa-check-circle "></i></div>
+                                            <div class="" v-if="rq.status=='CERRADA'"> <i class="fas fa-check-double"></i></div>
+                                            <div class="" v-if="rq.status=='EN GESTION'">  <i class="fas fa-user-edit"></i></div>
+                                            <div class="" v-if="rq.status=='CANCELADA'"> <i class="fas fa-window-close"></i></div>
+                                        </b></div>
                                         <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
                                         <div class="col-md-2 text-center"><b  style="text-transform: uppercase;">{{rq.city.description}}</b> </div>
                                         <div class="col-md-2 text-center"><b>{{rq.reclutador}}</b> </div>
                                         <div class="col-md-2 text-center">
                                                 
-                                                <div class="col-md-12">
-                                                    <a class="link" data-bs-toggle="modal" :data-bs-target="'#'+area+'-'+rq.id"><i class="fas fa-edit"></i></a>    
-                                                    <Edit @traerdata="getRequisitions2" :estado="rq.status" :area="area" :id="rq.id"/>
+                                                <div class="col-md-12 ">
+                                                    <!-- <a class="link" data-bs-toggle="modal" :data-bs-target="'#'+area+'-'+rq.id"><i class="fas fa-edit"></i></a>    
+                                                    <Edit @traerdata="getRequisitions2" :estado="rq.status" :area="area" :id="rq.id"/> -->
                                                     <router-link class="link" :to="{name:'requisicion',params:{area: area, id: rq.id}}" aria-expanded="false" >
-                                                        <span class="h4" >
+                                                        <span class="h4 text-white" >
                                                             <i class="fas fa-eye"></i>
                                                         </span>
                                                     </router-link>
@@ -305,8 +310,12 @@ import Edit from './Editcomponent.vue'
 </script>
 <style scoped>
 
+    .card-requition{
+        font-size: 0.7rem;
+    }
     .title{
         color: var(--text-dark-color);
+        font-size: 1.5rem;
     }
 
     .border-none{
@@ -364,20 +373,22 @@ import Edit from './Editcomponent.vue'
     }
 
     .estado_abierto{
-        border: 3px solid rgb(97, 102,175);
-        color: rgb(0, 0, 0);
+        background-color: rgb(97, 102,175);
+        color: #fff;
     }
     .estado_cerrado{
-        border: 3px solid #4CAF50;
-        color: rgb(0, 0, 0);
+       
+        background-color: #e92c91;
+        color: #fff;
     }
     .estado_engestion{
-        border: 3px solid rgb(243, 133,155);
-        color: rgb(0, 0, 0);
+        
+        background-color: #a87bc7;
+        color: #fff;
     }
     .estado_cancelado{
-        border: 3px solid rgb(255, 194,51);
-        color: rgb(0, 0, 0);
+        background-color: #f252a7;
+        color: #fff;
     }
     .border-left{
         border-top-left-radius: 15px;
@@ -394,7 +405,7 @@ import Edit from './Editcomponent.vue'
         height: 25px;
     }
     .cir_est_cer{
-        background: #4CAF50;
+        background: rgb(248, 158,93);
         border-radius: 50%;
         width: 25px;
         height: 25px;

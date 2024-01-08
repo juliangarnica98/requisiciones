@@ -52,11 +52,11 @@ class RequisitionController extends Controller
 
     public function index()
     {
-        $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
-        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->paginate(5);
-        $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
-        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
-        $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
+        $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
         $data['regional']=Regional::get();
         
 
@@ -67,7 +67,7 @@ class RequisitionController extends Controller
 
         $reional = Regional::where('description',$regional)->first();
         if($area == "tienda"){
-            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('regional_id',$reional->id)->paginate(5);
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('regional_id',$reional->id)->orderBy('id', 'DESC')->paginate(15);
         }
         $data['jefe'] = User::where('regional',$regional)->get(); 
         return response()->json($data);
@@ -77,27 +77,27 @@ class RequisitionController extends Controller
 
         if($area == "tienda" && $jefe != "sin_jefe"){
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
-            function ($q) use($jefe){$q->where('user_id', $jefe);})->paginate(5);
+            function ($q) use($jefe){$q->where('user_id', $jefe);})->orderBy('id', 'DESC')->paginate(15);
         }
         if($area == "tienda" && $jefe != "sin_jefe" && $estado != null){
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
-            function ($q) use($jefe){$q->where('user_id', $jefe);})->where('status',$estado)->paginate(5);
+            function ($q) use($jefe){$q->where('user_id', $jefe);})->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
         else if($area == "tienda" && $jefe == "sin_jefe"){
-            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
 
         else if($area == "admin"){
-            $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
         else if($area == "cedi"){
-            $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
         else if($area == "factory"){
-            $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
         else if($area == "venta_nal"){
-            $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
     
         return response()->json($data);

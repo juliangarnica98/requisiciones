@@ -22,6 +22,7 @@ use App\Models\Sex;
 use App\Models\Store;
 use App\Models\Type_activation;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -52,15 +53,33 @@ class RequisitionController extends Controller
 
     public function index()
     {
-        $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
-        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->paginate(5);
-        $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
-        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
-        $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
+        $usuario = User::where('id',auth()->id())->first();
+        $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
         $data['regional']=Regional::get();
+        $data['user']=$usuario->id;
         return response()->json($data);
     }
-
+    public function index2()
+    {
+        $usuario = User::where('id',auth()->id())->first();
+        $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) {$q->where('user_id', auth()->id());})->orderBy('id', 'DESC')->paginate(15);
+        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) {$q->where('user_id', auth()->id());})->orderBy('id', 'DESC')->paginate(15);
+        $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) {$q->where('user_id', auth()->id());})->orderBy('id', 'DESC')->paginate(15);
+        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) {$q->where('user_id', auth()->id());})->orderBy('id', 'DESC')->paginate(15);
+        $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) {$q->where('user_id', auth()->id());})->orderBy('id', 'DESC')->paginate(15);
+        $data['regional']=Regional::get();
+        $data['user']=$usuario->id;
+        return response()->json($data);
+    }
 
     public function store(Request $request)
     {
@@ -189,27 +208,42 @@ class RequisitionController extends Controller
         switch ($request->area) {
             case 'admin':
                 $data=Administration::where('id',$request->id)->first();
-                $data->status=$request->estado;
+                $data->status=$request->estado_envio;
+                if($request->reclutador != ""){
+                    $data->reclutador = $request->reclutador;
+                }
                 $data->save();
                 break;
             case 'tienda':
                 $data=Store::where('id',$request->id)->first();
-                $data->status=$request->estado;
+                $data->status=$request->estado_envio;
+                if($request->reclutador != ""){
+                    $data->reclutador = $request->reclutador;
+                }
                 $data->save();
                 break;
             case 'cedi':
                 $data=Cedi::where('id',$request->id)->first();
-                $data->status=$request->estado;
+                $data->status=$request->estado_envio;
+                if($request->reclutador != ""){
+                    $data->reclutador = $request->reclutador;
+                }
                 $data->save();
                 break;
             case 'factory':
                 $data=Factory::where('id',$request->id)->first();
-                $data->status=$request->estado;
+                $data->status=$request->estado_envio;
+                if($request->reclutador != ""){
+                    $data->reclutador = $request->reclutador;
+                }
                 $data->save();
                 break;
             case 'venta_nal':
                 $data=National_sale::where('id',$request->id)->first();
-                $data->status=$request->estado;
+                $data->status=$request->estado_envio;
+                if($request->reclutador != ""){
+                    $data->reclutador = $request->reclutador;
+                }
                 $data->save();
                 break;
             default:
@@ -217,11 +251,84 @@ class RequisitionController extends Controller
         }
         return "Se ha modificado estado con exito";
     }
+    public function update2(Request $request)
+    {
+        switch ($request->area) {
+            case 'admin':
+                $data=Administration::where('id',$request->id)->first();
+                $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
+                $tiempo = $activation_charge->effectiveness;
+                $tiempo_inicial=Carbon::parse($data->created_at);
+                $tiempo_final=Carbon::parse(now());
+                $tiempo_resultado=$tiempo_inicial->diffInDays($tiempo_final);
+                $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
+                $data->nombre_ingreso=$request->nombre_ingreso;
+                $data->cedula_ingreso=$request->cedula_ingreso;
+                $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->save();
+                break;
+            case 'tienda':
+                $data=Store::where('id',$request->id)->first();
+                $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
+                $tiempo = $activation_charge->effectiveness;
+                $tiempo_inicial=Carbon::parse($data->created_at);
+                $tiempo_final=Carbon::parse(now());
+                $tiempo_resultado=$tiempo_inicial->diffInDays($tiempo_final);
+                $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
+                $data->nombre_ingreso=$request->nombre_ingreso;
+                $data->cedula_ingreso=$request->cedula_ingreso;
+                $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->save();
+                break;
+            case 'cedi':
+                $data=Cedi::where('id',$request->id)->first();
+                $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
+                $tiempo = $activation_charge->effectiveness;
+                $tiempo_inicial=Carbon::parse($data->created_at);
+                $tiempo_final=Carbon::parse(now());
+                $tiempo_resultado=$tiempo_inicial->diffInDays($tiempo_final);
+                $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
+                $data->nombre_ingreso=$request->nombre_ingreso;
+                $data->cedula_ingreso=$request->cedula_ingreso;
+                $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->save();
+                break;
+            case 'factory':
+                $data=Factory::where('id',$request->id)->first();
+                $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
+                $tiempo = $activation_charge->effectiveness;
+                $tiempo_inicial=Carbon::parse($data->created_at);
+                $tiempo_final=Carbon::parse(now());
+                $tiempo_resultado=$tiempo_inicial->diffInDays($tiempo_final);
+                $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
+                $data->nombre_ingreso=$request->nombre_ingreso;
+                $data->cedula_ingreso=$request->cedula_ingreso;
+                $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->save();
+                break;
+            case 'venta_nal':
+                $data=National_sale::where('id',$request->id)->first();
+                $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
+                $tiempo = $activation_charge->effectiveness;
+                $tiempo_inicial=Carbon::parse($data->created_at);
+                $tiempo_final=Carbon::parse(now());
+                $tiempo_resultado=$tiempo_inicial->diffInDays($tiempo_final);
+                $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
+                $data->nombre_ingreso=$request->nombre_ingreso;
+                $data->cedula_ingreso=$request->cedula_ingreso;
+                $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->save();
+                break;
+            default:
+                break;
+        }
+        return "SE HA REGISTRADO CORRECTAMENTE";
+    }
     public function getboss($regional,$area){
 
         $reional = Regional::where('description',$regional)->first();
         if($area == "tienda"){
-            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('regional_id',$reional->id)->paginate(5);
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('regional_id',$reional->id)->orderBy('id', 'DESC')->paginate(15);
         }
         $data['jefe'] = User::where('regional',$regional)->get(); 
         return response()->json($data);
@@ -231,29 +338,68 @@ class RequisitionController extends Controller
 
         if($area == "tienda" && $jefe != "sin_jefe"){
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
-            function ($q) use($jefe){$q->where('user_id', $jefe);})->paginate(5);
+            function ($q) use($jefe){$q->where('user_id', $jefe);})->orderBy('id', 'DESC')->paginate(15);
         }
         if($area == "tienda" && $jefe != "sin_jefe" && $estado != null){
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
-            function ($q) use($jefe){$q->where('user_id', $jefe);})->where('status',$estado)->paginate(5);
+            function ($q) use($jefe){$q->where('user_id', $jefe);})->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
         else if($area == "tienda" && $jefe == "sin_jefe"){
-            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
 
         else if($area == "admin"){
-            $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
         else if($area == "cedi"){
-            $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
         else if($area == "factory"){
-            $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
         else if($area == "venta_nal"){
-            $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
     
         return response()->json($data);
     }
+    public function getDataRq(){
+        $userId = auth()->id();    
+        $user = User::find($userId);
+
+        dd($user);
+
+        if ($user->area == '1') {
+            $data=Store::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
+                function ($q) use($userId){$q->where('user_id', $userId);}
+            )->orderBy('id', 'DESC')->paginate(15);
+        }
+        elseif ($user->area == '2') {
+            $data=Administration::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
+                function ($q) use($userId){$q->where('user_id', $userId);}
+            )->orderBy('id', 'DESC')->paginate(15);
+        }
+        elseif ($user->area == '3') {
+            $data=Cedi::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
+                function ($q) use($userId){$q->where('user_id', $userId);}
+            )->orderBy('id', 'DESC')->paginate(15);
+        }
+        elseif ($user->area == '4') {
+            $data=Factory::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
+                function ($q) use($userId){$q->where('user_id', $userId);}
+            )->orderBy('id', 'DESC')->paginate(15);
+        }
+        elseif ($user->area == '5') {
+            $data=National_sale::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
+                function ($q) use($userId){$q->where('user_id', $userId);}
+            )->orderBy('id', 'DESC')->paginate(15);
+        }
+        return response()->json($data);
+    }
+
+    public function getreclutadoras(){
+        $data['reclutadoras'] = User::whereHas("roles", function($q){  $q->where("name", 'Recruiter'); })->get();
+        return response()->json($data);
+    }
+    
 }

@@ -13,4 +13,7 @@ class Regional extends Model
     public function stores(){
         return $this->hasMany(Store::class);
     }
+    public function tiendas(){
+        return $this->hasMany(Tienda::class);
+    }
 }

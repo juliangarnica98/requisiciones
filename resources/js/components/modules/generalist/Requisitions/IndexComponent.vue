@@ -2,27 +2,26 @@
     <div class="" id="page-content">
         <!-- <Nav :actual="this.rut_act"></Nav> -->
         <div>
-            <h1 class="text-center title">REQUISICIONES</h1>
-            
+            <h1 class="text-start title">REQUISICIONES </h1>
         </div>
-        <!-- {{ listaRequisition }} -->
-        <div class="row d-flex justify-content-center pt-5">
+        <div class="row d-flex justify-content-center pt-2">
             <div class="col-sm-2  d-grid gap-2">
-                <button class="btn btn-lili" :class="{'btn-lili2':admin}" @click="updateList(1)">ADMINISTRATIVOS</button>
+                <button class="btn btn-lili" :class="{'btn-lili2':admin}" @click="updateList(1)">ADMINISTRATIVOS <i class="fas fa-users"></i></button>
             </div>
             <div class="col-sm-2 d-grid gap-2">
-                <button class="btn btn-lili" :class="{'btn-lili2':tienda}" @click="updateList(2)">TIENDAS</button>
+                <button class="btn btn-lili" :class="{'btn-lili2':tienda}" @click="updateList(2)">TIENDAS <i class="fas fa-store"></i></button>
             </div>
             <div class="col-sm-2 d-grid gap-2">
-                <button class="btn btn-lili" :class="{'btn-lili2':cedi}" @click="updateList(3)">CEDIS</button>
+                <button class="btn btn-lili" :class="{'btn-lili2':cedi}" @click="updateList(3)">CEDIS <i class="fas fa-users"></i></button>
             </div>
             <div class="col-sm-2 d-grid gap-2">
-                <button class="btn btn-lili" :class="{'btn-lili2':factory}" @click="updateList(4)">FACTORY</button>
+                <button class="btn btn-lili" :class="{'btn-lili2':factory}" @click="updateList(4)">MAGENTEX <i class="fas fa-industry"></i></button>
             </div>
             <div class="col-sm-2 d-grid gap-2">
-                <button class="btn btn-lili" :class="{'btn-lili2':venta_nal}" @click="updateList(5)">VENTA NACIONAL</button>
+                <button class="btn btn-lili" :class="{'btn-lili2':venta_nal}" @click="updateList(5)">VENTA NACIONAL <i class="fas fa-globe-americas"></i></button>
             </div>
         </div>
+
         <div class="row d-flex justify-content-center pt-3"   >
             <div class="col-md-3">
                 <select v-if="area == 'tienda'" class=" form-select" name="filtro_regional" id="filtro_regional" v-model="filtro_regional" @change="traerJefesRegional($event)">
@@ -39,7 +38,7 @@
             <div class="col-md-3">
                 <select class=" form-select" name="filtro_estado" id="filtro_estado" v-model="filtro_estado" @change="filtrarEstado($event)">
                     <option value="">SELECCIONAR ESTADO</option>
-                    <option value="CANCELADA">CANCELADA</option>
+                    <option value="CANCELAR">CANCELADA</option>
                     <option value="ABIERTA">ABIERTA</option>
                     <option value="EN GESTION">EN GESTION</option>
                     <option value="CERRADA">CERRADA</option>
@@ -47,47 +46,76 @@
             </div>
         </div>
 
-        <div class="padding  pt-4">
+        <div class="row justify-content-center mt-3" >
+            <div class="col-md-2 text-center pt-3 pb-3 border-left" style="background-color: rgb(97, 102,175);color:white;">ABIERTA <i class="far fa-check-circle "></i></div>
+            <div class="col-md-2 text-center pt-3 pb-3" style="background-color:  #a87bc7;color:white">EN GESTION <i class="fas fa-user-edit"></i></div>
+            <div class="col-md-2 text-center pt-3 pb-3" style="background-color:  #e92c91;color:white">CERRADA <i class="fas fa-check-double"></i></div>
+            <div class="col-md-2 text-center pt-3 pb-3 border-right" style="background-color: #f252a7;color:white">CANCELADA <i class="fas fa-window-close"></i></div>
+        </div>
+
+        <div class="padding  pt-3">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
                     <div class="row pt-2" >
                         <div class="card border-none  table-head">
                             <div class="card-body ">
-                                <div class="row">
-                                    <div class="col-md-2 text-center"><b>CREADOR</b></div>
-                                    <div class="col-md-2 text-center"><b>FECHA</b></div>
+                                <div class="row"> 
+                                    <!-- <div class="col-md-3 text-center"><b> <a href="#" class="btn btn-light" @click="getRequisitions"><i class="fas fa-users"></i></a> CREADOR </b> <a href="#" class="btn btn-light" @click="getRequisitions3"><i class="fas fa-user"></i></a></div> -->
+                                    <div class="col-md-3 text-center"><b>CREADOR</b></div>
+                                    <div class="col-md-1 text-center"><b>ESTADO</b></div>
                                     <div class="col-md-2 text-center"><b>CARGO</b> </div>
                                     <div class="col-md-2 text-center"><b>CIUDAD</b> </div>
-                                    <div class="col-md-2 text-center"><b>ESTADO</b></div>
+                                    <div class="col-md-2 text-center"><b>RECLUTADOR</b></div>
                                     <div class="col-md-2 text-center"><b>VER</b></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div v-for="rq in listaRequisition.data" class="card border-none table-body ">
-                            <div class="card-body">
-                                <div class="row ">
-                                    <div class="col-md-2 text-center"><b>{{rq.requisition.user.name}}</b></div>
-                                    <div class="col-md-2 text-center"><b>{{ rq.created_at | fecha}} </b></div>
-                                    <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
-                                    <div class="col-md-2 text-center"><b>{{rq.city.description}}</b> </div>
-                                    <div class="col-md-2 text-center"><b>{{rq.status}}</b> </div>
-                                    <div class="col-md-2 text-center">
-                                            <div class="col-md-12">
-                                                <a class="link" data-bs-toggle="modal" :data-bs-target="'#'+area+'-'+rq.id"><i class="fas fa-edit"></i></a>    
-                                                <Edit @traerdata="getRequisitions" :estado="rq.status" :area="area" :id="rq.id"></Edit>
-                                                <router-link class="link" :to="{name:'/generalist/requisicion',params:{area: area, id: rq.id}}" aria-expanded="false" >
-                                                    <span class="h4" >
-                                                        <i class="fas fa-eye"></i>
-                                                    </span>
-                                                </router-link>
+                        <div v-for="rq in listaRequisition.data" class="card-requition">
+                            <div class="card border-none" :class="{ estado_abierto: rq.status == 'ABIERTA', estado_cerrado: rq.status == 'CERRADA' ,estado_engestion: rq.status == 'EN GESTION',estado_cancelado: rq.status == 'CANCELAR' }">
+                                <div class="card-body">
+                                    <div class="row ">
+                                        <div class="col-md-3 text-center"> <b style="text-transform: uppercase;"> {{rq.requisition.user.name}} {{rq.requisition.user.last_name}} - {{ rq.created_at | fecha}}</b></div>
+                                        <div class="col-md-1 text-center d-flex justify-content-center aling-items-center"><b> 
+                                            <!-- <div class="" v-if="rq.status=='ABIERTA'"> <i class="far fa-check-circle "></i></div>
+                                            <div class="" v-if="rq.status=='CERRADA'"> <i class="fas fa-check-double"></i></div>
+                                            <div class="" v-if="rq.status=='EN GESTION'">  <i class="fas fa-user-edit"></i></div>
+                                            <div class="" v-if="rq.status=='CANCELADA'"> <i class="fas fa-window-close"></i></div> -->
+                                            {{ rq.status }}
+                                        </b></div>
+                                        <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
+                                        <div class="col-md-2 text-center"><b  style="text-transform: uppercase;">{{rq.city.description}}</b> </div>
+                                        <div class="col-md-2 text-center"><b style="text-transform: uppercase;">{{rq.reclutador}}</b> </div>
+                                        <div class="col-md-2 text-center">
+                                                
+                                                <div class="col-md-12 h4">
+                                                    <div class="row d-flex justify-content-center">
+                                                        <div class="col-md-2 text-white">
+                                                            <div v-if="rq.fecha_ingreso == null">                                                                
+                                                                <Edit @traerdata="getRequisitions2"  :estado="rq.status" :area="area" :id="rq.id" :creador="comCreador(rq.requisition.user_id)"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2 text-white">
+                                                            <router-link class="link text-white" :to="{name:'/generalist/requisicion',params:{area: area, id: rq.id}}" aria-expanded="false" >
+                                                                <span class="" >
+                                                                    <i class="fas fa-eye"></i>
+                                                                </span>
+                                                            </router-link>
+                                                        </div>
+                                                        <div class="col-md-2 text-white" >
+                                                            <div v-if="rq.status== 'CERRADA' && rq.nombre_ingreso == null" class="text-white">
+                                                                
+                                                                <Edit2 @traerdata="getRequisitions2" :estado="rq.status" :area="area" :id="rq.id"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            
                                         </div>
-                                    </div>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                     
@@ -106,15 +134,19 @@
 
 import moment from 'moment'
 import Edit from './EditComponent.vue'
+import Edit2 from './EditComponent2.vue'
     export default {
         components:{
-            Edit
+          Edit,Edit2
         },
         data() {
             return {
                 filtro_regional:"",
                 filtro_jefe:"",
                 filtro_estado:"",
+
+                creador:"",
+                id_usuario:"",
 
                 regionales:{},
                 jefes_zona:{},
@@ -131,11 +163,71 @@ import Edit from './EditComponent.vue'
                 listaRequisitionStore:{},
                 listaRequisitionNational_sale:{},
                 listaRequisitionFactory:{},
+
+                emitModal1:false,
             }
         },
         methods:{
+            changsss()
+            {
+                return emitModal1 = !emitModal1
+            },
+
             getRequisitions(page = 1){
                 axios.get('/generalist/getrequisition?page='+page)
+                .then((res) => { 
+                    if (this.area == 'tienda') {
+                        this.listaRequisition = res.data.store;  
+                    } else if(this.area == 'admin') {
+                        this.listaRequisition = res.data.admin;  
+                    }
+                    else if(this.area == 'cedi') {
+                        this.listaRequisition = res.data.cedi; 
+                    }
+                    else if(this.area == 'factory') {
+                        this.listaRequisition = res.data.factory; 
+                    }
+                    else if(this.area == 'venta_nal') {
+                        this.listaRequisition = res.data.national_sale; 
+                    }else{
+                        this.listaRequisition = res.data.store;  
+                    }
+                    this.listaRequisitionAdmin = res.data.admin; 
+                    this.listaRequisitionCedi = res.data.cedi;
+                    this.listaRequisitionFactory = res.data.factory;   
+                    this.listaRequisitionNational_sale = res.data.national_sale;
+                    this.listaRequisitionStore= res.data.store;
+                    this.regionales=res.data.regional;
+                    this.id_usuario=res.data.user;
+                });
+            },
+            getRequisitions2(page = 1){
+                axios.get('/generalist/getrequisition?page='+page)
+                .then((res) => { 
+                    if (this.area == 'tienda') {
+                        this.listaRequisition = res.data.store;  
+                    } else if(this.area == 'admin') {
+                        this.listaRequisition = res.data.admin;  
+                    }
+                    else if(this.area == 'cedi') {
+                        this.listaRequisition = res.data.cedi; 
+                    }
+                    else if(this.area == 'factory') {
+                        this.listaRequisition = res.data.factory; 
+                    }
+                    else if(this.area == 'venta_nal') {
+                        this.listaRequisition = res.data.national_sale; 
+                    }
+                    this.listaRequisitionAdmin = res.data.admin; 
+                    this.listaRequisitionCedi = res.data.cedi;
+                    this.listaRequisitionFactory = res.data.factory;   
+                    this.listaRequisitionNational_sale = res.data.national_sale;
+                    this.listaRequisitionStore= res.data.store;
+                    this.regionales=res.data.regional;
+                });
+            },
+            getRequisitions3(page = 1){
+                axios.get('/generalist/getrequisition2?page='+page)
                 .then((res) => { 
                     this.listaRequisition = res.data.store;  
                     this.listaRequisitionAdmin = res.data.admin; 
@@ -144,6 +236,7 @@ import Edit from './EditComponent.vue'
                     this.listaRequisitionNational_sale = res.data.national_sale;
                     this.listaRequisitionStore= res.data.store;
                     this.regionales=res.data.regional;
+                    this.id_usuario=res.data.user;
                 });
             },
             updateList(id){
@@ -254,6 +347,10 @@ import Edit from './EditComponent.vue'
                     });
                 }
             },
+            comCreador(params){
+                return params == this.id_usuario ? 1 : 0;
+            }
+
         },
         mounted() {
             this.getRequisitions();
@@ -263,24 +360,30 @@ import Edit from './EditComponent.vue'
                 return moment(fecha).format('YYYY/MM/DD');
             }
         },
+        computed:{
+        }
         
     }
 </script>
 <style scoped>
+
+    .card-requition{
+        font-size: 0.7rem;
+    }
     .title{
         color: var(--text-dark-color);
+        font-size: 1.5rem;
     }
 
     .border-none{
         border: 0;
     }
     .table-head{
-        background:var(--primary-color);;
+        background:var(--primary-color);
         color: var(--toggle-color);
     }
     .table-body{
-        /*border-color: red;*/
-        /*border: 1px solid #03a8a2;*/
+
         background-color: #00aB9f;
         color: var(--toggle-color);
     }
@@ -325,5 +428,56 @@ import Edit from './EditComponent.vue'
         text-transform: uppercase;
         color: #00aB9f;
     }
-    
+
+    .estado_abierto{
+        background-color: rgb(97, 102,175);
+        color: #fff;
+    }
+    .estado_cerrado{
+       
+        background-color: #e92c91;
+        color: #fff;
+    }
+    .estado_engestion{
+        
+        background-color: #a87bc7;
+        color: #fff;
+    }
+    .estado_cancelado{
+        background-color: #f252a7;
+        color: #fff;
+    }
+    .border-left{
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+    .border-right{
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+    .cir_est_abi{
+        background: rgb(97, 102,175);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+    .cir_est_cer{
+        background: rgb(248, 158,93);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+    .cir_est_eng{
+        background:  rgb(243, 133,155);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+    .cir_est_can{
+        background: rgb(255, 194,51);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+
 </style>

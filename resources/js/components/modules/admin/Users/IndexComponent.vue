@@ -1,29 +1,29 @@
 <template>
-    <div class=" page-container" id="page-content">
+    <div class="page-container " id="page-content">
         <!-- <Nav :actual="this.rut_act"></Nav> -->
         <div>
-            <h1 class="text-center title">USUARIOS</h1>
+            <h1 class="text-start title " >USUARIOS</h1>
         </div>
-        <div class="row  pt-5">
-            <div class="col-md-1">
+        <div class="row  pt-3">
+            <div class="col-md-2">
                 <div class="d-grid gap-2">
-                    <button class="btn btn-lili" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-plus"></i></button>
+                    <button class="btn btn-lili" data-bs-toggle="modal" data-bs-target="#exampleModal">NUEVO <i class="fas fa-plus"></i></button>
                     <Store @traerdata="getUsers"></Store>
                 </div>
             </div>   
         </div>
         {{ this.validation }}
-        <div class="padding pt-5">
+        <div class="padding pt-3 ">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
-                    <div class="row pt-2" >
+                    <div class="row pt-1" >
                         <div class="card border-none  table-head">
                             <div class="card-body ">
                                 <div class="row">
                                     <div class="col-md-2 text-center"><b>NOMBRE</b></div>
                                     <div class="col-md-2 text-center"><b>APELLIDO</b></div>
-                                    <div class="col-md-2 text-center"><b>EMAIL</b> </div>
-                                    <div class="col-md-2 text-center"><b>ROL</b> </div>
+                                    <div class="col-md-3 text-center"><b>EMAIL</b> </div>
+                                    <div class="col-md-1 text-center"><b>ROL</b> </div>
                                     <div class="col-md-2 text-center"><b>ÁREA</b> </div>
                                     <div class="col-md-2 text-center"><b>ACCIONES</b></div>
                                 </div>
@@ -36,64 +36,62 @@
                                 <div class="row">
                                     <div class="col-md-2 text-center"><b style="text-transform: uppercase;">{{user.name}}</b></div>
                                     <div class="col-md-2 text-center"><b style="text-transform: uppercase;">{{user.last_name}}</b></div>
-                                    <div class="col-md-2 text-center"><b >{{user.email}}</b> </div>
+                                    <div class="col-md-3 text-center"><b >{{user.email}}</b> </div>
                                     <!-- <div class="col-md-2 text-center"><b>ROL</b> </div> -->
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-1 text-center">
                                         <div class="" v-if="user.roles[0].name=='Boss'">
-                                            <B>JEFE</B>
+                                           JEFE
                                         </div>
                                         <div class="" v-if="user.roles[0].name=='Admin'">
-                                            <B>ADMIN</B>
+                                            ADMIN
                                         </div>
                                         <div class="" v-if="user.roles[0].name=='Generalist'">
-                                            <B>GENERALISTA</B>
+                                            GENERALISTA
                                         </div>
                                         <div class="" v-if="user.roles[0].name=='Director'">
-                                            <B>DIRECTOR</B>
+                                            DIRECTOR
                                         </div>
                                         <div class="" v-if="user.roles[0].name=='Recruiter'">
-                                            <B>RECLUTADOR</B>
+                                            RECLUTADOR
                                         </div>
                                     </div>
                                     <div class="col-md-2 text-center"><b>
                                         <div class="" v-if="user.area=='1'">
-                                            <B>TIENDA</B>
+                                            TIENDA -<span v-if="user.regional != null"> {{ user.regional }}</span>
+
                                         </div>
                                         <div class="" v-if="user.area=='2'">
-                                            <B>ADMINISTRATIVO</B>
+                                            ADMINISTRATIVO
                                         </div>
                                         <div class="" v-if="user.area=='3'">
-                                            <B>CEDI</B>
+                                            CEDI
                                         </div>
                                         <div class="" v-if="user.area=='4'">
-                                            <B>FACTORY</B>
+                                            FACTORY
                                         </div>
                                         <div class="" v-if="user.area=='5'">
-                                            <B>VENTA NAL</B>
+                                            VENTA NAL -<span v-if="user.regional != null"> {{ user.regional }}</span>
                                         </div>
                                     </b> </div>
                                     <div class="col-md-2 text-center"><b>
                                         <div class="row d-flex justify-content-center">
                                             <div class="col-md-3" >
                                                 <a class="link" v-if="user.id!=1" @click="deleteUser(user.id)" style="cursor: pointer;"> 
-                                                    <span class="h4" >
+                                                    <span class="h4 text-white" >
                                                         <i class="ti ti-trash"></i>
                                                     </span>
                                                 </a>
                                             </div>
-                                            <!-- <div class="col-md-3" v-else>
-                                                <a class="link" v-if="user.id!=1" @click="deleteUser(user.id)" style="cursor: pointer;"> 
-                                                    <span class="h4" >
-                                                        <i class="ti ti-reload"></i>
-                                                    </span>
-                                                </a>
-                                            </div> -->
                                             <div class="col-md-3">
                                                 <router-link class="link" :to="{name:'usuario',params:{id: user.id}}" aria-expanded="false" >
-                                                    <span class="h4" >
+                                                    <span class="h4 text-white" >
                                                         <i class="ti ti-pencil"></i>
                                                     </span>
                                                 </router-link>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <a class="link" v-if="user.id!=1" data-bs-toggle="modal" :data-bs-target="'#'+user.id"> <span class="h5 text-white"><i class="fas fa-sync"></i></span> </a>
+                                                <Update @traerdata="getUsers" :user="user.id" :rol="user.roles[0].name" :area="user.area" :regional="user.regional"></Update>
                                             </div>
                                             
                                         </div>
@@ -116,8 +114,9 @@
 
 <script>
     import Store from './StoreComponent.vue';
+    import Update from './UpdateComponent.vue';
     export default {
-    components:{Store},
+    components:{Store, Update},
     data() {
         return{
             users:{},
@@ -130,8 +129,10 @@
             // console.log('Hola Julio')
         },
         getUsers(page = 1){
+            this.users={}
             axios.get('/getusuaios?page='+page)
             .then((res) => { 
+                
                 this.users = res.data.users;     
                 this.validation = res.data.validation;
             });
@@ -164,21 +165,27 @@
 };
 </script>
 <style scoped>
-    .title{
-        color: var(--text-dark-color);
-    }
-    .border-none{
+.title{
+    font-size: 1.5rem;
+    color: var(--text-dark-color);
+}    .border-none{
         border: 0;
     }
     .table-head{
-        background:var(--primary-color);;
+        background:var(--primary-color);
         color: var(--toggle-color);
+
+        /*background:var(--primary-color);
+        color: var(--toggle-color);*/
     }
     .table-body{
         /*border-color: red;*/
         /*border: 1px solid #03a8a2;*/
-        background-color: #00aB9f;
-        color: var(--toggle-color);
+        /*border: #6266AE 3px solid;*/
+        background-color: rgb(97, 102,175) ;
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: 500;
     }
     .link{
         text-decoration:none;
@@ -190,9 +197,9 @@
         cursor: pointer;
     }
     .btn-lili {
-        padding: 10px 0;
+        padding: 10px 10px;
         /*border: #e85199 solid 1px;*/
-        background-color: var(--text-color);
+        background-color: var(--text-dark-color);
         color: var(--primary-color-light);
         
     }

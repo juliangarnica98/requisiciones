@@ -6,6 +6,8 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
     >
+
+    
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
@@ -66,7 +68,7 @@
                                         Selecciona una opcción
                                     </option>
                                     <option value="NORTE">NORTE</option>
-                                    <option value="NORTE">NORTE</option>
+                                    <option value="CENTRO NORTE">CENTRO NORTE</option>
                                     <option value="SUR">SUR</option>
                                 </select>
                             </div>

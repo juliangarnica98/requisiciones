@@ -1,13 +1,12 @@
 <template>
-    <div>
-        
-        <div  class="row pb-3 pt-3">
-            <div class="d-flex justify-content-center ">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
+    <div>   
+        <div class="row pb-3 pt-3"  >
+            <div class="d-flex justify-content-center" >
+                <div class="card" style="width: 100%;">
+                    <div class="card-body" >
+                        <div class="row" >
                             <div class="col-md-3" :class="{ 'col-md-4': area === '3'}">
-                                <select class="form-control " name="area" id="area" v-model="area" >
+                                <select class="form-select " name="area" id="area" v-model="area" >
                                     <option value="">SELECCIONA ÁREA</option>
                                     <option value="1">CEDI</option>
                                     <option value="2">ADMINISTARTIVO</option>
@@ -19,6 +18,7 @@
                                 <input class="form-control" type="date" value="" id="init_date" name="init_date" v-model="init_date">
                             </div>    
                             <div class="col-md-3" :class="{ 'col-md-4': area === '3'}">
+                                <!-- <label for="end_date">FECHA FIN</label> -->
                                 <input class="form-control" type="date" value="" id="end_date" name="end_date" v-model="end_date">
                             </div>    
                             <div class="col-md-3 d-grid gap-2" v-if="area!='3'">
@@ -27,7 +27,7 @@
                         </div>
                         <div class="row pt-3"  v-if="area == '3'">
                             <div class="col-md-4">
-                                <select class="form-control " name="marca" id="marca" v-model="marca" >
+                                <select class="form-select " name="marca" id="marca" v-model="marca" >
                                     <option value="">MARCA</option>
                                     <option value="LLP">LLP</option>
                                     <option value="YOI">YOI</option>
@@ -35,17 +35,19 @@
                                 </select>
                             </div>    
                             <div class="col-md-4  ">
-                                <select class="form-control " name="cargo" id="cargo" v-model="cargo" >
-                                    <option value="">CARGO</option>
-                                    <option value="ASESOR PUNTO DE COMPRA">ASESOR PUNTO DE COMPRA</option>
+                                <!-- <select class="form-control" multiple name="cargo" id="cargo" v-model="cargos">
+
+                                    <option value="</option>
                                     <option value="ASESOR INTEGRAL">ASESOR INTEGRAL</option>
                                     <option value="ASESOR INTEGRAL TEMPORADA">ASESOR INTEGRAL TEMPORADA</option>
                                     <option value="AUXILIAR INTEGRAL">AUXILIAR INTEGRAL</option>
+                                    <option value="CAJERO">CAJERO</option>
                                     <option value="COORDINADOR DE TIENDA">COORDINADOR DE TIENDA</option>
                                     <option value="LIDER DE TIENDA">LIDER DE TIENDA</option>
                                     <option value="JEFE DE ZONA">JEFE DE ZONA</option>
                                     <option value="VISUAL MERCHANDISING">VISUAL MERCHANDISING</option>
-                                </select>
+                                </select> -->
+                                <multiselect class="select" v-model="cargos" :multiple="true" :options="cargos_comercial" :searchable="false" :close-on-select="false" :show-labels="false" placeholder="Selecciona los cargos"></multiselect>
                             </div>   
               
 
@@ -55,20 +57,12 @@
                         </div>
                     </div>
                 </div>
+           
             </div>
         </div>
-<!-- 
-        <div  class="row pb-3 pt-3" v-if="area=='3'">
-            <div class="d-flex justify-content-center ">
-                <div class="card">
-                    <div class="card-body">
-                       
-                    </div>
-                </div>
-            </div>
-        </div> -->
+
         
-        <div class="row">
+        <div class="row" v-if="this.area != '' &&  this.init_date != '' && this.end_date != ''">
             <div class="col-md-4">
                 <div class="card">
                     <!-- <div class="card-header">
@@ -134,7 +128,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="this.area != '' &&  this.init_date != '' && this.end_date != ''">
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
@@ -186,27 +180,6 @@
     </div>
 </template>
 <style scoped>
-/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
-.aspectos::-webkit-scrollbar-thumb {
-    background: #320000;
-    border-radius: 4px;
-}
-
-/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
-.aspectos::-webkit-scrollbar-thumb:hover {
-    background: #b3b3b3;
-    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-}
-
-/* Cambiamos el fondo cuando esté en active */
-.aspectos::-webkit-scrollbar-thumb:active {
-    background-color: #999999;
-}
-
-.scroll {
-    max-height: 50vh;
-    overflow-y: auto;
-}
 .card{
     opacity: 1;
 }
@@ -219,7 +192,7 @@
 
 }
 .btn-lili:hover {
-    background-color: rgba(3, 168, 162, 0.9);
+    background-color:  #a87bc7;
     color: white;
    
 }
@@ -231,6 +204,15 @@ select{
    border-right: 0;
    border-radius: 0;
 }
+.select{
+    background-color: #ffffff;
+    border-bottom: #e85199 2px solid;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+ }
+
 input{
     background-color: #ffffff;
     border-bottom: #e85199 2px solid;
@@ -240,21 +222,27 @@ input{
     border-radius: 0;
  }
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <script>
+import Multiselect from 'vue-multiselect'
+
 export default {
+    components: { Multiselect },
     data() {
         return {
-
-            
-
-
-
             area: "",
             init_date:"",
             end_date:"",
-
+            cargos_comercial:['ASESOR PUNTO DE COMPRA',
+                    'ASESOR INTEGRAL TEMPORADA',
+                    'AUXILIAR INTEGRAL',
+                    'CAJERO',
+                    'COORDINADOR DE TIENDA',
+                    'LIDER DE TIENDA',
+                    'JEFE DE ZONA',
+                    'VISUAL MERCHANDISING'],
             marca:"",
-            cargo:"",
+            cargos:[],
 
             total_entrevistas:0,
 
@@ -281,16 +269,19 @@ export default {
     },
     methods:{
         getdata(){
+            
             if (this.area == '' ||  this.init_date == '' || this.end_date == '') {
                 this.$toast.info('Hay campos vacios')
             } else {     
-                if (this.area== '3' && (this.marca ==''||this.cargo =='' )) {
+                if (this.area== '3' && (this.marca ==''||this.cargos =='' )) {
                     this.$toast.info('Hay campos vacios')
                 } else {
                     var url = '';
                     if (this.area == '3') {
-                        url = `/getdatainterview/`+this.area+`/`+this.init_date+`/`+this.end_date+`/`+this.marca+`/`+this.cargo
-                    } else {
+                        url = `/getdatainterview/`+this.area+`/`+this.init_date+`/`+this.end_date+`/`+this.marca+`/`+this.cargos
+                        console.log(url);
+                    } 
+                    else {
                         url = `/getdatainterview/`+this.area+`/`+this.init_date+`/`+this.end_date
                     }
                     axios.get(url)
@@ -447,163 +438,9 @@ export default {
                 }
             }
         },
-        // getdataTienda(){
-        //     if (this.marca == '' ||  this.cargo == '') {
-        //         this.$toast.info('Hay campos vacios')
-        //     }else{
-        //         axios.get(`/getdatainterviewstore/`+this.marca+`/`+this.cargo)
-        //         .then((res) => { 
-        //             this.total_entrevistas = res.data.total,
-
-        //             this.beneficios_si = res.data.beneficios_si,
-        //             this.beneficios_no = res.data.beneficios_no,
-        //             this.beneficios_re = res.data.beneficios_re,
-
-        //             this.entrenamiento_si = res.data.entrenamiento_si,
-        //             this.entrenamiento_no = res.data.entrenamiento_no,
-
-        //             this.aspectos_positivos = res.data.aspectos_positivos;
-
-        //             this.options={
-        //                 colors:['#E6007E', '#54D1D1'],
-        //                 chart: {
-        //                 id: "vuechart-example",
-        //                 },
-        //                 xaxis: {
-        //                     categories: [
-        //                         'SI','NO'
-        //                     ],
-        //                 },
-                        
-        //             },
-        //             this.series=[
-        //                 {
-        //                     name: "series-1",
-        //                     data: [res.data.si,res.data.no],
-                            
-        //                 },
-        //             ],
-        //             this.OptionsBe={
-        //                 colors:['#E6007E', '#54D1D1', '#9C27B0'],
-        //                 labels: ["SI", "NO", "NO CONOZCO"],
-        //                 chart: {
-        //                 type: 'donut'
-        //                 },
-        //                 responsive: [{
-        //                     breakpoint: 480,
-        //                     options: {
-        //                         chart: {
-        //                         width: 200
-        //                         },
-        //                         legend: {
-        //                         position: 'bottom'
-        //                         }
-        //                     }
-        //                 }]
-        //             },
-        //             this.seriesBe=[res.data.beneficios_si,res.data.beneficios_no,res.data.beneficios_re],
-        //             this.OptionsEn={
-        //                 colors:['#E6007E', '#54D1D1'],
-        //                 labels: ["SI", "NO"],
-        //                 chart: {
-        //                 type: 'donut'
-        //                 },
-        //                 responsive: [{
-        //                     breakpoint: 480,
-        //                     options: {
-        //                         chart: {
-        //                         width: 200
-        //                         },
-        //                         legend: {
-        //                         position: 'bottom'
-        //                         }
-        //                     }
-        //                 }]
-        //             }
-        //             this.seriesEn=[res.data.entrenamiento_si,res.data.entrenamiento_no]
-
-        //             this.OptionsAs={
-        //                 colors:['#E6007E', '#54D1D1','#54D1D1','#54D1D1','#54D1D1'],
-        //                 chart: {
-        //                 id: "vuechart-example2",
-        //                 },
-        //                 xaxis: {
-        //                     categories: [
-        //                         'TIPO DE CONTRATO','DISTANCIA DE RESIDENCIA',
-        //                         'HONORARIOS','SALARIO',
-        //                         'AMBIENTE LABORAL'
-        //                     ],
-        //                 },
-                        
-        //             },
-        //             this.seriesAs=[
-        //                 {
-        //                     name: "series-2",
-        //                     data: [
-        //                     res.data.mejorar_contrato,
-        //                     res.data.mejorar_distancia,
-        //                     res.data.mejorar_honorarios,
-        //                     res.data.mejorar_salario,
-        //                     res.data.mejorar_ambiente],
-                            
-        //                 },
-        //             ]
-
-        //             if (this.area == 1 || this.area == 2) {
-                        
-        //                 this.seriesMo= [{
-        //                     data: [res.data.motivo_traslado,res.data.motivo_oferta,res.data.motivo_estudio,res.data.motivo_otro]
-        //                 }],
-        //                 this.OptionsMo= {
-        //                     colors:[ '#54D1D1'],
-        //                     chart: {
-        //                     type: 'bar',
-        //                     height: 350
-        //                     },
-        //                     plotOptions: {
-        //                     bar: {
-        //                         borderRadius: 4,
-        //                         horizontal: true,
-        //                     }
-        //                     },
-        //                     dataLabels: {
-        //                     enabled: false
-        //                     },
-        //                     xaxis: {
-        //                     categories: [ 'TRASLADO', 'MEJOR OFERTA', 'ESTUDIO','OTRO'
-        //                     ],
-        //                     }
-        //                 }
-        //             } else if(this.area == 3 || this.area == 4){
-        //                 this.seriesMo= [{
-        //                     data: [res.data.motivo_distancia,res.data.motivo_traslado,res.data.motivo_oferta,res.data.motivo_estudio,res.data.motivo_salud,res.data.motivo_calamidad,res.data.motivo_otro,]
-        //                 }],
-        //                 this.OptionsMo= {
-        //                     colors:[ '#54D1D1'],
-        //                     chart: {
-        //                     type: 'bar',
-        //                     height: 350
-        //                     },
-        //                     plotOptions: {
-        //                     bar: {
-        //                         borderRadius: 4,
-        //                         horizontal: true,
-        //                     }
-        //                     },
-        //                     dataLabels: {
-        //                     enabled: false
-        //                     },
-        //                     xaxis: {
-        //                     categories: ['DISTANCIA', 'TRASLADO', 'MEJOR OFERTA', 'ESTUDIO', 'SALUD', 'CALAMIDAD', 'OTRO',
-        //                     ],
-        //                     }
-        //                 }
-        //             }
-                    
-
-        //         });
-        //     }
-        // }
+        mounted() {
+            
+        },
     }
 };
 </script>

@@ -21,6 +21,7 @@ class CreateRetrealsTable extends Migration
 
             $table->string('area')->nullable();
             $table->string('regional')->nullable();
+            $table->string('tienda')->nullable();
             $table->string('marca')->nullable();
 
 

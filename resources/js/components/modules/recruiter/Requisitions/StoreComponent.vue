@@ -517,7 +517,7 @@
     border-radius: 25px;
 }
 .btn-lili:hover {
-    background-color: rgba(3, 168, 162, 0.9);
+    background-color:  #a87bc7;
     color: white;
     border-radius: 25px;
 }

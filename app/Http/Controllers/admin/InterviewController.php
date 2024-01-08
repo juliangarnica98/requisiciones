@@ -12,7 +12,7 @@ class InterviewController extends Controller
 
     public function getData()
     {
-        $data['retreal']=Retreal::with(['retirement_cities','retirement_positions'])->paginate(4);
+        $data['retreal']=Retreal::with(['retirement_cities','retirement_positions'])->orderBy('id', 'DESC')->paginate(15);
         return response()->json($data) ;
     }
 

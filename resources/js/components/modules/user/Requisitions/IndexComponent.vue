@@ -2,7 +2,7 @@
     <div class="" id="page-content">
         <!-- <Nav :actual="this.rut_act"></Nav> -->
         <div>
-            <h1 class="text-center title">MIS REQUISICIONES</h1>
+            <h1 class="text-start title">MIS REQUISICIONES </h1>
             
         </div>
 
@@ -26,7 +26,7 @@
                     </div>
                     <div class="row">
                         <div v-for="rq in listaRequisition.data" class="card border-none table-body ">
-                            <div class="card-body">
+                            <div class="card-body card-requ">
                                 <div class="row ">
                                     
                                     <div class="col-md-2 text-center"><b>{{ rq.created_at | fecha}} </b></div>
@@ -35,13 +35,13 @@
                                     <div class="col-md-2 text-center"><b>{{rq.sex.description}}</b> </div>
                                     <div class="col-md-2 text-center"><b>{{rq.status}}</b> </div>
                                     <div class="col-md-2 text-center">
-                                        <div class="col-md-12">
-                                                <a class="link" data-bs-toggle="modal" :data-bs-target="'#'+rq.id"><i class="fas fa-edit"></i></a>    
-                                                <Edit @traerdata="getRequisitions" :estado="rq.status" :id="rq.id"></Edit>
-                                                <router-link class="link" :to="{name:'bossrequisicion',params:{ id: rq.id}}" aria-expanded="false" >
-                                                    <span class="h4" >
+                                        <div class="col-md-12 h5">
+                                                <a class="link text-white" data-bs-toggle="modal" :data-bs-target="'#'+rq.id"><i class="fas fa-edit"></i></a>    
+                                                <Edit @traerdata="getRequisitions" :estado="rq.status" :id="rq.id" :area="area"></Edit>
+                                                <router-link class="link text-white" :to="{name:'bossrequisicion',params:{ id: rq.id}}" aria-expanded="false" >
+                                                    
                                                         <i class="fas fa-eye"></i>
-                                                    </span>
+                                                    
                                                 </router-link>
                                             </div>
                                             
@@ -72,13 +72,15 @@ import Edit from './EditComponent.vue'
         data() {
             return {
                 listaRequisition:{},
+                area:0
             }
         },
         methods:{
             getRequisitions(page = 1){
                 axios.get('/boss/getrequisition?page='+page)
                 .then((res) => { 
-                    this.listaRequisition = res.data;
+                    this.listaRequisition = res.data.requisition;
+                    this.area = res.data.area;
                 });
             },
         },
@@ -94,8 +96,13 @@ import Edit from './EditComponent.vue'
     }
 </script>
 <style scoped>
+.card-requ{
+    font-size: 0.7rem;
+}
+
     .title{
         color: var(--text-dark-color);
+        font-size: 1.5rem;
     }
 
     .border-none{
@@ -108,8 +115,9 @@ import Edit from './EditComponent.vue'
     .table-body{
         /*border-color: red;*/
         /*border: 1px solid #03a8a2;*/
-        background-color: #00aB9f;
-        color: var(--toggle-color);
+        background-color: rgb(97, 102,175);;
+        border: #00aB9f 0px solid;
+        color: #fff;
     }
     .link{
         text-decoration:none;

@@ -1,14 +1,14 @@
 <template>
     <div class="body">
-        <nav class="sidebar close">
+        <nav class="sidebar">
             <header>
                 <div class="image-text">
                     <span class="image">
                         <img :src="this.image" alt="" />
                     </span>
                     <div class="text header-text">
-                        <span class="name">Requisiciones</span>
-                        <span class="profesion">Entrevistas</span>
+                        <span class="name">{{name}}</span>
+                        <span class="profesion">{{last_name}}</span>
                     </div>
                 </div>
                 <i class="bx bx-chevron-right toggle"></i>
@@ -26,7 +26,7 @@
                                 to="/dashboard"
                                 aria-expanded="false"
                             >
-                                <i class="bx bx-home icon"></i>
+                            <i class='bx bx-signal-5 icon'></i>
                                 <span class="text nav-text">DASHBORAD</span>
                             </router-link>
                         </li>
@@ -71,7 +71,7 @@
                             </router-link>
                         </li>
                     </ul>
-                    <ul class="menu-links">
+                    <!-- <ul class="menu-links">
                         <li class="nav-link">
                             <router-link class="router-link" to="/requisicion" aria-expanded="false" >
                                 <i class="bx bxs-user-plus icon"></i>
@@ -83,7 +83,7 @@
                                 
                             
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="bottom-content">
                     <li class="">
@@ -122,17 +122,15 @@
             </div>
         </nav>
 
+        
         <section class="home">
-            <!-- <div class="text">Dashboard</div> -->
-           
                 <router-view></router-view>
-            
         </section>
     </div>
 </template>
 <script>
 export default {
-    props: ["token", "name"],
+    props: ["token", "name","last_name"],
     data() {
         return {
             image: "/images/lili.png",
@@ -185,6 +183,7 @@ export default {
 :root {
     /* === Colors === */
     /*--body-color: #f7f8fa;*/
+    /*linear-gradient(90deg, rgba(230,0,126,0.5) 28%, rgba(101,97,169,0.5) 73%);*/
     --body-color: #D096Ad;
     --sidebar-color: #fff;
     --primary-color: #e6007e;
@@ -462,15 +461,15 @@ header .image-text .header-text {
 }
 
 .home {
-    padding: 40px;
+    padding: 20px;
     position: relative;
     left: 250px;
     height: auto;
     min-height: 100%;
-    width: calc(100% - 88px);
+    width: calc(100% - 255px);
     background: var(--body-color);
     transition: var(--tran-05);
-
+    overflow:auto;
 }
 
 

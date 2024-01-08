@@ -1,14 +1,14 @@
 <template>
     <div class="body">
-        <nav class="sidebar close">
+        <nav class="sidebar ">
             <header>
                 <div class="image-text">
                     <span class="image">
                         <img :src="this.image" alt="" />
                     </span>
                     <div class="text header-text">
-                        <span class="name">Requisiciones</span>
-                        <span class="profesion">Entrevistas</span>
+                        <span class="name">{{name}}</span>
+                        <span class="profesion">{{ last_name }}</span>
                     </div>
                 </div>
                 <i class="bx bx-chevron-right toggle"></i>
@@ -26,7 +26,7 @@
                                 to="/generalist/dashboard"
                                 aria-expanded="false"
                             >
-                                <i class="bx bx-home icon"></i>
+                            <i class='bx bx-signal-5 icon'></i>
                                 <span class="text nav-text">DASHBORAD</span>
                             </router-link>
                         </li>
@@ -59,17 +59,39 @@
                             </router-link>
                         </li>
                     </ul>
+
+         
                     <ul class="menu-links">
                         <li class="nav-link">
-                            <router-link class="router-link" to="/generalist/requisicion" aria-expanded="false" >
-                                <i class="bx bxs-user-plus icon"></i>
+                            <router-link class="router-link" to="/generalist/charges" aria-expanded="false" >
+                                <i class='bx bxs-store icon'></i>
                                 <span class="text nav-text"
-                                    >CREAR REQUISICIONES</span
+                                >CARGOS</span
                                 >
                             </router-link>
-                        
-                                
                             
+                        </li>
+                    </ul>
+                    <ul class="menu-links">
+                        <li class="nav-link">
+                            <router-link class="router-link" to="/generalist/holidays" aria-expanded="false" >
+                                <i class='bx bxs-calendar icon'></i>
+                                <span class="text nav-text"
+                                    >DÍAS FESTIVOS</span
+                                >
+                            </router-link>
+                           
+                        </li>
+                    </ul>
+                    <ul class="menu-links">
+                        <li class="nav-link">
+                            <router-link class="router-link" to="/generalist/tiendas" aria-expanded="false" >
+                                <i class='bx bxs-bank icon'></i>
+                                <span class="text nav-text"
+                                    >TIENDAS</span
+                                >
+                            </router-link>
+                           
                         </li>
                     </ul>
                 </div>
@@ -120,7 +142,7 @@
 </template>
 <script>
 export default {
-    props: ["token", "name"],
+    props: ["token", "name","last_name"],
     data() {
         return {
             image: "/images/lili.png",
@@ -450,12 +472,12 @@ header .image-text .header-text {
 }
 
 .home {
-    padding: 40px;
+    padding: 20px;
     position: relative;
     left: 250px;
     height: auto;
     min-height: 100%;
-    width: calc(100% - 88px);
+    width: calc(100% - 255px);
     background: var(--body-color);
     transition: var(--tran-05);
 

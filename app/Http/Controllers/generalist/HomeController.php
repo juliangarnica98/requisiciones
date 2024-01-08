@@ -15,6 +15,7 @@ class HomeController extends Controller
     public function index()
     {
         $user_name = auth()->user()->name;
-        return view('generalist',compact('user_name'));
+        $last_name = auth()->user()->last_name;
+        return view('generalist',compact('user_name','last_name'));
     }
 }

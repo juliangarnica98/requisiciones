@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         
-        $data['users'] = User::with('roles')->paginate(5);
+        $data['users'] = User::with('roles')->orderBy('id', 'DESC')->paginate(15);
         return $data;    
     }
 
@@ -71,9 +71,27 @@ class UserController extends Controller
         $user->delete();
         return response()->json('SE HA ELIMINADO CORRECTAMENTE');
     }
-    public function asignar($id)
+    public function asignar(Request $request)
     {
-        $requisition = Requisition::where('user_id',$id)->get();
         
+        $requisitions = Requisition::where('user_id',$request->user)->update(['user_id' => $request->new_user]);
+        return response()->json('SE HA REASIGNADO CORRECTAMENTE');
+        
+        
+    }
+
+    public function getBoss($rol,$area,$regional=null){
+        if($regional == "null" && $area == "null"){
+            $data['users'] = User::whereHas("roles", function($q) use($rol){  $q->where("name", $rol); })->get();
+            // dd($data);
+            return response()->json($data);
+        }else if($regional == "null"){
+            $data['users'] = User::where('area',$area)->whereHas("roles", function($q) use($rol){  $q->where("name", $rol); })->get();
+            return response()->json($data);
+        }else{
+            $data['users'] = User::where('regional',$regional)->where('area',$area)->whereHas("roles", function($q) use($rol){  $q->where("name", $rol); })->get();
+            
+            return response()->json($data);
+        }
     }
 }

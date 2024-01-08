@@ -14,6 +14,7 @@ use App\Models\Center_distribution;
 use App\Models\Charge;
 use App\Models\City;
 use App\Models\Factory;
+use App\Models\Holidays;
 use App\Models\Management;
 use App\Models\National_sale;
 use App\Models\Regional;
@@ -22,6 +23,7 @@ use App\Models\Sex;
 use App\Models\Store;
 use App\Models\Type_activation;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -52,12 +54,30 @@ class RequisitionController extends Controller
 
     public function index()
     {
-        $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
-        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->paginate(5);
-        $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
-        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
-        $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->paginate(5);
+        $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
         $data['regional']=Regional::get();
+        return response()->json($data);
+    }
+
+    public function index2()
+    {
+        $usuario = User::where('id',auth()->id())->first();
+        $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) {$q->where('user_id', auth()->id());})->orderBy('id', 'DESC')->paginate(15);
+        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) {$q->where('user_id', auth()->id());})->orderBy('id', 'DESC')->paginate(15);
+        $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) {$q->where('user_id', auth()->id());})->orderBy('id', 'DESC')->paginate(15);
+        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) {$q->where('user_id', auth()->id());})->orderBy('id', 'DESC')->paginate(15);
+        $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) {$q->where('user_id', auth()->id());})->orderBy('id', 'DESC')->paginate(15);
+        $data['regional']=Regional::get();
+        $data['user']=$usuario->id;
         return response()->json($data);
     }
 
@@ -189,27 +209,27 @@ class RequisitionController extends Controller
         switch ($request->area) {
             case 'admin':
                 $data=Administration::where('id',$request->id)->first();
-                $data->status=$request->estado;
+                $data->status=$request->estado_envio;
                 $data->save();
                 break;
             case 'tienda':
                 $data=Store::where('id',$request->id)->first();
-                $data->status=$request->estado;
+                $data->status=$request->estado_envio;
                 $data->save();
                 break;
             case 'cedi':
                 $data=Cedi::where('id',$request->id)->first();
-                $data->status=$request->estado;
+                $data->status=$request->estado_envio;
                 $data->save();
                 break;
             case 'factory':
                 $data=Factory::where('id',$request->id)->first();
-                $data->status=$request->estado;
+                $data->status=$request->estado_envio;
                 $data->save();
                 break;
             case 'venta_nal':
                 $data=National_sale::where('id',$request->id)->first();
-                $data->status=$request->estado;
+                $data->status=$request->estado_envio;
                 $data->save();
                 break;
             default:
@@ -217,12 +237,73 @@ class RequisitionController extends Controller
         }
         return "Se ha modificado estado con exito";
     }
-
+    public function update2(Request $request)
+    {
+        switch ($request->area) {
+            case 'admin':
+                $data=Administration::where('id',$request->id)->first();
+                $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
+                $tiempo = $activation_charge->effectiveness;
+                $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
+                $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
+                $data->nombre_ingreso=$request->nombre_ingreso;
+                $data->cedula_ingreso=$request->cedula_ingreso;
+                $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->save();
+                break;
+            case 'tienda':
+                $data=Store::where('id',$request->id)->first();
+                $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
+                $tiempo = $activation_charge->effectiveness;
+                $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
+                $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
+                $data->nombre_ingreso=$request->nombre_ingreso;
+                $data->cedula_ingreso=$request->cedula_ingreso;
+                $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->save();
+                break;
+            case 'cedi':
+                $data=Cedi::where('id',$request->id)->first();
+                $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
+                $tiempo = $activation_charge->effectiveness;
+                $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
+                $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
+                $data->nombre_ingreso=$request->nombre_ingreso;
+                $data->cedula_ingreso=$request->cedula_ingreso;
+                $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->save();
+                break;
+            case 'factory':
+                $data=Factory::where('id',$request->id)->first();
+                $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
+                $tiempo = $activation_charge->effectiveness;
+                $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
+                $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
+                $data->nombre_ingreso=$request->nombre_ingreso;
+                $data->cedula_ingreso=$request->cedula_ingreso;
+                $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->save();
+                break;
+            case 'venta_nal':
+                $data=National_sale::where('id',$request->id)->first();
+                $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
+                $tiempo = $activation_charge->effectiveness;
+                $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
+                $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
+                $data->cedula_ingreso=$request->cedula_ingreso;
+                $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->save();
+                break;
+            default:
+                break;
+        }
+        return "SE HA REGISTRADO CORRECTAMENTE";
+    }
     public function getboss($regional,$area){
 
         $reional = Regional::where('description',$regional)->first();
         if($area == "tienda"){
-            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('regional_id',$reional->id)->paginate(5);
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('regional_id',$reional->id)->orderBy('id', 'DESC')->paginate(15);
         }
         $data['jefe'] = User::where('regional',$regional)->get(); 
         return response()->json($data);
@@ -232,29 +313,58 @@ class RequisitionController extends Controller
 
         if($area == "tienda" && $jefe != "sin_jefe"){
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
-            function ($q) use($jefe){$q->where('user_id', $jefe);})->paginate(5);
+            function ($q) use($jefe){$q->where('user_id', $jefe);})->orderBy('id', 'DESC')->paginate(15);
         }
         if($area == "tienda" && $jefe != "sin_jefe" && $estado != null){
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
-            function ($q) use($jefe){$q->where('user_id', $jefe);})->where('status',$estado)->paginate(5);
+            function ($q) use($jefe){$q->where('user_id', $jefe);})->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
         else if($area == "tienda" && $jefe == "sin_jefe"){
-            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
 
         else if($area == "admin"){
-            $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
         else if($area == "cedi"){
-            $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
         else if($area == "factory"){
-            $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
         else if($area == "venta_nal"){
-            $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->paginate(5);
+            $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
     
         return response()->json($data);
+    }
+
+    
+    public function getDiasHabiles($fechainicio, $fechafin) {
+
+        $diasferiados = Holidays::whereBetween('fecha',[$fechainicio,$fechafin])->get()->pluck('fecha')->toArray();
+
+        // Convirtiendo en timestamp las fechas
+        $fechainicio = strtotime($fechainicio);
+        $fechafin = strtotime($fechafin);
+       
+        // Incremento en 1 dia
+        $diainc = 24*60*60;
+       
+        // Arreglo de dias habiles, inicianlizacion
+        $diashabiles = array();
+       
+        // Se recorre desde la fecha de inicio a la fecha fin, incrementando en 1 dia
+        for ($midia = $fechainicio; $midia <= $fechafin; $midia += $diainc) {
+                // Si el dia indicado, no es sabado o domingo es habil
+                if (!in_array(date('N', $midia), array(6,7))) { // DOC: http://www.php.net/manual/es/function.date.php
+                        // Si no es un dia feriado entonces es habil
+                        if (!in_array(date('Y-m-d', $midia), $diasferiados)) {
+                                array_push($diashabiles, date('Y-m-d', $midia));
+                        }
+                }
+        }
+       
+        return count($diashabiles);
     }
 }

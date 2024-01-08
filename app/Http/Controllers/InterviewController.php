@@ -28,6 +28,7 @@ use App\Models\Retirement_position;
 use App\Models\Satisfaction;
 use App\Models\Sex;
 use App\Models\Store;
+use App\Models\Tienda;
 use App\Models\Type_activation;
 
 use Illuminate\Support\Facades\DB;
@@ -58,6 +59,13 @@ class InterviewController extends Controller
         $data['positions']= Retirement_position::all();
         $data['cities']= Retirement_city::all();
         $data['user']=auth()->id();
+        // $data['tiendas']=Tienda::with('regional')->get();
+        return $data;
+    }
+    public function getDataTienda($regional)
+    {
+        $data['tiendas']=Tienda::with('regional')->whereHas('regional',
+        function ($q) use ($regional) {$q->where('description',$regional);})->get();
         return $data;
     }
 
@@ -72,7 +80,9 @@ class InterviewController extends Controller
         // DB::beginTransaction();
         // try {        
 
-            $retreal = Retreal::where('num_document',$request->num_document)->first();
+            $retreal = Retreal::where('num_document',$request->num_document)->where('status',0)->first();
+            
+
             $retreal->status = 1;
             $retreal->num_document = $request->num_document;
             // $tipo_cargo = $request->cargo;
@@ -82,6 +92,7 @@ class InterviewController extends Controller
             $retreal->time = $request->tiempo;
             $retreal->marca = $request->marca;
             $retreal->regional = $request->regional;
+            $retreal->tienda = $request->tienda;
             $retreal->name_boss = $request->nombreJefe;
             $retreal->charge_boss = $request->cargoJefe;
 

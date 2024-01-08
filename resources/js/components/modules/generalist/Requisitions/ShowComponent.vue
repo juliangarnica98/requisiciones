@@ -2,9 +2,9 @@
     <div class="page" id="page-content" >
         <!-- <Nav :actual="this.rut_act"></Nav> -->
         <div>
-            <h1 class="text-center title">REQUISICIÓN</h1>
-            <router-link class="link" to="/generalist/requisiciones" aria-expanded="false">
-                <i class="fas fa-backward"></i> VOLVER
+            <h1 class="text-start title">REQUISICIÓN</h1>
+            <router-link class="btn btn-lili" to="/generalist/requisiciones" aria-expanded="false">
+                VOLVER <i class="fas fa-undo"></i>
             </router-link>
         </div>
 
@@ -225,6 +225,30 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card para apertura de tienda -->
+                <div class="col-md-8" v-if="requisition.nombre_ingreso">
+                    <div class="card "  >
+                        <div class="card-body">
+                            <h4 class="text-center">
+                                CANDIDATO SELECCIONADO
+                            </h4>
+                            <hr>
+                            <h5 class="text-center">
+                                Nombre: {{ requisition.nombre_ingreso  }}
+                            </h5>
+                            <h5 class="text-center">
+                                Cedula: {{ requisition.cedula_ingreso }}
+                            </h5>
+                            <h5 class="text-center">
+                                Fecha ingreso: {{ requisition.fecha_ingreso  }}
+                            </h5>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
     
         </div>
     </div>
@@ -256,13 +280,20 @@ export default {
 };
 </script>
 <style scoped>
+.btn-lili {
+    padding: 10px 10px;
+    background-color: var(--text-dark-color);
+    color: var(--primary-color-light);
+    
+}
 .card{
     border: none;
-    background-color: #00ab9f;
+    background-color: rgb(97, 102,175);
     color: var(--toggle-color);
 }
 .title {
     color: var(--text-dark-color);
+    font-size: 1.5rem;
 }
 .border-none {
     border: 0;

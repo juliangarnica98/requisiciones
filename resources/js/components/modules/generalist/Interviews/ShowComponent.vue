@@ -3,8 +3,8 @@
         <!-- <Nav :actual="this.rut_act"></Nav> -->
         <div>
             <h1 class="text-center title">ENTREVISTA</h1>
-            <router-link class="link" to="/generalist/entrevistas" aria-expanded="false">
-                <i class="fas fa-backward"></i> VOLVER
+            <router-link class="btn btn-lili" to="/generalist/entrevistas" aria-expanded="false">
+                VOLVER <i class="fas fa-undo"></i>
             </router-link>
         </div>
         <div v-if="Object.keys(respuesta_entrevista).length >0">
@@ -106,6 +106,21 @@
                             </div>
                             <div class="col-md-6 table-body rounded p-3 text-center">
                                 {{ respuesta_entrevista.regional }}
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-center pt-0 " v-if="respuesta_entrevista.tienda != null">
+                <div class="col-md-8 rounded">
+                    <div class="card ">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-6 table-head rounded p-3 text-center">
+                                TIENDA
+                            </div>
+                            <div class="col-md-6 table-body rounded p-3 text-center">
+                                {{ respuesta_entrevista.tienda }}
                             </div>                        
                         </div>
                     </div>
@@ -320,11 +335,11 @@
                 </div>
             </div>
     
-            <div class="row d-flex justify-content-center pt-0 ">
+            <div class="row d-flex justify-content-center pt-0 " v-for="pregunta in preguntas_satisfaccion">
                 <div class="col-md-8 rounded">
                     <div class="card ">
-                        <div class="row ">
-                            <div v-for="pregunta in preguntas_satisfaccion" class="d-flex justify-content-center" >
+                        <div class=" ">
+                            <div  class=" row d-flex justify-content-center" >
                                 <div class="col-md-6 table-head rounded p-3 text-center">
                                     {{pregunta.question_satifactions[0].description}}
                                 </div>
@@ -378,6 +393,13 @@ export default {
 };
 </script>
 <style scoped>
+.btn-lili {
+    padding: 10px 10px;
+    /*border: #e85199 solid 1px;*/
+    background-color: var(--text-dark-color);
+    color: var(--primary-color-light);
+    
+}
 .card{
     border: none;
     
@@ -395,7 +417,7 @@ export default {
 .table-body {
     /*border-color: red;*/
     /*border: 1px solid #03a8a2;*/
-    background-color: #00ab9f;
+    background-color: rgb(97, 102,175);;
     color: var(--toggle-color);
 }
 .link{

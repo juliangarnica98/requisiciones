@@ -1,14 +1,14 @@
 <template>
     <div class="body">
-        <nav class="sidebar close">
+        <nav class="sidebar">
             <header>
                 <div class="image-text">
                     <span class="image">
                         <img :src="this.image" alt="" />
                     </span>
                     <div class="text header-text">
-                        <span class="name">Requisiciones</span>
-                        <span class="profesion">Entrevistas</span>
+                        <span class="name">{{ name }}</span>
+                        <span class="profesion">{{ last_name }}</span>
                     </div>
                 </div>
                 <i class="bx bx-chevron-right toggle"></i>
@@ -19,8 +19,9 @@
                         <i class="bx bx-search icon"></i>
                         <input type="text" placeholder="Search..." />
                     </li> -->
-                 
-                    <ul class="menu-links pt-5">
+                    <div class="pt-5"></div>
+                    <ul v-if="area =='1' || area =='5'"  class="menu-links ">
+                        <!-- <ul v-if="area =='1' || area =='5'"  class="menu-links "></ul> -->
                         <li class="nav-link">
                             <router-link
                                 class="router-link"
@@ -29,8 +30,11 @@
                             >
                                 <!-- <i class="bx bxs-user-account icon"></i> -->
                                 <i class='bx bxs-user-detail icon'></i>
-                                <span class="text nav-text"
+                                <span v-if="area =='1'" class="text nav-text"
                                     >REGIONALES</span
+                                >
+                                <span v-if="area =='5'" class="text nav-text"
+                                    >VENTA NAL</span
                                 >
                             </router-link>
                         </li>
@@ -110,7 +114,7 @@
 </template>
 <script>
 export default {
-    props: ["token", "name"],
+    props: ["token", "name","last_name","area"],
     data() {
         return {
             image: "/images/lili.png",
@@ -440,12 +444,12 @@ header .image-text .header-text {
 }
 
 .home {
-    padding: 40px;
+    padding: 20px;
     position: relative;
     left: 250px;
     height: auto;
     min-height: 100%;
-    width: calc(100% - 88px);
+    width: calc(100% - 255px);
     background: var(--body-color);
     transition: var(--tran-05);
 

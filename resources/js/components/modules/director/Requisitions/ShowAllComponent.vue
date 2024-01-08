@@ -1,9 +1,7 @@
 <template>
     <div class="" id="page-content">
-        <!-- <Nav :actual="this.rut_act"></Nav> -->
         <div>
-            <h1 class="text-center title">REQUISICIONES REGIONAL</h1>
-            
+            <h1 class="text-start title">REQUISICIONES TOTAL </h1>
         </div>
 
         <div class="padding  pt-4">
@@ -28,19 +26,16 @@
                         <div v-for="rq in listaRequisition.data" class="card border-none table-body ">
                             <div class="card-body">
                                 <div class="row ">
-                                    
                                     <div class="col-md-2 text-center"><b>{{ rq.created_at | fecha}} </b></div>
-                                    <div class="col-md-2 text-center"><b>{{rq.requisition.user.name}}</b> </div>
+                                    <div class="col-md-2 text-center"><b>{{rq.requisition.user.name}} {{rq.requisition.user.last_name}}</b> </div>
+                                    <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
                                     <div class="col-md-2 text-center"><b>{{rq.city.description}}</b> </div>
-                                    <div class="col-md-2 text-center"><b>{{rq.sex.description}}</b> </div>
                                     <div class="col-md-2 text-center"><b>{{rq.status}}</b> </div>
                                     <div class="col-md-2 text-center">
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 h4">
                                                 <!-- <a class="link" data-bs-toggle="modal" :data-bs-target="'#'+rq.id"><i class="fas fa-edit"></i></a>     -->
-                                                <router-link class="link" :to="{name:'directorrequisicion',params:{ id: rq.id}}" aria-expanded="false" >
-                                                    <span class="h4" >
+                                                <router-link class="link  text-white" :to="{name:'directorrequisicion',params:{ id: rq.id}}" aria-expanded="false" >
                                                         <i class="fas fa-eye"></i>
-                                                    </span>
                                                 </router-link>
                                             </div>
                                             
@@ -54,10 +49,10 @@
                     
                 </div>
             </div>
-            <!-- <pagination class="d-flex justify-content-center" :data="listaRequisition" @pagination-change-page="getRequisitions">
+            <pagination class="d-flex justify-content-center" :data="listaRequisition" @pagination-change-page="getRequisitions">
                 <span slot="prev-nav">ANTERIOR</span>
                 <span slot="next-nav">SIGUIENTE</span>
-            </pagination> -->
+            </pagination>
         </div>
    
 </template>
@@ -65,12 +60,11 @@
 <script>
 
 import moment from 'moment'
-// import Edit from './EditComponent.vue'
     export default {
-        // components:{Edit},
         data() {
             return {
                 listaRequisition:{},
+                titulo:""
             }
         },
         methods:{
@@ -96,6 +90,7 @@ import moment from 'moment'
 <style scoped>
     .title{
         color: var(--text-dark-color);
+        font-size: 1.5rem;
     }
 
     .border-none{
@@ -108,8 +103,9 @@ import moment from 'moment'
     .table-body{
         /*border-color: red;*/
         /*border: 1px solid #03a8a2;*/
-        background-color: #00aB9f;
-        color: var(--toggle-color);
+        background-color: rgb(97, 102,175);;
+        color: #fff;
+        font-size: 0.7rem;
     }
     .link{
         text-decoration:none;

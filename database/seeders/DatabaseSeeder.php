@@ -34,9 +34,11 @@ class DatabaseSeeder extends Seeder
                 QuestionSatisfactionSeeder::class,
                 RetirementCitySeeder::class,
                 RetirementPositionSeeder::class,
+                HolidaysSeeder::class
             ]
         );
        
         $this->call(RetirementPositionsTableSeeder::class);
+        $this->call(TiendasTableSeeder::class);
     }
 }

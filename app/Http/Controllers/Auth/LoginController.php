@@ -41,7 +41,7 @@ class LoginController extends Controller
         }elseif(Auth::user()->hasRole('Director')){
             return '/director/requisiciones';
         }elseif(Auth::user()->hasRole('Recruiter')){
-            return '/recruiter/dashboard';
+            return '/recruiter/entrevistas';
         }elseif(Auth::user()->hasRole('Generalist')){
             return '/generalist/dashboard';
         }

@@ -2,16 +2,16 @@
     <div class="fondo">
         <div class="" :class="'d-flex justify-content-center '">
             <div class="col-md-6 col-sm-12">
-                <div class="login-form card py-5 px-5" style="border: 3px solid #E6007E;opacity:0.9">
+                <div class="login-form card py-5 px-5" style="border: 0px solid #E6007E;opacity:0.9">
                     <form method="POST" action="/login" @submit="chekform" id="login">
                         <input type="hidden" name="_token" :value="csrf" />
                         <div class="">
                             <label class="col-auto col-form-label"
                                 >CORREO</label
                             >
-                            <input style="border: #6266AE 3px solid;"
+                            <input style="border: #6266AE 1px solid;"
                                 type="text"
-                                class="form-control rounded-pill"
+                                class="form-control "
                                 name="email"
                                 aria-label="Default"
                                 v-model="email"
@@ -21,15 +21,15 @@
                             <label class="col-auto col-form-label"
                                 >CONTRASEÑA</label
                             >
-                            <input style="border: #6266AE 3px solid;"
+                            <input style="border: #6266AE 1px solid;"
                                 v-model="passowrd"
                                 name="password"
                                 type="password"
-                                class="form-control rounded-pill"
+                                class="form-control "
                             />
                         </div>
                         <input
-                            class="btn col-12 gradient-custom-2 mb-3 mt-3 rounded-pill btn-lili"
+                            class="btn col-12 gradient-custom-2 mb-3 mt-4 btn-lili"
                             type="submit" value="INICIA SESIÓN"
                         >
                     </form>
@@ -86,6 +86,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
 .fondo{
     background: url('/images/fondo_login.jpg');
     min-height: 100%;
@@ -141,6 +142,9 @@ export default {
         margin-left: 15%;
         margin-top: 20%;
     }
+    .login-form:hover{
+        opacity: 1;
+    }
 
 }
 .login-main-text h2 {
@@ -162,7 +166,8 @@ export default {
     /* font-size: 1.1rem ; */
 }
 .btn-lili:hover {
-    font-size: 1.3rem;
+    background-color: rgb(97, 102,175) !important;
+    color: #fff;
 }
 .btn-yoi {
     background-color: #54d1d1 !important;

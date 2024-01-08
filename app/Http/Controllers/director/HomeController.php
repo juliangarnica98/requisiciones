@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\director;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,6 +16,9 @@ class HomeController extends Controller
     public function index()
     {
         $user_name = auth()->user()->name;
-        return view('director',compact('user_name'));
+        $last_name = auth()->user()->last_name;
+        $usuario =  User::where('id',auth()->id())->first();
+        $area = $usuario->area;
+        return view('director',compact('user_name','last_name','area'));
     }
 }

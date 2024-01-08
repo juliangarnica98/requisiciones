@@ -19,6 +19,11 @@ class CreateNationalSalesTable extends Migration
             $table->text('comentaries')->nullable();
             $table->string('status')->default('ABIERTA');
             $table->string('reclutador')->default('SIN ASIGNACIÓN');
+            $table->integer('efectividad')->nullable();
+
+            $table->string('nombre_ingreso')->nullable();
+            $table->string('cedula_ingreso')->nullable();
+            $table->string('fecha_ingreso')->nullable();
 
             $table->unsignedBigInteger('requisition_id');
             $table->foreign('requisition_id')->references('id')->on('requisitions');

@@ -22,6 +22,7 @@ use App\Models\Regional;
 use App\Models\Requisition;
 use App\Models\Sex;
 use App\Models\Store;
+use App\Models\Tienda;
 use App\Models\Type_activation;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,29 +37,34 @@ class RequisitionController extends Controller
         $user = User::find($userId);
 
         if ($user->area == '1') {
-            $data=Store::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
+            $data['requisition']=Store::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
                 function ($q) use($userId){$q->where('user_id', $userId);}
-            )->paginate(5);
+            )->orderBy('id', 'DESC')->paginate(15);
+            $data['area']=1;
         }
         elseif ($user->area == '2') {
-            $data=Administration::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
+            $data['requisition']=Administration::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
                 function ($q) use($userId){$q->where('user_id', $userId);}
-            )->paginate(5);
+            )->orderBy('id', 'DESC')->paginate(15);
+            $data['area']=2;
         }
         elseif ($user->area == '3') {
-            $data=Cedi::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
+            $data['requisition']=Cedi::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
                 function ($q) use($userId){$q->where('user_id', $userId);}
-            )->paginate(5);
+            )->orderBy('id', 'DESC')->paginate(15);
+            $data['area']=3;
         }
         elseif ($user->area == '4') {
-            $data=Factory::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
+            $data['requisition']=Factory::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
                 function ($q) use($userId){$q->where('user_id', $userId);}
-            )->paginate(5);
+            )->orderBy('id', 'DESC')->paginate(15);
+            $data['area']=4;
         }
         elseif ($user->area == '5') {
-            $data=National_sale::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
+            $data['requisition']=National_sale::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
                 function ($q) use($userId){$q->where('user_id', $userId);}
-            )->paginate(5);
+            )->orderBy('id', 'DESC')->paginate(15);
+            $data['area']=5;
         }
         return response()->json($data);
     }
@@ -78,15 +84,19 @@ class RequisitionController extends Controller
         $data['center_distributions']=Center_distribution::all();
         $usuario=User::find(auth()->id());
         $data['area'] = $usuario->area;
+        $regional = $usuario->regional;
+        $data['regional'] = ($usuario->regional != null) ? $usuario->regional : '';
+        $data['tiendas']= ($usuario->regional != null) ? Tienda::with('regional')->whereHas('regional',
+        function ($q) use ($regional) {$q->where('description',$regional);})->get() :"";
         return $data;
     }
 
     public function store(Request $request)
     {
        
-        DB::beginTransaction();
+        // DB::beginTransaction();
 
-        try {
+        // try {
           
             $requisition = new Requisition();
             $requisition->user_id=auth()->id();
@@ -111,7 +121,8 @@ class RequisitionController extends Controller
             if($request->area == 1){
                 $store = new Store();
                 $store->requisition_id = $requisition->id;
-                $store->regional_id= $request->regional;
+                $regional = Regional::where('description',$request->regional)->first();
+                $store->regional_id= $regional->id;
                 $store->name_store = $request->nombre;
                 $store->category_id= $request->categoria;
                 $store->city_id= $request->ciudad;
@@ -124,6 +135,8 @@ class RequisitionController extends Controller
             if($request->area == 2){
                 $admin = new Administration();
                 $admin->requisition_id = $requisition->id;
+                $regional = Regional::where('description',$request->regional)->first();
+                // $store->regional_id= $regional->id;
                 $admin->management_id= $request->gerencia;//admin
                 $admin->area_management_id= $request->area_gerencia;//admin
                 $admin->city_id= $request->ciudad;
@@ -136,6 +149,8 @@ class RequisitionController extends Controller
             if($request->area == 3){
                 $cedi = new Cedi();
                 $cedi->requisition_id = $requisition->id;
+                $regional = Regional::where('description',$request->regional)->first();
+                // $store->regional_id= $regional->id;
                 $cedi->center_distribution_id= $request->centro_distribucion;//cedi
                 $cedi->city_id= $request->ciudad;
                 $cedi->sex_id= $request->sexo_vacante;
@@ -147,6 +162,8 @@ class RequisitionController extends Controller
             if($request->area == 4){
                 $factory = new Factory();
                 $factory->requisition_id = $requisition->id;
+                $regional = Regional::where('description',$request->regional)->first();
+                // $store->regional_id= $regional->id;
                 $factory->area_factory_id= $request->area_facroty;//factory
                 $factory->city_id= $request->ciudad;
                 $factory->sex_id= $request->sexo_vacante;
@@ -158,6 +175,8 @@ class RequisitionController extends Controller
             if($request->area == 5){
                 $national_sale=new National_sale();
                 $national_sale->requisition_id = $requisition->id;
+                $regional = Regional::where('description',$request->regional)->first();
+                // $store->regional_id= $request->regional;
                 $national_sale->charge_id= $request->cargo_uniq;
                 $national_sale->city_id= $request->ciudad;
                 $national_sale->sex_id= $request->sexo_vacante;
@@ -166,12 +185,12 @@ class RequisitionController extends Controller
                 $national_sale->comentaries= $request->comentarios;
                 $national_sale->save();
             }
-            DB::commit();
+            // DB::commit();
             return 'Se ha registrado exitosamente';
-        } catch (\Exception $e) {
-            DB::rollback();
-            return 'error';
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return 'error';
+        // }
 
         
 
@@ -206,9 +225,35 @@ class RequisitionController extends Controller
     }
     public function update(Request $request)
     {
-        $data=Store::where('id',$request->id)->first();
-                $data->status=$request->estado;
-                $data->save();
-        return "Se ha modificado estado con exito";
+        if ($request->area == '1') {
+            $data=Store::where('id',$request->id)->first();
+            $data->status=$request->estado_envio;
+            $data->save();
+            return "Se ha modificado estado con exito";
+        }
+        elseif ($request->area == '2') {
+            $data=Administration::where('id',$request->id)->first();
+            $data->status=$request->estado_envio;
+            $data->save();
+            return "Se ha modificado estado con exito";
+        }
+        elseif ($request->area == '3') {
+            $data=Cedi::where('id',$request->id)->first();
+            $data->status=$request->estado_envio;
+            $data->save();
+            return "Se ha modificado estado con exito";
+        }
+        elseif ($request->area == '4') {
+            $data=Factory::where('id',$request->id)->first();
+            $data->status=$request->estado_envio;
+            $data->save();
+            return "Se ha modificado estado con exito";
+        }
+        elseif ($request->area == '5') {
+            $data=National_sale::where('id',$request->id)->first();
+            $data->status=$request->estado_envio;
+            $data->save();
+            return "Se ha modificado estado con exito";
+        }
     }
 }

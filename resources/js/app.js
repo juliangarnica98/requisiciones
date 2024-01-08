@@ -7,6 +7,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
+//componente de multi-select
+
 
 //Componentes de login y entrevista
 Vue.component('login-component', require('./components/auth/login/Login.vue').default);
