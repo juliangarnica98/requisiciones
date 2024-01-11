@@ -121,7 +121,7 @@
 <script>
 
 import moment from 'moment'
-import Edit from './Editcomponent.vue'
+import Edit from './EditComponent.vue'
     export default {
         components:{Edit},
         data() {

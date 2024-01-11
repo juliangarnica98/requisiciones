@@ -489,13 +489,13 @@ export default {
                             ||this.form.regional== 'REGIONAL CENTRO SUR')&& this.form.tienda == ''){
                             this.$toast.error("HAY CAMPOS VACIOS");
                     }else {
-                        this.$toast.success("HAY CAMPOS VACIOS");
-                        // this.form.question = this.question_satisfaction;
-                        // axios.post("/entrevista/crear", this.form).then((res) => {
-                        //     this.$toast.success(res.data);
-                        //     this.$router.push('/login');
-                        //     setTimeout("location.reload()", 5000);
-                        // });
+                        
+                        this.form.question = this.question_satisfaction;
+                        axios.post("/entrevista/crear", this.form).then((res) => {
+                            this.$toast.success(res.data);
+                            this.$router.push('/login');
+                            setTimeout("location.reload()", 5000);
+                        });
                     }
                 }
                 })
