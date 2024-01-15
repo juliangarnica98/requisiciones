@@ -341,19 +341,14 @@ class RequisitionController extends Controller
 
     
     public function getDiasHabiles($fechainicio, $fechafin) {
-
         $diasferiados = Holidays::whereBetween('fecha',[$fechainicio,$fechafin])->get()->pluck('fecha')->toArray();
-
         // Convirtiendo en timestamp las fechas
         $fechainicio = strtotime($fechainicio);
         $fechafin = strtotime($fechafin);
-       
         // Incremento en 1 dia
         $diainc = 24*60*60;
-       
         // Arreglo de dias habiles, inicianlizacion
         $diashabiles = array();
-       
         // Se recorre desde la fecha de inicio a la fecha fin, incrementando en 1 dia
         for ($midia = $fechainicio; $midia <= $fechafin; $midia += $diainc) {
                 // Si el dia indicado, no es sabado o domingo es habil
@@ -364,7 +359,6 @@ class RequisitionController extends Controller
                         }
                 }
         }
-       
         return count($diashabiles);
     }
 }

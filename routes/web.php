@@ -186,4 +186,7 @@ Route::group(['prefix' => 'generalist','middleware' => ['auth','role:Generalist'
     Route::delete('/deletetienda/{id}',[App\Http\Controllers\generalist\TiendaController::class, 'destroy']);
     Route::put('/edit/tiendas',[App\Http\Controllers\generalist\TiendaController::class, 'update']);
     Route::post('/tienda/store',[App\Http\Controllers\generalist\TiendaController::class, 'store']);
+    //rutas de busqyeda
+    Route::post('/charge/search',[App\Http\Controllers\generalist\ChargeController::class, 'search']);
+    Route::post('/store/search',[App\Http\Controllers\generalist\TiendaController::class, 'search']);
 });

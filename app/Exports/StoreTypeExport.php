@@ -25,60 +25,59 @@ class StoreTypeExport implements FromView
             // 1-remplazo  2-plan de cambio 3-nuevo cargo   4-reintegro 5-apertura de tienda
             // 1-antioquia y santa    2-costa   3-centro norte  4-sur   5-centro sur
             'aper_region_anti_san' => 
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',5);})
                 ->where('regional_id',1)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
 
             'aper_region_cent_nor' => 
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',5);})
                 ->where('regional_id',3)
-                ->where('cedula_ingreso','!=',null)
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
 
             'aper_region_cent_sur' => 
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',5);})
                 ->where('regional_id',5)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
 
             'aper_region_costa' => 
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',5);})
                 ->where('regional_id',2)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
 
             'aper_region_sur' =>
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',5);})
                 ->where('regional_id',4)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
 
             'aper_venta_nal' =>  
-                 National_sale::where('status','CERRADA')
+                 National_sale::whereIn('status',['ABIERTA','EN GESTION'])
                  ->with('activation')
                  ->whereHas('activation',function ($q) {$q->where('type_activation_id',5);})
-                 ->where('cedula_ingreso','!=',null)
+                 
                  ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                  ->count(),
@@ -86,59 +85,59 @@ class StoreTypeExport implements FromView
 
 
             'plan_region_anti_san' => 
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})
                 ->where('regional_id',1)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
 
             'plan_region_cent_nor' => 
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})
                 ->where('regional_id',3)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
 
             'plan_region_cent_sur' =>
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})
                 ->where('regional_id',5)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
 
             'plan_region_costa' => 
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})
                 ->where('regional_id',2)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
             'plan_region_sur' => 
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})
                 ->where('regional_id',4)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
 
             'plan_venta_nal' => 
-                National_sale::where('status','CERRADA')
+                National_sale::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
@@ -147,55 +146,55 @@ class StoreTypeExport implements FromView
 
             
             'reem_region_anti_san' => 
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',1);})
                 ->where('regional_id',1)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
-            'reem_region_cent_nor' => Store::where('status','CERRADA')
+            'reem_region_cent_nor' => Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',1);})
                 ->where('regional_id',3)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
             'reem_region_cent_sur' => 
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',1);})
                 ->where('regional_id',5)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
             'reem_region_costa' => 
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',1);})
                 ->where('regional_id',2)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
                 
             'reem_region_sur' => 
-                Store::where('status','CERRADA')
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',1);})
                 ->where('regional_id',4)
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
             'reem_venta_nal' =>
-                National_sale::where('status','CERRADA')
+                National_sale::whereIn('status',['ABIERTA','EN GESTION'])
                 ->with('activation')
                 ->whereHas('activation',function ($q) {$q->where('type_activation_id',1);})
-                ->where('cedula_ingreso','!=',null)
+                
                 ->whereDate('created_at', '>=', $this->inicio)
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),

@@ -14,6 +14,7 @@ use App\Models\Center_distribution;
 use App\Models\Charge;
 use App\Models\City;
 use App\Models\Factory;
+use App\Models\Holidays;
 use App\Models\Management;
 use App\Models\National_sale;
 use App\Models\Regional;
@@ -258,9 +259,7 @@ class RequisitionController extends Controller
                 $data=Administration::where('id',$request->id)->first();
                 $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
                 $tiempo = $activation_charge->effectiveness;
-                $tiempo_inicial=Carbon::parse($data->created_at);
-                $tiempo_final=Carbon::parse(now());
-                $tiempo_resultado=$tiempo_inicial->diffInDays($tiempo_final);
+                $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
                 $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
@@ -271,9 +270,7 @@ class RequisitionController extends Controller
                 $data=Store::where('id',$request->id)->first();
                 $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
                 $tiempo = $activation_charge->effectiveness;
-                $tiempo_inicial=Carbon::parse($data->created_at);
-                $tiempo_final=Carbon::parse(now());
-                $tiempo_resultado=$tiempo_inicial->diffInDays($tiempo_final);
+                $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
                 $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
@@ -284,9 +281,7 @@ class RequisitionController extends Controller
                 $data=Cedi::where('id',$request->id)->first();
                 $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
                 $tiempo = $activation_charge->effectiveness;
-                $tiempo_inicial=Carbon::parse($data->created_at);
-                $tiempo_final=Carbon::parse(now());
-                $tiempo_resultado=$tiempo_inicial->diffInDays($tiempo_final);
+                $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
                 $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
@@ -297,9 +292,7 @@ class RequisitionController extends Controller
                 $data=Factory::where('id',$request->id)->first();
                 $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
                 $tiempo = $activation_charge->effectiveness;
-                $tiempo_inicial=Carbon::parse($data->created_at);
-                $tiempo_final=Carbon::parse(now());
-                $tiempo_resultado=$tiempo_inicial->diffInDays($tiempo_final);
+                $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
                 $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
@@ -310,10 +303,11 @@ class RequisitionController extends Controller
                 $data=National_sale::where('id',$request->id)->first();
                 $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
                 $tiempo = $activation_charge->effectiveness;
-                $tiempo_inicial=Carbon::parse($data->created_at);
-                $tiempo_final=Carbon::parse(now());
-                $tiempo_resultado=$tiempo_inicial->diffInDays($tiempo_final);
+                $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
+
+                // dd($tiempo, $tiempo_resultado);
                 $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
+                
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
                 $data->fecha_ingreso=$request->fecha_ingreso;
@@ -401,5 +395,25 @@ class RequisitionController extends Controller
         $data['reclutadoras'] = User::whereHas("roles", function($q){  $q->where("name", 'Recruiter'); })->get();
         return response()->json($data);
     }
-    
+    public function getDiasHabiles($fechainicio, $fechafin) {
+        $diasferiados = Holidays::whereBetween('fecha',[$fechainicio,$fechafin])->get()->pluck('fecha')->toArray();
+        // Convirtiendo en timestamp las fechas
+        $fechainicio = strtotime($fechainicio);
+        $fechafin = strtotime($fechafin);
+        // Incremento en 1 dia
+        $diainc = 24*60*60;
+        // Arreglo de dias habiles, inicianlizacion
+        $diashabiles = array();
+        // Se recorre desde la fecha de inicio a la fecha fin, incrementando en 1 dia
+        for ($midia = $fechainicio; $midia <= $fechafin; $midia += $diainc) {
+                // Si el dia indicado, no es sabado o domingo es habil
+                if (!in_array(date('N', $midia), array(6,7))) { // DOC: http://www.php.net/manual/es/function.date.php
+                        // Si no es un dia feriado entonces es habil
+                        if (!in_array(date('Y-m-d', $midia), $diasferiados)) {
+                                array_push($diashabiles, date('Y-m-d', $midia));
+                        }
+                }
+        }
+        return count($diashabiles);
+    }
 }

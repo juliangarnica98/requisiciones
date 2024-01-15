@@ -58,10 +58,10 @@
                                     <option value="REGIONAL CENTRO NORTE">REGIONAL CENTRO NORTE</option>
                                     <option value="REGIONAL COSTA">REGIONAL COSTA</option>
                                     <option value="REGIONAL CENTRO SUR">REGIONAL CENTRO SUR</option>
-                                    <option value="CANAL WHOLESALE / VENTA NACIONAL">CANAL WHOLESALE / VENTA NACIONAL</option>
+                                    <!-- <option value="CANAL WHOLESALE / VENTA NACIONAL">CANAL WHOLESALE / VENTA NACIONAL</option> -->
                                 </select>
                             </div>
-                            <div v-if="form.area == '5'">
+                            <!-- <div v-if="form.area == '5'">
                                 <label class="col-auto col-form-label title">REGIONAL</label>
                                 <select name="regional" class="form-select"  aria-label="Default select example" id="regional" v-model="form.regional">
                                     <option selected value="">
@@ -71,7 +71,7 @@
                                     <option value="CENTRO NORTE">CENTRO NORTE</option>
                                     <option value="SUR">SUR</option>
                                 </select>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="form-group">

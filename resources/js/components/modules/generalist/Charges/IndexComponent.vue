@@ -12,7 +12,13 @@
                 </div>
             </div>   
         </div>
-        <div class="padding  pt-4">
+        <div class="row justify-content-center pt-2">
+            <div class="col-md-6">
+                <input class="form-control" type="text" v-model="form.buscar_cargo" placeholder="BUSCAR CARGO" @input="search" style="text-transform: uppercase;">
+            </div>
+        </div>   
+        
+        <div class="padding  pt-2">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
                     <div class="row pt-2" >
@@ -62,7 +68,7 @@
                       
                     </div>
                 </div>
-                <pagination class="d-flex justify-content-center" :data="lista_charges" @pagination-change-page="getCharges">
+                <pagination v-if="form.buscar_cargo == ''" class="d-flex justify-content-center" :data="lista_charges" @pagination-change-page="getCharges">
                     <span slot="prev-nav">ANTERIOR</span>
                     <span slot="next-nav">SIGUIENTE</span>
                 </pagination>
@@ -82,6 +88,9 @@
         data() {
             return {
                 lista_charges:{},
+                form:{
+                    buscar_cargo:''
+                }
             }
         },
         methods:{
@@ -108,6 +117,17 @@
                     });
                 }
                 })
+            },
+            search(){
+                if (this.form.buscar_cargo == '') {
+                    this.getCharges();
+                } else {
+                    axios.post('/generalist/charge/search',this.form)
+                    .then((res) => {
+                        this.lista_charges = {},
+                        this.lista_charges = Object.assign(res.data.charge, {});
+                    });
+                }
             }
             
         },

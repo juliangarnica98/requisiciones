@@ -238,10 +238,13 @@
                                 <div class="mb-3">
                                     <small class="h6 fw-bold">MOTIVO DE RETIRO</small><small class="h5 text-danger">*</small>
                                         <select v-model="form.motivoRetiro" class="form-select"  aria-label="Default select example">
-                                        <option selected  value="traslado de tienda o zona">TRASLADO DE TIENDA O ZONA</option>
-                                        <option value="mejor oferta laboral">MEJOR OFERTA LABORAL</option>
-                                        <option value="estudio">ESTUDIO</option>
-                                        <option value="otro">OTRO</option>
+                                            <!-- <option selected value="traslado de tienda o zona">TRASLADO DE TIENDA O ZONA</option> -->
+                                            <option selected value="mejor oferta laboral">MEJOR OFERTA LABORAL</option>
+                                            <option value="estudio">ESTUDIO</option>
+                                            <option value="salud">SALUD</option>
+                                            <option value="calamidad familiar">CALAMIDAD FAMILIAR</option>
+                                            <option value="distancia de la residencia al lugar de trabajo">DISTANCIA DE LA RESIDENCIA AL LUGAR DE TRABAJO</option>
+                                            <option value="otro">OTRO</option>
                                     </select>
                                     <div class="" v-if="form.motivoRetiro == 'otro'">
                                         <small class="h6 fw-bold">OTRO MOTIVO DE RETIRO </small><small class="h5 text-danger">*</small>

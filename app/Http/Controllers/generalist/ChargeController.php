@@ -49,4 +49,12 @@ class ChargeController extends Controller
         return "SE HA ELIMINADO CORRECTAMENTE";
         
     }
+
+    public function search(Request $request)
+    {
+        $data['charge']=Activation_charge::where('description', 'like', '%'.$request->buscar_cargo .'%' )->paginate();
+        return response()->json($data);
+        
+        
+    }
 }

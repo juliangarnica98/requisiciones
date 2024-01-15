@@ -209,7 +209,7 @@
                     <div class="card "  >
                         <div class="card-body">
                             <h4 class="text-center">
-                                REINTEGRO
+                                APERTURA DE TIENDA
                             </h4>
                             <hr>
                             <h5 class="text-center">
@@ -219,7 +219,7 @@
                                 Fecha de apertura: {{ requisition.activation.opening_date }}
                             </h5>
                             <h5 class="text-center">
-                                Categoria: {{ requisition.activation.opening_category }}
+                                Categoria: {{ requisition.category.description }}
                             </h5>
     
                         </div>

@@ -1,35 +1,48 @@
 <template>
     <div>
-        <div  class="row pb-3 pt-3">
+        <div  class="row pb-0 pt-3">
             <div class="d-flex justify-content-center ">
                 <div class="card" style="width: 100%;">
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-md-3" >
+                                <select class="form-select" id="" name="" v-model="area">
+                                    <option value="">SELECCIONA EL ÁREA</option>
+                                    <option value="1">ADMINISTRATIVO</option>
+                                    <option value="2">VENTA NACIONAL</option>
+                                    <option value="3">COMERCIAL</option>
+                                    <option value="4">CEDI</option>
+                                    <option value="5">MAGENTEX</option>
+                                </select>
+                            </div> 
                             <div class="col-md-3" >
                                 <input class="form-control" type="date" value="" id="init_date" name="init_date" v-model="init">
                             </div>    
                             <div class="col-md-3" >
                                 <input class="form-control" type="date" value="" id="end_date" name="end_date" v-model="end">
                             </div>    
-                            <div class="col-md-2 d-grid gap-2">
+                            <div class="col-md-3 d-grid gap-2">
                                 <button class="btn btn-lili" @click.prevent="getdata">BUSCAR</button>
                             </div>     
-                            <div class="col-md-2 d-grid gap-2">
-                                <a href="" class="btn btn btn-lili" @click.prevent="getExcelType()">TIENDAS 1<i class="fas fa-download"></i></a>
-                            </div>
-                            <div class="col-md-2 d-grid gap-2">
-                                <a href="" class="btn btn btn-lili" @click.prevent="getExcelVacant()">TIENDAS 2<i class="fas fa-download"></i></a>
-                            </div>
+            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row pb-3 d-flex justify-content-end" v-if="area == 3 && init != '' && end != ''">
+                <div class="col-md-3 d-grid gap-2">
+                    <a href="" class="btn btn btn-lili" @click.prevent="getExcelType()">TIPO DE VACANTES<i class="fas fa-download"></i></a>
+                </div>
+                <div class="col-md-3 d-grid gap-2">
+                    <a href="" class="btn btn btn-lili" @click.prevent="getExcelVacant()">VACANTES<i class="fas fa-download"></i></a>
+                </div>
+        </div>
 
         
         
-        <div class="row" v-if=" this.init != '' && this.end != ''">
-            <div class="col-md-4">
+        <div class="row" v-if="this.area != '' && this.init != '' && this.end != ''">
+            <div class="col-md-6" v-if="area==1">
                 
                 <div class="card">
 
@@ -60,7 +73,7 @@
                     
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6" v-if="area==2">
                 
                 <div class="card">
 
@@ -91,7 +104,7 @@
                     
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6" v-if="area==3">
                 
                 <div class="card">
 
@@ -109,7 +122,7 @@
                                 <h6 class="card-title"><strong>EFECTIVIDAD</strong></h6>
                             </div>
                             <div class="col-md-3">
-                                <h6 class="" style="color:#54D1D1 ;"><strong>{{ total_efectividad_tienda }} </strong></h6>
+                                <h6 class="" style="color:#54D1D1 ;"><strong>{{ total_efectividad_tienda  }} </strong></h6>
                             </div>
                         </div>
                         <apexchart
@@ -122,13 +135,10 @@
                     
                 </div>
             </div>
-        </div>
-       
-        <div class="row d-flex justify-content-center" v-if=" this.init != '' && this.end != ''">
-            <div class="col-md-4">
+            <div class="col-md-6" v-if="area==4">
                 
                 <div class="card">
-
+    
                     <div class="card-body">
                         <div class="row justify-content-between">
                             <div class="col-md-9 ">
@@ -156,10 +166,10 @@
                     
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6" v-if="area==5">
                 
                 <div class="card">
-
+    
                     <div class="card-body">
                         <div class="row justify-content-between" >
                             <div class="col-md-9">
@@ -252,6 +262,7 @@ export default {
 
             init:"",
             end:"",
+            area:"",
 
 
             total_admin:0,
@@ -283,7 +294,7 @@ export default {
     methods:{
         getdata(){
             console.log(this.end);
-            if ( this.init == '' || this.end == '') {
+            if (this.area == ''|| this.init == '' || this.end == '') {
                 this.$toast.info('Hay campos vacios')
             } else {     
                 var url = `/getdatarequisition/`+this.init+`/`+this.end

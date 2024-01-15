@@ -62,17 +62,6 @@
                         </div>
                     </div>
 
-                    <div class="row card card-cont " v-if="form.area == '5'">
-                        <div class="card-body">
-                            <div  class="">
-                                <h6 class="text-center">SELECCIONA EL CARGO<small class="h5 text-danger" >*</small></h6>
-                                <select v-model="form.cargo_uniq" class="form-select" aria-label="Default select example" @change="onChageCast(1,form.cargo_uniq)">
-                                    <option selected value="">SELECCIONA UNA OPCION</option>
-                                    <option v-for="cargo_uniq in cargos_uniq" :value="cargo_uniq.id">{{ cargo_uniq.description }}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                 </template>
 
 
@@ -81,7 +70,7 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <h6 class="text-center">NOMBRE DE LA TIENDA<small class="h5 text-danger" >*</small></h6>
-                                <!-- <input v-model="form.nombre" type="text" class="form-control" id="" placeholder=""> -->
+                                
                                 <select class=" form-select" name="filtro_regional" id="filtro_regional" v-model="form.nombre" >
                                     <option value="" v-for="tiendas in lista_tiendas" :value="tiendas.description"> {{ tiendas.description }}</option>
                                 </select>
@@ -111,13 +100,13 @@
 
                 <template id="step4">
                     <div v-if="((form.categoria != '') && (form.nombre != '')) || form.area_gerencia != '' || form.centro_distribucion != '' 
-                    || form.area_facroty != '' || form.cargo_uniq != ''" class="row card card-cont ">
+                    || form.area_facroty != '' || form.area == '5'" class="row card card-cont ">
                         <div class="card-body">
                             <div class="mb-3">
                                 <h6 class="text-center">RELACIONA LA CIUDAD EN LA QUE SE ENCUENTRA LA VACANTE<small class="h5 text-danger" >*</small></h6>
-                                <select v-model="form.ciudad" class="form-select" aria-label="Default select example" @change="onChageCast(3,form.ciudad)">
+                                <select v-model="form.ciudad" class="form-select" aria-label="Default select example" style="text-transform: uppercase;" @change="onChageCast(3,form.ciudad)">
                                     <option selected value="">SELECCIONA UNA OPCION</option>
-                                    <option v-for="ciudad in ciudades" :value="ciudad.id">{{ciudad.description}}</option>
+                                    <option v-for="ciudad in ciudades" :value="ciudad.id" style="text-transform: uppercase;">{{ciudad.description}}</option>
                                 </select>
                             </div>
                         </div>
@@ -128,11 +117,21 @@
                 <template id="step5">
                     <div v-if="form.ciudad != ''" class="row card card-cont ">
                         <div class="card-body">
-                            <div class="mb-3">
+                            <div class="mb-3" v-if="form.area != 5">
                                 <h6 class="text-center">TIPO DE VACANTE<small class="h5 text-danger" >*</small></h6>
                                 <select v-model="form.tipo_vacante" class="form-select" aria-label="Default select example" @change="onChageCast(4,form.tipo_vacante)">
                                     <option selected value="">SELECCIONA UNA OPCION</option>
                                     <option v-for="tipo in tipo_vacantes" :value="tipo.id">{{tipo.description}}</option>
+                                </select>
+                            </div>
+                            <div class="mb-3" v-if="form.area = 5">
+                                <h6 class="text-center">TIPO DE VACANTE<small class="h5 text-danger" >*</small></h6>
+                                <select v-model="form.tipo_vacante" class="form-select" aria-label="Default select example" @change="onChageCast(4,form.tipo_vacante)">
+                                    <option selected value="">SELECCIONA UNA OPCION</option>
+                                    <option value="1">REEMPLAZO (VACANTE)</option>
+                                    <option value="2">PLAN DE CAMBIO</option>
+                                    <option value="3">NUEVO CARGO</option>
+                                    <option value="4">REINTEGRO</option>
                                 </select>
                             </div>
                         </div>
@@ -185,20 +184,11 @@
                     <div v-if="form.tipo_vacante == '5'" class="row card card-cont ">
                         <div class="card-body">
                             <div class="mb-3">
-                                <h6 class="text-center">NOMBRE DE LA TIENDA<small class="h5 text-danger" >*</small></h6>
-                                <input v-model="form.opening_store" type="text" class="form-control" id="" placeholder="">
-                                <h6 class="text-center">FECHA ESTIMADA DE APERTURA<small class="h5 text-danger" >*</small></h6>
+                                
+                               
+                                <h6 class="text-center">FECHA ESTIMADA DE APERTURA {{ form.opening_store }}<small class="h5 text-danger" >*</small></h6>
                                 <input v-model="form.opening_date" type="date" class="form-control" id="" placeholder="">
-                                <h6 class="text-center">CATEGORIA DE TIENDA<small class="h5 text-danger" >*</small></h6>
-                                <select v-model="form.opening_category" class="form-select" aria-label="Default select example">
-                                    <option selected value="">SELECCIONA UNA OPCION</option>
-                                    <option value="YAHAD">YAHAD</option>
-                                    <option value="AAA">AAA</option>
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
-                                    <option value="C">C</option>
-                                    <option value="D">D</option>
-                                </select>
+                              
                             </div>
                         </div>
                     </div>
@@ -227,7 +217,32 @@
                 <template id="step8">
                     <div v-if="form.sexo_vacante != ''" class="row card card-cont ">
                         <div class="card-body">
-                            <div class="mb-3">
+                            <div class="mb-3" v-if="form.area == '1'" >
+                                <h6 class="text-center">SELECCIONA EL CARGO A SOLICITAR<small class="h5 text-danger" >*</small></h6>
+                                <select  v-model="form.cargo_activacion" class="form-select" aria-label="Default select example" @change="onChageCast(6,form.cargo_activacion)">
+                                    <option selected value="">SELECCIONA UNA OPCION</option>
+                                    <option value="39">ASESOR PUNTO DE COMPRA</option>
+                                    <option value="37">ASESOR INTEGRAL</option>
+                                    <option value="38">ASESOR INTEGRAL TEMPORADA</option>
+                                    <option value="89">CAJERO</option>
+                                    <option value="107">COORDINADOR DE TIENDA</option>
+                                    <option value="193">LIDER DE TIENDA</option>
+                                    <option value="173">JEFE DE ZONA</option>
+                                    <option value="217">VISUAL MERCHANDISING</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3" v-else-if="form.area == '5'" >
+                                <h6 class="text-center">SELECCIONA EL CARGO A SOLICITAR<small class="h5 text-danger" >*</small></h6>
+                                <select  v-model="form.cargo_activacion" class="form-select" aria-label="Default select example" @change="onChageCast(6,form.cargo_activacion)">
+                                    <option selected value="">SELECCIONA UNA OPCION</option>
+                                    <option value="35">APC</option>
+                                    <option value="173">JEFE DE ZONA</option>
+                                   
+                                </select>
+                            </div>
+
+                            <div class="mb-3" v-else>
                                 <h6 class="text-center">SELECCIONA EL CARGO A SOLICITAR<small class="h5 text-danger" >*</small></h6>
                                 <select v-model="form.cargo_activacion" class="form-select" aria-label="Default select example" @change="onChageCast(6,form.cargo_activacion)">
                                     <option selected value="">SELECCIONA UNA OPCION</option>
@@ -244,7 +259,7 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <h6 class="text-center">COMENTARIOS</h6>
-                                <input v-model="form.comentarios" type="text" class="form-control" id="" placeholder="">
+                                <textarea v-model="form.comentarios" class="form-control" placeholder="( Campo Opcional) Si tiene personal referido para cubirir esta vacante por favor dejar aqui nombre y número de contacto" id=""></textarea>
                             </div>
                         </div>
 
@@ -459,6 +474,23 @@
                             this.form.cargo_activacion="",
                             this.form.comentarios=""
                         }
+                        else if(value == 5){
+                            this.form.opening_store = this.form.nombre;
+                            this.form.opening_category = this.form.categoria;
+                            this.form.replacement_ide="",
+                            this.form.replacement_name="",
+                            this.form.change_name="",
+                            this.form.change_ide="",
+                            this.form.change_reason="",
+                            this.form.refund_date_retirement="",
+                            this.form.refund_date="",
+                            this.form.refund_ide="",
+                            this.form.refund_name="",
+                            this.form.opening_date="",
+                            this.form.sexo_vacante="",
+                            this.form.cargo_activacion="",
+                            this.form.comentarios=""
+                        }
                         break;
                     case 5:
                         if(value == "") {
@@ -466,8 +498,13 @@
                             this.form.comentarios=""
                         }
                     case 6:
+                        console.log(value);
                         if(value == "") {
                             this.form.comentarios=""
+                        }else if(value == 35) {
+                            this.form.cargo_uniq = 1;
+                        }else if(value == 173) {
+                            this.form.cargo_uniq = 2;
                         }
                         break;
                     default:

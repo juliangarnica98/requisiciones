@@ -47,4 +47,19 @@ class TiendaController extends Controller
         $data->delete();
         return "SE HA ELIMINADO CORRECTAMENTE";
     }
+
+    public function search(Request $request)
+    {
+        $data['regionals']=Regional::all();
+        if($request->regional){
+            $regional = $request->regional;
+            $data['tienda']=Tienda::with('regional')->whereHas('regional',
+            function ($q) use ($regional) {$q->where('description',$regional);})->where('description', 'like', '%'.$request->buscar_tienda .'%' )->paginate();
+            return response()->json($data);
+        }else{
+            $data['tienda']=Tienda::with('regional')->where('description', 'like', '%'.$request->buscar_tienda .'%' )->paginate();
+            return response()->json($data);
+        }
+        
+    }
 }
