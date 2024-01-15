@@ -121,12 +121,20 @@ class Dashboard extends Controller
     }
     public function getdata2($init,$end){
         
-        $requisition['administartion_total']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->get()->count();
-        $requisition['administartion_cancelar']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CANCELAR')->get()->count();
+        $requisition['administartion_total']= Administration::whereIn('status',['ABIERTA','EN GESTION','CERRADA'])->whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->get()->count();
+        $requisition['administartion_cancelar']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->whereIn('status',['CANCELADA','CANCELAR'])->get()->count();
         $requisition['administartion_engestion']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','EN GESTION')->get()->count();
         $requisition['administartion_cerrada']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->get()->count();
         $requisition['administartion_abierta']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','ABIERTA')->get()->count();
         $requisition['administartion_num_efectivos']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->where('efectividad',1)->get()->count();
+
+        $requisition['administartion_reemplazo']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',1);})->get()->count();
+        $requisition['administartion_plancambio']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})->get()->count();
+        $requisition['administartion_nuevocargo']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
+
         try {
             $requisition['administartion_efectividad']= $requisition['administartion_num_efectivos']*100 / $requisition['administartion_cerrada'];
         } catch (\ErrorException $th) {
@@ -134,12 +142,20 @@ class Dashboard extends Controller
         }
         
 
-        $requisition['store_total']= Store::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->get()->count();
-        $requisition['store_cancelar']= Store::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CANCELAR')->get()->count();
+        $requisition['store_total']= Store::whereIn('status',['ABIERTA','EN GESTION','CERRADA'])->whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->get()->count();
+        $requisition['store_cancelar']= Store::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->whereIn('status',['CANCELADA','CANCELAR'])->get()->count();
         $requisition['store_engestion']= Store::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','EN GESTION')->get()->count();
         $requisition['store_cerrada']= Store::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->get()->count();
         $requisition['store_abierta']= Store::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','ABIERTA')->get()->count();
         $requisition['store_num_efectivos']= Store::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->where('efectividad',1)->get()->count();
+
+        $requisition['store_reemplazo']= Store::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',1);})->get()->count();
+        $requisition['store_plancambio']= Store::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})->get()->count();
+        $requisition['store_nuevocargo']= Store::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
+
         try {
             $requisition['store_efectividad']= $requisition['store_num_efectivos']*100 / $requisition['store_cerrada'];
         } catch (\ErrorException $th) {
@@ -147,24 +163,40 @@ class Dashboard extends Controller
         }
        
 
-        $requisition['cedi_total']= Cedi::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->get()->count();
-        $requisition['cedi_cancelar']= Cedi::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CANCELAR')->get()->count();
+        $requisition['cedi_total']= Cedi::whereIn('status',['ABIERTA','EN GESTION','CERRADA'])->whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->get()->count();
+        $requisition['cedi_cancelar']= Cedi::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->whereIn('status',['CANCELADA','CANCELAR'])->get()->count();
         $requisition['cedi_engestion']= Cedi::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','EN GESTION')->get()->count();
         $requisition['cedi_cerrada']= Cedi::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->get()->count();
         $requisition['cedi_abierta']= Cedi::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','ABIERTA')->get()->count();
         $requisition['cedi_num_efectivos']= Cedi::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->where('efectividad',1)->get()->count();
+        
+        $requisition['cedi_reemplazo']= Cedi::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',1);})->get()->count();
+        $requisition['cedi_plancambio']= Cedi::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})->get()->count();
+        $requisition['cedi_nuevocargo']= Cedi::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
+
         try {
             $requisition['cedi_efectividad']= $requisition['cedi_num_efectivos']*100 / $requisition['cedi_cerrada'];
         } catch (\ErrorException $th) {
             $requisition['cedi_efectividad']= 0;
         }
 
-        $requisition['factory_total']= Factory::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->get()->count();
-        $requisition['factory_cancelar']= Factory::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CANCELAR')->get()->count();
+        $requisition['factory_total']= Factory::whereIn('status',['ABIERTA','EN GESTION','CERRADA'])->whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->get()->count();
+        $requisition['factory_cancelar']= Factory::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->whereIn('status',['CANCELADA','CANCELAR'])->get()->count();
         $requisition['factory_engestion']= Factory::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','EN GESTION')->get()->count();
         $requisition['factory_cerrada']= Factory::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->get()->count();
         $requisition['factory_abierta']= Factory::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','ABIERTA')->get()->count();
         $requisition['factory_num_efectivos']= Factory::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->where('efectividad',1)->get()->count();
+
+        $requisition['factory_reemplazo']= Factory::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',1);})->get()->count();
+        $requisition['factory_plancambio']= Factory::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})->get()->count();
+        $requisition['factory_nuevocargo']= Factory::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
+
         try {
             $requisition['factory_efectividad']= $requisition['factory_num_efectivos']*100 / $requisition['factory_cerrada'];
         } catch (\ErrorException $th) {
@@ -172,12 +204,20 @@ class Dashboard extends Controller
         }
         
 
-        $requisition['ventanal_total']= National_sale::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->get()->count();
-        $requisition['ventanal_cancelar']= National_sale::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CANCELAR')->get()->count();
+        $requisition['ventanal_total']= National_sale::whereIn('status',['ABIERTA','EN GESTION','CERRADA'])->whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->get()->count();
+        $requisition['ventanal_cancelar']= National_sale::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->whereIn('status',['CANCELADA','CANCELAR'])->get()->count();
         $requisition['ventanal_engestion']= National_sale::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','EN GESTION')->get()->count();
         $requisition['ventanal_cerrada']= National_sale::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->get()->count();
         $requisition['ventanal_abierta']= National_sale::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','ABIERTA')->get()->count();
         $requisition['ventanal_num_efectivos']= National_sale::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->where('efectividad',1)->get()->count();
+
+        $requisition['ventanal_reemplazo']= National_sale::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',1);})->get()->count();
+        $requisition['ventanal_plancambio']= National_sale::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})->get()->count();
+        $requisition['ventanal_nuevocargo']= National_sale::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
+        ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
+
         try {
             $requisition['ventanal_efectividad']= $requisition['ventanal_num_efectivos']*100 / $requisition['ventanal_cerrada'];
         } catch (\ErrorException $th) {

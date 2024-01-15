@@ -124,7 +124,7 @@
                                     <option v-for="tipo in tipo_vacantes" :value="tipo.id">{{tipo.description}}</option>
                                 </select>
                             </div>
-                            <div class="mb-3" v-if="form.area = 5">
+                            <div class="mb-3" v-if="form.area == 5">
                                 <h6 class="text-center">TIPO DE VACANTE<small class="h5 text-danger" >*</small></h6>
                                 <select v-model="form.tipo_vacante" class="form-select" aria-label="Default select example" @change="onChageCast(4,form.tipo_vacante)">
                                     <option selected value="">SELECCIONA UNA OPCION</option>

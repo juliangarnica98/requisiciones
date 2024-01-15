@@ -42,27 +42,12 @@
         
         
         <div class="row" v-if="this.area != '' && this.init != '' && this.end != ''">
-            <div class="col-md-6" v-if="area==1">
+            <div class="col-md-4" v-if="area==1">
                 
                 <div class="card">
 
                     <div class="card-body">
-                        <div class="row justify-content-between">
-                            <div class="col-md-9">
-                                <h6 class="card-title"><strong>TOTAL ADMINISTRATIVOS</strong></h6>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="" style="color:#54D1D1 ;"><strong>{{ total_admin }}</strong></h6>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between">
-                            <div class="col-md-9">
-                                <h6 class="card-title"><strong>EFECTIVIDAD</strong></h6>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="" style="color:#54D1D1 ;"><strong>{{ total_efectividad_admin }} </strong></h6>
-                            </div>
-                        </div>
+                      
                         <apexchart
                         width="100%"
                         type="bar"
@@ -73,27 +58,12 @@
                     
                 </div>
             </div>
-            <div class="col-md-6" v-if="area==2">
+            <div class="col-md-4" v-if="area==2">
                 
                 <div class="card">
 
                     <div class="card-body">
-                        <div class="row justify-content-between">
-                            <div class="col-md-9">
-                                <h6 class="card-title"><strong>TOTAL VENTA NACIONAL</strong></h6>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="" style="color:#54D1D1 ;"><strong>{{ total_venta}}</strong></h6>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between">
-                            <div class="col-md-9">
-                                <h6 class="card-title"><strong>EFECTIVIDAD</strong></h6>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="" style="color:#54D1D1 ;"><strong>{{ total_efectividad_venta }} </strong></h6>
-                            </div>
-                        </div>
+                        
                         <apexchart
                         width="100%"
                         type="bar"
@@ -104,27 +74,11 @@
                     
                 </div>
             </div>
-            <div class="col-md-6" v-if="area==3">
+            <div class="col-md-4" v-if="area==3">
                 
                 <div class="card">
 
                     <div class="card-body">
-                        <div class="row justify-content-between">
-                            <div class="col-md-9">
-                                <h6 class="card-title"><strong>TOTAL TIENDA</strong></h6>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="" style="color:#54D1D1 ;"><strong>{{ total_tienda}}</strong></h6>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between">
-                            <div class="col-md-9">
-                                <h6 class="card-title"><strong>EFECTIVIDAD</strong></h6>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="" style="color:#54D1D1 ;"><strong>{{ total_efectividad_tienda  }} </strong></h6>
-                            </div>
-                        </div>
                         <apexchart
                         width="100%"
                         type="bar"
@@ -135,27 +89,12 @@
                     
                 </div>
             </div>
-            <div class="col-md-6" v-if="area==4">
+            <div class="col-md-4" v-if="area==4">
                 
                 <div class="card">
     
                     <div class="card-body">
-                        <div class="row justify-content-between">
-                            <div class="col-md-9 ">
-                                <h6 class="card-title"><strong>TOTAL CEDI</strong></h6>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="" style="color:#54D1D1 ;"><strong>{{ total_cedis}}</strong></h6>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between">
-                            <div class="col-md-9">
-                                <h6 class="card-title"><strong>EFECTIVIDAD</strong></h6>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="" style="color:#54D1D1 ;"><strong>{{ total_efectividad_cedis }} </strong></h6>
-                            </div>
-                        </div>
+                        
                         <apexchart
                         width="100%"
                         type="bar"
@@ -166,27 +105,11 @@
                     
                 </div>
             </div>
-            <div class="col-md-6" v-if="area==5">
+            <div class="col-md-4" v-if="area==5">
                 
                 <div class="card">
     
                     <div class="card-body">
-                        <div class="row justify-content-between" >
-                            <div class="col-md-9">
-                                <h6 class="card-title"><strong>TOTAL MAGENTEX</strong></h6>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="" style="color:#54D1D1 ;"><strong>{{ total_magentex}}</strong></h6>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between">
-                            <div class="col-md-9">
-                                <h6 class="card-title"><strong>EFECTIVIDAD</strong></h6>
-                            </div>
-                            <div class="col-md-3">
-                                <h6 class="" style="color:#54D1D1 ;"><strong>{{ total_efectividad_magentex }}</strong></h6>
-                            </div>
-                        </div>
                         <apexchart
                         width="100%"
                         type="bar"
@@ -197,6 +120,183 @@
                     
                 </div>
             </div>
+
+            <div class="col-md-8" v-if="area==1">
+                
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="row d-flex justify-content-end pb-2">
+                            <div class="col-md-12 text-right">
+                                <h3 class="">EFECTIVIDAD:<strong style="color:#9C27B0;"> {{ total_efectividad_admin  }} </strong></h3>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center pb-2">
+                            <div class="col-md-6 text-center">
+                                <h1 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_admin}}</strong></h1>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h1 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_admin  }} </strong></h1>
+                            </div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_admin_reemplazo  }} </strong></h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_admin_plan  }} </strong></h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_admin_nuevo  }} </strong></h5>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-8" v-if="area==2">
+                
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="row d-flex justify-content-end pb-2">
+                            <div class="col-md-12 text-right">
+                                <h3 class="">EFECTIVIDAD:<strong style="color:#9C27B0;"> {{ total_efectividad_venta  }} </strong></h3>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center pb-2">
+                            <div class="col-md-6 text-center">
+                                <h1 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_venta}}</strong></h1>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h1 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_venta  }} </strong></h1>
+                            </div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_venta_reemplazo  }} </strong></h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_venta_plan  }} </strong></h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_venta_nuevo  }} </strong></h5>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-8" v-if="area==3">
+                
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="row d-flex justify-content-end pb-2">
+                            <div class="col-md-12 text-right">
+                                <h3 class="">EFECTIVIDAD:<strong style="color:#9C27B0;"> {{ total_efectividad_tienda  }} </strong></h3>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center pb-2">
+                            <div class="col-md-6 text-center">
+                                <h1 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_tienda}}</strong></h1>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h1 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_tienda  }} </strong></h1>
+                            </div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_tienda_reemplazo  }} </strong></h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_tienda_plan  }} </strong></h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_tienda_nuevo  }} </strong></h5>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-8" v-if="area==4">
+                
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="row d-flex justify-content-end pb-2">
+                            <div class="col-md-12 text-right">
+                                <h3 class="">EFECTIVIDAD:<strong style="color:#9C27B0;"> {{ total_efectividad_cedis }} </strong></h3>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center pb-2">
+                            <div class="col-md-6 text-center">
+                                <h1 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_cedis}}</strong></h1>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h1 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_cedis  }} </strong></h1>
+                            </div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_cedis_reemplazo  }} </strong></h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_cedis_plan  }} </strong></h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_cedis_nuevo  }} </strong></h5>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-8" v-if="area==5">
+                
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="row d-flex justify-content-end pb-2">
+                            <div class="col-md-12 text-right">
+                                <h3 class="">EFECTIVIDAD:<strong style="color:#9C27B0;"> {{ total_efectividad_magentex }} </strong></h3>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center pb-2">
+                            <div class="col-md-6 text-center">
+                                <h1 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_magentex}}</strong></h1>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h1 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_magentex  }} </strong></h1>
+                            </div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_magentex_reemplazo  }} </strong></h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_magentex_plan  }} </strong></h5>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h5 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_magentex_nuevo  }} </strong></h5>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+           
         </div>
     </div>
 </template>
@@ -277,6 +377,30 @@ export default {
             total_efectividad_magentex:0,
             total_efectividad_venta:0,
 
+            total_cerrada_admin:0,
+            total_cerrada_tienda:0,
+            total_cerrada_cedis:0,
+            total_cerrada_magentex:0,
+            total_cerrada_venta:0,
+
+            total_admin_reemplazo:0,
+            total_admin_plan:0,
+            total_admin_nuevo:0,
+            total_tienda_reemplazo:0,
+            total_tienda_plan:0,
+            total_tienda_nuevo:0,
+            total_cedis_reemplazo:0,
+            total_cedis_plan:0,
+            total_cedis_nuevo:0,
+            total_magentex_reemplazo:0,
+            total_magentex_plan:0,
+            total_magentex_nuevo:0,
+            total_venta_reemplazo:0,
+            total_venta_plan:0,
+            total_venta_nuevo:0,
+
+
+
             optionsAd: {},
             OptionsTi:{},
             OptionsCe:{},
@@ -312,15 +436,43 @@ export default {
                         this.total_efectividad_cedis = res.data.cedi_efectividad;
                         this.total_efectividad_magentex=res.data.factory_efectividad;
                         this.total_efectividad_venta = res.data.ventanal_efectividad;
+
+                        this.total_cerrada_tienda = res.data.store_cerrada;
+                        this.total_cerrada_admin = res.data.administartion_cerrada;
+                        this.total_cerrada_cedis = res.data.cedi_cerrada;
+                        this.total_cerrada_magentex = res.data.factory_cerrada;
+                        this.total_cerrada_venta = res.data.ventanal_cerrada;
+
+                        this.total_admin_reemplazo = res.data.administartion_reemplazo,
+                        this.total_admin_plan = res.data.administartion_plancambio;
+                        this.total_admin_nuevo = res.data.administartion_nuevocargo;
+
+                        this.total_tienda_reemplazo = res.data.store_reemplazo,
+                        this.total_tienda_plan = res.data.store_plancambio;
+                        this.total_tienda_nuevo = res.data.store_nuevocargo;
+
+                        this.total_cedis_reemplazo = res.data.cedi_reemplazo,
+                        this.total_cedis_plan = res.data.cedi_plancambio;
+                        this.total_cedis_nuevo = res.data.cedi_nuevocargo;
+
+                        this.total_magentex_reemplazo = res.data.factory_reemplazo,
+                        this.total_magentex_plan = res.data.factory_plancambio;
+                        this.total_magentex_nuevo = res.data.factory_nuevocargo;
+
+                        this.total_venta_reemplazo = res.data.ventanal_reemplazo,
+                        this.total_venta_plan = res.data.ventanal_plancambio;
+                        this.total_venta_nuevo = res.data.ventanal_nuevocargo;
+            
+            
     
                         this.optionsAd={
-                            colors:['#E6007E', '#54D1D1'],
+                            colors:['#9C27B0'],
                             chart: {
                             id: "vuechart-example",
                             },
                             xaxis: {
                                 categories: [
-                                    'CANCELADAS','EN GESTION','CERRADA','ABIERTA'
+                                    'EN GESTION','CERRADA','ABIERTA'
                                 ],
                             },
                             
@@ -328,19 +480,19 @@ export default {
                         this.seriesAd=[
                             {
                                 name: "series-1",
-                                data: [res.data.administartion_cancelar,res.data.administartion_engestion,res.data.administartion_cerrada,res.data.administartion_abierta],
+                                data: [res.data.administartion_engestion,res.data.administartion_cerrada,res.data.administartion_abierta],
                                 
                             },
                         ],
 
                         this.OptionsTi={
-                            colors:['#E6007E', '#54D1D1'],
+                            colors:['#9C27B0'],
                             chart: {
                             id: "vuechart-example",
                             },
                             xaxis: {
                                 categories: [
-                                    'CANCELADAS','EN GESTION','CERRADA','ABIERTA'
+                                    'EN GESTION','CERRADA','ABIERTA'
                                 ],
                             },
                             
@@ -348,19 +500,19 @@ export default {
                         this.seriesTi=[
                             {
                                 name: "series-1",
-                                data: [res.data.store_cancelar,res.data.store_engestion,res.data.store_cerrada,res.data.store_abierta],
+                                data: [res.data.store_engestion,res.data.store_cerrada,res.data.store_abierta],
                                 
                             },
                         ],
 
                         this.OptionsCe={
-                            colors:['#E6007E', '#54D1D1'],
+                            colors:['#9C27B0'],
                             chart: {
                             id: "vuechart-example",
                             },
                             xaxis: {
                                 categories: [
-                                    'CANCELADAS','EN GESTION','CERRADA','ABIERTA'
+                                    'EN GESTION','CERRADA','ABIERTA'
                                 ],
                             },
                             
@@ -368,19 +520,19 @@ export default {
                         this.seriesCe=[
                             {
                                 name: "series-1",
-                                data: [res.data.cedi_cancelar,res.data.cedi_engestion,res.data.cedi_cerrada,res.data.cedi_abierta],
+                                data: [res.data.cedi_engestion,res.data.cedi_cerrada,res.data.cedi_abierta],
                                 
                             },
                         ],
 
                         this.OptionsMa={
-                            colors:['#E6007E', '#54D1D1'],
+                            colors:['#9C27B0'],
                             chart: {
                             id: "vuechart-example",
                             },
                             xaxis: {
                                 categories: [
-                                    'CANCELADAS','EN GESTION','CERRADA','ABIERTA'
+                                    'EN GESTION','CERRADA','ABIERTA'
                                 ],
                             },
                             
@@ -388,19 +540,19 @@ export default {
                         this.seriesMa=[
                             {
                                 name: "series-1",
-                                data: [res.data.factory_cancelar,res.data.factory_engestion,res.data.factory_cerrada,res.data.factory_abierta],
+                                data: [res.data.factory_engestion,res.data.factory_cerrada,res.data.factory_abierta],
                                 
                             },
                         ],
 
                         this.OptionsVe={
-                            colors:['#E6007E', '#54D1D1'],
+                            colors:['#9C27B0'],
                             chart: {
                             id: "vuechart-example",
                             },
                             xaxis: {
                                 categories: [
-                                    'CANCELADAS','EN GESTION','CERRADA','ABIERTA'
+                                    'EN GESTION','CERRADA','ABIERTA'
                                 ],
                             },
                             
@@ -408,7 +560,7 @@ export default {
                         this.seriesVe=[
                             {
                                 name: "series-1",
-                                data: [res.data.ventanal_cancelar,res.data.ventanal_engestion,res.data.ventanal_cerrada,res.data.ventanal_abierta],
+                                data: [res.data.ventanal_engestion,res.data.ventanal_cerrada,res.data.ventanal_abierta],
                                 
                             },
                         ]

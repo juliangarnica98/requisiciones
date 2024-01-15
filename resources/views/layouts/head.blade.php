@@ -10,17 +10,17 @@
 
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>RQ-GH</title>
+  <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo.png') }}">
+  {{-- <link rel="icon" href="{{ asset('images/favicon.ico') }}"> --}}
 
-  <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/assets/images/logos/favicon.png') }}" />
+  {{-- <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/assets/images/logos/favicon.png') }}" /> --}}
   <link rel="stylesheet" href="{{ asset('vendor/assets/css/styles.min.css') }}" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.6/dist/vue-multiselect.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-
-
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
   
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
