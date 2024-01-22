@@ -130,6 +130,8 @@ class RequisitionController extends Controller
                 $store->activation_id= $activation->id;
                 $store->activation_charge_id= $request->cargo_activacion;
                 $store->comentaries= $request->comentarios;
+                $store->ano_solicitud = date("Y");
+                $store->mes_solicitud = date("m");
                 $store->save();
             }
             if($request->area == 2){
@@ -144,6 +146,8 @@ class RequisitionController extends Controller
                 $admin->activation_id= $activation->id;
                 $admin->activation_charge_id= $request->cargo_activacion;
                 $admin->comentaries= $request->comentarios;
+                $admin->ano_solicitud = date("Y");
+                $admin->mes_solicitud = date("m");
                 $admin->save();
             }
             if($request->area == 3){
@@ -157,6 +161,8 @@ class RequisitionController extends Controller
                 $cedi->activation_id= $activation->id;
                 $cedi->activation_charge_id= $request->cargo_activacion;
                 $cedi->comentaries= $request->comentarios;
+                $cedi->ano_solicitud = date("Y");
+                $cedi->mes_solicitud = date("m");
                 $cedi->save();
             }
             if($request->area == 4){
@@ -170,6 +176,8 @@ class RequisitionController extends Controller
                 $factory->activation_id= $activation->id;
                 $factory->activation_charge_id= $request->cargo_activacion;
                 $factory->comentaries= $request->comentarios;
+                $factory->ano_solicitud = date("Y");
+                $factory->mes_solicitud = date("m");
                 $factory->save();
             }
             if($request->area == 5){
@@ -183,6 +191,8 @@ class RequisitionController extends Controller
                 $national_sale->activation_id= $activation->id;
                 $national_sale->activation_charge_id= $request->cargo_activacion;
                 $national_sale->comentaries= $request->comentarios;
+                $national_sale->ano_solicitud = date("Y");
+                $national_sale->mes_solicitud = date("m");
                 $national_sale->save();
             }
             // DB::commit();

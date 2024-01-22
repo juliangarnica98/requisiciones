@@ -24,6 +24,11 @@ class CreateCedisTable extends Migration
             $table->string('nombre_ingreso')->nullable();
             $table->string('cedula_ingreso')->nullable();
             $table->string('fecha_ingreso')->nullable();
+
+            $table->string('ano_solicitud')->nullable();
+            $table->string('ano_cierre')->nullable();
+            $table->string('mes_solicitud')->nullable();
+            $table->string('mes_cierre')->nullable();
             
             $table->unsignedBigInteger('requisition_id');
             $table->foreign('requisition_id')->references('id')->on('requisitions');

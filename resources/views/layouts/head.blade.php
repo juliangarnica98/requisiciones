@@ -11,7 +11,7 @@
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
   <title>RQ-GH</title>
-  <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo.png') }}">
+  <link rel="shortcut icon"  href="{{ asset('images/lili.ico') }}">
   {{-- <link rel="icon" href="{{ asset('images/favicon.ico') }}"> --}}
 
   {{-- <link rel="shortcut icon" type="image/png" href="{{ asset('vendor/assets/images/logos/favicon.png') }}" /> --}}

@@ -120,6 +120,9 @@ class Dashboard extends Controller
         }
     }
     public function getdata2($init,$end){
+        $mes_act = date('m');
+        $ano_act = date('Y');
+        
         
         $requisition['administartion_total']= Administration::whereIn('status',['ABIERTA','EN GESTION','CERRADA'])->whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->get()->count();
         $requisition['administartion_cancelar']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->whereIn('status',['CANCELADA','CANCELAR'])->get()->count();
@@ -134,6 +137,9 @@ class Dashboard extends Controller
         ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})->get()->count();
         $requisition['administartion_nuevocargo']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
         ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
+
+        // $requisition['administartion_cerrada']= Administration::where('ano_cierre','!=',$ano_act)->where('mes_cierre','!=',$mes_act)->whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->get()->count();
+        // dd($requisition['administartion_cerrada']);
 
         try {
             $requisition['administartion_efectividad']= $requisition['administartion_num_efectivos']*100 / $requisition['administartion_cerrada'];

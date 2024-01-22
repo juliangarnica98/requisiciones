@@ -264,6 +264,8 @@ class RequisitionController extends Controller
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
                 $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->ano_cierre = date("Y");
+                $data->mes_cierre = date("m");
                 $data->save();
                 break;
             case 'tienda':
@@ -275,6 +277,8 @@ class RequisitionController extends Controller
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
                 $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->ano_cierre = date("Y");
+                $data->mes_cierre = date("m");
                 $data->save();
                 break;
             case 'cedi':
@@ -286,6 +290,8 @@ class RequisitionController extends Controller
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
                 $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->ano_cierre = date("Y");
+                $data->mes_cierre = date("m");
                 $data->save();
                 break;
             case 'factory':
@@ -297,6 +303,8 @@ class RequisitionController extends Controller
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
                 $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->ano_cierre = date("Y");
+                $data->mes_cierre = date("m");
                 $data->save();
                 break;
             case 'venta_nal':
@@ -311,6 +319,8 @@ class RequisitionController extends Controller
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
                 $data->fecha_ingreso=$request->fecha_ingreso;
+                $data->ano_cierre = date("Y");
+                $data->mes_cierre = date("m");
                 $data->save();
                 break;
             default:
