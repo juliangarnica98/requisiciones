@@ -138,7 +138,7 @@ class Dashboard extends Controller
         $requisition['administartion_nuevocargo']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
         ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
 
-        // $requisition['administartion_cerrada']= Administration::where('ano_cierre','!=',$ano_act)->where('mes_cierre','!=',$mes_act)->whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->get()->count();
+        // $requisition['administartion_cerrada']= Administration::where('ano_cierre','!=',$ano_act)->where('mes_cierre','!=',$mes_act)->whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->get();
         // dd($requisition['administartion_cerrada']);
 
         try {
