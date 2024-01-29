@@ -90,9 +90,12 @@
                                                 </router-link>
                                             </div>
                                             <div class="col-md-3">
-                                                <a class="link" v-if="user.id!=1" data-bs-toggle="modal" :data-bs-target="'#'+user.id"> <span class="h5 text-white"><i class="fas fa-sync"></i></span> </a>
+                                                <a class="link" v-if="user.id!=1 && (user.roles[0].name=='Boss' || user.roles[0].name=='Director')" data-bs-toggle="modal" :data-bs-target="'#'+user.id"> <span class="h5 text-white"><i class="fas fa-sync"></i></span> </a>
                                                 <Update @traerdata="getUsers" :user="user.id" :rol="user.roles[0].name" :area="user.area" :regional="user.regional"></Update>
+                                                <a class="link" v-if="user.id!=1 && (user.roles[0].name=='Recruiter')" data-bs-toggle="modal" :data-bs-target="'#'+user.name+'_'+user.last_name"> <span class="h5 text-white"><i class="fas fa-sync"></i></span> </a>
+                                                <Reclutador @traerdata="getUsers" :user="user.name+'_'+user.last_name"></Reclutador>
                                             </div>
+                                            
                                             
                                         </div>
                                     </b></div>
@@ -100,7 +103,7 @@
                             </div>
                         </div>
                     </div>
-                    <pagination class="d-flex justify-content-center" :data="users" @pagination-change-page="getUsers">
+                    <pagination class="d-flex justify-content-center" :limit="5" :data="users" @pagination-change-page="getUsers">
                         <span slot="prev-nav">ANTERIOR</span>
                         <span slot="next-nav">SIGUIENTE</span>
                     </pagination>
@@ -115,8 +118,9 @@
 <script>
     import Store from './StoreComponent.vue';
     import Update from './UpdateComponent.vue';
+    import Reclutador from './UpdateComponent2.vue';
     export default {
-    components:{Store, Update},
+    components:{Store, Update, Reclutador},
     data() {
         return{
             users:{},

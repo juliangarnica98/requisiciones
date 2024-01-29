@@ -23,6 +23,7 @@ use App\Models\Store;
 use App\Models\Type_activation;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RequisitionController extends Controller
@@ -52,6 +53,7 @@ class RequisitionController extends Controller
 
     public function index()
     {
+        
         $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
         $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
         $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);

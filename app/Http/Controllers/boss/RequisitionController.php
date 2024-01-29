@@ -72,7 +72,7 @@ class RequisitionController extends Controller
     public function getData()
     {
         $data['type_activations']= Type_activation::all();
-        $data['activation_charges']= Activation_charge::all();
+        $data['activation_charges']= Activation_charge::orderBy('description','ASC')->get();
         $data['sexes']= Sex::all();
         $data['cities']= City::all();
         $data['management']=Management::all();

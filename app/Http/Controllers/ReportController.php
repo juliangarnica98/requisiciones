@@ -10,7 +10,9 @@ use App\Exports\ReteratsExport;
 use App\Exports\StoreExport;
 use App\Exports\StoresExport;
 use App\Exports\StoreTypeExport;
+use App\Exports\StoreVacantClose;
 use App\Exports\StoreVacantExport;
+
 use App\Models\Administration;
 use App\Models\Retreal;
 use App\Models\Store;
@@ -22,6 +24,11 @@ class ReportController extends Controller
     public function export_vacant($inicio , $fin)  
     {
         return Excel::download(new StoreVacantExport($inicio , $fin), 'storesVacant.xlsx');
+    }
+    public function export_vacant_close($inicio , $fin)  
+    {
+        
+        return Excel::download(new StoreVacantClose ($inicio , $fin), 'storesVacantClore.xlsx');
     }
     public function export_type($inicio , $fin)  
     {

@@ -138,8 +138,15 @@ class Dashboard extends Controller
         $requisition['administartion_nuevocargo']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
         ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
 
-        // $requisition['administartion_cerrada']= Administration::where('ano_cierre','!=',$ano_act)->where('mes_cierre','!=',$mes_act)->whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')->get();
-        // dd($requisition['administartion_cerrada']);
+
+        // $requisition_administartion_ant_cerrada= Administration::where('ano_solicitud','!=',$ano_act)->where('mes_solicitud','!=',$mes_act)
+        // ->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->get();
+        // $meses = arsort(array_unique($requisition_administartion_ant_cerrada->pluck('mes_solicitud')->toArray()));
+        
+        // dd($meses);
+
+        // $requisition['mes_ante_1']= Administration::where('ano_solicitud','!=',$ano_act)->where('mes_solicitud','!=',$mes_act)
+        // ->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->get();
 
         try {
             $requisition['administartion_efectividad']= $requisition['administartion_num_efectivos']*100 / $requisition['administartion_cerrada'];

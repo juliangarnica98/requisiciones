@@ -62,21 +62,44 @@
             <td>{{$lidtie_venta_nal}}</td>
             <td>{{$lidtie_region_anti_san + $lidtie_region_cent_nor + $lidtie_region_cent_sur + $lidtie_region_costa + $lidtie_region_sur + $lidtie_venta_nal }}</td>
          </tr>
+         <tr>
+            <td>JEFE DE ZONA</td>
+            <td>{{$jefezo_region_anti_san}}</td>
+            <td>{{$jefezo_region_cent_nor}}</td>
+            <td>{{$jefezo_region_cent_sur}}</td>
+            <td>{{$jefezo_region_costa}}</td>
+            <td>{{$jefezo_region_sur}}</td>
+            <td>{{$jefezo_venta_nal}}</td>
+            <td>{{$jefezo_region_anti_san + $jefezo_region_cent_nor + $jefezo_region_cent_sur + $jefezo_region_costa + $jefezo_region_sur + $jefezo_venta_nal }}</td>
+         </tr>
+         <tr>
+            <td>VISUAL MERCHANDISING</td>
+            <td>{{$visual_region_anti_san}}</td>
+            <td>{{$visual_region_cent_nor}}</td>
+            <td>{{$visual_region_cent_sur}}</td>
+            <td>{{$visual_region_costa}}</td>
+            <td>{{$visual_region_sur}}</td>
+            <td>{{$visual_venta_nal}}</td>
+            <td>{{$visual_region_anti_san + $visual_region_cent_nor + $visual_region_cent_sur + $visual_region_costa + $visual_region_sur + $visual_venta_nal }}</td>
+         </tr>
         <tr>
             <td>SUMA TOTAL</td>
-            <td>{{$lidtie_region_anti_san + $coorti_region_anti_san + $auxint_region_anti_san + $asepun_region_anti_san + $aseint_region_anti_san  }}</td>
-            <td>{{$lidtie_region_cent_nor + $coorti_region_cent_nor + $auxint_region_cent_nor + $asepun_region_cent_nor + $aseint_region_cent_nor}}</td>
-            <td>{{$lidtie_region_cent_sur + $coorti_region_cent_sur + $auxint_region_cent_sur + $asepun_region_cent_sur + $aseint_region_cent_sur}}</td>
-            <td>{{$lidtie_region_costa + $coorti_region_costa + $auxint_region_costa + $asepun_region_costa + $aseint_region_costa}}</td>
-            <td>{{$lidtie_region_sur + $coorti_region_sur + $auxint_region_sur + $asepun_region_sur + $aseint_region_sur}}</td>
-            <td>{{$lidtie_venta_nal + $coorti_venta_nal + $auxint_venta_nal + $asepun_venta_nal + $aseint_venta_nal}}</td>
+            <td>{{$visual_region_anti_san + $jefezo_region_anti_san+$lidtie_region_anti_san + $coorti_region_anti_san + $auxint_region_anti_san + $asepun_region_anti_san + $aseint_region_anti_san  }}</td>
+            <td>{{$visual_region_cent_nor + $jefezo_region_cent_nor+$lidtie_region_cent_nor + $coorti_region_cent_nor + $auxint_region_cent_nor + $asepun_region_cent_nor + $aseint_region_cent_nor}}</td>
+            <td>{{$visual_region_cent_sur + $jefezo_region_cent_sur+$lidtie_region_cent_sur + $coorti_region_cent_sur + $auxint_region_cent_sur + $asepun_region_cent_sur + $aseint_region_cent_sur}}</td>
+            <td>{{$visual_region_costa + $jefezo_region_costa+$lidtie_region_costa + $coorti_region_costa + $auxint_region_costa + $asepun_region_costa + $aseint_region_costa}}</td>
+            <td>{{$visual_region_sur + $jefezo_region_sur + $lidtie_region_sur + $coorti_region_sur + $auxint_region_sur + $asepun_region_sur + $aseint_region_sur}}</td>
+            <td>{{$visual_venta_nal + $jefezo_venta_nal+$lidtie_venta_nal + $coorti_venta_nal + $auxint_venta_nal + $asepun_venta_nal + $aseint_venta_nal}}</td>
+            
             <td>
-                {{$lidtie_region_anti_san + $coorti_region_anti_san + $auxint_region_anti_san + $asepun_region_anti_san + $aseint_region_anti_san +
-                $lidtie_region_cent_nor + $coorti_region_cent_nor + $auxint_region_cent_nor + $asepun_region_cent_nor + $aseint_region_cent_nor + 
-                $lidtie_region_cent_sur + $coorti_region_cent_sur + $auxint_region_cent_sur + $asepun_region_cent_sur + $aseint_region_cent_sur +
-                $lidtie_region_costa + $coorti_region_costa + $auxint_region_costa + $asepun_region_costa + $aseint_region_costa +
-                $lidtie_region_sur + $coorti_region_sur + $auxint_region_sur + $asepun_region_sur + $aseint_region_sur + 
-                $lidtie_venta_nal + $coorti_venta_nal + $auxint_venta_nal + $asepun_venta_nal + $aseint_venta_nal}}
+                {{
+                    $visual_region_anti_san + $jefezo_region_anti_san + $lidtie_region_anti_san + $coorti_region_anti_san + $auxint_region_anti_san + $asepun_region_anti_san + $aseint_region_anti_san +
+                    $visual_region_cent_nor + $jefezo_region_cent_nor + $lidtie_region_cent_nor + $coorti_region_cent_nor + $auxint_region_cent_nor + $asepun_region_cent_nor + $aseint_region_cent_nor + 
+                    $visual_region_cent_sur + $jefezo_region_cent_sur + $lidtie_region_cent_sur + $coorti_region_cent_sur + $auxint_region_cent_sur + $asepun_region_cent_sur + $aseint_region_cent_sur +
+                    $visual_region_costa + $jefezo_region_costa + $lidtie_region_costa + $coorti_region_costa + $auxint_region_costa + $asepun_region_costa + $aseint_region_costa +
+                    $visual_region_sur + $jefezo_region_sur + $lidtie_region_sur + $coorti_region_sur + $auxint_region_sur + $asepun_region_sur + $aseint_region_sur + 
+                    $visual_venta_nal + $jefezo_venta_nal + $lidtie_venta_nal + $coorti_venta_nal + $auxint_venta_nal + $asepun_venta_nal + $aseint_venta_nal
+                }}
             </td>
             
         </tr> 

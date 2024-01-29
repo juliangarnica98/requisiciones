@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Administration;
+use App\Models\Cedi;
+use App\Models\Factory;
+use App\Models\National_sale;
 use App\Models\Requisition;
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -52,6 +57,16 @@ class UserController extends Controller
     {
         
         $user = User::find($id);
+
+        try {
+            Administration::where('reclutador',$user->name." ".$user->last_name)->update(['reclutador'=>$request->name." ".$request->last_name]);
+            National_sale::where('reclutador',$user->name." ".$user->last_name)->update(['reclutador'=>$request->name." ".$request->last_name]);
+            Factory::where('reclutador',$user->name." ".$user->last_name)->update(['reclutador'=>$request->name." ".$request->last_name]);
+            Store::where('reclutador',$user->name." ".$user->last_name)->update(['reclutador'=>$request->name." ".$request->last_name]);
+            Cedi::where('reclutador',$user->name." ".$user->last_name)->update(['reclutador'=>$request->name." ".$request->last_name]);
+        } catch (\ErrorException $th) {
+            
+        }
         $user->name = $request->name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
@@ -70,6 +85,14 @@ class UserController extends Controller
             return response()->json('ERROR');
         }
         $user = User::find($id);
+         $admin = Administration::where('reclutador',$user->name." ".$user->last_name)->get();
+         $store = Store::where('reclutador',$user->name." ".$user->last_name)->get();
+         $facto = Factory::where('reclutador',$user->name." ".$user->last_name)->get();
+         $natio = National_sale::where('reclutador',$user->name." ".$user->last_name)->get();
+         $cedis = Cedi::where('reclutador',$user->name." ".$user->last_name)->get();
+        if(count($admin)>0 || count($store)>0 || count($facto)>0 || count($natio)>0 || count($cedis)>0){
+            return response()->json('ERROR');
+        }
         $user->delete();
         return response()->json('SE HA ELIMINADO CORRECTAMENTE');
     }
@@ -77,6 +100,21 @@ class UserController extends Controller
     {
         
         $requisitions = Requisition::where('user_id',$request->user)->update(['user_id' => $request->new_user]);
+        return response()->json('SE HA REASIGNADO CORRECTAMENTE');
+        
+        
+    }
+    public function asignarre(Request $request)
+    {
+        
+        $user = User::find($request->new_user);
+        $new_user = str_replace('_', ' ',$request->user);
+  
+        Administration::where('reclutador',$new_user)->update(['reclutador' => $user->name.' '.$user->last_name]);
+        Store::where('reclutador',$new_user)->update(['reclutador' => $user->name.' '.$user->last_name]);
+        Factory::where('reclutador',$new_user)->update(['reclutador' => $user->name.' '.$user->last_name]);
+        National_sale::where('reclutador',$new_user)->update(['reclutador' => $user->name.' '.$user->last_name]);
+        Cedi::where('reclutador',$new_user)->update(['reclutador' => $user->name.' '.$user->last_name]);
         return response()->json('SE HA REASIGNADO CORRECTAMENTE');
         
         
@@ -95,5 +133,12 @@ class UserController extends Controller
             
             return response()->json($data);
         }
+    }
+
+    public function getRecuriter(){
+        $reclu = "Recruiter";
+        $data['users'] = User::whereHas("roles", function($q) use($reclu){  $q->where("name", $reclu); })->get();
+        return response()->json($data);
+        
     }
 }

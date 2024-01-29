@@ -38,7 +38,10 @@
                     <a href="" class="btn btn btn-lili" @click.prevent="getExcelType()">TIPO DE VACANTES<i class="fas fa-download"></i></a>
                 </div>
                 <div class="col-md-3 d-grid gap-2" v-if="area == 3 && init != '' && end != ''">
-                    <a href="" class="btn btn btn-lili" @click.prevent="getExcelVacant()">VACANTES<i class="fas fa-download"></i></a>
+                    <a href="" class="btn btn btn-lili" @click.prevent="getExcelClose()">VACANTES CERRADAS<i class="fas fa-download"></i></a>
+                </div>
+                <div class="col-md-3 d-grid gap-2" v-if="area == 3 && init != '' && end != ''">
+                    <a href="" class="btn btn btn-lili" @click.prevent="getExcelOpen()">VACANTES ABIERTAS<i class="fas fa-download"></i></a>
                 </div>
         </div>
 
@@ -571,11 +574,18 @@ export default {
                     });
             }
         },
-        getExcelVacant(){
+        getExcelOpen(){
             if(this.init == "" || this.end == ""){
                 this.$toast.error('Campos vacios');
             }else{
                 window.open('/vacant/export/'+this.init+'/'+this.end).focus();
+            }
+        },
+        getExcelClose(){
+            if(this.init == "" || this.end == ""){
+                this.$toast.error('Campos vacios');
+            }else{
+                window.open('/vacant/exportclose/'+this.init+'/'+this.end).focus();
             }
         },
         getExcelType(){
@@ -585,6 +595,7 @@ export default {
                 window.open('/store/export/'+this.init+'/'+this.end).focus();
             }
         },
+        
         getExcelData(){
             if(this.area == "" ||this.init == "" || this.end == ""){
                 this.$toast.error('Campos vacios');

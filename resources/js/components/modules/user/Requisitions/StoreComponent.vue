@@ -13,19 +13,6 @@
                 
                 <template id="step2">
 
-                    <!-- <div class="row card card-cont " v-if="form.area == '1'">
-                        <div class="card-body">
-                            <div  class="">
-                                <h6 class="text-center">SELECCIONA LA REGIONAL<small class="h5 text-danger" >*</small></h6>
-                                <select v-model="form.regional" class="form-select" aria-label="Default select example" @change="onChageCast(1,form.regional)">
-                                    <option selected value="">SELECCIONA UNA OPCION</option>
-                                    <option v-for="regional in regionales" :value="regional.id">{{regional.description}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div> -->
-
-
                     <div class="row card card-cont " v-if="form.area == '2'" >
                         <div class="card-body">
                             <div  class="">
@@ -117,14 +104,14 @@
                 <template id="step5">
                     <div v-if="form.ciudad != ''" class="row card card-cont ">
                         <div class="card-body">
-                            <div class="mb-3" v-if="form.area != 5">
+                            <div class="mb-3" v-if="form.area == 1">
                                 <h6 class="text-center">TIPO DE VACANTE<small class="h5 text-danger" >*</small></h6>
                                 <select v-model="form.tipo_vacante" class="form-select" aria-label="Default select example" @change="onChageCast(4,form.tipo_vacante)">
                                     <option selected value="">SELECCIONA UNA OPCION</option>
                                     <option v-for="tipo in tipo_vacantes" :value="tipo.id">{{tipo.description}}</option>
                                 </select>
                             </div>
-                            <div class="mb-3" v-if="form.area == 5">
+                            <div class="mb-3" v-if="form.area != 1">
                                 <h6 class="text-center">TIPO DE VACANTE<small class="h5 text-danger" >*</small></h6>
                                 <select v-model="form.tipo_vacante" class="form-select" aria-label="Default select example" @change="onChageCast(4,form.tipo_vacante)">
                                     <option selected value="">SELECCIONA UNA OPCION</option>
@@ -146,7 +133,7 @@
                                 <h6 class="text-center">NOMBRE DE A QUIEN REEMPLAZA<small class="h5 text-danger" >*</small></h6>
                                 <input v-model="form.replacement_name" type="text" class="form-control" id="" placeholder="">
                                 <h6 class="text-center">CEDULA DE A QUIEN REEMPLAZA<small class="h5 text-danger" >*</small></h6>
-                                <input v-model="form.replacement_ide" type="text" class="form-control" id="" placeholder="">
+                                <input v-model="form.replacement_ide" type="number" class="form-control" id="" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -156,13 +143,13 @@
                                 <h6 class="text-center">¿Quién es la persona a la que reemplazaría?<small class="h5 text-danger" >*</small></h6>
                                 <input v-model="form.change_name" type="text" class="form-control" id="" placeholder="">
                                 <h6 class="text-center">¿Cuál es la cedula del colaborador que se va a retirar?<small class="h5 text-danger" >*</small></h6>
-                                <input v-model="form.change_ide" type="text" class="form-control" id="" placeholder="">
+                                <input v-model="form.change_ide" type="number" class="form-control" id="" placeholder="">
                                 <h6 class="text-center">¿Por que se ejecuta el plan de cambio?<small class="h5 text-danger" >*</small></h6>
                                 <select v-model="form.change_reason" class="form-select" aria-label="Default select example">
                                     <option selected value="">SELECCIONA UNA OPCION</option>
                                     <option value="Desempeño">Desempeño</option>
                                     <option value="Periodo de prueba">Periodo de prueba</option>
-                                    <option value="Renuncia voluntaria">Renuncia voluntaria</option>
+                                    <option value="Proceso disciplinario">Proceso disciplinario</option>
                                 </select>
                             </div>
                         </div>
@@ -175,7 +162,7 @@
                                 <h6 class="text-center">FECHA DE REINGRESO A LA COMPAÑIA<small class="h5 text-danger" >*</small></h6>
                                 <input v-model="form.refund_date" type="date" class="form-control" id="" placeholder="">
                                 <h6 class="text-center">CEDULA DEL COLABORADOR<small class="h5 text-danger" >*</small></h6>
-                                <input v-model="form.refund_ide" type="text" class="form-control" id="" placeholder="">
+                                <input v-model="form.refund_ide" type="number" class="form-control" id="" placeholder="">
                                 <h6 class="text-center">NOMBRE COMPLETO DEL COLABORADOR<small class="h5 text-danger" >*</small></h6>
                                 <input v-model="form.refund_name" type="text" class="form-control" id="" placeholder="">
                             </div>
@@ -224,6 +211,7 @@
                                     <option value="39">ASESOR PUNTO DE COMPRA</option>
                                     <option value="37">ASESOR INTEGRAL</option>
                                     <option value="38">ASESOR INTEGRAL TEMPORADA</option>
+                                    <option value="87">AUXILIAR INTEGRAL</option>
                                     <option value="89">CAJERO</option>
                                     <option value="107">COORDINADOR DE TIENDA</option>
                                     <option value="193">LIDER DE TIENDA</option>
@@ -231,7 +219,39 @@
                                     <option value="217">VISUAL MERCHANDISING</option>
                                 </select>
                             </div>
-
+                            <div class="mb-3" v-else-if="form.area == '3'" >
+                                <h6 class="text-center">SELECCIONA EL CARGO A SOLICITAR<small class="h5 text-danger" >*</small></h6>
+                                <select  v-model="form.cargo_activacion" class="form-select" aria-label="Default select example" @change="onChageCast(6,form.cargo_activacion)">
+                                    <option selected value="">SELECCIONA UNA OPCION</option>
+                                    <option value="67">AUXILIAR DE OPERACIONES LOGÍSTICAS </option>
+                                    <option value="51">AUXILIAR DE BANDAS </option>
+                                    <option value="46">AUXILIAR ADMINISTRATIVO </option>
+                                    <option value="222">LÍDER DE BANDAS </option>
+                                    <option value="184">LÍDER DE DEVOLUCIONES </option>
+                                    <option value="189">LÍDER DE PLOTTER </option>
+                                    <option value="181">LÍDER DE CORTE </option>
+                                    <option value="192">LÍDER DE RICIBO Y ALMACENAMIENTO </option>
+                                    <option value="185">LÍDER DE INVENTARIOS </option>
+                                    <option value="187">LÍDER DE PICKING </option>
+                                    <option value="183">LÍDER DE DESPACHOS </option>
+                                    <option value="53">AUXILIAR DE CAMIÓN </option>
+                                    <option value="91">CONDUCTOR </option>
+                                    <option value="85">AUXILIAR I SORTER</option>
+                                    <option value="190">LÍDER DE PRODUCCIÓN</option>
+                                    <option value="221">JEFE DE CEDI</option>
+                                    <option value="121">DIRECTOR DE PRODUCCIÓN</option>
+                                    <option value="220">GERENTE DE OPERACIONES</option>
+                                    <option value="72">AUXILIAR DE SERVICIOS GENERALES</option>
+                                    <option value="219">AUXILIAR DE SEGURIDAD </option>
+                                    <option value="212">SUPERVISOR DE PRODUCCIÓN </option>
+                                    <option value="198">MONTACARGUISTA </option>
+                                    <option value="189">LÍDER DE MOBILIARIO </option>
+                                    <option value="203">OPERARIO DE MAQUINA</option>
+                                    <option value="59">AUXILIAR DE CORTE </option>
+                                    <option value="81">AUXILIAR I PRODUCCIÓN</option>
+                                    <option value="218">CORTADOR</option>         
+                                </select>
+                            </div>
                             <div class="mb-3" v-else-if="form.area == '5'" >
                                 <h6 class="text-center">SELECCIONA EL CARGO A SOLICITAR<small class="h5 text-danger" >*</small></h6>
                                 <select  v-model="form.cargo_activacion" class="form-select" aria-label="Default select example" @change="onChageCast(6,form.cargo_activacion)">

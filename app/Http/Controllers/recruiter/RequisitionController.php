@@ -25,6 +25,7 @@ use App\Models\Type_activation;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RequisitionController extends Controller
@@ -38,7 +39,7 @@ class RequisitionController extends Controller
     public function getData()
     {
         $data['type_activations']= Type_activation::all();
-        $data['activation_charges']= Activation_charge::all();
+        $data['activation_charges']= Activation_charge::orderBy('description','ASC')->get();
         $data['sexes']= Sex::all();
         $data['cities']= City::all();
         $data['management']=Management::all();
@@ -54,6 +55,8 @@ class RequisitionController extends Controller
 
     public function index()
     {
+        $data['nombre'] = Auth::user()->name." ".Auth::user()->last_name;
+        // dd( $data['nombre'] );
         $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
         $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
         $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);

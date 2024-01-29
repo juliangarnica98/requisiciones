@@ -53,7 +53,6 @@
             <div class="col-md-2 text-center pt-3 pb-3" style="background-color:  #e92c91;color:white">CERRADA <i class="fas fa-check-double"></i></div>
             <div class="col-md-2 text-center pt-3 pb-3 border-right" style="background-color: #f252a7;color:white">CANCELADA <i class="fas fa-window-close"></i></div>
         </div>
-
         <div class="padding  pt-3">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin " >
@@ -74,8 +73,9 @@
                     </div>
                     <div class="row">
                         <div v-for="rq in listaRequisition.data" class="card-requition">
-                            <div class="card border-none" :class="{ estado_abierto: rq.status == 'ABIERTA', estado_cerrado: rq.status == 'CERRADA' ,estado_engestion: rq.status == 'EN GESTION',estado_cancelado: rq.status == 'CANCELADA' }">
+                            <div class="card border-none" v-if="rq.reclutador == nombre_usuario"  :class="{ estado_abierto: rq.status == 'ABIERTA', estado_cerrado: rq.status == 'CERRADA' ,estado_engestion: rq.status == 'EN GESTION',estado_cancelado: rq.status == 'CANCELADA' }">
                                 <div class="card-body">
+                                    <!--  -->
                                     <div class="row ">
                                         <div class="col-md-3 text-center"> <b style="text-transform: uppercase;"> {{rq.requisition.user.name}} {{rq.requisition.user.last_name}} - {{ rq.created_at | fecha}}</b></div>
                                         <div class="col-md-1 text-center d-flex justify-content-center aling-items-center"><b> 
@@ -122,7 +122,7 @@
                     
                 </div>
             </div>
-            <pagination class="d-flex justify-content-center" :data="listaRequisition" @pagination-change-page="getRequisitions">
+            <pagination class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="getRequisitions">
                 <span slot="prev-nav">ANTERIOR</span>
                 <span slot="next-nav">SIGUIENTE</span>
             </pagination>
@@ -144,6 +144,7 @@ import Edit2 from './EditComponent2.vue'
                 filtro_regional:"",
                 filtro_jefe:"",
                 filtro_estado:"",
+                nombre_usuario:"",
 
                 regionales:{},
                 jefes_zona:{},
@@ -165,6 +166,7 @@ import Edit2 from './EditComponent2.vue'
             getRequisitions(page = 1){
                 axios.get('/recruiter/getrequisition?page='+page)
                 .then((res) => { 
+                    this.nombre_usuario = res.data.nombre;
                     if (this.area == 'tienda') {
                         this.listaRequisition = res.data.store;  
                     } else if(this.area == 'admin') {

@@ -74,7 +74,7 @@
                         </div>
                         
                     </div>
-                    <pagination class="d-flex justify-content-center" :data="lista_entrevista" @pagination-change-page="getRequisitions">
+                    <pagination class="d-flex justify-content-center" :limit="5" :data="lista_entrevista" @pagination-change-page="getRequisitions">
                         <span slot="prev-nav">ANTERIOR</span>
                         <span slot="next-nav">SIGUIENTE</span>
                     </pagination>

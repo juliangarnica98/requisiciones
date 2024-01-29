@@ -4,6 +4,7 @@ namespace App\Http\Controllers\generalist;
 
 use App\Http\Controllers\Controller;
 use App\Models\Activation_charge;
+use App\Models\Retirement_position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,9 +19,13 @@ class ChargeController extends Controller
     {
     
         $data=Activation_charge::where('id', $request->id)->first();
+        $data2=Retirement_position::where('id', $request->id)->first();
         $data->description = $request->description;
         $data->effectiveness = $request->efectividad;
+        $data2->description = $request->description;
+        $data2->effectiveness = $request->efectividad;
         $data->save();
+        $data2->save();
         return "SE HA ACTUALIZADO CORRECTAMENTE";
     }
 
@@ -33,9 +38,13 @@ class ChargeController extends Controller
             return response()->json($validator->errors(),500);
         }
         $data=new Activation_charge();
+        $data2=new Retirement_position();
         $data->description = strtoupper($request->description);
         $data->effectiveness = $request->efectividad;
+        $data2->description = strtoupper($request->description);
+        $data2->effectiveness = $request->efectividad;
         $data->save();
+        $data2->save();
         return response()->json([
             "status"=>"success",
             "data"=>"SE GUARDO CORRECTAMENTE"
@@ -45,7 +54,9 @@ class ChargeController extends Controller
     public function delete($id)
     {
         $data=Activation_charge::find($id);
+        $data2=Retirement_position::find($id);
         $data->delete();
+        $data2->delete();
         return "SE HA ELIMINADO CORRECTAMENTE";
         
     }

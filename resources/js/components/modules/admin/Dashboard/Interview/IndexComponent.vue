@@ -1,6 +1,6 @@
 <template>
     <div>   
-        <div class="row pb-3 pt-3"  >
+        <div class="row pb-1 pt-3"  >
             <div class="d-flex justify-content-center" >
                 <div class="card" style="width: 100%;">
                     <div class="card-body" >
@@ -61,122 +61,129 @@
             </div>
         </div>
 
-        
-        <div class="row" v-if="this.area != '' &&  this.init_date != '' && this.end_date != ''">
-            <div class="col-md-4">
-                <div class="card">
-                    <!-- <div class="card-header">
-                    </div> -->
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h3 class="card-title"><strong> NUMERO DE ENCUESTAS</strong></h3>
-                            </div>
-                            <div class="col-md-2">
-                                <h1 class="" style="color:#54D1D1 ;"><strong>{{ total_entrevistas }}</strong></h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <p class="text-center">PERSONAS QUE HAN RESPONDIDO:</p>
-                        </div>
-                        <apexchart
-                        width="100%"
-                        type="bar"
-                        :options="options"
-                        :series="series"
-                    ></apexchart>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h3 class="card-title"><strong> PERSONAS QUE ACCEDIERON A LOS BENEFICIOS</strong></h3>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-3 text-center">SI {{ beneficios_si }} </div>
-                            <div class="col-md-3 text-center">NO {{ beneficios_no }} </div>
-                            <div class="col-md-6 text-center">NO CONOCE {{ beneficios_re }}</div>
-                        </div>
-                        <div id="chart">
-                            <apexchart type="donut" :options="OptionsBe" :series="seriesBe "></apexchart>
-                          </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h3 class="card-title"><strong> PERSONAS RECIBIERON ALGUNA CAPACITACIÓN</strong></h3>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-4 text-center">SI {{ entrenamiento_si }} </div>
-                            <div class="col-md-4 text-center">NO {{ entrenamiento_no }} </div>
-                        </div>
-                        <div id="chart">
-                            <apexchart type="donut" :options="OptionsEn" :series="seriesEn"></apexchart>
-                        </div>
-                    </div>
-                   
-                </div>
-            </div>
-        </div>
-        <div class="row" v-if="this.area != '' &&  this.init_date != '' && this.end_date != ''">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h3 class="card-title"><strong>MOTIVO DE RETIRO</strong></h3>
-                            </div>
-                            <div id="chart">
-                                <apexchart type="bar" height="350" :options="OptionsMo" :series="seriesMo"></apexchart>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h3 class="card-title"><strong>ASPECTOS A FORTALECER</strong></h3>
-                            </div>
-                            <div id="chart">
-                                <apexchart width="100%"
-                                type="bar" :options="OptionsAs" :series="seriesAs"></apexchart>
-                              </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 aspectos">
-                <div class="card scroll">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3 class="card-title"><strong>ASPECTOS POSITIVOS</strong></h3>
-                                <div class="" v-for="aspectos in aspectos_positivos">
-                                    <div class="card" style="width: 100%; background-color: #E6007E;color: white;">
-                                        <div class="card-body mayus" >
-                                            {{ aspectos.positive_aspects }}
+       <div class="row justify-content-center">
+        <div class="col-md-11">
+            <div class="row" v-if="this.area != '' &&  this.init_date != '' && this.end_date != ''">
+
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h3 class="card-title"><strong> NUMERO DE ENCUESTAS</strong></h3>
                                         </div>
+                                        <div class="col-md-2">
+                                            <h1 class="" style="color:#54D1D1 ;"><strong>{{ total_entrevistas }}</strong></h1>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <p class="text-center">PERSONAS QUE HAN RESPONDIDO:</p>
+                                    </div>
+                                    <apexchart  width="100%" type="bar" :options="options" :series="series"></apexchart>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h3 class="card-title"><strong> PERSONAS QUE ACCEDIERON A LOS BENEFICIOS</strong></h3>
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-md-3 text-center">SI {{ beneficios_si }} </div>
+                                        <div class="col-md-3 text-center">NO {{ beneficios_no }} </div>
+                                        <div class="col-md-6 text-center">NO CONOCE {{ beneficios_re }}</div>
+                                    </div>
+                                    <div id="chart">
+                                        <apexchart type="donut" :options="OptionsBe" :series="seriesBe "></apexchart>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h3 class="card-title"><strong> PERSONAS RECIBIERON ALGUNA CAPACITACIÓN</strong></h3>
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-md-4 text-center">SI {{ entrenamiento_si }} </div>
+                                        <div class="col-md-4 text-center">NO {{ entrenamiento_no }} </div>
+                                    </div>
+                                    <div id="chart">
+                                        <apexchart type="donut" :options="OptionsEn" :series="seriesEn"></apexchart>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h3 class="card-title"><strong>MOTIVO DE RETIRO</strong></h3>
+                                        </div>
+                                        <!-- <div id="chart">
+                                            <apexchart type="bar" height="350" :options="OptionsMo" :series="seriesMo"></apexchart>
+                                        </div> -->
+                                        <apexchart  width="100%" type="bar" :options="OptionsMo" :series="seriesMo"></apexchart>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <h3 class="card-title"><strong>ASPECTOS A FORTALECER</strong></h3>
+                                        </div>
+                                        <div id="chart">
+                                            <apexchart width="100%"
+                                            type="bar" :options="OptionsAs" :series="seriesAs"></apexchart>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+            <div class="row" v-if="this.area != '' &&  this.init_date != '' && this.end_date != ''">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h3 class="card-title"><strong>ASPECTOS POSITIVOS</strong></h3>
+                                </div>
+    
+                                <apexchart  width="100%" type="bar" :options="OptionAsP" :series="seriesAsP"></apexchart>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+    
         </div>
+       </div>
+
+        
     </div>
 </template>
 <style scoped>
@@ -258,12 +265,14 @@ export default {
             OptionsEn:{},
             OptionsMo:{},
             OptionsAs:{},
+            OptionAsP:{},
+
             series: [],
             seriesBe:[],
             seriesEn:[],
             seriesMo:[],
             seriesAs:[],
-            aspectos_positivos:[],
+            seriesAsP:[],
 
         };
     },
@@ -381,63 +390,73 @@ export default {
                                 
                             },
                         ]
-    
+                        this.seriesAsP= [{
+                                data: [res.data.aspecto_salario
+                                        ,res.data.aspecto_actividades
+                                        ,res.data.aspecto_clima
+                                        ,res.data.aspecto_formacion
+                                        ,res.data.aspecto_horarios
+                                        ,res.data.aspecto_aprendizaje
+                                        ,res.data.aspecto_distancia
+                                        ,res.data.aspecto_puntualidad
+                                        ,res.data.aspecto_instalaciones
+                                        ,res.data.aspecto_herramientas
+                                        ,res.data.aspecto_desayunos
+                                
+                                    ]
+                            }],
+                        this.OptionAsP= {
+
+                            colors:[ '#9C27B0'],
+                            chart: {
+                            id: "vuechart-example",
+                            },
+                            xaxis: {
+                                categories: [ 'SALARIO', 'ACTIVIDADES', 'CLIMA','FORMACION','HORARIOS','APRENDIZAJE','DISTANCIA','PUNTUALIDAD','INSTALACIONES','HERRAMIENTAS','DESAYUNOS']
+                            },
+
+                        }
                         if (this.area == 1 || this.area == 2) {
                             
                             this.seriesMo= [{
-                                data: [res.data.motivo_traslado,res.data.motivo_oferta,res.data.motivo_estudio,res.data.motivo_otro]
+                                data: [res.data.motivo_distancia,res.data.motivo_oferta,res.data.motivo_estudio,res.data.motivo_salud,res.data.motivo_calamidad,res.data.motivo_otro,]
                             }],
                             this.OptionsMo= {
-                                colors:[ '#54D1D1'],
+
+                                colors:[ '#9C27B0'],
                                 chart: {
-                                type: 'bar',
-                                height: 350
-                                },
-                                plotOptions: {
-                                bar: {
-                                    borderRadius: 4,
-                                    horizontal: true,
-                                }
-                                },
-                                dataLabels: {
-                                enabled: false
+                                id: "vuechart-example",
                                 },
                                 xaxis: {
-                                categories: [ 'TRASLADO', 'MEJOR OFERTA', 'ESTUDIO','OTRO'
-                                ],
-                                }
+                                    categories: [ 'DISTANCIA', 'MEJOR OFERTA', 'ESTUDIO','SALUD','CALAMIDAD','OTRO']
+                                },
+
                             }
-                        } else if(this.area == 3 || this.area == 4){
+                        } else
+                         if(this.area == 3 || this.area == 4){
                             this.seriesMo= [{
                                 data: [res.data.motivo_distancia,res.data.motivo_traslado,res.data.motivo_oferta,res.data.motivo_estudio,res.data.motivo_salud,res.data.motivo_calamidad,res.data.motivo_otro,]
                             }],
                             this.OptionsMo= {
-                                colors:[ '#54D1D1'],
+
+                                colors:[ '#9C27B0'],
                                 chart: {
-                                type: 'bar',
-                                height: 350
-                                },
-                                plotOptions: {
-                                bar: {
-                                    borderRadius: 4,
-                                    horizontal: true,
-                                }
-                                },
-                                dataLabels: {
-                                enabled: false
+                                id: "vuechart-example",
                                 },
                                 xaxis: {
-                                categories: ['DISTANCIA', 'TRASLADO', 'MEJOR OFERTA', 'ESTUDIO', 'SALUD', 'CALAMIDAD', 'OTRO',
-                                ],
-                                }
+                                    categories: ['DISTANCIA', 'TRASLADO', 'MEJOR OFERTA', 'ESTUDIO', 'SALUD', 'CALAMIDAD', 'OTRO']
+                                },
                             }
                         }
+
+                        
                         
     
                     });
                 }
             }
         },
+       
         mounted() {
             
         },

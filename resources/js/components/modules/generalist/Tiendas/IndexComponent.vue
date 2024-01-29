@@ -78,13 +78,13 @@
                 </div>
                 <div class="" v-if="form.buscar_tienda == ''" >
                     <div class="" v-if="filtro_regional == ''">
-                        <pagination  class="d-flex justify-content-center" :data="lista_charges" @pagination-change-page="getCharges">
+                        <pagination  class="d-flex justify-content-center" :limit="5" :data="lista_charges" @pagination-change-page="getCharges">
                             <span slot="prev-nav">ANTERIOR</span>
                             <span slot="next-nav">SIGUIENTE</span>
                         </pagination>
                     </div>
                     <div class="" v-if="filtro_regional != '' ">
-                        <pagination class="d-flex justify-content-center" :data="lista_charges" @pagination-change-page="getTiendas">
+                        <pagination class="d-flex justify-content-center" :limit="5" :data="lista_charges" @pagination-change-page="getTiendas">
                             <span slot="prev-nav">ANTERIOR</span>
                             <span slot="next-nav">SIGUIENTE</span>
                         </pagination>

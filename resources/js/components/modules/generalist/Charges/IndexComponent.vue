@@ -68,7 +68,7 @@
                       
                     </div>
                 </div>
-                <pagination v-if="form.buscar_cargo == ''" class="d-flex justify-content-center" :data="lista_charges" @pagination-change-page="getCharges">
+                <pagination v-if="form.buscar_cargo == ''" :limit="5" class="d-flex justify-content-center" :data="lista_charges" @pagination-change-page="getCharges">
                     <span slot="prev-nav">ANTERIOR</span>
                     <span slot="next-nav">SIGUIENTE</span>
                 </pagination>

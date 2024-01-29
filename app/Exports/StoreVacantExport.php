@@ -25,11 +25,6 @@ class StoreVacantExport implements FromView
     {
         return view('exports.vacantStore', [
 
-            //37-aseint 
-            //39-asepun 
-            //87-auxint
-            //107-coorti
-            //193-lidtie
 
             'aseint_region_anti_san' => 
                 Store::whereIn('status',['ABIERTA','EN GESTION'])
@@ -284,6 +279,108 @@ class StoreVacantExport implements FromView
                 ->whereDate('created_at', '<=', $this->fin)
                 ->count(),
             'lidtie_total' => 1,
+
+
+            'jefezo_region_anti_san' => 
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
+                ->where('activation_charge_id',173)
+                ->where('regional_id',1)
+                
+                ->whereDate('created_at', '>=', $this->inicio)
+                ->whereDate('created_at', '<=', $this->fin)
+                ->count(),
+            'jefezo_region_cent_nor' => 
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
+                ->where('activation_charge_id',173)
+                ->where('regional_id',3)
+                
+                ->whereDate('created_at', '>=', $this->inicio)
+                ->whereDate('created_at', '<=', $this->fin)
+                ->count(),
+            'jefezo_region_cent_sur' =>
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
+                ->where('activation_charge_id',173)
+                ->where('regional_id',5)
+                
+                ->whereDate('created_at', '>=', $this->inicio)
+                ->whereDate('created_at', '<=', $this->fin)
+                ->count(),
+            'jefezo_region_costa' =>  
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
+                ->where('activation_charge_id',173)
+                ->where('regional_id',2)
+                
+                ->whereDate('created_at', '>=', $this->inicio)
+                ->whereDate('created_at', '<=', $this->fin)
+                ->count(),
+            'jefezo_region_sur' => 
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
+                ->where('activation_charge_id',173)
+                ->where('regional_id',4)
+                
+                ->whereDate('created_at', '>=', $this->inicio)
+                ->whereDate('created_at', '<=', $this->fin)
+                ->count(),
+            'jefezo_venta_nal' => 
+                National_sale::whereIn('status',['ABIERTA','EN GESTION'])
+                ->where('activation_charge_id',173)
+                
+                ->whereDate('created_at', '>=', $this->inicio)
+                ->whereDate('created_at', '<=', $this->fin)
+                ->count(),
+            'jefezo_total' => 1,
+
+
+
+
+            'visual_region_anti_san' => 
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
+                ->where('activation_charge_id',217)
+                ->where('regional_id',1)
+                
+                ->whereDate('created_at', '>=', $this->inicio)
+                ->whereDate('created_at', '<=', $this->fin)
+                ->count(),
+            'visual_region_cent_nor' => 
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
+                ->where('activation_charge_id',217)
+                ->where('regional_id',3)
+                
+                ->whereDate('created_at', '>=', $this->inicio)
+                ->whereDate('created_at', '<=', $this->fin)
+                ->count(),
+            'visual_region_cent_sur' =>
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
+                ->where('activation_charge_id',217)
+                ->where('regional_id',5)
+                
+                ->whereDate('created_at', '>=', $this->inicio)
+                ->whereDate('created_at', '<=', $this->fin)
+                ->count(),
+            'visual_region_costa' =>  
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
+                ->where('activation_charge_id',217)
+                ->where('regional_id',2)
+                
+                ->whereDate('created_at', '>=', $this->inicio)
+                ->whereDate('created_at', '<=', $this->fin)
+                ->count(),
+            'visual_region_sur' => 
+                Store::whereIn('status',['ABIERTA','EN GESTION'])
+                ->where('activation_charge_id',217)
+                ->where('regional_id',4)
+                
+                ->whereDate('created_at', '>=', $this->inicio)
+                ->whereDate('created_at', '<=', $this->fin)
+                ->count(),
+            'visual_venta_nal' => 
+                National_sale::whereIn('status',['ABIERTA','EN GESTION'])
+                ->where('activation_charge_id',217)
+                
+                ->whereDate('created_at', '>=', $this->inicio)
+                ->whereDate('created_at', '<=', $this->fin)
+                ->count(),
+            'visual_total' => 1,
 
         ]);
     }

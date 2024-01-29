@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('retreat/export/{inicio}/{fin}', [App\Http\Controllers\ReportController::class, 'export_retreat']);
     Route::get('/store/export/{inicio}/{fin}', [App\Http\Controllers\ReportController::class, 'export_type']);
     Route::get('/vacant/export/{inicio}/{fin}', [App\Http\Controllers\ReportController::class, 'export_vacant']);
+    Route::get('/vacant/exportclose/{inicio}/{fin}', [App\Http\Controllers\ReportController::class, 'export_vacant_close']);
     Route::get('/area/export/{area}/{inicio}/{fin}', [App\Http\Controllers\ReportController::class, 'export_area']);
 });
 
@@ -55,10 +56,12 @@ Route::group(['middleware' => ['auth','role:Admin']], function() {
     Route::get('/usuario/{id}',[App\Http\Controllers\admin\HomeController::class, 'index']);
     Route::get('/getusuario/{id}', [App\Http\Controllers\admin\UserController::class, 'show']);
     Route::get('/jefe/reasignar/{id}/{area}/{regional?}', [App\Http\Controllers\admin\UserController::class, 'getBoss']);
+    Route::get('/reclutador/reasignar', [App\Http\Controllers\admin\UserController::class, 'getRecuriter']);
     Route::put('/usuario/{id}', [App\Http\Controllers\admin\UserController::class, 'update']);
     Route::delete('/deleteuser/{id}', [App\Http\Controllers\admin\UserController::class, 'destroy']);
     Route::post('/usuario/store', [App\Http\Controllers\admin\UserController::class, 'store']);
     Route::post('/newjefe/reasignar', [App\Http\Controllers\admin\UserController::class, 'asignar']);
+    Route::post('/newreclutador/reasignar', [App\Http\Controllers\admin\UserController::class, 'asignarre']);
 
     //rutas de requisicion
     Route::get('/requisicion', [App\Http\Controllers\admin\HomeController::class, 'index']);

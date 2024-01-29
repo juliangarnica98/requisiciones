@@ -56,7 +56,7 @@ class InterviewController extends Controller
     {
         $data['level_satisfaction']= Level_satisfaction::all();
         $data['question_satisfaction']= Question_satisfaction::all();
-        $data['positions']= Retirement_position::all();
+        $data['positions']= Retirement_position::orderBy('description','ASC')->get();
         $data['cities']= Retirement_city::all();
         $data['user']=auth()->id();
         // $data['tiendas']=Tienda::with('regional')->get();

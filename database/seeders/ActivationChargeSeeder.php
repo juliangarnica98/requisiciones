@@ -1321,6 +1321,37 @@ class ActivationChargeSeeder extends Seeder
                 
                 'description' => 'VISUAL MERCHANDISING',
             ),
+            217 => 
+            array (
+                'id' => 218,
+                
+                'description' => 'CORTADOR',
+            ),
+            218 => 
+            array (
+                'id' => 219,
+                
+                'description' => 'AUXILIAR DE SEGURIDAD ',
+            ),
+            219 => 
+            array (
+                'id' => 220,
+                
+                'description' => 'GERENTE DE OPERACIONES',
+            ),
+            220 => 
+            array (
+                'id' => 221,
+                
+                'description' => 'JEFE DE CEDI',
+            ),
+            221 => 
+            array (
+                'id' => 222,
+                
+                'description' => 'LÍDER DE BANDAS ',
+            ),
+
         ));
         
         
