@@ -48,11 +48,14 @@
         
         
         <div class="row" v-if="this.area != '' && this.init != '' && this.end != ''">
-            <div class="col-md-4" v-if="area==1">
+            <div class="col-md-5" v-if="area==1">
                 
                 <div class="card">
 
                     <div class="card-body">
+                        <div class="row">
+                            <h3 class="text-center" style="color:#000000;"><strong>MES ACTUAL</strong></h3> 
+                        </div>
                       
                         <apexchart
                         width="100%"
@@ -63,10 +66,45 @@
                     </div>
                     
                 </div>
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="row d-flex justify-content-end pb-2">
+                            <div class="col-md-12 text-right">
+                                <h3 class="">EFECTIVIDAD:<strong style="color:#9C27B0;"> {{ total_efectividad_admin  }} </strong></h3>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center pb-2">
+                            <div class="col-md-5 text-center">
+                                <h3 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_admin}}</strong></h3>
+                            </div>
+                            <div class="col-md-7 text-center">
+                                <h3 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_admin  }} </strong></h3>
+                            </div>
+                        </div>
+                        
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4 text-center">
+                                <h6 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_admin_reemplazo  }} </strong></h6>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h6 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_admin_plan  }} </strong></h6>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <h6 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_admin_nuevo  }} </strong></h6>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
             </div>
-            <div class="col-md-4" v-if="area==2">
+            <div class="col-md-5" v-if="area==2">
                 
                 <div class="card">
+                    <div class="row">
+                        <h3 class="text-center" style="color:#000000;"><strong>MES ACTUAL</strong></h3> 
+                    </div>
 
                     <div class="card-body">
                         
@@ -79,91 +117,6 @@
                     </div>
                     
                 </div>
-            </div>
-            <div class="col-md-4" v-if="area==3">
-                
-                <div class="card">
-
-                    <div class="card-body">
-                        <apexchart
-                        width="100%"
-                        type="bar"
-                        :options="OptionsTi"
-                        :series="seriesTi"
-                    ></apexchart>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="col-md-4" v-if="area==4">
-                
-                <div class="card">
-    
-                    <div class="card-body">
-                        
-                        <apexchart
-                        width="100%"
-                        type="bar"
-                        :options="OptionsCe"
-                        :series="seriesCe"
-                    ></apexchart>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="col-md-4" v-if="area==5">
-                
-                <div class="card">
-    
-                    <div class="card-body">
-                        <apexchart
-                        width="100%"
-                        type="bar"
-                        :options="OptionsMa"
-                        :series="seriesMa"
-                    ></apexchart>
-                    </div>
-                    
-                </div>
-            </div>
-
-            <div class="col-md-8" v-if="area==1">
-                
-                <div class="card">
-
-                    <div class="card-body">
-                        <div class="row d-flex justify-content-end pb-2">
-                            <div class="col-md-12 text-right">
-                                <h3 class="">EFECTIVIDAD:<strong style="color:#9C27B0;"> {{ total_efectividad_admin  }} </strong></h3>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center pb-2">
-                            <div class="col-md-6 text-center">
-                                <h1 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_admin}}</strong></h1>
-                            </div>
-                            <div class="col-md-6 text-center">
-                                <h1 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_admin  }} </strong></h1>
-                            </div>
-                        </div>
-                        
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_admin_reemplazo  }} </strong></h5>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_admin_plan  }} </strong></h5>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_admin_nuevo  }} </strong></h5>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="col-md-8" v-if="area==2">
-                
                 <div class="card">
 
                     <div class="card-body">
@@ -173,23 +126,23 @@
                             </div>
                         </div>
                         <div class="row d-flex justify-content-center pb-2">
-                            <div class="col-md-6 text-center">
-                                <h1 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_venta}}</strong></h1>
+                            <div class="col-md-5 text-center">
+                                <h3 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_venta}}</strong></h3>
                             </div>
-                            <div class="col-md-6 text-center">
-                                <h1 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_venta  }} </strong></h1>
+                            <div class="col-md-7 text-center">
+                                <h3 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_venta  }} </strong></h3>
                             </div>
                         </div>
                         
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_venta_reemplazo  }} </strong></h5>
+                                <h6 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_venta_reemplazo  }} </strong></h6>
                             </div>
                             <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_venta_plan  }} </strong></h5>
+                                <h6 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_venta_plan  }} </strong></h6>
                             </div>
                             <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_venta_nuevo  }} </strong></h5>
+                                <h6 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_venta_nuevo  }} </strong></h6>
                             </div>
                         </div>
                         
@@ -197,8 +150,24 @@
                     
                 </div>
             </div>
-            <div class="col-md-8" v-if="area==3">
+            <div class="col-md-5" v-if="area==3">
                 
+                <div class="card">
+                    <div class="row">
+                        <h3 class="text-center" style="color:#000000;"><strong>MES ACTUAL</strong></h3>
+
+                    </div>
+                    <div class="card-body">
+                        <apexchart
+                        width="100%"
+                        type="bar"
+                        :options="OptionsTi"
+                        :series="seriesTi"
+                    ></apexchart>
+                    
+                    </div>
+                    
+                </div>
                 <div class="card">
 
                     <div class="card-body">
@@ -208,32 +177,46 @@
                             </div>
                         </div>
                         <div class="row d-flex justify-content-center pb-2">
-                            <div class="col-md-6 text-center">
-                                <h1 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_tienda}}</strong></h1>
+                            <div class="col-md-5 text-center">
+                                <h3 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_tienda}}</strong></h3>
                             </div>
-                            <div class="col-md-6 text-center">
-                                <h1 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_tienda  }} </strong></h1>
+                            <div class="col-md-7 text-center">
+                                <h3 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_tienda  }} </strong></h3>
                             </div>
                         </div>
                         
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_tienda_reemplazo  }} </strong></h5>
+                                <h6 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_tienda_reemplazo  }} </strong></h6>
                             </div>
                             <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_tienda_plan  }} </strong></h5>
+                                <h6 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_tienda_plan  }} </strong></h6>
                             </div>
                             <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_tienda_nuevo  }} </strong></h5>
+                                <h6 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_tienda_nuevo  }} </strong></h6>
                             </div>
                         </div>
-                        
+                    </div>
+                </div>
+               
+            </div>
+            <div class="col-md-5" v-if="area==4">
+                
+                <div class="card">
+    
+                    <div class="card-body">
+                        <div class="row">
+                            <h3 class="text-center" style="color:#000000;"><strong>MES ACTUAL</strong></h3> 
+                        </div>
+                        <apexchart
+                        width="100%"
+                        type="bar"
+                        :options="OptionsCe"
+                        :series="seriesCe"
+                    ></apexchart>
                     </div>
                     
                 </div>
-            </div>
-            <div class="col-md-8" v-if="area==4">
-                
                 <div class="card">
 
                     <div class="card-body">
@@ -243,23 +226,23 @@
                             </div>
                         </div>
                         <div class="row d-flex justify-content-center pb-2">
-                            <div class="col-md-6 text-center">
-                                <h1 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_cedis}}</strong></h1>
+                            <div class="col-md-5 text-center">
+                                <h3 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_cedis}}</strong></h3>
                             </div>
-                            <div class="col-md-6 text-center">
-                                <h1 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_cedis  }} </strong></h1>
+                            <div class="col-md-7 text-center">
+                                <h3 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_cedis  }} </strong></h3>
                             </div>
                         </div>
                         
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_cedis_reemplazo  }} </strong></h5>
+                                <h6 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_cedis_reemplazo  }} </strong></h6>
                             </div>
                             <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_cedis_plan  }} </strong></h5>
+                                <h6 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_cedis_plan  }} </strong></h6>
                             </div>
                             <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_cedis_nuevo  }} </strong></h5>
+                                <h6 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_cedis_nuevo  }} </strong></h6>
                             </div>
                         </div>
                         
@@ -267,8 +250,23 @@
                     
                 </div>
             </div>
-            <div class="col-md-8" v-if="area==5">
+            <div class="col-md-5" v-if="area==5">
                 
+                <div class="card">
+    
+                    <div class="card-body">
+                        <div class="row">
+                            <h3 class="text-center" style="color:#000000;"><strong>MES ACTUAL</strong></h3> 
+                        </div>
+                        <apexchart
+                        width="100%"
+                        type="bar"
+                        :options="OptionsMa"
+                        :series="seriesMa"
+                    ></apexchart>
+                    </div>
+                    
+                </div>
                 <div class="card">
 
                     <div class="card-body">
@@ -278,29 +276,89 @@
                             </div>
                         </div>
                         <div class="row d-flex justify-content-center pb-2">
-                            <div class="col-md-6 text-center">
-                                <h1 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_magentex}}</strong></h1>
+                            <div class="col-md-5 text-center">
+                                <h3 class="">TOTAL: <strong style="color:#9C27B0;"> {{ total_magentex}}</strong></h3>
                             </div>
-                            <div class="col-md-6 text-center">
-                                <h1 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_magentex  }} </strong></h1>
+                            <div class="col-md-7 text-center">
+                                <h3 class="">CERRADAS:<strong style="color:#9C27B0;"> {{ total_cerrada_magentex  }} </strong></h3>
                             </div>
                         </div>
                         
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_magentex_reemplazo  }} </strong></h5>
+                                <h6 class="" style="color:#e85199;">REEMPLAZO:<strong style="color:#000000 ;"> {{ total_magentex_reemplazo  }} </strong></h6>
                             </div>
                             <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_magentex_plan  }} </strong></h5>
+                                <h6 class="" style="color:#e85199;">PLAN  DE CAMBIO:<strong style="color:#000000 ;"> {{ total_magentex_plan  }} </strong></h6>
                             </div>
                             <div class="col-md-4 text-center">
-                                <h5 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_magentex_nuevo  }} </strong></h5>
+                                <h6 class="" style="color:#e85199;">NUEVO CARGO:<strong style="color:#000000 ;"> {{ total_magentex_nuevo  }} </strong></h6>
                             </div>
                         </div>
                         
                     </div>
                     
                 </div>
+            </div>
+
+            <div class="col-md-7" v-if="area==1">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h3 class="text-center" style="color:#000000;"><strong>OTROS MESES</strong></h3>
+                            <h3 class="text-center" style="color:#000000;">TOTAL: <strong>{{ this.total_meses_admin }}</strong></h3>
+                        </div>
+                        <apexchart width="100%" type="bar" :options="OptionsTiCe" :series="seriesAdCe"></apexchart>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7" v-if="area==2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h3 class="text-center" style="color:#000000;"><strong>OTROS MESES</strong></h3>
+                            <h3 class="text-center" style="color:#000000;">TOTAL: <strong>{{ this.total_meses_ventanal }}</strong></h3>
+                        </div>
+                        <apexchart width="100%" type="bar" :options="OptionsTiCe" :series="seriesVeCe"></apexchart>
+                    </div>
+                </div>    
+            </div>
+            <div class="col-md-7" v-if="area==3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h3 class="text-center" style="color:#000000;"><strong>OTROS MESES</strong></h3>
+                            <h3 class="text-center" style="color:#000000;">TOTAL: <strong>{{ this.total_meses_tiendas }}</strong></h3>
+                            
+                            
+                        </div>
+                        <apexchart width="100%" type="bar" :options="OptionsTiCe" :series="seriesTiCe"></apexchart>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7" v-if="area==4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h3 class="text-center" style="color:#000000;"><strong>OTROS MESES</strong></h3>
+                            <h3 class="text-center" style="color:#000000;">TOTAL: <strong>{{ this.total_meses_cedis }}</strong></h3>
+                        </div>
+                        <apexchart width="100%" type="bar" :options="OptionsTiCe" :series="seriesCeCe"></apexchart>
+                    </div>
+                </div>    
+                
+            </div>
+            <div class="col-md-7" v-if="area==5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h3 class="text-center" style="color:#000000;"><strong>OTROS MESES</strong></h3>
+                            <h3 class="text-center" style="color:#000000;">TOTAL: <strong>{{ this.total_meses_factory }}</strong></h3>
+                        </div>
+                        <apexchart width="100%" type="bar" :options="OptionsTiCe" :series="seriesFaCe"></apexchart>
+                    </div>
+                </div>
+                
             </div>
            
         </div>
@@ -405,25 +463,34 @@ export default {
             total_venta_plan:0,
             total_venta_nuevo:0,
 
-
+            total_meses_tiendas:0,
+            total_meses_admin:0,
+            total_meses_cedis:0,
+            total_meses_factory:0,
+            total_meses_ventanal:0,
 
             optionsAd: {},
             OptionsTi:{},
             OptionsCe:{},
             OptionsMa:{},
             OptionsVe:{},
+            OptionsTiCe:{},
             seriesAd: [],
             seriesTi:[],
             seriesCe:[],
             seriesMa:[],
             seriesVe:[],
+            seriesTiCe:[],
+
+            
 
 
         };
     },
     methods:{
         getdata(){
-            console.log(this.end);
+            let meses =['ENERO','FEBREO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
+
             if (this.area == ''|| this.init == '' || this.end == '') {
                 this.$toast.info('Hay campos vacios')
             } else {     
@@ -468,8 +535,68 @@ export default {
                         this.total_venta_reemplazo = res.data.ventanal_reemplazo,
                         this.total_venta_plan = res.data.ventanal_plancambio;
                         this.total_venta_nuevo = res.data.ventanal_nuevocargo;
+
+                        this.total_meses_tiendas = res.data.store_cerradas_6 + res.data.store_cerradas_5 + res.data.store_cerradas_4 + res.data.store_cerradas_3 + res.data.store_cerradas_2 + res.data.store_cerradas_1;
+                        this.total_meses_admin = res.data.administartion_cerradas_6 + res.data.administartion_cerradas_5 + res.data.administartion_cerradas_4 + res.data.administartion_cerradas_3+ res.data.administartion_cerradas_2 + res.data.administartion_cerradas_1;
+                        this.total_meses_cedis = res.data.cedi_cerradas_6 + res.data.cedi_cerradas_5 + res.data.cedi_cerradas_4 + res.data.cedi_cerradas_3 + res.data.cedi_cerradas_2 + res.data.cedi_cerradas_1;
+                        this.total_meses_factory = res.data.factory_cerradas_6 + res.data.factory_cerradas_5 + res.data.factory_cerradas_4 + res.data.factory_cerradas_3 + res.data.factory_cerradas_2 + res.data.factory_cerradas_1;
+                        this.total_meses_ventanal = res.data.ventanal_cerradas_6 + res.data.ventanal_cerradas_5 + res.data.ventanal_cerradas_4 + res.data.ventanal_cerradas_3 +res.data.ventanal_cerradas_2 + res.data.ventanal_cerradas_1; 
             
             
+                        this.OptionsTiCe={
+                            colors:['#9C27B0'],
+                            chart: {
+                            id: "vuechart-example",
+                            },
+                            xaxis: {
+                                categories: [
+                                    meses[res.data.mes_6 -1],meses[res.data.mes_5 -1],
+                                    meses[res.data.mes_4 -1],meses[res.data.mes_3 -1],
+                                    meses[res.data.mes_2 -1],meses[res.data.mes_1 -1],
+                                ]
+                            },
+                            
+                        },
+                        this.seriesTiCe=[
+                            {
+                                name: "series-1",
+                                data: [res.data.store_cerradas_6,res.data.store_cerradas_5,res.data.store_cerradas_4,
+                                res.data.store_cerradas_3,res.data.store_cerradas_2,res.data.store_cerradas_1],
+                                
+                            },
+                        ],
+                        this.seriesCeCe=[
+                            {
+                                name: "series-1",
+                                data: [res.data.cedi_cerradas_6,res.data.cedi_cerradas_5,res.data.cedi_cerradas_4,
+                                res.data.cedi_cerradas_3,res.data.cedi_cerradas_2,res.data.cedi_cerradas_1],
+                                
+                            },
+                        ],
+                        this.seriesAdCe=[
+                            {
+                                name: "series-1",
+                                data: [res.data.administartion_cerradas_6,res.data.administartion_cerradas_5,res.data.administartion_cerradas_4,
+                                res.data.administartion_cerradas_3,res.data.administartion_cerradas_2,res.data.administartion_cerradas_1],
+                                
+                            },
+                        ],
+                        this.seriesFaCe=[
+                            {
+                                name: "series-1",
+                                data: [res.data.factory_cerradas_6,res.data.factory_cerradas_5,res.data.factory_cerradas_4,
+                                res.data.factory_cerradas_3,res.data.factory_cerradas_2,res.data.factory_cerradas_1],
+                                
+                            },
+                        ],
+                        this.seriesVeCe=[
+                            {
+                                name: "series-1",
+                                data: [res.data.ventanal_cerradas_6,res.data.ventanal_cerradas_5,res.data.ventanal_cerradas_4,
+                                res.data.ventanal_cerradas_3,res.data.ventanal_cerradas_2,res.data.ventanal_cerradas_1],
+                                
+                            },
+                        ],
     
                         this.optionsAd={
                             colors:['#9C27B0'],

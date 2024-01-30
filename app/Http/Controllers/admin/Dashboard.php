@@ -9,11 +9,27 @@ use App\Models\Factory;
 use App\Models\National_sale;
 use App\Models\Retreal;
 use App\Models\Store;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class Dashboard extends Controller
 {
-    //traer data para dashboard
+    protected $date_1;
+    protected $date_2;
+    protected $date_3;
+    protected $date_4;
+    protected $date_5;
+    protected $date_6;
+
+    public function __construct() {
+        $this->date_1 = Carbon::now()->locale('es');
+        $this->date_2 = Carbon::now()->locale('es');
+        $this->date_3 = Carbon::now()->locale('es');
+        $this->date_4 = Carbon::now()->locale('es');
+        $this->date_5 = Carbon::now()->locale('es');
+        $this->date_6 = Carbon::now()->locale('es');
+    }
+
     public function getdata($area,$init,$end,$marca=null,$cargos=null){
       
         if($marca!=null &&$cargos!=null){
@@ -120,6 +136,31 @@ class Dashboard extends Controller
         }
     }
     public function getdata2($init,$end){
+
+        $fecha_6 = $this->date_6->subMonths(6)->format('Y');
+        $mes_6 = $this->date_6->format('m');
+        $requisition['mes_6']=$mes_6;
+
+        $fecha_5 = $this->date_5->subMonths(5)->format('Y');
+        $mes_5 = $this->date_5->format('m');
+        $requisition['mes_5']=$mes_5;
+
+        $fecha_4 = $this->date_4->subMonths(4)->format('Y');
+        $mes_4 = $this->date_4->format('m');
+        $requisition['mes_4']=$mes_4;
+
+        $fecha_3 = $this->date_3->subMonths(3)->format('Y');
+        $mes_3 = $this->date_3->format('m');
+        $requisition['mes_3']=$mes_3;
+
+        $fecha_2 = $this->date_2->subMonths(2)->format('Y');
+        $mes_2 = $this->date_2->format('m');
+        $requisition['mes_2']=$mes_2;
+
+        $fecha_1 = $this->date_1->subMonths(1)->format('Y');
+        $mes_1 = $this->date_1->format('m');
+        $requisition['mes_1']=$mes_1;
+
         $mes_act = date('m');
         $ano_act = date('Y');
         
@@ -138,6 +179,18 @@ class Dashboard extends Controller
         $requisition['administartion_nuevocargo']= Administration::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
         ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
 
+        $requisition['administartion_abierta_6'] = Administration::where('ano_solicitud',$fecha_6)->where('mes_solicitud',$mes_6)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['administartion_cerradas_6'] = Administration::where('ano_solicitud',$fecha_6)->where('mes_solicitud',$mes_6)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['administartion_abierta_5'] = Administration::where('ano_solicitud',$fecha_5)->where('mes_solicitud',$mes_5)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['administartion_cerradas_5'] = Administration::where('ano_solicitud',$fecha_5)->where('mes_solicitud',$mes_5)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['administartion_abierta_4'] = Administration::where('ano_solicitud',$fecha_4)->where('mes_solicitud',$mes_4)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['administartion_cerradas_4'] = Administration::where('ano_solicitud',$fecha_4)->where('mes_solicitud',$mes_4)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['administartion_abierta_3'] = Administration::where('ano_solicitud',$fecha_3)->where('mes_solicitud',$mes_3)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['administartion_cerradas_3'] = Administration::where('ano_solicitud',$fecha_3)->where('mes_solicitud',$mes_3)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['administartion_abierta_2'] = Administration::where('ano_solicitud',$fecha_2)->where('mes_solicitud',$mes_2)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['administartion_cerradas_2'] = Administration::where('ano_solicitud',$fecha_2)->where('mes_solicitud',$mes_2)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['administartion_abierta_1'] = Administration::where('ano_solicitud',$fecha_1)->where('mes_solicitud',$mes_1)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['administartion_cerradas_1'] = Administration::where('ano_solicitud',$fecha_1)->where('mes_solicitud',$mes_1)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
 
         // $requisition_administartion_ant_cerrada= Administration::where('ano_solicitud','!=',$ano_act)->where('mes_solicitud','!=',$mes_act)
         // ->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->get();
@@ -169,6 +222,20 @@ class Dashboard extends Controller
         $requisition['store_nuevocargo']= Store::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
         ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
 
+    
+        $requisition['store_abierta_6'] = Store::where('ano_solicitud',$fecha_6)->where('mes_solicitud',$mes_6)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['store_cerradas_6'] = Store::where('ano_solicitud',$fecha_6)->where('mes_solicitud',$mes_6)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['store_abierta_5'] = Store::where('ano_solicitud',$fecha_5)->where('mes_solicitud',$mes_5)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['store_cerradas_5'] = Store::where('ano_solicitud',$fecha_5)->where('mes_solicitud',$mes_5)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['store_abierta_4'] = Store::where('ano_solicitud',$fecha_4)->where('mes_solicitud',$mes_4)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['store_cerradas_4'] = Store::where('ano_solicitud',$fecha_4)->where('mes_solicitud',$mes_4)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['store_abierta_3'] = Store::where('ano_solicitud',$fecha_3)->where('mes_solicitud',$mes_3)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['store_cerradas_3'] = Store::where('ano_solicitud',$fecha_3)->where('mes_solicitud',$mes_3)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['store_abierta_2'] = Store::where('ano_solicitud',$fecha_2)->where('mes_solicitud',$mes_2)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['store_cerradas_2'] = Store::where('ano_solicitud',$fecha_2)->where('mes_solicitud',$mes_2)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['store_abierta_1'] = Store::where('ano_solicitud',$fecha_1)->where('mes_solicitud',$mes_1)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['store_cerradas_1'] = Store::where('ano_solicitud',$fecha_1)->where('mes_solicitud',$mes_1)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+
         try {
             $requisition['store_efectividad']= $requisition['store_num_efectivos']*100 / $requisition['store_cerrada'];
         } catch (\ErrorException $th) {
@@ -190,6 +257,19 @@ class Dashboard extends Controller
         $requisition['cedi_nuevocargo']= Cedi::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
         ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
 
+        $requisition['cedi_abierta_6'] = Cedi::where('ano_solicitud',$fecha_6)->where('mes_solicitud',$mes_6)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['cedi_cerradas_6'] = Cedi::where('ano_solicitud',$fecha_6)->where('mes_solicitud',$mes_6)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['cedi_abierta_5'] = Cedi::where('ano_solicitud',$fecha_5)->where('mes_solicitud',$mes_5)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['cedi_cerradas_5'] = Cedi::where('ano_solicitud',$fecha_5)->where('mes_solicitud',$mes_5)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['cedi_abierta_4'] = Cedi::where('ano_solicitud',$fecha_4)->where('mes_solicitud',$mes_4)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['cedi_cerradas_4'] = Cedi::where('ano_solicitud',$fecha_4)->where('mes_solicitud',$mes_4)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['cedi_abierta_3'] = Cedi::where('ano_solicitud',$fecha_3)->where('mes_solicitud',$mes_3)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['cedi_cerradas_3'] = Cedi::where('ano_solicitud',$fecha_3)->where('mes_solicitud',$mes_3)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['cedi_abierta_2'] = Cedi::where('ano_solicitud',$fecha_2)->where('mes_solicitud',$mes_2)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['cedi_cerradas_2'] = Cedi::where('ano_solicitud',$fecha_2)->where('mes_solicitud',$mes_2)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['cedi_abierta_1'] = Cedi::where('ano_solicitud',$fecha_1)->where('mes_solicitud',$mes_1)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['cedi_cerradas_1'] = Cedi::where('ano_solicitud',$fecha_1)->where('mes_solicitud',$mes_1)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+
         try {
             $requisition['cedi_efectividad']= $requisition['cedi_num_efectivos']*100 / $requisition['cedi_cerrada'];
         } catch (\ErrorException $th) {
@@ -209,6 +289,19 @@ class Dashboard extends Controller
         ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})->get()->count();
         $requisition['factory_nuevocargo']= Factory::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
         ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
+
+        $requisition['factory_abierta_6'] = Factory::where('ano_solicitud',$fecha_6)->where('mes_solicitud',$mes_6)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['factory_cerradas_6'] = Factory::where('ano_solicitud',$fecha_6)->where('mes_solicitud',$mes_6)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['factory_abierta_5'] = Factory::where('ano_solicitud',$fecha_5)->where('mes_solicitud',$mes_5)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['factory_cerradas_5'] = Factory::where('ano_solicitud',$fecha_5)->where('mes_solicitud',$mes_5)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['factory_abierta_4'] = Factory::where('ano_solicitud',$fecha_4)->where('mes_solicitud',$mes_4)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['factory_cerradas_4'] = Factory::where('ano_solicitud',$fecha_4)->where('mes_solicitud',$mes_4)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['factory_abierta_3'] = Factory::where('ano_solicitud',$fecha_3)->where('mes_solicitud',$mes_3)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['factory_cerradas_3'] = Factory::where('ano_solicitud',$fecha_3)->where('mes_solicitud',$mes_3)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['factory_abierta_2'] = Factory::where('ano_solicitud',$fecha_2)->where('mes_solicitud',$mes_2)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['factory_cerradas_2'] = Factory::where('ano_solicitud',$fecha_2)->where('mes_solicitud',$mes_2)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['factory_abierta_1'] = Factory::where('ano_solicitud',$fecha_1)->where('mes_solicitud',$mes_1)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['factory_cerradas_1'] = Factory::where('ano_solicitud',$fecha_1)->where('mes_solicitud',$mes_1)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
 
         try {
             $requisition['factory_efectividad']= $requisition['factory_num_efectivos']*100 / $requisition['factory_cerrada'];
@@ -230,6 +323,19 @@ class Dashboard extends Controller
         ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',2);})->get()->count();
         $requisition['ventanal_nuevocargo']= National_sale::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('status','CERRADA')
         ->with('activation')->whereHas('activation',function ($q) {$q->where('type_activation_id',3);})->get()->count();
+
+        $requisition['ventanal_abierta_6'] = National_sale::where('ano_solicitud',$fecha_6)->where('mes_solicitud',$mes_6)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['ventanal_cerradas_6'] = National_sale::where('ano_solicitud',$fecha_6)->where('mes_solicitud',$mes_6)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['ventanal_abierta_5'] = National_sale::where('ano_solicitud',$fecha_5)->where('mes_solicitud',$mes_5)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['ventanal_cerradas_5'] = National_sale::where('ano_solicitud',$fecha_5)->where('mes_solicitud',$mes_5)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['ventanal_abierta_4'] = National_sale::where('ano_solicitud',$fecha_4)->where('mes_solicitud',$mes_4)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['ventanal_cerradas_4'] = National_sale::where('ano_solicitud',$fecha_4)->where('mes_solicitud',$mes_4)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['ventanal_abierta_3'] = National_sale::where('ano_solicitud',$fecha_3)->where('mes_solicitud',$mes_3)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['ventanal_cerradas_3'] = National_sale::where('ano_solicitud',$fecha_3)->where('mes_solicitud',$mes_3)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['ventanal_abierta_2'] = National_sale::where('ano_solicitud',$fecha_2)->where('mes_solicitud',$mes_2)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['ventanal_cerradas_2'] = National_sale::where('ano_solicitud',$fecha_2)->where('mes_solicitud',$mes_2)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
+        $requisition['ventanal_abierta_1'] = National_sale::where('ano_solicitud',$fecha_1)->where('mes_solicitud',$mes_1)->whereIn('status',['ABIERTA','EN GESTION'])->count();
+        $requisition['ventanal_cerradas_1'] = National_sale::where('ano_solicitud',$fecha_1)->where('mes_solicitud',$mes_1)->where('ano_cierre',$ano_act)->where('mes_cierre',$mes_act)->count();
 
         try {
             $requisition['ventanal_efectividad']= $requisition['ventanal_num_efectivos']*100 / $requisition['ventanal_cerrada'];
