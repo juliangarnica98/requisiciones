@@ -46,6 +46,8 @@
                                     <option selected value="">SELECCIONA UNA OPCION</option>
                                     <option v-for="cedi in cedis" :value="cedi.id">{{ cedi.description }}</option>
                                 </select>
+                                <h6 class="text-center">PERSONA QUE APROBO LA VACANTE<small class="h5 text-danger" >*</small></h6>
+                                <input v-model="form.person" type="text" class="form-control" id="" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -99,7 +101,7 @@
 
 
                 <template id="step4">
-                    <div v-if="((form.categoria != '') && (form.nombre != '')) || form.area_gerencia != '' || form.centro_distribucion != '' 
+                    <div v-if="((form.categoria != '') && (form.nombre != '')) || form.area_gerencia != '' || (form.centro_distribucion != '' && form.person !='')
                     || form.area_facroty != '' || form.area == '5'" class="row card card-cont ">
                         <div class="card-body">
                             <div class="mb-3">
@@ -343,7 +345,8 @@
                     opening_category:"",
                     sexo_vacante:"",
                     cargo_activacion:"",
-                    comentarios:""
+                    comentarios:"",
+                    person:""
                     
                 },
                 regionales:[],
@@ -398,6 +401,7 @@
                             this.form.regional="",
                             this.form.gerencia="",
                             this.form.centro_distribucion="",
+                            this.form.person="",
                             this.form.area_facroty="",
                             this.form.cargo_uniq="",
                             this.form.nombre="",

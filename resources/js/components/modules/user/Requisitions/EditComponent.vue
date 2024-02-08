@@ -8,8 +8,16 @@
                 <div v-if="form.estado == 'ABIERTA'">
                   <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
                       <option value="ABIERTA">ABIERTA</option>
+                      <option value="SUSPENDIDA">SUSPENDIDA</option>
                       <option value="CANCELADA">CANCELADA</option>
                   </select>
+                  <input v-if="form.estado_envio == 'SUSPENDIDA'" type="text" class="form-control mt-3" v-model="form.reason_sus" placeholder="RAZÓN">
+                </div>
+                <div class="mt-3" v-if="form.estado == 'SUSPENDIDA'">
+                  <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
+                    <option value="REACTIVAR">REACTIVAR</option>
+                    <option value="CANCELADA">CANCELADA</option>
+                </select>
                 </div>
                 <div v-if="form.estado == 'CANCELADA'">
                   <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
@@ -51,22 +59,20 @@
                 id:this.$props.id,
                 id_modal:this.$props.id,
                 area:this.$props.area,
-                estado_envio:""
+                estado_envio:"",
+                reason_sus:"",
               },
             }
         },
         methods:{
             EditInterview(){
               axios.post('/boss/requisicion/edit', this.form).then((res) => {
-                // if(res.data == 'error'){
-                //   this.$toast.error("No se puede modificar el estado");
-                // }else{
-                //   this.$toast.success(res.data);
-                //   this.$emit('traerdata');
-                // }
                 this.$toast.success(res.data);
                 this.$emit('traerdata');
                 this.form.estado = this.form.estado_envio;
+                if(this.form.estado_envio== "REACTIVAR"){
+                  this.form.estado = 'ABIERTA'
+                }
               });
             },
         },

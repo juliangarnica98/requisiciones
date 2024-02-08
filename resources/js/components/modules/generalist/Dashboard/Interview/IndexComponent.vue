@@ -179,11 +179,27 @@
                     </div>
                 </div>
             </div>
-    
+            <div class="row" v-if="this.area != '' &&  this.init_date != '' && this.end_date != ''">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h3 class="card-title"><strong>COMENTARIOS</strong></h3>
+                                </div>
+                                <!-- {{ this.comentarios }} -->
+                                <small class="" v-for="(comentario,index) in this.comentarios" :key="index" >
+                                    <div class="" v-if="index != ''">
+                                        {{comentario}} - {{index}}
+                                    </div>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-       </div>
-
-        
+    </div>    
     </div>
 </template>
 <style scoped>
@@ -274,6 +290,8 @@ export default {
             seriesAs:[],
             seriesAsP:[],
 
+            comentarios:{},
+
         };
     },
     methods:{
@@ -305,6 +323,7 @@ export default {
                         this.entrenamiento_no = res.data.entrenamiento_no,
     
                         this.aspectos_positivos = res.data.aspectos_positivos;
+                        this.comentarios = res.data.comentarios;
     
                         this.options={
                             colors:['#E6007E', '#54D1D1'],

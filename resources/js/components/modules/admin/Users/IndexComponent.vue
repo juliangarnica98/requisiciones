@@ -52,7 +52,7 @@
                                             DIRECTOR
                                         </div>
                                         <div class="" v-if="user.roles[0].name=='Recruiter'">
-                                            RECLUTADOR
+                                            ANALISTA
                                         </div>
                                     </div>
                                     <div class="col-md-2 text-center"><b>

@@ -9,14 +9,26 @@
                   <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
                       <option value="ABIERTA">ABIERTA</option>
                       <option value="EN GESTION">EN GESTIÓN</option>
-                      <!-- <option value="CERRADA">CERRADA</option> -->
                   </select>
                 </div>
                 <div v-if="form.estado == 'EN GESTION'">
-                  <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
+                  <select v-if="area == 'admin'" v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
                       <option value="EN GESTION">EN GESTIÓN</option>
-                      <option value="CERRADA">CERRADA</option>
+                      <option v-if="substate == 'CONTRATACIÓN'" value="CERRADA">CERRADA</option>
                   </select>
+                  <select v-else v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
+                    <option value="EN GESTION">EN GESTIÓN</option>
+                    <option value="CERRADA">CERRADA</option>
+                </select>
+                  <div class="" v-if="area=='admin'">
+                    <h5 class="text-center title mt-3">SELECCIONE EL SUBESTADO</h5>
+                    <h5 class="text-center title">ESTADO ACTUAL: {{ substate }}</h5>
+                    <select  v-model="form.substate" class="form-select " aria-label="Default select example">
+                        <option value="RECLUTAMIENTO">RECLUTAMIENTO</option>
+                        <option value="TERNA">TERNA</option>
+                        <option value="CONTRATACIÓN">CONTRATACIÓN</option>
+                    </select>
+                  </div>
                 </div>
                 <div v-if="form.estado == 'CERRADA'">
                   <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
@@ -49,6 +61,10 @@
           },
           id:{
             type:Number
+          },
+          substate:{
+            type:String,
+            default: null,
           }
         },
         data() {
@@ -58,7 +74,9 @@
                 area: this.$props.area,
                 id:this.$props.id,
                 id_modal:this.$props.area+'-'+this.$props.id,
-                estado_envio:""
+                substate:this.$props.substate,
+                estado_envio:"",
+                substate:""
               },
             }
         },
@@ -68,7 +86,14 @@
                 this.$toast.success(res.data);
                 this.$emit('traerdata');
                 this.form.estado = this.form.estado_envio;
+                if(this.form.estado == ""  ){
+                      this.form.estado = 'EN GESTION'
+                      console.log(1);
+                    }
                 this.$refs.Close2.click();
+                // setTimeout(() => {
+                //   location.reload();
+                // }, 2500);
               });
             },
         },
@@ -77,6 +102,7 @@
             this.form.estado = this.estado
             this.form.area = this.area
             this.form.id = this.id
+            this.form.substate = this.substate
             this.form.id_modal = this.area+'-'+this.id           
           }
         },

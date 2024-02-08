@@ -18,7 +18,6 @@ class CenterDistributionSeeder extends Seeder
         $data = [
             ['description' => 'CANAIMA'],
             ['description' => 'SIBERIA'],
-            ['description' => 'TOCANCIPA'],
         ];
         DB::table('center_distributions')->insert($data); 
     }

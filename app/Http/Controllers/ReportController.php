@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AdminChargeExport;
 use App\Exports\AdminExport;
 use App\Exports\CediExport;
 use App\Exports\FactoryExport;
@@ -56,5 +57,8 @@ class ReportController extends Controller
             return Excel::download(new FactoryExport($inicio,$fin), 'factory.xlsx');
         }
     }
-    
+    public function export_admin($inicio , $fin)  
+    {   
+        return Excel::download(new AdminChargeExport($inicio , $fin), 'adminVacant.xlsx');
+    }
 }

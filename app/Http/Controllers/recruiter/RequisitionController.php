@@ -212,12 +212,17 @@ class RequisitionController extends Controller
         switch ($request->area) {
             case 'admin':
                 $data=Administration::where('id',$request->id)->first();
-                $data->status=$request->estado_envio;
+                if($request->substate){
+                    $data->status=$data->status;
+                    $data->substate=$request->substate;
+                }else{
+                    $data->status=$request->estado_envio;
+                }
                 $data->save();
                 break;
             case 'tienda':
                 $data=Store::where('id',$request->id)->first();
-                $data->status=$request->estado_envio;
+                $data->status=$request->substate;
                 $data->save();
                 break;
             case 'cedi':
@@ -248,6 +253,7 @@ class RequisitionController extends Controller
                 $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
                 $tiempo = $activation_charge->effectiveness;
                 $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
+                $tiempo_resultado = $data->created_at->format('H:i:s') > '14:00:00' ? $tiempo_resultado-1 : $tiempo_resultado;
                 $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
@@ -261,6 +267,7 @@ class RequisitionController extends Controller
                 $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
                 $tiempo = $activation_charge->effectiveness;
                 $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
+                $tiempo_resultado = $data->created_at->format('H:i:s') > '14:00:00' ? $tiempo_resultado-1 : $tiempo_resultado;
                 $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
@@ -274,6 +281,7 @@ class RequisitionController extends Controller
                 $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
                 $tiempo = $activation_charge->effectiveness;
                 $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
+                $tiempo_resultado = $data->created_at->format('H:i:s') > '14:00:00' ? $tiempo_resultado-1 : $tiempo_resultado;
                 $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
@@ -287,6 +295,7 @@ class RequisitionController extends Controller
                 $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
                 $tiempo = $activation_charge->effectiveness;
                 $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
+                $tiempo_resultado = $data->created_at->format('H:i:s') > '14:00:00' ? $tiempo_resultado-1 : $tiempo_resultado;
                 $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
                 $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
@@ -300,6 +309,7 @@ class RequisitionController extends Controller
                 $activation_charge = Activation_charge::where('id',$data->activation_charge_id)->first();
                 $tiempo = $activation_charge->effectiveness;
                 $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
+                $tiempo_resultado = $data->created_at->format('H:i:s') > '14:00:00' ? $tiempo_resultado-1 : $tiempo_resultado;
                 $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
                 $data->cedula_ingreso=$request->cedula_ingreso;
                 $data->fecha_ingreso=$request->fecha_ingreso;

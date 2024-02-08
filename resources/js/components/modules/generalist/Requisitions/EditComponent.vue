@@ -11,22 +11,26 @@
                   <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
                       <option value="ABIERTA">ABIERTA</option>
                       <option value="EN GESTION">EN GESTIÓN</option>
-                      <!-- <option value="CERRADA">CERRADA</option> -->
                   </select>
                 </div>
-                <!-- <div v-if="form.estado == 'ABIERTA' && creador == 1">
-                  <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
-                      <option value="ABIERTA">ABIERTA</option>
-                      <option value="CANCELAR">CANCELAR</option>
-                      <option value="EN GESTION">EN GESTIÓN</option>
-                      <option value="CERRADA">CERRADA</option>
-                  </select>
-                </div> -->
                 <div v-if="form.estado == 'EN GESTION'">
-                  <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
-                      <option value="EN GESTION">EN GESTIÓN</option>
-                      <option value="CERRADA">CERRADA</option>
+                  <select v-if="area == 'admin'" v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
+                    <option value="EN GESTION">EN GESTIÓN</option>
+                    <option v-if="substate == 'CONTRATACIÓN'" value="CERRADA">CERRADA</option>
                   </select>
+                  <select v-else v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
+                    <option value="EN GESTION">EN GESTIÓN</option>
+                    <option value="CERRADA">CERRADA</option>
+                  </select>
+                  <div class="" v-if="area=='admin'">
+                    <h5 class="text-center title mt-3">SELECCIONE EL SUBESTADO</h5>
+                    <h5 class="text-center title">ESTADO ACTUAL: {{ substate }}</h5>
+                    <select  v-model="form.substate" class="form-select " aria-label="Default select example">
+                        <option value="RECLUTAMIENTO">RECLUTAMIENTO</option>
+                        <option value="TERNA">TERNA</option>
+                        <option value="CONTRATACIÓN">CONTRATACIÓN</option>
+                    </select>
+                  </div>
                 </div>
                 <div v-if="form.estado == 'CERRADA'">
                   <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
@@ -36,7 +40,7 @@
 
                 <div >
                   <select v-if="form.estado == 'ABIERTA'" v-model="form.reclutador" class="form-select mt-3" aria-label="Default select example">
-                    <option value="">SELECCIONA RECLUTADOR</option>
+                    <option value="">SELECCIONA ANALISTA</option>
                       <option v-for="rc in this.reclutadores" :value="rc.name+' '+rc.last_name">{{ rc.name }} {{ rc.last_name }}</option>
                   </select>
                 </div>
@@ -70,6 +74,10 @@
           },
           creador:{
             type:Number
+          },
+          substate:{
+            type:String,
+            default: null,
           }
         },
         data() {
@@ -81,7 +89,8 @@
                 id:this.$props.id,
                 id_modal:this.$props.area+'-'+this.$props.id,
                 reclutador:"",
-                estado_envio:""
+                estado_envio:"",
+                substate:""
               },
               reclutadores:{},
             }
@@ -89,12 +98,16 @@
         methods:{
             EditInterview(){
               if (this.form.estado_envio == "EN GESTION" && this.form.reclutador == "") {
-                this.$toast.error("DEBE SELECCIONAR UN RECLUTADOR");
+                this.$toast.error("DEBE SELECCIONAR UN ANALISTA");
               } else {
                 axios.post('/generalist/requisicion/edit', this.form).then((res) => {
                     this.$toast.success(res.data);
                     this.$emit('traerdata');
                     this.form.estado = this.form.estado_envio;
+                    if(this.form.estado == ""  ){
+                      this.form.estado = 'EN GESTION'
+                      console.log(1);
+                    }
                     this.$refs.Close2.click();
                   
                 });
@@ -111,7 +124,8 @@
             this.form.estado = this.estado
             this.form.area = this.area
             this.form.id = this.id
-            this.form.id_modal = this.area+'-'+this.id           
+            this.form.id_modal = this.area+'-'+this.id       
+            this.form.substate = this.substate    
           }
         },
         mounted(){

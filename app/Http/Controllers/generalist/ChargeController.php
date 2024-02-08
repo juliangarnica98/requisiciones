@@ -23,7 +23,6 @@ class ChargeController extends Controller
         $data->description = $request->description;
         $data->effectiveness = $request->efectividad;
         $data2->description = $request->description;
-        $data2->effectiveness = $request->efectividad;
         $data->save();
         $data2->save();
         return "SE HA ACTUALIZADO CORRECTAMENTE";
@@ -42,7 +41,6 @@ class ChargeController extends Controller
         $data->description = strtoupper($request->description);
         $data->effectiveness = $request->efectividad;
         $data2->description = strtoupper($request->description);
-        $data2->effectiveness = $request->efectividad;
         $data->save();
         $data2->save();
         return response()->json([

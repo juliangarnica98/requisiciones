@@ -101,6 +101,24 @@
                 </div>
             </div>
             <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card datos especificos cedis -->
+                <div class="col-md-8" v-if="requisition.person">
+                    <div class="card ">
+                        <div class="">
+                            <div class="card-body">
+                                <h4 class="text-center">
+                                    PERSONA QUE AUTORIZO
+                                </h4>
+                                <hr>
+                                <h5 class="text-center">
+                                    {{ requisition.person }}
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
                 <!-- card datos especificos factory -->
                 <div class="col-md-8" v-if="requisition.area_factory">
                     <div class="card ">
@@ -245,6 +263,23 @@
                                 Fecha ingreso: {{ requisition.fecha_ingreso  }}
                             </h5>
     
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card para apertura de tienda -->
+                <div class="col-md-8" v-if="requisition.reason_sus && requisition.status == 'SUSPENDIDA'">
+                    <div class="card "  >
+                        <div class="card-body">
+                            <h4 class="text-center">
+                                RAZÓN POR LA QUE SE SUSPENDIO
+                            </h4>
+                            <hr>
+                            <h5 class="text-center">
+                             {{ requisition.reason_sus  }}
+                            </h5>
                         </div>
                     </div>
                 </div>

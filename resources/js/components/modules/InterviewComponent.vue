@@ -383,6 +383,15 @@
                         </div>
                     </template>
 
+                    <template id="step10">
+                        <div v-if="form.aspectos != ''" class="row card card-cont animate__animated animate__bounceInUp" >
+                            <div class="card-body">
+                                <small class="h6 fw-bold">COMENTARIOS</small><small class="h5 text-dark" >(opcional)</small>
+                                <textarea v-model="form.comentaries" id="comentaries" class="form-control" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                    </template>
+
                     <template id="" class="">
                         <div
                             v-if="form.aspectos != ''"
@@ -434,6 +443,8 @@ export default {
                 entrenamiento: "",
                 aspectos: "",
                 fortalecer: "",
+                comentaries: "",
+                comentaries:"",
                 question:[],
             },
             
@@ -538,6 +549,7 @@ export default {
                 entrenamiento: "",
                 aspectos: "",
                 fortalecer: "",
+                comentaries:""
             },
             this.validator=false;
             this.question_satisfaction= [];

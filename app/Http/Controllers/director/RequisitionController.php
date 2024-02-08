@@ -172,6 +172,7 @@ class RequisitionController extends Controller
                 $cedi->activation_id= $activation->id;
                 $cedi->activation_charge_id= $request->cargo_activacion;
                 $cedi->comentaries= $request->comentarios;
+                $cedi->person = $request->person;
                 $cedi->ano_solicitud = date("Y");
                 $cedi->mes_solicitud = date("m");
                 $cedi->save();
@@ -242,35 +243,74 @@ class RequisitionController extends Controller
     }
     public function update(Request $request)
     {
-
         if ($request->area == '1') {
             $data=Store::where('id',$request->id)->first();
-            $data->status=$request->estado_envio;
-            $data->save();
+            if($request->estado_envio == 'REACTIVAR'){
+                $data->status = 'ABIERTA';
+                $data->reason_sus = $request->reason_sus;
+                $data->created_at = date('Y-m-d H:i:s'); 
+                $data->save(); 
+            }else{
+                $data->status=$request->estado_envio;
+                $data->reason_sus = $request->reason_sus;
+                $data->save();
+            }
             return "Se ha modificado estado con exito";
         }
         elseif ($request->area == '2') {
             $data=Administration::where('id',$request->id)->first();
-            $data->status=$request->estado_envio;
-            $data->save();
+            if($request->estado_envio == 'REACTIVAR'){
+                $data->status = 'ABIERTA';
+                $data->reason_sus = $request->reason_sus;
+                $data->created_at = date('Y-m-d H:i:s'); 
+                $data->save(); 
+            }else{
+                $data->status=$request->estado_envio;
+                $data->reason_sus = $request->reason_sus;
+                $data->save();
+            }
             return "Se ha modificado estado con exito";
         }
         elseif ($request->area == '3') {
             $data=Cedi::where('id',$request->id)->first();
-            $data->status=$request->estado_envio;
-            $data->save();
+            if($request->estado_envio == 'REACTIVAR'){
+                $data->status = 'ABIERTA';
+                $data->reason_sus = $request->reason_sus;
+                $data->created_at = date('Y-m-d H:i:s'); 
+                $data->save(); 
+            }else{
+                $data->status=$request->estado_envio;
+                $data->reason_sus = $request->reason_sus;
+                $data->save();
+            }
             return "Se ha modificado estado con exito";
         }
         elseif ($request->area == '4') {
             $data=Factory::where('id',$request->id)->first();
-            $data->status=$request->estado_envio;
-            $data->save();
+            if($request->estado_envio == 'REACTIVAR'){
+                $data->status = 'ABIERTA';
+                $data->reason_sus = $request->reason_sus;
+                $data->created_at = date('Y-m-d H:i:s'); 
+                $data->save(); 
+            }else{
+                $data->status=$request->estado_envio;
+                $data->reason_sus = $request->reason_sus;
+                $data->save();
+            }
             return "Se ha modificado estado con exito";
         }
         elseif ($request->area == '5') {
             $data=National_sale::where('id',$request->id)->first();
-            $data->status=$request->estado_envio;
-            $data->save();
+            if($request->estado_envio == 'REACTIVAR'){
+                $data->status = 'ABIERTA';
+                $data->reason_sus = $request->reason_sus;
+                $data->created_at = date('Y-m-d H:i:s'); 
+                $data->save(); 
+            }else{
+                $data->status=$request->estado_envio;
+                $data->reason_sus = $request->reason_sus;
+                $data->save();
+            }
             return "Se ha modificado estado con exito";
         }
     }

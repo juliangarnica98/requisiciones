@@ -64,7 +64,9 @@ class Dashboard extends Controller
             $entrevista['mejorar_honorarios']= Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->with('retirement_positions')->whereHas('retirement_positions' , function ($query) use($cargo){ $query->whereIn('description', $cargo);})->where('marca',$marca)->where('area',$area)->where('status',1)->where('reinforcement',3)->get()->count();
             $entrevista['mejorar_salario']= Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->with('retirement_positions')->whereHas('retirement_positions' , function ($query) use($cargo){ $query->whereIn('description', $cargo);})->where('marca',$marca)->where('area',$area)->where('status',1)->where('reinforcement',4)->get()->count();
             $entrevista['mejorar_ambiente']= Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->with('retirement_positions')->whereHas('retirement_positions' , function ($query) use($cargo){ $query->whereIn('description', $cargo);})->where('marca',$marca)->where('area',$area)->where('status',1)->where('reinforcement',5)->get()->count();        
-    
+
+            $entrevista['comentarios']= Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('area',$area)->where('status',1)->get()->pluck('name','comentaries');  
+
             if($area == 1 || $area == 2 ){
                
                 $entrevista['motivo_distancia']=Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->with('retirement_positions')->whereHas('retirement_positions' , function ($query) use($cargo){ $query->whereIn('description', $cargo);})->where('marca',$marca)->where('area',$area)->where('status',1)->where('reason_retreat','distancia de la residencia al lugar de trabajo')->get()->count();
@@ -82,7 +84,7 @@ class Dashboard extends Controller
                 $entrevista['motivo_calamidad']=Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->with('retirement_positions')->whereHas('retirement_positions' , function ($query) use($cargo){ $query->whereIn('description', $cargo);})->where('marca',$marca)->where('area',$area)->where('status',1)->where('reason_retreat','calamidad familiar')->get()->count();
                 $entrevista['motivo_otro']=Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->with('retirement_positions')->whereHas('retirement_positions' , function ($query) use($cargo){ $query->whereIn('description', $cargo);})->where('marca',$marca)->where('area',$area)->where('status',1)->where('reason_retreat','otro')->get()->count();
             }
-    
+            
             return response()->json($entrevista);
         }else{
 
@@ -113,7 +115,9 @@ class Dashboard extends Controller
             $entrevista['mejorar_distancia']= Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('area',$area)->where('status',1)->where('reinforcement',2)->get()->count();
             $entrevista['mejorar_honorarios']= Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('area',$area)->where('status',1)->where('reinforcement',3)->get()->count();
             $entrevista['mejorar_salario']= Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('area',$area)->where('status',1)->where('reinforcement',4)->get()->count();
-            $entrevista['mejorar_ambiente']= Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('area',$area)->where('status',1)->where('reinforcement',5)->get()->count();        
+            $entrevista['mejorar_ambiente']= Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('area',$area)->where('status',1)->where('reinforcement',5)->get()->count();      
+            
+            $entrevista['comentarios']= Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('area',$area)->where('status',1)->get()->pluck('name','comentaries');  
     
             if($area == 1 || $area == 2 ){
                 $entrevista['motivo_distancia']=Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('area',$area)->where('status',1)->where('reason_retreat','distancia de la residencia al lugar de trabajo')->get()->count();
@@ -131,7 +135,7 @@ class Dashboard extends Controller
                 $entrevista['motivo_calamidad']=Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('area',$area)->where('status',1)->where('reason_retreat','calamidad familiar')->get()->count();
                 $entrevista['motivo_otro']=Retreal::whereDate('created_at', '>=', $init)->whereDate('created_at', '<=', $end)->where('area',$area)->where('status',1)->where('reason_retreat','otro')->get()->count();
             }
-    
+           
             return response()->json($entrevista);
         }
     }

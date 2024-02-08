@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/vacant/export/{inicio}/{fin}', [App\Http\Controllers\ReportController::class, 'export_vacant']);
     Route::get('/vacant/exportclose/{inicio}/{fin}', [App\Http\Controllers\ReportController::class, 'export_vacant_close']);
     Route::get('/area/export/{area}/{inicio}/{fin}', [App\Http\Controllers\ReportController::class, 'export_area']);
+    Route::get('/admin/export/{inicio}/{fin}', [App\Http\Controllers\ReportController::class, 'export_admin']);
 });
 
 

@@ -111,6 +111,7 @@ class InterviewController extends Controller
             }
             $retreal->retirement_positions_id = $cargo_rq;
             $retreal->retirement_city_id = $request->ciudad;
+            $retreal->comentaries = $request->comentaries;
             $retreal->save();
 
             $question = $request->question;

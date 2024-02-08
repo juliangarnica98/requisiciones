@@ -334,6 +334,21 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row d-flex justify-content-center pt-0 ">
+                <div class="col-md-8 rounded">
+                    <div class="card ">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-6 table-head rounded p-3 text-center">
+                                COMENTARIOS
+                            </div>
+                            <div class="col-md-6 table-body rounded p-3 text-center">
+                                {{ respuesta_entrevista.comentaries }}
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
     
             <div class="row d-flex justify-content-center pt-0 " v-for="pregunta in preguntas_satisfaccion">
                 <div class="col-md-8 rounded">

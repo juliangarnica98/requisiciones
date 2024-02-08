@@ -1,0 +1,90 @@
+<table>
+    <thead>
+        <tr>
+            <th>GERENCIA</th>
+            <th>ABIERTA</th>
+            <th>RECLUTAMIENTO</th>
+            <th>TERNA</th>
+            <th>CONTRATACION</th>
+            <th>CERRADA</th>
+            <th>SUSPENDIDA</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GESTIÓN HUMANAL</td>
+            <td>{{$administration_gh_abierta}}</td>
+            <td>{{$administration_gh_reclutamiento}}</td>
+            <td>{{$administration_gh_terna}}</td>
+            <td>{{$administration_gh_contratacion}}</td>
+            <td>{{$administration_gh_cerrada}}</td>
+            <td>{{$administration_gh_suspendida}}</td>
+            
+         </tr>
+         <tr>
+            <td>COMERCIAL</td>
+            <td>{{$administration_co_abierta}}</td>
+            <td>{{$administration_co_reclutamiento}}</td>
+            <td>{{$administration_co_terna}}</td>
+            <td>{{$administration_co_contratacion}}</td>
+            <td>{{$administration_co_cerrada}}</td>
+            <td>{{$administration_co_suspendida}}</td>
+         </tr>
+         <tr>
+            <td>EXPANSIÓN Y VISUAL</td>
+            <td>{{$administration_ex_abierta}}</td>
+            <td>{{$administration_ex_reclutamiento}}</td>
+            <td>{{$administration_ex_terna}}</td>
+            <td>{{$administration_ex_contratacion}}</td>
+            <td>{{$administration_ex_cerrada}}</td>
+            <td>{{$administration_ex_suspendida}}</td>
+         </tr>
+         <tr>
+            <td>MERCADEO Y PRODUCTO DIGITAL</td>
+            <td>{{$administration_me_abierta}}</td>
+            <td>{{$administration_me_reclutamiento}}</td>
+            <td>{{$administration_me_terna}}</td>
+            <td>{{$administration_me_contratacion}}</td>
+            <td>{{$administration_me_cerrada}}</td>
+            <td>{{$administration_me_suspendida}}</td>
+         </tr>
+         <tr>
+            <td>OPERACIONES</td>
+            <td>{{$administration_op_abierta}}</td>
+            <td>{{$administration_op_reclutamiento}}</td>
+            <td>{{$administration_op_terna}}</td>
+            <td>{{$administration_op_contratacion}}</td>
+            <td>{{$administration_op_cerrada}}</td>
+            <td>{{$administration_op_suspendida}}</td>
+         </tr>
+         <tr>
+            <td>FINANCIERA</td>
+            <td>{{$administration_fi_abierta}}</td>
+            <td>{{$administration_fi_reclutamiento}}</td>
+            <td>{{$administration_fi_terna}}</td>
+            <td>{{$administration_fi_contratacion}}</td>
+            <td>{{$administration_fi_cerrada}}</td>
+            <td>{{$administration_fi_suspendida}}</td>
+         </tr>
+         <tr>
+            <td>GERENCIA GENERAL</td>
+            <td>{{$administration_gg_abierta}}</td>
+            <td>{{$administration_gg_reclutamiento}}</td>
+            <td>{{$administration_gg_terna}}</td>
+            <td>{{$administration_gg_contratacion}}</td>
+            <td>{{$administration_gg_cerrada}}</td>
+            <td>{{$administration_gg_suspendida}}</td>
+         </tr>
+        <tr>
+            <td>UNIQ</td>
+            <td>{{$administration_un_abierta}}</td>
+            <td>{{$administration_un_reclutamiento}}</td>
+            <td>{{$administration_un_terna}}</td>
+            <td>{{$administration_un_contratacion}}</td>
+            <td>{{$administration_un_cerrada}}</td>
+            <td>{{$administration_un_suspendida}}</td>
+            
+        </tr> 
+    </tbody>
+</table>

@@ -31,6 +31,9 @@ class CreateStoresTable extends Migration
             $table->string('mes_solicitud')->nullable();
             $table->string('mes_cierre')->nullable();
 
+            $table->string('person')->nullable();
+            $table->string('reason_sus')->nullable();
+
 
             $table->unsignedBigInteger('requisition_id');
             $table->foreign('requisition_id')->references('id')->on('requisitions');

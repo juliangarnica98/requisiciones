@@ -50,7 +50,8 @@
             <div class="col-md-2 text-center pt-3 pb-3 border-left" style="background-color: rgb(97, 102,175);color:white;">ABIERTA <i class="far fa-check-circle "></i></div>
             <div class="col-md-2 text-center pt-3 pb-3" style="background-color:  #a87bc7;color:white">EN GESTION <i class="fas fa-user-edit"></i></div>
             <div class="col-md-2 text-center pt-3 pb-3" style="background-color:  #e92c91;color:white">CERRADA <i class="fas fa-check-double"></i></div>
-            <div class="col-md-2 text-center pt-3 pb-3 border-right" style="background-color: #f252a7;color:white">CANCELADA <i class="fas fa-window-close"></i></div>
+            <div class="col-md-2 text-center pt-3 pb-3" style="background-color: #f252a7;color:white">CANCELADA <i class="fas fa-window-close"></i></div>
+            <div class="col-md-2 text-center pt-3 pb-3 border-right" style="background-color: #b0b0b0;color:white">SUSPENDIDA <i class="fas fa-grip-lines"></i></div>
         </div>
 
         <div class="padding  pt-3">
@@ -65,7 +66,7 @@
                                     <div class="col-md-1 text-center"><b>ESTADO</b></div>
                                     <div class="col-md-2 text-center"><b>CARGO</b> </div>
                                     <div class="col-md-2 text-center"><b>CIUDAD</b> </div>
-                                    <div class="col-md-2 text-center"><b>RECLUTADOR</b></div>
+                                    <div class="col-md-2 text-center"><b>ANALISTA</b></div>
                                     <div class="col-md-2 text-center"><b>VER</b></div>
                                 </div>
                             </div>
@@ -73,16 +74,18 @@
                     </div>
                     <div class="row">
                         <div v-for="rq in listaRequisition.data" class="card-requition">
-                            <div class="card border-none" :class="{ estado_abierto: rq.status == 'ABIERTA', estado_cerrado: rq.status == 'CERRADA' ,estado_engestion: rq.status == 'EN GESTION',estado_cancelado: rq.status == 'CANCELAR',estado_cancelado: rq.status == 'CANCELADA'  }">
+                            <div class="card border-none" :class="{ estado_abierto: rq.status == 'ABIERTA', estado_cerrado: rq.status == 'CERRADA' ,estado_engestion: rq.status == 'EN GESTION',estado_cancelado: rq.status == 'CANCELAR',estado_cancelado: rq.status == 'CANCELADA',estado_suspendido: rq.status == 'SUSPENDIDA'  }">
                                 <div class="card-body">
                                     <div class="row ">
                                         <div class="col-md-3 text-center"> <b style="text-transform: uppercase;"> {{rq.requisition.user.name}} {{rq.requisition.user.last_name}} - {{ rq.created_at | fecha}}</b></div>
                                         <div class="col-md-1 text-center d-flex justify-content-center aling-items-center"><b> 
-                                            <!-- <div class="" v-if="rq.status=='ABIERTA'"> <i class="far fa-check-circle "></i></div>
-                                            <div class="" v-if="rq.status=='CERRADA'"> <i class="fas fa-check-double"></i></div>
-                                            <div class="" v-if="rq.status=='EN GESTION'">  <i class="fas fa-user-edit"></i></div>
-                                            <div class="" v-if="rq.status=='CANCELADA'"> <i class="fas fa-window-close"></i></div> -->
-                                            {{ rq.status }}
+                            
+                                            <div class="" v-if="rq.status == 'EN GESTION'">
+                                                {{ rq.status }} - {{ rq.substate }}
+                                            </div>
+                                            <div class="" v-else>
+                                                {{ rq.status }}
+                                            </div>
                                         </b></div>
                                         <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
                                         <div class="col-md-2 text-center"><b  style="text-transform: uppercase;">{{rq.city.description}}</b> </div>
@@ -93,7 +96,7 @@
                                                     <div class="row d-flex justify-content-center">
                                                         <div class="col-md-2 text-white">
                                                             <div v-if="rq.fecha_ingreso == null">                                                                
-                                                                <Edit @traerdata="getRequisitions2"  :estado="rq.status" :area="area" :id="rq.id" :creador="comCreador(rq.requisition.user_id)"/>
+                                                                <Edit @traerdata="getRequisitions2" :substate="rq.substate" :estado="rq.status" :area="area" :id="rq.id" :creador="comCreador(rq.requisition.user_id)"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-2 text-white">
@@ -479,5 +482,8 @@ import Edit2 from './EditComponent2.vue'
         width: 25px;
         height: 25px;
     }
-
+    .estado_suspendido{
+        background-color: #b0b0b0;
+        color:white;
+    }
 </style>
