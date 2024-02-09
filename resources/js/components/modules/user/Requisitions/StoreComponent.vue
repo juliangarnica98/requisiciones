@@ -228,7 +228,7 @@
                                     <option value="67">AUXILIAR DE OPERACIONES LOGÍSTICAS </option>
                                     <option value="51">AUXILIAR DE BANDAS </option>
                                     <option value="46">AUXILIAR ADMINISTRATIVO </option>
-                                    <option value="222">LÍDER DE BANDAS </option>
+                                    <option value="148">JEFE DE BANDAS </option>
                                     <option value="184">LÍDER DE DEVOLUCIONES </option>
                                     <option value="189">LÍDER DE PLOTTER </option>
                                     <option value="181">LÍDER DE CORTE </option>
@@ -247,11 +247,13 @@
                                     <option value="219">AUXILIAR DE SEGURIDAD </option>
                                     <option value="212">SUPERVISOR DE PRODUCCIÓN </option>
                                     <option value="198">MONTACARGUISTA </option>
-                                    <option value="189">LÍDER DE MOBILIARIO </option>
+                                    <option value="186">LÍDER DE MOBILIARIO </option>
                                     <option value="203">OPERARIO DE MAQUINA</option>
-                                    <option value="59">AUXILIAR DE CORTE </option>
-                                    <option value="81">AUXILIAR I PRODUCCIÓN</option>
-                                    <option value="218">CORTADOR</option>         
+                                    <option value="59">AUXILIAR DE CORTE </option> 
+                                    <option value="81">AUXILIAR I PRODUCCIÓN</option> 
+                                    <option value="218">CORTADOR</option>     
+                                    <option value="188">LIDER DE PLANEACIÓN</option>     
+                                    
                                 </select>
                             </div>
                             <div class="mb-3" v-else-if="form.area == '5'" >

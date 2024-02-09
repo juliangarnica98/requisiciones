@@ -17,7 +17,7 @@ class CreateActivationChargesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('description');
-            $table->integer('effectiveness')->default(0);
+            $table->integer('effectiveness')->default(1);
         });
     }
 
