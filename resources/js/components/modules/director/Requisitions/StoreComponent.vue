@@ -234,7 +234,7 @@
                                     <option value="217">VISUAL MERCHANDISING</option>
                                 </select>
                             </div>
-                            <div class="mb-3" v-else-if="form.area == '3'" >
+                            <!-- <div class="mb-3" v-else-if="form.area == '3'" >
                                 <h6 class="text-center">SELECCIONA EL CARGO A SOLICITAR<small class="h5 text-danger" >*</small></h6>
                                 <select  v-model="form.cargo_activacion" class="form-select" aria-label="Default select example" @change="onChageCast(6,form.cargo_activacion)">
                                     <option selected value="">SELECCIONA UNA OPCION</option>
@@ -266,7 +266,7 @@
                                     <option value="81">AUXILIAR I PRODUCCIÓN</option>
                                     <option value="218">CORTADOR</option>         
                                 </select>
-                            </div>
+                            </div> -->
                             <div class="mb-3" v-else-if="form.area == '5'" >
                                 <h6 class="text-center">SELECCIONA EL CARGO A SOLICITAR<small class="h5 text-danger" >*</small></h6>
                                 <select  v-model="form.cargo_activacion" class="form-select" aria-label="Default select example" @change="onChageCast(6,form.cargo_activacion)">
