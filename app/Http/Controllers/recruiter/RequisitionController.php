@@ -213,7 +213,7 @@ class RequisitionController extends Controller
             case 'admin':
                 $data=Administration::where('id',$request->id)->first();
                 if($request->substate){
-                    $data->status=$data->status;
+                    $data->status=$request->estado_envio;
                     $data->substate=$request->substate;
                 }else{
                     $data->status=$request->estado_envio;
@@ -222,7 +222,7 @@ class RequisitionController extends Controller
                 break;
             case 'tienda':
                 $data=Store::where('id',$request->id)->first();
-                $data->status=$request->substate;
+                $data->status=$request->estado_envio;
                 $data->save();
                 break;
             case 'cedi':

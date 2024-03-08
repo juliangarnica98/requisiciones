@@ -26,7 +26,7 @@ class AreaManagementSeeder extends Seeder
             ],
             [
                 'management_id'=>1,
-                'description' => 'PROCESOS Y PROCEDIMIENTOS'
+                'description' => 'DESARROLLO'
             ],
             [
                 'management_id'=>1,

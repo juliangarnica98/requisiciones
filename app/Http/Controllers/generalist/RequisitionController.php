@@ -210,8 +210,9 @@ class RequisitionController extends Controller
             case 'admin':
                 $data=Administration::where('id',$request->id)->first();
                 if($request->substate){
-                    $data->status=$data->status;
+                    $data->status=$request->estado_envio;
                     $data->substate=$request->substate;
+                    // dd($request->all());
                 }else{
                     $data->status=$request->estado_envio;
                 }

@@ -12,14 +12,17 @@
                   </select>
                 </div>
                 <div v-if="form.estado == 'EN GESTION'">
+                  
                   <select v-if="area == 'admin'" v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
                       <option value="EN GESTION">EN GESTIÓN</option>
                       <option v-if="substate == 'CONTRATACIÓN'" value="CERRADA">CERRADA</option>
                   </select>
+
                   <select v-else v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
                     <option value="EN GESTION">EN GESTIÓN</option>
                     <option value="CERRADA">CERRADA</option>
-                </select>
+                  </select>
+
                   <div class="" v-if="area=='admin'">
                     <h5 class="text-center title mt-3">SELECCIONE EL SUBESTADO</h5>
                     <h5 class="text-center title">ESTADO ACTUAL: {{ substate }}</h5>
@@ -29,6 +32,7 @@
                         <option value="CONTRATACIÓN">CONTRATACIÓN</option>
                     </select>
                   </div>
+
                 </div>
                 <div v-if="form.estado == 'CERRADA'">
                   <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
