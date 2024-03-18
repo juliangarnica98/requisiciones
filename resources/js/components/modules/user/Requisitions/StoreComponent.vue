@@ -33,8 +33,7 @@
                                     <option selected value="">SELECCIONA UNA OPCION</option>
                                     <option v-for="cedi in cedis" :value="cedi.id">{{ cedi.description }}</option>
                                 </select>
-                                <h6 class="text-center">PERSONA QUE APROBO LA VACANTE<small class="h5 text-danger" >*</small></h6>
-                                <input v-model="form.person" type="text" class="form-control" id="" placeholder="">
+                               
                             </div>
                         </div>
                     </div>
@@ -88,7 +87,7 @@
 
 
                 <template id="step4">
-                    <div v-if="((form.categoria != '') && (form.nombre != '')) || form.area_gerencia != '' || (form.centro_distribucion != '' && form.person !='')
+                    <div v-if="((form.categoria != '') && (form.nombre != '')) || form.area_gerencia != '' || (form.centro_distribucion != '')
                     || form.area_facroty != '' || form.area == '5'" class="row card card-cont ">
                         <div class="card-body">
                             <div class="mb-3">
@@ -122,6 +121,11 @@
                                     <option value="3">NUEVO CARGO</option>
                                     <option value="4">REINTEGRO</option>
                                 </select>
+                            </div>
+                            <div class="mb-3" v-if="form.tipo_vacante == 3">
+                              
+                                <h6 class="text-center">PERSONA QUE APROBO LA VACANTE<small class="h5 text-danger" >*</small></h6>
+                                <input v-model="form.person" type="text" class="form-control" id="" placeholder="">
                             </div>
                         </div>
                     </div>
@@ -189,7 +193,8 @@
                     || (form.change_ide!= '' && form.change_name !='' && form.change_reason != '')
                     || (form.refund_date_retirement!='' && form.refund_date !='' && form.refund_ide!=''&&form.refund_name!='')
                     || (form.opening_category!=''&& form.opening_date !=''&& form.opening_store!=''
-                    || form.tipo_vacante == '3')" class="row card card-cont ">
+                    || (form.tipo_vacante == '3' && form.person != '')
+                    )" class="row card card-cont ">
                         <div class="card-body">
                             <div class="mb-3">
                                 <h6 class="text-center">SELECCIONA EL SEXO DEL COLABORADOR SOLICITADO<small class="h5 text-danger" >*</small></h6>
@@ -414,7 +419,8 @@
 
                             this.form.sexo_vacante="",
                             this.form.cargo_activacion="",
-                            this.form.comentarios=""
+                            this.form.comentarios="",
+                            this.form.person=""
                         }
                         break;
                     case 1:
@@ -438,7 +444,8 @@
                             this.form.opening_category="",
                             this.form.sexo_vacante="",
                             this.form.cargo_activacion="",
-                            this.form.comentarios=""
+                            this.form.comentarios="",
+                            this.form.person=""
                         }
                         break;
                     case 2:
@@ -459,7 +466,8 @@
                             this.form.opening_category="",
                             this.form.sexo_vacante="",
                             this.form.cargo_activacion="",
-                            this.form.comentarios=""
+                            this.form.comentarios="",
+                            this.form.person=""
                         }
                         break;
                     case 3:
@@ -479,7 +487,8 @@
                             this.form.opening_category="",
                             this.form.sexo_vacante="",
                             this.form.cargo_activacion="",
-                            this.form.comentarios=""
+                            this.form.comentarios="",
+                            this.form.person=""
                         }
                         break;
                     case 4:
@@ -498,7 +507,8 @@
                             this.form.opening_category="",
                             this.form.sexo_vacante="",
                             this.form.cargo_activacion="",
-                            this.form.comentarios=""
+                            this.form.comentarios="",
+                            this.form.person=""
                         }
                         else if(value == 5){
                             this.form.opening_store = this.form.nombre;
@@ -515,7 +525,17 @@
                             this.form.opening_date="",
                             this.form.sexo_vacante="",
                             this.form.cargo_activacion="",
-                            this.form.comentarios=""
+                            this.form.comentarios="",
+                            this.form.person=""
+                        }
+                        else if(value == 1){
+                            this.form.person=""
+                        }
+                        else if(value == 2){
+                            this.form.person=""
+                        }
+                        else if(value == 4){
+                            this.form.person=""
                         }
                         break;
                     case 5:
