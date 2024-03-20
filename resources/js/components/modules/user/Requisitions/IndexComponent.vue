@@ -19,7 +19,7 @@
                                     <div class="col-md-2 text-center"><b>CIUDAD</b> </div>
                                     <div class="col-md-2 text-center"><b>SEXO</b></div>
                                     <div class="col-md-2 text-center"><b>ESTADO</b></div>
-                                    <div class="col-md-2 text-center"><b>VER</b></div>
+                                    <div class="col-md-2 text-center"><b>ACCIONES</b></div>
                                 </div>
                             </div>
                         </div>
@@ -36,12 +36,10 @@
                                     <div class="col-md-2 text-center"><b>{{rq.status}}</b> </div>
                                     <div class="col-md-2 text-center">
                                         <div class="col-md-12 h5">
-                                                <a class="link text-white" data-bs-toggle="modal" :data-bs-target="'#'+rq.id"><i class="fas fa-edit"></i></a>    
-                                                <Edit @traerdata="getRequisitions" :estado="rq.status" :id="rq.id" :area="area"></Edit>
-                                                <router-link class="link text-white" :to="{name:'bossrequisicion',params:{ id: rq.id}}" aria-expanded="false" >
-                                                    
+                                                <a v-if="rq.status!='CANCELADA'" class="link text-white" data-bs-toggle="modal" :data-bs-target="'#'+rq.id"><i class="fas fa-edit"></i></a>    
+                                                <Edit  @traerdata="getRequisitions" :estado="rq.status" :id="rq.id" :area="area"></Edit>
+                                                <router-link class="link text-white" :to="{name:'bossrequisicion',params:{ id: rq.id}}" aria-expanded="false" >        
                                                         <i class="fas fa-eye"></i>
-                                                    
                                                 </router-link>
                                             </div>
                                             

@@ -7,23 +7,23 @@
                 <h5 class="text-center title">ESTADO ACTUAL: {{ form.estado }}</h5>
                 <div v-if="form.estado == 'ABIERTA'">
                   <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
-                      <option value="ABIERTA">ABIERTA</option>
-                      <option value="SUSPENDIDA">SUSPENDIDA</option>
-                      <option value="CANCELADA">CANCELADA</option>
+                      <!-- <option value="ABIERTA">ABIERTA</option> -->
+                      <option value="SUSPENDIDA">SUSPENDER</option>
+                      <option value="CANCELADA">CANCELAR</option>
                   </select>
                   <input v-if="form.estado_envio == 'SUSPENDIDA'" type="text" class="form-control mt-3" v-model="form.reason_sus" placeholder="RAZÓN">
                 </div>
                 <div class="mt-3" v-if="form.estado == 'SUSPENDIDA'">
                   <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
                     <option value="REACTIVAR">REACTIVAR</option>
-                    <option value="CANCELADA">CANCELADA</option>
+                    <option value="CANCELADA">CANCELAR</option>
                 </select>
                 </div>
-                <div v-if="form.estado == 'CANCELADA'">
+                <!-- <div v-if="form.estado == 'CANCELADA'">
                   <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
                       <option value="CANCELADA">CANCELADA</option>
                   </select>
-                </div>
+                </div> -->
             </div>
             <div class="row d-flex justify-content-center pb-2">
               <div class="col-md-5 d-grid gap-2">

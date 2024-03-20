@@ -9,7 +9,7 @@
                 <h5 class="text-center title">ESTADO ACTUAL: {{ form.estado }}</h5>
                 <div v-if="form.estado == 'ABIERTA' && creador != 1">
                   <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
-                      <option value="ABIERTA">ABIERTA</option>
+                      <!-- <option value="ABIERTA">ABIERTA</option> -->
                       <option value="EN GESTION">EN GESTIÓN</option>
                   </select>
                 </div>
@@ -19,7 +19,7 @@
                     <option v-if="substate == 'CONTRATACIÓN'" value="CERRADA">CERRADA</option>
                   </select>
                   <select v-else v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
-                    <option value="EN GESTION">EN GESTIÓN</option>
+                    <!-- <option value="EN GESTION">EN GESTIÓN</option> -->
                     <option value="CERRADA">CERRADA</option>
                   </select>
                   <div class="" v-if="area=='admin'">
@@ -33,9 +33,9 @@
                   </div>
                 </div>
                 <div v-if="form.estado == 'CERRADA'">
-                  <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
+                  <!-- <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
                       <option value="CERRADA">CERRADA</option>
-                  </select>
+                  </select> -->
                 </div>
 
                 <div >
@@ -78,7 +78,8 @@
           substate:{
             type:String,
             default: null,
-          }
+          },
+
         },
         data() {
             return {
@@ -97,7 +98,7 @@
         },
         methods:{
             EditInterview(){
-              if (this.form.estado_envio == "EN GESTION" && this.form.reclutador == "") {
+              if (this.form.estado_envio == "EN GESTION" && this.form.reclutador == "" && this.form.substate == '' ) {
                 this.$toast.error("DEBE SELECCIONAR UN ANALISTA");
               } else {
                 axios.post('/generalist/requisicion/edit', this.form).then((res) => {
@@ -106,7 +107,6 @@
                     this.form.estado = this.form.estado_envio;
                     if(this.form.estado == ""  ){
                       this.form.estado = 'EN GESTION'
-                      console.log(1);
                     }
                     this.$refs.Close2.click();
                   

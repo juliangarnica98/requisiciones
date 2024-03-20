@@ -7,7 +7,7 @@
                 <h5 class="text-center title">ESTADO ACTUAL: {{ form.estado }}</h5>
                 <div v-if="form.estado == 'ABIERTA'">
                   <select v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
-                      <option value="ABIERTA">ABIERTA</option>
+                      <!-- <option value="ABIERTA">ABIERTA</option> -->
                       <option value="EN GESTION">EN GESTIÓN</option>
                   </select>
                 </div>
@@ -19,7 +19,7 @@
                   </select>
 
                   <select v-else v-model="form.estado_envio" class="form-select mt-3" aria-label="Default select example">
-                    <option value="EN GESTION">EN GESTIÓN</option>
+                    <!-- <option value="EN GESTION">EN GESTIÓN</option> -->
                     <option value="CERRADA">CERRADA</option>
                   </select>
 

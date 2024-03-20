@@ -67,7 +67,7 @@
                                     <div class="col-md-2 text-center"><b>CARGO</b> </div>
                                     <div class="col-md-2 text-center"><b>CIUDAD</b> </div>
                                     <div class="col-md-2 text-center"><b>ANALISTA</b></div>
-                                    <div class="col-md-2 text-center"><b>VER</b></div>
+                                    <div class="col-md-2 text-center"><b>ACCIONES</b></div>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                                                 <div class="col-md-12 h4">
                                                     <div class="row d-flex justify-content-center">
                                                         <div class="col-md-2 text-white">
-                                                            <div v-if="rq.fecha_ingreso == null">                                                                
+                                                            <div v-if="rq.fecha_ingreso == null && rq.status !='CANCELADA'" >                                                                
                                                                 <Edit @traerdata="getRequisitions2" :substate="rq.substate" :estado="rq.status" :area="area" :id="rq.id" :creador="comCreador(rq.requisition.user_id)"/>
                                                             </div>
                                                         </div>

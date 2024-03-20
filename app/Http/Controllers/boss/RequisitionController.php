@@ -97,7 +97,7 @@ class RequisitionController extends Controller
         // DB::beginTransaction();
 
         // try {
-          
+           
             $requisition = new Requisition();
             $requisition->user_id=auth()->id();
             $requisition->save();
@@ -130,7 +130,7 @@ class RequisitionController extends Controller
                 $store->activation_id= $activation->id;
                 $store->activation_charge_id= $request->cargo_activacion;
                 $store->comentaries= $request->comentarios;
-                $cedi->person = $request->person;
+                $store->person = $request->person;
                 $store->ano_solicitud = date("Y");
                 $store->mes_solicitud = date("m");
                 $store->save();
@@ -147,7 +147,7 @@ class RequisitionController extends Controller
                 $admin->activation_id= $activation->id;
                 $admin->activation_charge_id= $request->cargo_activacion;
                 $admin->comentaries= $request->comentarios;
-                $cedi->person = $request->person;
+                $admin->person = $request->person;
                 $admin->ano_solicitud = date("Y");
                 $admin->mes_solicitud = date("m");
                 $admin->save();
@@ -179,7 +179,7 @@ class RequisitionController extends Controller
                 $factory->activation_id= $activation->id;
                 $factory->activation_charge_id= $request->cargo_activacion;
                 $factory->comentaries= $request->comentarios;
-                $cedi->person = $request->person;
+                $factory->person = $request->person;
                 $factory->ano_solicitud = date("Y");
                 $factory->mes_solicitud = date("m");
                 $factory->save();
@@ -195,7 +195,7 @@ class RequisitionController extends Controller
                 $national_sale->activation_id= $activation->id;
                 $national_sale->activation_charge_id= $request->cargo_activacion;
                 $national_sale->comentaries= $request->comentarios;
-                $cedi->person = $request->person;
+                $national_sale->person = $request->person;
                 $national_sale->ano_solicitud = date("Y");
                 $national_sale->mes_solicitud = date("m");
                 $national_sale->save();

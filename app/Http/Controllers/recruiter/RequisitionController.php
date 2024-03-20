@@ -311,6 +311,7 @@ class RequisitionController extends Controller
                 $tiempo_resultado= $this->getDiasHabiles(($data->created_at)->format('Y-m-d'),now()->format('Y-m-d'));
                 $tiempo_resultado = $data->created_at->format('H:i:s') > '14:00:00' ? $tiempo_resultado-1 : $tiempo_resultado;
                 $data->efectividad = $tiempo_resultado<=$tiempo ? 1 : 0; 
+                $data->nombre_ingreso=$request->nombre_ingreso;
                 $data->cedula_ingreso=$request->cedula_ingreso;
                 $data->fecha_ingreso=$request->fecha_ingreso;
                 $data->ano_cierre = date("Y");
