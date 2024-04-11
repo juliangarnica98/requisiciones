@@ -26,9 +26,11 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Traits\SendEmail;
 
 class RequisitionController extends Controller
 {
+    use SendEmail;
     public function __construct()
     {
         $this->middleware('auth');
@@ -211,9 +213,16 @@ class RequisitionController extends Controller
             case 'tienda':
                 $data=Store::where('id',$request->id)->first();
                 if($request->state == 'RECHAZADA'){
+                    $rq = Requisition::where('id',$data->requisition_id)->first();
+                    $user = User::where('id',$rq->user_id)->first();
                     $data->rechazo= 1 ;
                     $data->reason_rechazo=$request->comments;
                     $data->status= 'CANCELADA';
+                    // try {
+                    //     $this->send_email(500, $anniversary->name.$plantilla->subject, $anniversary->name, $user->email);
+                    // } catch (\Throwable $th) {
+                        
+                    // }
                 }elseif ($request->state == 'ACEPTADA') {
                     $data->aprobacion= 1 ;
                     $data->created_at = date('Y-m-d H:i:s');

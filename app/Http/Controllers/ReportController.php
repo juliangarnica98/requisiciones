@@ -28,7 +28,6 @@ class ReportController extends Controller
     }
     public function export_vacant_close($inicio , $fin)  
     {
-        
         return Excel::download(new StoreVacantClose ($inicio , $fin), 'storesVacantClore.xlsx');
     }
     public function export_type($inicio , $fin)  
