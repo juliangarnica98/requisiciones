@@ -33,7 +33,11 @@
                                     <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
                                     <div class="col-md-2 text-center"><b>{{rq.city.description}}</b> </div>
                                     <div class="col-md-2 text-center"><b>{{rq.sex.description}}</b> </div>
-                                    <div class="col-md-2 text-center"><b>{{rq.status}}</b> </div>
+                                    <div class="col-md-2 text-center" v-if="rq.rechazo">
+                                        <b v-if="rq.rechazo == 1">RECHAZADA</b>
+                                        <b v-else>{{rq.status}}</b>
+                                    </div>
+                                    <div class="col-md-2 text-center" v-else><b>{{rq.status}}</b></div>
                                     <div class="col-md-2 text-center">
                                         <div class="col-md-12 h5">
                                                 <a v-if="rq.status!='CANCELADA'" class="link text-white" data-bs-toggle="modal" :data-bs-target="'#'+rq.id"><i class="fas fa-edit"></i></a>    

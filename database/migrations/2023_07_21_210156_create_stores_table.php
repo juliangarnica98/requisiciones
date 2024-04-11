@@ -34,6 +34,11 @@ class CreateStoresTable extends Migration
             $table->string('person')->nullable();
             $table->string('reason_sus')->nullable();
 
+            $table->string('substate')->default('RECLUTAMIENTO');
+
+            $table->boolean('aprobacion')->default(0);
+            $table->boolean('rechazo')->default(0);
+            $table->text('reason_rechazo')->nullable();
 
             $table->unsignedBigInteger('requisition_id');
             $table->foreign('requisition_id')->references('id')->on('requisitions');

@@ -1,40 +1,23 @@
 <template>
     <div class="" id="page-content">
-        <!-- <Nav :actual="this.rut_act"></Nav> -->
         <div>
             <h1 class="text-start title">REQUISICIONES </h1>
         </div>
         <div class="row d-flex justify-content-center pt-2">
-            <div class="col-sm-2  d-grid gap-2">
+            <div class="col-sm-3  d-grid gap-2">
                 <button class="btn btn-lili" :class="{'btn-lili2':admin}" @click="updateList(1)">ADMINISTRATIVOS <i class="fas fa-users"></i></button>
             </div>
-            <div class="col-sm-2 d-grid gap-2">
-                <button class="btn btn-lili" :class="{'btn-lili2':tienda}" @click="updateList(2)">TIENDAS <i class="fas fa-store"></i></button>
-            </div>
-            <div class="col-sm-2 d-grid gap-2">
+
+            <div class="col-sm-3 d-grid gap-2">
                 <button class="btn btn-lili" :class="{'btn-lili2':cedi}" @click="updateList(3)">CEDIS <i class="fas fa-users"></i></button>
             </div>
-            <div class="col-sm-2 d-grid gap-2">
+            <div class="col-sm-3 d-grid gap-2">
                 <button class="btn btn-lili" :class="{'btn-lili2':factory}" @click="updateList(4)">MAGENTEX <i class="fas fa-industry"></i></button>
             </div>
-            <div class="col-sm-2 d-grid gap-2">
-                <button class="btn btn-lili" :class="{'btn-lili2':venta_nal}" @click="updateList(5)">VENTA NACIONAL <i class="fas fa-globe-americas"></i></button>
-            </div>
+
         </div>
 
         <div class="row d-flex justify-content-center pt-3"   >
-            <div class="col-md-3">
-                <select v-if="area == 'tienda'" class=" form-select" name="filtro_regional" id="filtro_regional" v-model="filtro_regional" @change="traerJefesRegional($event)">
-                    <option value="">SELEECIONAR REGIONAL</option>
-                    <option value="" v-for="regi in regionales" :value="regi.description"> {{ regi.description }}</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select  class=" form-select" name="filtro_jefe" id="filtro_jefe" v-model="filtro_jefe"  v-if="filtro_regional!='' && area == 'tienda'" @change="filtrarJefe($event)">
-                    <option value="">SELECCIONAR JEFE</option>
-                    <option value="" v-for="jefe in jefes_zona" :value="jefe.id"> {{ jefe.name }} {{ jefe.last_name }}</option>
-                </select>
-            </div>
             <div class="col-md-3">
                 <select class=" form-select" name="filtro_estado" id="filtro_estado" v-model="filtro_estado" @change="filtrarEstado($event)">
                     <option value="">SELECCIONAR ESTADO</option>
@@ -154,12 +137,11 @@ import Edit2 from './EditComponent2.vue'
                 regionales:{},
                 jefes_zona:{},
 
-                area:"tienda",
-                admin:false,
-                tienda:true,
+                area:"admin",
+                admin:true,
                 cedi:false,
                 factory:false,
-                venta_nal:false,
+                
                 listaRequisition:{},
                 listaRequisitionAdmin:{},
                 listaRequisitionCedi:{},
@@ -179,9 +161,7 @@ import Edit2 from './EditComponent2.vue'
             getRequisitions(page = 1){
                 axios.get('/generalist/getrequisition?page='+page)
                 .then((res) => { 
-                    if (this.area == 'tienda') {
-                        this.listaRequisition = res.data.store;  
-                    } else if(this.area == 'admin') {
+                    if(this.area == 'admin') {
                         this.listaRequisition = res.data.admin;  
                     }
                     else if(this.area == 'cedi') {
@@ -189,17 +169,13 @@ import Edit2 from './EditComponent2.vue'
                     }
                     else if(this.area == 'factory') {
                         this.listaRequisition = res.data.factory; 
-                    }
-                    else if(this.area == 'venta_nal') {
-                        this.listaRequisition = res.data.national_sale; 
                     }else{
                         this.listaRequisition = res.data.store;  
                     }
                     this.listaRequisitionAdmin = res.data.admin; 
                     this.listaRequisitionCedi = res.data.cedi;
                     this.listaRequisitionFactory = res.data.factory;   
-                    this.listaRequisitionNational_sale = res.data.national_sale;
-                    this.listaRequisitionStore= res.data.store;
+
                     this.regionales=res.data.regional;
                     this.id_usuario=res.data.user;
                 });
@@ -207,9 +183,7 @@ import Edit2 from './EditComponent2.vue'
             getRequisitions2(page = 1){
                 axios.get('/generalist/getrequisition?page='+page)
                 .then((res) => { 
-                    if (this.area == 'tienda') {
-                        this.listaRequisition = res.data.store;  
-                    } else if(this.area == 'admin') {
+                   if(this.area == 'admin') {
                         this.listaRequisition = res.data.admin;  
                     }
                     else if(this.area == 'cedi') {
@@ -218,21 +192,17 @@ import Edit2 from './EditComponent2.vue'
                     else if(this.area == 'factory') {
                         this.listaRequisition = res.data.factory; 
                     }
-                    else if(this.area == 'venta_nal') {
-                        this.listaRequisition = res.data.national_sale; 
-                    }
+                   
                     this.listaRequisitionAdmin = res.data.admin; 
                     this.listaRequisitionCedi = res.data.cedi;
                     this.listaRequisitionFactory = res.data.factory;   
-                    this.listaRequisitionNational_sale = res.data.national_sale;
-                    this.listaRequisitionStore= res.data.store;
                     this.regionales=res.data.regional;
                 });
             },
             getRequisitions3(page = 1){
                 axios.get('/generalist/getrequisition2?page='+page)
                 .then((res) => { 
-                    this.listaRequisition = res.data.store;  
+                    this.listaRequisition = res.data.admi;  
                     this.listaRequisitionAdmin = res.data.admin; 
                     this.listaRequisitionCedi = res.data.cedi;
                     this.listaRequisitionFactory = res.data.factory;   
@@ -253,15 +223,7 @@ import Edit2 from './EditComponent2.vue'
                         this.factory=false;
                         this.venta_nal=false;
                         break;
-                    case 2:
-                        this.listaRequisition = this.listaRequisitionStore;
-                        this.area="tienda";
-                        this.admin=false;
-                        this.tienda=true;
-                        this.cedi=false;
-                        this.factory=false;
-                        this.venta_nal=false;
-                        break;
+
                     case 3:
                         this.listaRequisition = this.listaRequisitionCedi;
                         this.area="cedi";
@@ -280,39 +242,12 @@ import Edit2 from './EditComponent2.vue'
                         this.factory=true;
                         this.venta_nal=false;
                         break;
-                    case 5:
-                        this.listaRequisition = this.listaRequisitionNational_sale;
-                        this.area="venta_nal";
-                        this.admin=false;
-                        this.tienda=false;
-                        this.cedi=false;
-                        this.factory=false;
-                        this.venta_nal=true;
-                        break;
 
                     default:
                         this.listaRequisition = this.listaRequisitionAdmin;
                         break;
                 }
                 
-            },
-            traerJefesRegional(event){
-                axios.get(`/generalist/getjefes/`+event.target.value+`/`+this.area)
-                .then((res) => { 
-                    this.jefes_zona = res.data.jefe;  
-                    this.listaRequisitionStore= res.data.store;
-                    this.listaRequisition = this.listaRequisitionStore;
-                });
-            },
-            filtrarJefe(event){
-                
-                if (event.target.value){
-                    axios.get(`/generalist/getfiltro/`+this.area+`/`+event.target.value+`/`+this.filtro_estado)
-                    .then((res) => { 
-                        this.listaRequisitionStore= res.data.store;
-                        this.listaRequisition = this.listaRequisitionStore;
-                    });
-                }
             },
 
             filtrarEstado(event){

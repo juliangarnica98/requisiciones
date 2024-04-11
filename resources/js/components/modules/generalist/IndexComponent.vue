@@ -83,17 +83,6 @@
                            
                         </li>
                     </ul>
-                    <ul class="menu-links">
-                        <li class="nav-link">
-                            <router-link class="router-link" to="/generalist/tiendas" aria-expanded="false" >
-                                <i class='bx bxs-bank icon'></i>
-                                <span class="text nav-text"
-                                    >TIENDAS</span
-                                >
-                            </router-link>
-                           
-                        </li>
-                    </ul>
                 </div>
                 <div class="bottom-content">
                     <li class="">

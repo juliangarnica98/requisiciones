@@ -30,6 +30,12 @@ class CreateNationalSalesTable extends Migration
             $table->string('mes_solicitud')->nullable();
             $table->string('mes_cierre')->nullable();
 
+            $table->string('substate')->default('RECLUTAMIENTO');
+
+            $table->boolean('aprobacion')->default(0);
+            $table->boolean('rechazo')->default(0);
+            $table->string('reason_rechazo')->nullable();
+
             $table->string('person')->nullable();
             $table->string('reason_sus')->nullable();
 

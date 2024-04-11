@@ -141,4 +141,11 @@ class UserController extends Controller
         return response()->json($data);
         
     }
+
+    public function search(Request $request)
+    {
+        $data['users']=User::with('roles')->orderBy('id', 'DESC')->where('name', 'like', '%'.$request->buscar_usuario .'%' )->orWhere('last_name', 'like', '%'.$request->buscar_usuario .'%' )->paginate();
+        return response()->json($data);
+        
+    }
 }

@@ -20,6 +20,8 @@ Vue.component('boss-component', require('./components/modules/user/IndexComponen
 Vue.component('director-component', require('./components/modules/director/IndexComponent.vue').default);
 Vue.component('recruiter-component', require('./components/modules/recruiter/IndexComponent.vue').default);
 Vue.component('generalist-component', require('./components/modules/generalist/IndexComponent.vue').default);
+Vue.component('specialist-component', require('./components/modules/specialist/IndexComponent.vue').default);
+Vue.component('generalistcomercial-component', require('./components/modules/generalistcomercial/IndexComponent.vue').default);
 
 //componente de librerias
 Vue.component('pagination', require('laravel-vue-pagination'));

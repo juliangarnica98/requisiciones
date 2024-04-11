@@ -151,6 +151,107 @@ export default new Router({
             path:'/generalist/tiendas',
             component: require('./components/modules/generalist/Tiendas/IndexComponent').default 
         },
+        //rutas de especialista
+         { 
+            path: '/specialist/dashboard', 
+            component: require('./components/modules/specialist/Dashboard/IndexComponent').default 
+        },
+        { 
+            path: '/specialist/requisiciones', 
+            component: require('./components/modules/specialist/Requisitions/IndexComponent').default 
+        },
+        { 
+            path: '/specialist/requisicion', 
+            component: require('./components/modules/specialist/Requisitions/StoreComponent').default 
+        },
+        { 
+            path: '/specialist/entrevistas', 
+            component: require('./components/modules/specialist/Interviews/IndexComponent').default 
+        },
+        { 
+            path: '/specialist/misrequisiciones', 
+            component: require('./components/modules/specialist/Requisitions/EditComponent2').default 
+        },
+        { 
+            name:'/specialist/entrevista',
+            path: '/specialist/entrevistas/:id', 
+            component: require('./components/modules/specialist/Interviews/ShowComponent').default 
+        },
+        { 
+            name:'/specialist/requisicion',
+            path: '/specialist/requisiciones/:area/:id', 
+            component: require('./components/modules/specialist/Requisitions/ShowComponent').default 
+        },
+        //rutas recruiter
+        { 
+            path: '/recruiter/dashboard', 
+            component: require('./components/modules/recruiter/Dashboard/IndexComponent').default 
+        },
+        { 
+            path: '/recruiter/requisiciones', 
+            component: require('./components/modules/recruiter/Requisitions/IndexComponent').default 
+        },
+        { 
+            path: '/recruiter/requisicion', 
+            component: require('./components/modules/recruiter/Requisitions/StoreComponent').default 
+        },
+        { 
+            path: '/recruiter/entrevistas', 
+            component: require('./components/modules/recruiter/Interviews/IndexComponent').default 
+        },
+        { 
+            name:'/recruiter/entrevista',
+            path: '/recruiter/entrevistas/:id', 
+            component: require('./components/modules/recruiter/Interviews/ShowComponent').default 
+        },
+        { 
+            name:'/recruiter/requisicion',
+            path: '/recruiter/requisiciones/:area/:id', 
+            component: require('./components/modules/recruiter/Requisitions/ShowComponent').default 
+        },
+        { 
+            path: '/recruiter/misrequisiciones', 
+            component: require('./components/modules/recruiter/Requisitions/EditComponent2').default 
+        },
+        //rutas generalist comercial
+        { 
+            path: '/generalistcomercial/dashboard', 
+            component: require('./components/modules/generalistcomercial/Dashboard/IndexComponent').default 
+        },
+        { 
+            path: '/generalistcomercial/requisiciones', 
+            component: require('./components/modules/generalistcomercial/Requisitions/IndexComponent').default 
+        },
+        { 
+            path: '/generalistcomercial/requisicion', 
+            component: require('./components/modules/generalistcomercial/Requisitions/StoreComponent').default 
+        },
+        { 
+            path: '/generalistcomercial/entrevistas', 
+            component: require('./components/modules/generalistcomercial/Interviews/IndexComponent').default 
+        },
+        { 
+            path: '/generalistcomercial/misrequisiciones', 
+            component: require('./components/modules/generalistcomercial/Requisitions/EditComponent2').default 
+        },
+        { 
+            path: '/generalistcomercial/charges', 
+            component: require('./components/modules/generalistcomercial/Charges/IndexComponent').default 
+        },
+        { 
+            name:'/generalistcomercial/entrevista',
+            path: '/generalistcomercial/entrevistas/:id', 
+            component: require('./components/modules/generalistcomercial/Interviews/ShowComponent').default 
+        },
+        { 
+            name:'/generalistcomercial/requisicion',
+            path: '/generalist/requisiciones/:area/:id', 
+            component: require('./components/modules/generalistcomercial/Requisitions/ShowComponent').default 
+        },
+        { 
+            path:'/generalistcomercial/tiendas',
+            component: require('./components/modules/generalistcomercial/Tiendas/IndexComponent').default 
+        },
 
     ],
     mode:'history',

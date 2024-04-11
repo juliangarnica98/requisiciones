@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 
 
 class LoginController extends Controller
@@ -30,20 +31,32 @@ class LoginController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
 
     public function redirectTo(){
-
-        if(Auth::user()->hasRole('Admin')){
-            return '/dashboard'; 
-        }elseif(Auth::user()->hasRole('Boss')){
-            return '/boss/requisiciones';
-        }elseif(Auth::user()->hasRole('Director')){
-            return '/director/requisiciones';
-        }elseif(Auth::user()->hasRole('Recruiter')){
-            return '/recruiter/entrevistas';
-        }elseif(Auth::user()->hasRole('Generalist')){
-            return '/generalist/dashboard';
+    
+        try {
+            
+            if(Auth::user()->hasRole('Admin')){
+                return '/dashboard'; 
+            }elseif(Auth::user()->hasRole('Boss')){
+                return '/boss/requisiciones';
+            }elseif(Auth::user()->hasRole('Director')){
+                return '/director/requisiciones';
+            }elseif(Auth::user()->hasRole('Recruiter')){
+                return '/recruiter/entrevistas';
+            }elseif(Auth::user()->hasRole('Generalist')){
+                return '/generalist/dashboard';
+            }
+            elseif(Auth::user()->hasRole('Specialist')){
+                return '/specialist/dashboard';
+            }
+            elseif(Auth::user()->hasRole('Generalist_comercial')){
+                return '/generalistcomercial/dashboard';
+            }
+        } catch (UnauthorizedException $e) {
+            Auth::logout();
+            return redirect()->route('login')->with('error', 'Se ha cerrado la sesión debido a un error.');
         }
     }
     /**

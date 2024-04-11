@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 
-Route::group(['middleware' => ['auth','role:Admin']], function() {
+Route::group(['middleware' => ['auth','handle403','role:Admin']], function() {
     
     //rutas de navegacion
     Route::get('/dashboard', [App\Http\Controllers\admin\HomeController::class, 'index']);
@@ -82,11 +82,14 @@ Route::group(['middleware' => ['auth','role:Admin']], function() {
     Route::get('/entrevistas/{id}',[App\Http\Controllers\admin\HomeController::class, 'index']);
     Route::get('/getdatainterview', [App\Http\Controllers\admin\InterviewController::class, 'getData']);
     Route::get('/getentrevistas/{id}',[App\Http\Controllers\admin\InterviewController::class, 'show']);
+
+    //busqueda de usuarios
+    Route::post('/user/search',[App\Http\Controllers\admin\UserController::class, 'search']);
     //rutas de dashboard
     // Route::get('/getdatainterview/{id}/{init}/{end}',[App\Http\Controllers\admin\Dashboard::class, 'getdata']);
 });
 
-Route::group(['prefix' => 'boss','middleware' => ['auth','role:Boss']], function() {
+Route::group(['prefix' => 'boss','middleware' => ['auth','handle403','role:Boss']], function() {
     //rutas de navegacion
     Route::get('/requisiciones', [App\Http\Controllers\boss\HomeController::class, 'index'])->name('boss.requisiciones');
     Route::get('/crear-requisicion', [App\Http\Controllers\boss\HomeController::class, 'index'])->name('boss.crarrequisicion');
@@ -99,7 +102,7 @@ Route::group(['prefix' => 'boss','middleware' => ['auth','role:Boss']], function
     Route::post('/requisicion/edit', [App\Http\Controllers\boss\RequisitionController::class, 'update']);
 });
 
-Route::group(['prefix' => 'director','middleware' => ['auth','role:Director']], function() {
+Route::group(['prefix' => 'director','middleware' => ['auth','handle403','role:Director']], function() {
     //rutas de navegacion
     Route::get('/requisicionesregional', [App\Http\Controllers\director\HomeController::class, 'index'])->name('director.requisicionesregional');
     Route::get('/requisiciones', [App\Http\Controllers\director\HomeController::class, 'index'])->name('director.requisiciones');
@@ -117,7 +120,7 @@ Route::group(['prefix' => 'director','middleware' => ['auth','role:Director']], 
 });
 
 
-Route::group(['prefix' => 'recruiter','middleware' => ['auth','role:Recruiter']], function() {
+Route::group(['prefix' => 'recruiter','middleware' => ['auth','handle403','role:Recruiter']], function() {
     //rutas de navegacion
     Route::get('/dashboard', [App\Http\Controllers\recruiter\HomeController::class, 'index']);
     Route::get('/usuarios', [App\Http\Controllers\recruiter\HomeController::class, 'index']);
@@ -146,7 +149,7 @@ Route::group(['prefix' => 'recruiter','middleware' => ['auth','role:Recruiter']]
 });
 
 
-Route::group(['prefix' => 'generalist','middleware' => ['auth','role:Generalist']], function() {
+Route::group(['prefix' => 'generalist','middleware' => ['auth','handle403','role:Generalist']], function() {
     //rutas de navegacion
     Route::get('/dashboard', [App\Http\Controllers\generalist\HomeController::class, 'index']);
     Route::get('/usuarios', [App\Http\Controllers\generalist\HomeController::class, 'index']);
@@ -194,4 +197,104 @@ Route::group(['prefix' => 'generalist','middleware' => ['auth','role:Generalist'
     //rutas de busqyeda
     Route::post('/charge/search',[App\Http\Controllers\generalist\ChargeController::class, 'search']);
     Route::post('/store/search',[App\Http\Controllers\generalist\TiendaController::class, 'search']);
+});
+//rutas de especialista
+Route::group(['prefix' => 'specialist','middleware' => ['auth','handle403','role:Specialist']], function() {
+    //rutas de navegacion
+    Route::get('/dashboard', [App\Http\Controllers\specialist\HomeController::class, 'index']);
+    Route::get('/usuarios', [App\Http\Controllers\specialist\HomeController::class, 'index']);
+    Route::get('/entrevistas', [App\Http\Controllers\specialist\HomeController::class, 'index']);
+    Route::get('/requisiciones', [App\Http\Controllers\specialist\HomeController::class, 'index']);
+    Route::get('/misrequisiciones', [App\Http\Controllers\specialist\HomeController::class, 'index']);
+    Route::get('/charges', [App\Http\Controllers\specialist\HomeController::class, 'index']);
+    Route::get('/holidays', [App\Http\Controllers\specialist\HomeController::class, 'index']);
+    Route::get('/tiendas', [App\Http\Controllers\specialist\HomeController::class, 'index']);
+    //rutas de requisicion
+    Route::get('/requisicion', [App\Http\Controllers\specialist\HomeController::class, 'index']);
+    Route::get('/requisiciones/{id}',[App\Http\Controllers\specialist\HomeController::class, 'index']);
+    Route::get('/requisiciones/{area}/{id}',[App\Http\Controllers\specialist\HomeController::class, 'index']);
+    Route::get('/getrequisicion/{area}/{id}',[App\Http\Controllers\specialist\RequisitionController::class, 'show']);
+    Route::get('/getrequisition', [App\Http\Controllers\specialist\RequisitionController::class, 'index']);
+    Route::get('/getrequisition2', [App\Http\Controllers\specialist\RequisitionController::class, 'index2']);
+    Route::get('/getdatarequisition', [App\Http\Controllers\specialist\RequisitionController::class, 'getData']);
+    Route::post('/requisicion/store', [App\Http\Controllers\specialist\RequisitionController::class, 'store']);
+    Route::post('/requisicion/edit', [App\Http\Controllers\specialist\RequisitionController::class, 'update']);
+    Route::post('/requisicion/edit2', [App\Http\Controllers\specialist\RequisitionController::class, 'update2']);
+    Route::get('/getrequisitions', [App\Http\Controllers\specialist\RequisitionController::class, 'getDataRq']);
+    Route::get('/getreclutadoras',[App\Http\Controllers\specialist\RequisitionController::class, 'getreclutadoras']);
+    //rutas de entrevista
+    Route::post('/entrevista/store', [App\Http\Controllers\specialist\InterviewController::class, 'store']);
+    Route::get('/entrevistas/{id}',[App\Http\Controllers\specialist\HomeController::class, 'index']);
+    Route::get('/getdatainterview', [App\Http\Controllers\specialist\InterviewController::class, 'getData']);
+    Route::get('/getentrevistas/{id}',[App\Http\Controllers\specialist\InterviewController::class, 'show']);
+    //rutas de cargos
+    Route::get('/getdatacharges',[App\Http\Controllers\specialist\ChargeController::class, 'index']);
+    Route::put('/charge/edit',[App\Http\Controllers\specialist\ChargeController::class, 'update']);
+    Route::post('/charge/store',[App\Http\Controllers\specialist\ChargeController::class, 'store']);
+    Route::delete('/deletecharge/{id}',[App\Http\Controllers\specialist\ChargeController::class, 'delete']);
+    //rutas filtros
+    Route::get('/getjefes/{regional}/{area}', [App\Http\Controllers\admin\RequisitionController::class, 'getboss']);
+    Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
+    //rutas de festivos
+    Route::get('/getholidays', [App\Http\Controllers\HolidaysController::class, 'getdata']);
+    Route::put('/edit/holidays', [App\Http\Controllers\HolidaysController::class, 'update']);
+    //rutas de tiendas
+    Route::get('/getdatatiendas',[App\Http\Controllers\generalist\TiendaController::class, 'getdata']);
+    Route::get('/getdatatiendas2/{regional}',[App\Http\Controllers\generalist\TiendaController::class, 'getdata2']);
+    Route::delete('/deletetienda/{id}',[App\Http\Controllers\generalist\TiendaController::class, 'destroy']);
+    Route::put('/edit/tiendas',[App\Http\Controllers\generalist\TiendaController::class, 'update']);
+    Route::post('/tienda/store',[App\Http\Controllers\generalist\TiendaController::class, 'store']);
+    //rutas de busqyeda
+    Route::post('/charge/search',[App\Http\Controllers\generalist\ChargeController::class, 'search']);
+    Route::post('/store/search',[App\Http\Controllers\generalist\TiendaController::class, 'search']);
+});
+
+Route::group(['prefix' => 'generalistcomercial','middleware' => ['auth','handle403','role:Generalist_comercial']], function() {
+    //rutas de navegacion
+    Route::get('/dashboard', [App\Http\Controllers\generalistcomercial\HomeController::class, 'index']);
+    Route::get('/usuarios', [App\Http\Controllers\generalistcomercial\HomeController::class, 'index']);
+    Route::get('/entrevistas', [App\Http\Controllers\generalistcomercial\HomeController::class, 'index']);
+    Route::get('/requisiciones', [App\Http\Controllers\generalistcomercial\HomeController::class, 'index']);
+    Route::get('/misrequisiciones', [App\Http\Controllers\generalist\HomeController::class, 'index']);
+    Route::get('/charges', [App\Http\Controllers\generalistcomercial\HomeController::class, 'index']);
+    Route::get('/holidays', [App\Http\Controllers\generalistcomercial\HomeController::class, 'index']);
+    Route::get('/tiendas', [App\Http\Controllers\generalistcomercial\HomeController::class, 'index']);
+    //rutas de requisicion
+    Route::get('/requisicion', [App\Http\Controllers\generalistcomercial\HomeController::class, 'index']);
+    Route::get('/requisiciones/{id}',[App\Http\Controllers\generalistcomercial\HomeController::class, 'index']);
+    Route::get('/requisiciones/{area}/{id}',[App\Http\Controllers\generalistcomercial\HomeController::class, 'index']);
+    Route::get('/getrequisicion/{area}/{id}',[App\Http\Controllers\generalistcomercial\RequisitionController::class, 'show']);
+    Route::get('/getrequisition', [App\Http\Controllers\generalistcomercial\RequisitionController::class, 'index']);
+    Route::get('/getrequisition2', [App\Http\Controllers\generalistcomercial\RequisitionController::class, 'index2']);
+    Route::get('/getdatarequisition', [App\Http\Controllers\generalistcomercial\RequisitionController::class, 'getData']);
+    Route::post('/requisicion/store', [App\Http\Controllers\generalistcomercial\RequisitionController::class, 'store']);
+    Route::post('/requisicion/edit', [App\Http\Controllers\generalistcomercial\RequisitionController::class, 'update']);
+    Route::post('/requisicion/edit2', [App\Http\Controllers\generalistcomercial\RequisitionController::class, 'update2']);
+    Route::get('/getrequisitions', [App\Http\Controllers\generalistcomercial\RequisitionController::class, 'getDataRq']);
+    Route::get('/getreclutadoras',[App\Http\Controllers\generalistcomercial\RequisitionController::class, 'getreclutadoras']);
+    //rutas de entrevista
+    Route::post('/entrevista/store', [App\Http\Controllers\generalistcomercial\InterviewController::class, 'store']);
+    Route::get('/entrevistas/{id}',[App\Http\Controllers\generalistcomercial\HomeController::class, 'index']);
+    Route::get('/getdatainterview', [App\Http\Controllers\generalistcomercial\InterviewController::class, 'getData']);
+    Route::get('/getentrevistas/{id}',[App\Http\Controllers\generalistcomercial\InterviewController::class, 'show']);
+    //rutas de cargos
+    Route::get('/getdatacharges',[App\Http\Controllers\generalistcomercial\ChargeController::class, 'index']);
+    Route::put('/charge/edit',[App\Http\Controllers\generalistcomercial\ChargeController::class, 'update']);
+    Route::post('/charge/store',[App\Http\Controllers\generalistcomercial\ChargeController::class, 'store']);
+    Route::delete('/deletecharge/{id}',[App\Http\Controllers\generalistcomercial\ChargeController::class, 'delete']);
+    //rutas de festivos
+    Route::get('/getholidays', [App\Http\Controllers\HolidaysController::class, 'getdata']);
+    Route::put('/edit/holidays', [App\Http\Controllers\HolidaysController::class, 'update']);
+    //rutas de tiendas
+    Route::get('/getdatatiendas',[App\Http\Controllers\generalistcomercial\TiendaController::class, 'getdata']);
+    Route::get('/getdatatiendas2/{regional}',[App\Http\Controllers\generalistcomercial\TiendaController::class, 'getdata2']);
+    Route::delete('/deletetienda/{id}',[App\Http\Controllers\generalistcomercial\TiendaController::class, 'destroy']);
+    Route::put('/edit/tiendas',[App\Http\Controllers\generalistcomercial\TiendaController::class, 'update']);
+    Route::post('/tienda/store',[App\Http\Controllers\generalistcomercial\TiendaController::class, 'store']);
+    //rutas de busqyeda
+    Route::post('/charge/search',[App\Http\Controllers\generalistcomercial\ChargeController::class, 'search']);
+    Route::post('/store/search',[App\Http\Controllers\generalistcomercial\TiendaController::class, 'search']);
+
+    Route::get('/getjefes/{regional}/{area}', [App\Http\Controllers\admin\RequisitionController::class, 'getboss']);
+    Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
 });

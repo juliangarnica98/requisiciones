@@ -30,6 +30,8 @@
                                 <option value="Boss">JEFE</option>
                                 <option value="Generalist">GENERALISTA</option>
                                 <option value="Recruiter">ANALISTA DE SELECCIÓN</option>
+                                <option value="Generalist_comercial">GENERALISTA COMERCIAL</option>
+                                <option value="Specialist">ESPECIALISTA</option>
                             </select>
                         </div>
                         <div class="form-group" v-if="form.rol=='Boss' ||form.rol=='Director'">

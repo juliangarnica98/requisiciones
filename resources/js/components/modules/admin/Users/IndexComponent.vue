@@ -12,7 +12,11 @@
                 </div>
             </div>   
         </div>
-        {{ this.validation }}
+        <div class="row justify-content-center pt-2">
+            <div class="col-md-6">
+                <input class="form-control" type="text" v-model="form.buscar_usuario" placeholder="BUSCAR" @input="search" style="text-transform: uppercase;">
+            </div>
+        </div>   
         <div class="padding pt-3 ">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
@@ -23,8 +27,8 @@
                                     <div class="col-md-2 text-center"><b>NOMBRE</b></div>
                                     <div class="col-md-2 text-center"><b>APELLIDO</b></div>
                                     <div class="col-md-3 text-center"><b>EMAIL</b> </div>
-                                    <div class="col-md-1 text-center"><b>ROL</b> </div>
-                                    <div class="col-md-2 text-center"><b>ÁREA</b> </div>
+                                    <div class="col-md-3 text-center"><b>ROL</b> </div>
+                                    <!-- <div class="col-md-2 text-center"><b>ÁREA</b> </div> -->
                                     <div class="col-md-2 text-center"><b>ACCIONES</b></div>
                                 </div>
                             </div>
@@ -38,7 +42,7 @@
                                     <div class="col-md-2 text-center"><b style="text-transform: uppercase;">{{user.last_name}}</b></div>
                                     <div class="col-md-3 text-center"><b >{{user.email}}</b> </div>
                                     <!-- <div class="col-md-2 text-center"><b>ROL</b> </div> -->
-                                    <div class="col-md-1 text-center">
+                                    <div class="col-md-3 text-center">
                                         <div class="" v-if="user.roles[0].name=='Boss'">
                                            JEFE
                                         </div>
@@ -54,8 +58,16 @@
                                         <div class="" v-if="user.roles[0].name=='Recruiter'">
                                             ANALISTA
                                         </div>
+
+                                        <div class="" v-if="user.roles[0].name=='Generalist_comercial'">
+                                            GENERALISTA COMERCIAL
+                                        </div>
+
+                                        <div class="" v-if="user.roles[0].name=='Specialist'">
+                                            ESPECIALISTA
+                                        </div>
                                     </div>
-                                    <div class="col-md-2 text-center"><b>
+                                    <!-- <div class="col-md-2 text-center"><b>
                                         <div class="" v-if="user.area=='1'">
                                             TIENDA -<span v-if="user.regional != null"> {{ user.regional }}</span>
 
@@ -72,7 +84,7 @@
                                         <div class="" v-if="user.area=='5'">
                                             VENTA NAL -<span v-if="user.regional != null"> {{ user.regional }}</span>
                                         </div>
-                                    </b> </div>
+                                    </b> </div> -->
                                     <div class="col-md-2 text-center"><b>
                                         <div class="row d-flex justify-content-center">
                                             <div class="col-md-3" >
@@ -126,6 +138,9 @@
             users:{},
             rut_act:this.$router.currentRoute.path,
             validation:"",
+            form:{
+                buscar_usuario:"",
+            }
         }
     },
     methods:{
@@ -159,7 +174,18 @@
                     });
                 }
                 })
-        }
+        },
+        search(){
+                if (this.buscar_usuario == '') {
+                    this.getUsers();
+                } else {
+                    axios.post('/user/search',this.form)
+                    .then((res) => {
+                        this.users = {},
+                        this.users = Object.assign(res.data.users, {});
+                    });
+                }
+            }
 
 
     },

@@ -57,10 +57,14 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
+            //'dump_command_path' => '/usr/bin',
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+            //'dump' => [
+            //    'dump_binary_path' => 'C:/xampp/mysql/bin/', // only the path, so without mysqldump or pg_dump
+            //    ],
         ],
 
         'pgsql' => [

@@ -269,6 +269,40 @@
                     </div>
                 </div>
             </div>
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card para apertura de tienda -->
+                <div class="col-md-8" v-if="requisition.reason_sus && requisition.status == 'SUSPENDIDA'">
+                    <div class="card "  >
+                        <div class="card-body">
+                            <h4 class="text-center">
+                                RAZÓN POR LA QUE SE SUSPENDIO
+                            </h4>
+                            <hr>
+                            <h5 class="text-center">
+                                {{ requisition.reason_sus  }}
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mt-2 pt-1" >
+                <!-- card para apertura de tienda -->
+                <div class="col-md-8" v-if="requisition.reason_rechazo">
+                    <div class="card "  >
+                        <div class="card-body">
+                            <h4 class="text-center">
+                                COMENTARIOS DE RECHAZO
+                            </h4>
+                            <hr>
+                            <h5 class="text-center">
+                                {{ requisition.reason_rechazo  }}
+                            </h5>
+  
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
     
         </div>
     </div>            

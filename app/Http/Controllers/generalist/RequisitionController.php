@@ -212,7 +212,6 @@ class RequisitionController extends Controller
                 if($request->substate){
                     $data->status=$request->estado_envio;
                     $data->substate=$request->substate;
-                    // dd($request->all());
                 }else{
                     $data->status=$request->estado_envio;
                 }
@@ -223,7 +222,12 @@ class RequisitionController extends Controller
                 break;
             case 'tienda':
                 $data=Store::where('id',$request->id)->first();
-                $data->status=$request->estado_envio;
+                if($request->substate){
+                    $data->status=$request->estado_envio;
+                    $data->substate=$request->substate;
+                }else{
+                    $data->status=$request->estado_envio;
+                }
                 if($request->reclutador != ""){
                     $data->reclutador = $request->reclutador;
                 }
@@ -231,7 +235,12 @@ class RequisitionController extends Controller
                 break;
             case 'cedi':
                 $data=Cedi::where('id',$request->id)->first();
-                $data->status=$request->estado_envio;
+                if($request->substate){
+                    $data->status=$request->estado_envio;
+                    $data->substate=$request->substate;
+                }else{
+                    $data->status=$request->estado_envio;
+                }
                 if($request->reclutador != ""){
                     $data->reclutador = $request->reclutador;
                 }
@@ -239,7 +248,12 @@ class RequisitionController extends Controller
                 break;
             case 'factory':
                 $data=Factory::where('id',$request->id)->first();
-                $data->status=$request->estado_envio;
+                if($request->substate){
+                    $data->status=$request->estado_envio;
+                    $data->substate=$request->substate;
+                }else{
+                    $data->status=$request->estado_envio;
+                }
                 if($request->reclutador != ""){
                     $data->reclutador = $request->reclutador;
                 }
@@ -247,7 +261,12 @@ class RequisitionController extends Controller
                 break;
             case 'venta_nal':
                 $data=National_sale::where('id',$request->id)->first();
-                $data->status=$request->estado_envio;
+                if($request->substate){
+                    $data->status=$request->estado_envio;
+                    $data->substate=$request->substate;
+                }else{
+                    $data->status=$request->estado_envio;
+                }
                 if($request->reclutador != ""){
                     $data->reclutador = $request->reclutador;
                 }
