@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Http;
 
 trait SendEmail{
 
-    public function send_email($ide,$subject,$name,$email) {
+    public function send_email($ide,$subject,$name,$email,
+                $charge,$area,$email_from,$reason) {
         $data = [
             "TemplateId" => (int)$ide,
             "Subject" => $subject,
@@ -16,7 +17,7 @@ trait SendEmail{
             ],
             "To" => array([
                 "Name" => $name,
-                "Email" => $email
+                "Email" => $email,
             ]),
             "Cc" => [],
             "Bcc" => [],
@@ -28,8 +29,20 @@ trait SendEmail{
             "XSmtpAPI" => [
                 "DynamicFields" => array(
                     [
-                        "N" => "nombre",
-                        "V" => $name
+                        "S" => "_currentday",
+                        "V" => $reason
+                    ],
+                    [
+                        "S" => "idu",
+                        "V" => $charge
+                    ],
+                    [
+                        "S" => "apellido",
+                        "V" => $area
+                    ],
+                    [
+                        "S" => "_idlist",
+                        "V" => $email_from
                     ],
                 )
             ],
@@ -40,9 +53,8 @@ trait SendEmail{
             ],
         ];
         $url = config('app.sendmail_url');
-
+        
         $dataResponse = Http::Post($url, $data)->json();
-
         return $dataResponse;
     }
 }

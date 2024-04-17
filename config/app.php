@@ -3,7 +3,12 @@
 use Maatwebsite\Excel\Facades\Excel;
 
 return [
-
+    'sendmail_secret'=> env('SENDMAIL_SECRET'),
+    'sendmail_user'=> env('SENDMAIL_USER'),
+    'sendmail_email'=>env('SENDMAIL_EMAIL'),
+    'sendmail_name'=>env('SENDMAIL_NAME'),
+    'sendmail_url'=>env('SENDMAIL_URL'),
+    
     /*
     |--------------------------------------------------------------------------
     | Application Name

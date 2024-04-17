@@ -27,6 +27,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\SendEmail;
+use Illuminate\Support\Facades\Log;
 
 class RequisitionController extends Controller
 {
@@ -213,16 +214,18 @@ class RequisitionController extends Controller
             case 'tienda':
                 $data=Store::where('id',$request->id)->first();
                 if($request->state == 'RECHAZADA'){
-                    $rq = Requisition::where('id',$data->requisition_id)->first();
-                    $user = User::where('id',$rq->user_id)->first();
                     $data->rechazo= 1 ;
                     $data->reason_rechazo=$request->comments;
                     $data->status= 'CANCELADA';
-                    // try {
-                    //     $this->send_email(500, $anniversary->name.$plantilla->subject, $anniversary->name, $user->email);
-                    // } catch (\Throwable $th) {
-                        
-                    // }
+                    try {
+                        $ide = 1489;
+                        $rq = Requisition::where('id',$data->requisition_id)->first();
+                        $user = User::where('id',$rq->user_id)->first();
+                        $charge = Activation_charge::where('id',$data->activation_charge_id)->first();
+                        $this->send_email($ide, "Rechazo requisiton ".$charge->description, $user->name, $user->email, $charge->description, 'tienda','julian.garnica@fastmoda.com.co',$request->comments );
+                    } catch (\Throwable $th) {
+                        Log::error($th);
+                    }
                 }elseif ($request->state == 'ACEPTADA') {
                     $data->aprobacion= 1 ;
                     $data->created_at = date('Y-m-d H:i:s');
