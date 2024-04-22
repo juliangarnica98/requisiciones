@@ -74,7 +74,6 @@
                     </div>
                     <div class="row">
                         <div v-for="rq in listaRequisition.data" class="card-requition">
-                            
                             <div class="card border-none" v-if="rq.reclutador == nombre_usuario"  :class="{ estado_abierto: rq.status == 'ABIERTA', estado_cerrado: rq.status == 'CERRADA' ,estado_engestion: rq.status == 'EN GESTION',estado_cancelado: rq.status == 'CANCELADA' ,estado_suspendido: rq.status == 'SUSPENDIDA' }">
                                 <div class="card-body">
                                     <!--  -->
