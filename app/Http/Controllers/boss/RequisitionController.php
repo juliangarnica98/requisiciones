@@ -28,9 +28,12 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use LDAP\Result;
+use App\Traits\SendEmailA;
+
 
 class RequisitionController extends Controller
 {
+    use SendEmailA;
     public function index()
     {
         $userId = auth()->id();    
@@ -97,7 +100,13 @@ class RequisitionController extends Controller
         // DB::beginTransaction();
 
         // try {
-           
+        
+
+            $usuario = User::find(auth()->id());
+            $subject = 'SOLICITUD DE VACANTE';
+            $cargo = Activation_charge::find($request->cargo_activacion);
+            
+
             $requisition = new Requisition();
             $requisition->user_id=auth()->id();
             $requisition->save();
@@ -150,6 +159,7 @@ class RequisitionController extends Controller
                 $admin->person = $request->person;
                 $admin->ano_solicitud = date("Y");
                 $admin->mes_solicitud = date("m");
+                $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000085188', $usuario->name,$cargo->description,'Generalista Administrativo');
                 $admin->save();
             }
             if($request->area == 3){
@@ -166,6 +176,7 @@ class RequisitionController extends Controller
                 $cedi->person = $request->person;
                 $cedi->ano_solicitud = date("Y");
                 $cedi->mes_solicitud = date("m");
+                $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000085188', $usuario->name,$cargo->description,'Generalista');
                 $cedi->save();
             }
             if($request->area == 4){
@@ -182,6 +193,7 @@ class RequisitionController extends Controller
                 $factory->person = $request->person;
                 $factory->ano_solicitud = date("Y");
                 $factory->mes_solicitud = date("m");
+                $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000085188', $usuario->name,$cargo->description,'Generalista');
                 $factory->save();
             }
             if($request->area == 5){
