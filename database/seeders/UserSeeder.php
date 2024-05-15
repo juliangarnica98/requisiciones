@@ -1011,7 +1011,14 @@ class UserSeeder extends Seeder
     )->assignRole('Boss');
 
 
-
+    User::create(
+        ['name' => 'Administrador',
+        'last_name' => 'General',
+        'area'=> 2,
+        'type'=> 'api',
+        'email'=>'administrador@fastmoda.com', 
+        'password' => Hash::make('lilipink')]
+    )->assignRole('Admin');
     }
 }
 

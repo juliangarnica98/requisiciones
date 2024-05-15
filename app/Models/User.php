@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Api\Answer;
+use App\Models\Api\Store;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,7 +26,8 @@ class User extends Authenticatable
         'area',
         'email',
         'password',
-        'regional'
+        'regional',
+        'type'
     ];
 
     /**
@@ -48,5 +51,12 @@ class User extends Authenticatable
 
     public function requisitions(){
         return $this->hasMany(Requisition::class);
+    }
+
+    public function answer() {
+        return $this->hasMany(Answer::class);
+    }
+    public function store() {
+        return $this->belongsTo(Store::class);
     }
 }

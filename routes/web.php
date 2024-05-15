@@ -32,7 +32,7 @@ Route::post('/entrevista/crear', [App\Http\Controllers\InterviewController::clas
 // Route::post('/entrevista/store', [App\Http\Controllers\admin\RequisitionController::class, 'store']);
 
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth','CheckRoute:web']], function() {
     Route::get('/getdatainterview/{id}/{init}/{end}/{marca?}/{cargo?}',[App\Http\Controllers\admin\Dashboard::class, 'getdata']);
     Route::get('/getdatarequisition/{init}/{end}',[App\Http\Controllers\admin\Dashboard::class, 'getdata2']);
 
@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 
-Route::group(['middleware' => ['auth','handle403','role:Admin']], function() {
+Route::group(['middleware' => ['auth','handle403','role:Admin','CheckRoute:web']], function() {
     
     //rutas de navegacion
     Route::get('/dashboard', [App\Http\Controllers\admin\HomeController::class, 'index']);
@@ -89,7 +89,7 @@ Route::group(['middleware' => ['auth','handle403','role:Admin']], function() {
     // Route::get('/getdatainterview/{id}/{init}/{end}',[App\Http\Controllers\admin\Dashboard::class, 'getdata']);
 });
 
-Route::group(['prefix' => 'boss','middleware' => ['auth','handle403','role:Boss']], function() {
+Route::group(['prefix' => 'boss','middleware' => ['auth','handle403','role:Boss','CheckRoute:web']], function() {
     //rutas de navegacion
     Route::get('/requisiciones', [App\Http\Controllers\boss\HomeController::class, 'index'])->name('boss.requisiciones');
     Route::get('/crear-requisicion', [App\Http\Controllers\boss\HomeController::class, 'index'])->name('boss.crarrequisicion');
@@ -102,7 +102,7 @@ Route::group(['prefix' => 'boss','middleware' => ['auth','handle403','role:Boss'
     Route::post('/requisicion/edit', [App\Http\Controllers\boss\RequisitionController::class, 'update']);
 });
 
-Route::group(['prefix' => 'director','middleware' => ['auth','handle403','role:Director']], function() {
+Route::group(['prefix' => 'director','middleware' => ['auth','handle403','role:Director','CheckRoute:web']], function() {
     //rutas de navegacion
     Route::get('/requisicionesregional', [App\Http\Controllers\director\HomeController::class, 'index'])->name('director.requisicionesregional');
     Route::get('/requisiciones', [App\Http\Controllers\director\HomeController::class, 'index'])->name('director.requisiciones');
@@ -120,7 +120,7 @@ Route::group(['prefix' => 'director','middleware' => ['auth','handle403','role:D
 });
 
 
-Route::group(['prefix' => 'recruiter','middleware' => ['auth','handle403','role:Recruiter']], function() {
+Route::group(['prefix' => 'recruiter','middleware' => ['auth','handle403','role:Recruiter','CheckRoute:web']], function() {
     //rutas de navegacion
     Route::get('/dashboard', [App\Http\Controllers\recruiter\HomeController::class, 'index']);
     Route::get('/usuarios', [App\Http\Controllers\recruiter\HomeController::class, 'index']);
@@ -149,7 +149,7 @@ Route::group(['prefix' => 'recruiter','middleware' => ['auth','handle403','role:
 });
 
 
-Route::group(['prefix' => 'generalist','middleware' => ['auth','handle403','role:Generalist']], function() {
+Route::group(['prefix' => 'generalist','middleware' => ['auth','handle403','role:Generalist','CheckRoute:web']], function() {
     //rutas de navegacion
     Route::get('/dashboard', [App\Http\Controllers\generalist\HomeController::class, 'index']);
     Route::get('/usuarios', [App\Http\Controllers\generalist\HomeController::class, 'index']);
@@ -199,7 +199,7 @@ Route::group(['prefix' => 'generalist','middleware' => ['auth','handle403','role
     Route::post('/store/search',[App\Http\Controllers\generalist\TiendaController::class, 'search']);
 });
 //rutas de especialista
-Route::group(['prefix' => 'specialist','middleware' => ['auth','handle403','role:Specialist']], function() {
+Route::group(['prefix' => 'specialist','middleware' => ['auth','handle403','role:Specialist','CheckRoute:web']], function() {
     //rutas de navegacion
     Route::get('/dashboard', [App\Http\Controllers\specialist\HomeController::class, 'index']);
     Route::get('/usuarios', [App\Http\Controllers\specialist\HomeController::class, 'index']);

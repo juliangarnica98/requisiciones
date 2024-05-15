@@ -23,14 +23,14 @@ class UserController extends Controller
     public function index()
     {
         
-        $data['users'] = User::with('roles')->orderBy('id', 'DESC')->paginate(15);
+        $data['users'] = User::with('roles')->where('type','web')->orderBy('id', 'DESC')->paginate(15);
         return $data;    
     }
 
     public function store(Request $request)
     {
         // dd($request->all());
-        $find = User::where('email',$request->email)->first();
+        $find = User::where('type','web')->where('email',$request->email)->first();
         if($find){
             return 'error';
         }else{
@@ -38,6 +38,7 @@ class UserController extends Controller
                 ['name' => $request->name,
                 'last_name' => $request->last_name,
                 'area' => $request->area,
+                'type' => 'web',
                 'regional' => $request->regional,
                 'email'=> $request->email, 
                 'password' => Hash::make($request->password)]
@@ -50,13 +51,13 @@ class UserController extends Controller
     public function show($id)
     {
         
-        $user = User::find($id);
+        $user = User::where('type','web')->find($id);
         return $user; 
     }
     public function update($id, Request $request)
     {
         
-        $user = User::find($id);
+        $user = User::where('type','web')->find($id);
 
         try {
             Administration::where('reclutador',$user->name." ".$user->last_name)->update(['reclutador'=>$request->name." ".$request->last_name]);
@@ -107,7 +108,7 @@ class UserController extends Controller
     public function asignarre(Request $request)
     {
         
-        $user = User::find($request->new_user);
+        $user = User::where('type','web')->find($request->new_user);
         $new_user = str_replace('_', ' ',$request->user);
   
         Administration::where('reclutador',$new_user)->update(['reclutador' => $user->name.' '.$user->last_name]);
@@ -122,14 +123,14 @@ class UserController extends Controller
 
     public function getBoss($rol,$area,$regional=null){
         if($regional == "null" && $area == "null"){
-            $data['users'] = User::whereHas("roles", function($q) use($rol){  $q->where("name", $rol); })->get();
+            $data['users'] = User::where('type','web')->whereHas("roles", function($q) use($rol){  $q->where("name", $rol); })->get();
             // dd($data);
             return response()->json($data);
         }else if($regional == "null"){
-            $data['users'] = User::where('area',$area)->whereHas("roles", function($q) use($rol){  $q->where("name", $rol); })->get();
+            $data['users'] = User::where('type','web')->where('area',$area)->whereHas("roles", function($q) use($rol){  $q->where("name", $rol); })->get();
             return response()->json($data);
         }else{
-            $data['users'] = User::where('regional',$regional)->where('area',$area)->whereHas("roles", function($q) use($rol){  $q->where("name", $rol); })->get();
+            $data['users'] = User::where('type','web')->where('regional',$regional)->where('area',$area)->whereHas("roles", function($q) use($rol){  $q->where("name", $rol); })->get();
             
             return response()->json($data);
         }
@@ -137,14 +138,15 @@ class UserController extends Controller
 
     public function getRecuriter(){
         $reclu = "Recruiter";
-        $data['users'] = User::whereHas("roles", function($q) use($reclu){  $q->where("name", $reclu); })->get();
+        $data['users'] = User::where('type','web')->whereHas("roles", function($q) use($reclu){  $q->where("name", $reclu); })->get();
         return response()->json($data);
         
     }
 
     public function search(Request $request)
     {
-        $data['users']=User::with('roles')->orderBy('id', 'DESC')->where('name', 'like', '%'.$request->buscar_usuario .'%' )->orWhere('last_name', 'like', '%'.$request->buscar_usuario .'%' )->paginate();
+        $data['users']=User::where('type','web')->with('roles')->orderBy('id', 'DESC')->where('name', 'like', '%'.$request->buscar_usuario .'%' )->paginate();
+        // $data['users']=User::where('type','web')->with('roles')->orderBy('id', 'DESC')->where('name', 'like', '%'.$request->buscar_usuario .'%' )->Where('last_name', 'like', '%'.$request->buscar_usuario .'%' )->paginate();
         return response()->json($data);
         
     }

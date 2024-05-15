@@ -14,7 +14,7 @@
         </div>
         <div class="row justify-content-center pt-2">
             <div class="col-md-6">
-                <input class="form-control" type="text" v-model="form.buscar_usuario" placeholder="BUSCAR" @input="search" style="text-transform: uppercase;">
+                <input class="form-control" type="text" v-model="form.buscar_usuario" placeholder="INGRESA EL NOMBRE" @input="search" style="text-transform: uppercase;">
             </div>
         </div>   
         <div class="padding pt-3 ">
@@ -178,6 +178,7 @@
         search(){
                 if (this.buscar_usuario == '') {
                     this.getUsers();
+                    // window.reload
                 } else {
                     axios.post('/user/search',this.form)
                     .then((res) => {
