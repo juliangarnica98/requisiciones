@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Regional;
-use App\Models\Store;
+use App\Models\Api\Regional;
+use App\Models\Api\Store;
 use App\Models\User;
 use App\Repositories\RegionalRepository;
 use App\Repositories\StoreRepository;

@@ -33,18 +33,21 @@ class AuthController extends Controller
             return response()->json( [ 'errors' =>$validator->errors()],500);
         }
         if($request->store){
-            $store = Store::find($request->store); 
-            $user = $store->user()->create([
+            
+            $user = User::create([
                 'name' =>$request['name'],
                 'last_name' =>$request['last_name'],
                 'email' =>$request['email'],
                 'regional' =>$request['regional'],
                 'password' => bcrypt($request['password']),
+                'store_id' => $request['store'],
+                'type' => 'api',
             ]);
             $user->assignRole($request['role']);
           
-        }else{
-            
+        }
+
+        else{
             $user = User::create([
                 'name' =>$request['name'],
                 'last_name' =>$request['last_name'],
@@ -55,7 +58,6 @@ class AuthController extends Controller
                 'store_id' => null,
             ]);
             $user->assignRole($request['role']);
-          
         }
         
         if ($user->hasRole('Admin')) {

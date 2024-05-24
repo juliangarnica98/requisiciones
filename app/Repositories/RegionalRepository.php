@@ -9,7 +9,7 @@ class RegionalRepository{
     }
     public function index2()
     {
-        return Regional::where('status',1)->paginate(10);
+        return Regional::where('status',1)->paginate();
     }
     public function create(array $regionalData)
     {

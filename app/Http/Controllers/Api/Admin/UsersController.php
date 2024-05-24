@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Store;
+use App\Models\Api\Store;
 use App\Models\User;
 use App\Repositories\StoreRepository;
 use App\Repositories\UserRepository;
@@ -62,7 +62,7 @@ class UsersController extends Controller
         if($request->store){
             $store = $this->storeData->findById($request->store);
         }else{
-            $store = $this->storeData->findById(1);
+            $store = $this->storeData->findById(10000);
         }
         $user = $this->userRepository->findById($id);
         $response = $this->userRepository->update($user,$store,$request->all());

@@ -24,6 +24,7 @@ Class UserRepository
             'name' =>$userData['name'],
             'last_name' =>$userData['last_name'],
             'email' =>$userData['email'],
+            'regional' =>$userData['regional'],
             'password' => bcrypt($userData['password']),
         ]);
         $user->store()->associate($store);

@@ -27,7 +27,8 @@ class User extends Authenticatable
         'email',
         'password',
         'regional',
-        'type'
+        'type',
+        'store_id'
     ];
 
     /**
