@@ -23,8 +23,7 @@ class AnswersController extends Controller
 
     public function store(Request $request)
     {
-        $ans = $request->questions['_rawValue'];
-        foreach ($ans as $value) {
+        foreach ($request->all() as $value) {
             $a = new Answer;
             $a->week = $value['week'];
             $a->description_ans = $value['selected'];
@@ -34,7 +33,7 @@ class AnswersController extends Controller
             $a->save();
         }
 
-        return response()->json(['datass'=> $ans],200);
+        return response()->json(['datass'=> $value],200);
     }
 
 

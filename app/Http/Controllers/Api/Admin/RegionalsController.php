@@ -69,7 +69,7 @@ class RegionalsController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(),[
-            'description' => 'required|unique:regionals',
+            'description' => 'required',
             'status' => 'required'
             ]
         );
