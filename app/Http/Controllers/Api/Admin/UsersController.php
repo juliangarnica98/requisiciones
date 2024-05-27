@@ -62,7 +62,7 @@ class UsersController extends Controller
         if($request->store){
             $store = $this->storeData->findById($request->store);
         }else{
-            $store = $this->storeData->findById(10000);
+            $store = null;
         }
         $user = $this->userRepository->findById($id);
         $response = $this->userRepository->update($user,$store,$request->all());
