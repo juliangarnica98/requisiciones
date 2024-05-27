@@ -60,10 +60,12 @@ class UsersController extends Controller
             return response()->json(['errors' => $validator->errors()] ,500);
         }
         if($request->store){
-            $store = $this->storeData->findById($request->store);
+            $tienda = $this->storeData->findById($request->store);
+            $store = $tienda->id;
         }else{
             $store = null;
         }
+        
         $user = $this->userRepository->findById($id);
         $response = $this->userRepository->update($user,$store,$request->all());
         

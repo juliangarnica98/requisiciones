@@ -17,7 +17,7 @@ Class UserRepository
     {
         return User::where('type','api')->with('roles')->whereHas('roles', function ($query) { return $query->where('name', '=', 'Boss');})->with('store')->get();
     }
-    public function update(User $user,Store $store,array $userData)
+    public function update(User $user,$store,array $userData)
     {
         // return $store;
         $user->update([
@@ -25,11 +25,13 @@ Class UserRepository
             'last_name' =>$userData['last_name'],
             'email' =>$userData['email'],
             'regional' =>$userData['regional'],
+            'store_id' => $store,
             'password' => bcrypt($userData['password']),
         ]);
-        $user->store()->associate($store);
+        // $user->store()->associate($store);
         $user->save();
         return $user;
+        
         
     }
     public function delete(User $user)
