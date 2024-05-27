@@ -159,7 +159,7 @@ class RequisitionController extends Controller
                 $admin->person = $request->person;
                 $admin->ano_solicitud = date("Y");
                 $admin->mes_solicitud = date("m");
-                $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000085188', $usuario->name,$cargo->description,'Generalista Administrativo');
+                $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000085188', $usuario->name,$cargo->description,$usuario->email);
                 $admin->save();
             }
             if($request->area == 3){
@@ -176,7 +176,7 @@ class RequisitionController extends Controller
                 $cedi->person = $request->person;
                 $cedi->ano_solicitud = date("Y");
                 $cedi->mes_solicitud = date("m");
-                $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000085188', $usuario->name,$cargo->description,'Generalista');
+                $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000085188', $usuario->name,$cargo->description,$usuario->email);
                 $cedi->save();
             }
             if($request->area == 4){
@@ -193,7 +193,7 @@ class RequisitionController extends Controller
                 $factory->person = $request->person;
                 $factory->ano_solicitud = date("Y");
                 $factory->mes_solicitud = date("m");
-                $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000085188', $usuario->name,$cargo->description,'Generalista');
+                $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000085188', $usuario->name,$cargo->description,$usuario->email);
                 $factory->save();
             }
             if($request->area == 5){
