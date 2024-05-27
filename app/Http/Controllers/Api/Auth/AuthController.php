@@ -82,7 +82,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()] ,500);
         }
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->where('type','api')->first();
         
         if ($user->hasRole('Admin')) {
             $rol = 'Admin';
