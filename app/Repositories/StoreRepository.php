@@ -30,7 +30,7 @@ class StoreRepository{
     }
     public function getStores($regional)
     {
-        $regional= Regional::where('description',$regional)->first();
+        $regional= Regional::where('id',$regional)->first();
         return Store::with('regional')->where('status',1)->where('regional_id',$regional->id)->get();
     }
 }

@@ -3,18 +3,21 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Repositories\RegionalRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class RegionalsController extends Controller
 {
     protected $regionalData;
+    protected $userData;
 
-    public function __construct( RegionalRepository $regionalData)
+    public function __construct( RegionalRepository $regionalData, UserRepository $userData)
     {
-        // $this->middleware(['role:Admin|Generalist']);
         $this->regionalData = $regionalData;
+        $this->userData = $userData;
     }
     public function index()
     {
@@ -87,6 +90,10 @@ class RegionalsController extends Controller
 
     public function destroy($id)
     {
+        $user = User::where('type','api')->where('regional',$id)->first();
+        if ($user) {
+            return response()->json(['errors' => 'Existen generalistas con esta regional'] ,500);
+        }
         $regional = $this->regionalData->findById($id);
         $data = $this->regionalData->delete($regional);
         return response()->json([

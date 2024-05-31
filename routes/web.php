@@ -298,3 +298,6 @@ Route::group(['prefix' => 'generalistcomercial','middleware' => ['auth','handle4
     Route::get('/getjefes/{regional}/{area}', [App\Http\Controllers\admin\RequisitionController::class, 'getboss']);
     Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
 });
+
+
+Route::get('/traerjefe',[App\Http\Controllers\Api\Admin\UsersController::class, 'UserBoss']);

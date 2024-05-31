@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Api\Answer;
+use App\Models\Api\Email;
 use App\Models\Api\Store;
 use App\Models\User;
 use App\Repositories\StoreRepository;
 use App\Repositories\UserRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -52,7 +55,7 @@ class UsersController extends Controller
             'name' => 'required|string',
             'last_name' => 'required|string',
             'email' =>'required|email',
-            'regional' => 'string',
+            'regional' => 'required',
             'password'=>'required|min:8|confirmed',
         ]);
         
@@ -79,4 +82,33 @@ class UsersController extends Controller
         $response = $this->userRepository->delete($user);
         return response()->json(['status'=> 'success','data'=> $response],200);
     }
+    public function search(Request $request)
+    {
+        $id = Auth::id();
+        $user = User::where('type','api')->find($id);
+        $response=Store::where('regional_id',$user->regional)->where('description', 'like', '%'.$request->store .'%' )->paginate();
+        return response()->json($response);
+        
+    }
+
+    public function UserBoss()
+    {
+        $emails = Email::whereIn('week',[1,2,3,4,5,6,7,8,9,10,11])->get();
+        foreach ($emails as $email) {
+            $fechaRegistro = Carbon::parse($email->created_user_at);
+            $semanas = $fechaRegistro->diffInWeeks(Carbon::now())+1;
+            if($email->week != $semanas){
+                if($email->week<12){
+                    return response()->json(2);
+                    $email->week = $semanas;
+                    $email->save();
+                }
+                
+            }
+           
+        }
+        return response()->json($emails);
+    }
+    
+
 }

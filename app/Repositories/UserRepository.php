@@ -23,7 +23,7 @@ Class UserRepository
         $user->update([
             'name' =>$userData['name'],
             'last_name' =>$userData['last_name'],
-            'email' =>$userData['email'],
+            'email' =>strtolower($userData['email']),
             'regional' =>$userData['regional'],
             'store_id' => $store,
             'password' => bcrypt($userData['password']),

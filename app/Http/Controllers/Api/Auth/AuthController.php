@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Auth\AuthResource;
+use App\Models\Api\Email;
 use App\Models\Store;
 use App\Models\User;
+use App\Traits\SendEmail090;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -13,6 +15,7 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    use SendEmail090;
 
     public function register(Request $request){
      
@@ -25,7 +28,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'last_name' => 'required|string',
-            'regional' => 'string',
+            'regional' => 'required',
             'email' =>'required|email',
             'password'=>'required|min:8|confirmed',
         ]);
@@ -37,13 +40,21 @@ class AuthController extends Controller
             $user = User::create([
                 'name' =>$request['name'],
                 'last_name' =>$request['last_name'],
-                'email' =>$request['email'],
+                'email' =>strtolower($request['email']),
                 'regional' =>$request['regional'],
                 'password' => bcrypt($request['password']),
                 'store_id' => $request['store'],
                 'type' => 'api',
             ]);
             $user->assignRole($request['role']);
+
+            Email::create([
+                'week' => 1,
+                'user_id' => $user->id,
+                'created_user_at'=>$user->created_at
+            ]);
+
+            $this->send_email_90('BIENVENIDO PROGRAMA 0-90', $user->name, $user->email, '200000000091138', $user->name);
           
         }
 
@@ -51,7 +62,7 @@ class AuthController extends Controller
             $user = User::create([
                 'name' =>$request['name'],
                 'last_name' =>$request['last_name'],
-                'email' =>$request['email'],
+                'email' =>strtolower($request['email']),
                 'regional' =>$request['regional'],
                 'password' => bcrypt($request['password']),
                 'type' => 'api',

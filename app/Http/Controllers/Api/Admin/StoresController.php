@@ -24,7 +24,7 @@ class StoresController extends Controller
     }
     public function index(){
         $user = User::find(Auth::id());
-        $regional = Regional::where('description',$user->regional)->first();
+        $regional = Regional::where('id',$user->regional)->first();
         $data = $this->storeRepository->index($regional->id);
         return response()->json(['status'=> 'success','data'=> $data],200);
     }
