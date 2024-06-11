@@ -10,8 +10,8 @@ trait SendEmail090{
     public function send_email_90($subject,$name,$email,$idtemplate, $name_jefe) {
         $client = new \GuzzleHttp\Client();
         $headers = [
-            'Authorization' => 'Basic TElMSVBJTksuTUFJTDpMaWxpcGluay4yMDIw'
-        ];
+          'Authorization' => "Basic " . base64_encode("LILIPINK.GESTIONHUMANA:L1lipink.2024")
+      ];
         $array_asociativo = array(
           "Nombre" => $name_jefe,
        

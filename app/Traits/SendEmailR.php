@@ -10,8 +10,8 @@ trait SendEmailR{
     public function send_email_r($subject,$name,$email,$idtemplate, $name_jefe,$vacante,$generalista,$razones) {
         $client = new \GuzzleHttp\Client();
         $headers = [
-            'Authorization' => 'Basic TElMSVBJTksuTUFJTDpMaWxpcGluay4yMDIw'
-        ];
+          'Authorization' => "Basic " . base64_encode("LILIPINK.GESTIONHUMANA:L1lipink.2024")
+      ];
         $array_asociativo = array(
           "city" => $name_jefe,
           "type" => $vacante,
@@ -26,7 +26,7 @@ trait SendEmailR{
         'multipart' => [
           [
             'name' => 'from',
-            'contents' => 'comunicacion.interna@cartera.lilipink.net'
+            'contents' => 'comunicacion.interna@liligestionhumana.com'
           ],
           [
             'name' => 'to',
