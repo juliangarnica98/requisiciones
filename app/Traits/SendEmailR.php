@@ -26,7 +26,7 @@ trait SendEmailR{
         'multipart' => [
           [
             'name' => 'from',
-            'contents' => 'comunicacion.interna@liligestionhumana.com'
+            'contents' => 'seleccion@liligestionhumana.com'
           ],
           [
             'name' => 'to',
@@ -39,7 +39,6 @@ trait SendEmailR{
           [
             'name' => 'text',
             'contents' => $name
-            //'contents' => 'Lilipink & Yoi ON ¡Tu pagaré CrediPink ya está listo para firmar! Factura N°'
           ],
           [
             'name' => 'html',

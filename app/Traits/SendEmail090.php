@@ -23,7 +23,7 @@ trait SendEmail090{
         'multipart' => [
           [
             'name' => 'from',
-            'contents' => 'comunicacion.interna@cartera.lilipink.net'
+            'contents' => '0-90@liligestionhumana.com'
           ],
           [
             'name' => 'to',
