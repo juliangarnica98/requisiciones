@@ -54,7 +54,7 @@ class AuthController extends Controller
                 'created_user_at'=>$user->created_at
             ]);
 
-            $this->send_email_90('BIENVENIDO PROGRAMA 0-90', $user->name, $user->email, '200000000091138', $user->name);
+            $this->send_email_90('BIENVENIDO PROGRAMA 0-90', $user->name, $user->email, '200000000094165', $user->name);
           
         }
 

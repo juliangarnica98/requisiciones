@@ -126,7 +126,7 @@ class RequisitionController extends Controller
                     $data->reason_rechazo=$request->comments;
                     $data->status= 'CANCELADA';
                     try {
-                        $this->send_email_r($subject,$usuario->name,$usuario->email,'200000000085187',$usuario->name,$cargo->description,'Generalista',$request->comments);
+                        $this->send_email_r($subject,$usuario->name,$usuario->email,'200000000094183',$usuario->name,$cargo->description,'Generalista',$request->comments);
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }
@@ -134,7 +134,7 @@ class RequisitionController extends Controller
                     $data->aprobacion= 1 ;
                     $data->created_at = date('Y-m-d H:i:s');
                     try {
-                        $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000085188', $usuario->name,$cargo->description,'Generalista');
+                        $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,'Generalista');
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }
@@ -153,7 +153,7 @@ class RequisitionController extends Controller
                     $data->reason_rechazo=$request->comments;
                     $data->status= 'CANCELADA';
                     try {
-                        $this->send_email_r($subject,$usuario->name,$usuario->email,'200000000085187',$usuario->name,$cargo->description,$usuario->email,$request->comments);
+                        $this->send_email_r($subject,$usuario->name,$usuario->email,'200000000094183',$usuario->name,$cargo->description,$usuario->email,$request->comments);
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }
@@ -161,7 +161,7 @@ class RequisitionController extends Controller
                     $data->aprobacion= 1 ;
                     $data->created_at = date('Y-m-d H:i:s'); 
                     try {
-                        $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000085188', $usuario->name,$cargo->description,$usuario->email);
+                        $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }

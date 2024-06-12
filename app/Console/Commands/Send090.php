@@ -47,7 +47,7 @@ class Send090 extends Command
             $user = User::find($email->user_id);
             if($email->week != $semanas){
                 if($email->week<12){
-                    $this->send_email_90('BIENVENIDO PROGRAMA 0-90', $user->name, $user->email, '200000000091682', $user->name);
+                    $this->send_email_90('RECORDATORIO PROGRAMA 0-90', $user->name, $user->email, '200000000094167', $user->name);
                     $email->week = $semanas;
                     $email->save();
                 }
