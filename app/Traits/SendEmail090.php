@@ -12,18 +12,18 @@ trait SendEmail090{
         $headers = [
           'Authorization' => "Basic " . base64_encode("LILIPINK.GESTIONHUMANA:L1lipink.2024")
       ];
-        $array_asociativo = array(
-          "Nombre" => $name_jefe,
+      //   $array_asociativo = array(
+      //     "Nombre" => $name_jefe,
        
-      );
+      // );
       
       
-        $json = json_encode($array_asociativo);
+        // $json = json_encode($array_asociativo);
         $options = [
         'multipart' => [
           [
             'name' => 'from',
-            'contents' => '0-90@liligestionhumana.com'
+            'contents' => '090@liligestionhumana.com'
           ],
           [
             'name' => 'to',
@@ -45,11 +45,7 @@ trait SendEmail090{
           [
             'name' => 'templateId',
             'contents' => $idtemplate
-          ],
-          [
-            'name' => 'defaultPlaceholders',
-            'contents' => $json
-          ],
+          ]
         ]];
         $request = new Request('POST', 'http://api.messaging-service.com/email/3/send', $headers);
         $res = $client->sendAsync($request, $options)->wait();

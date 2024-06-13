@@ -11,6 +11,7 @@ use App\Traits\SendEmail090;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -53,8 +54,12 @@ class AuthController extends Controller
                 'user_id' => $user->id,
                 'created_user_at'=>$user->created_at
             ]);
-
-            $this->send_email_90('BIENVENIDO PROGRAMA 0-90', $user->name, $user->email, '200000000094165', $user->name);
+            
+            try {
+                $this->send_email_90('BIENVENIDO PROGRAMA 0-90', $user->name, $user->email, '200000000094165', $user->name);
+            } catch (\Throwable $th) {
+                Log::error($th);
+            }
           
         }
 
