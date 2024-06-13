@@ -4,7 +4,7 @@
           <div class="modal-content" >
             <div class="modal-body">
                 <h5 class="text-center title">INGRESE LA CEDULA</h5>
-                <input type="text" class="form-control" v-model="form.num_document" id="" placeholder="">
+                <input type="number" class="form-control" v-model="form.num_document" id="" placeholder="">
                 <select
                   v-model="form.area"
                   class="form-select mt-3"

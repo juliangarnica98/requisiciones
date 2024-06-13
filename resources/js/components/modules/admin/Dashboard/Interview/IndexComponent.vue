@@ -71,11 +71,11 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-10">
+                                        <div class="col-md-9">
                                             <h3 class="card-title"><strong> NUMERO DE ENCUESTAS</strong></h3>
                                         </div>
-                                        <div class="col-md-2">
-                                            <h1 class="" style="color:#54D1D1 ;"><strong>{{ total_entrevistas }}</strong></h1>
+                                        <div class="col-md-3">
+                                            <h3 class="" style="color:#54D1D1 ;"><strong>{{ total_entrevistas }}</strong></h3>
                                         </div>
                                     </div>
                                     <div class="row">
