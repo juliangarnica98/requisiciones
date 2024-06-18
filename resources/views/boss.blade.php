@@ -4,7 +4,7 @@
     <body>
         <div class="">
             <div class="wrapper" id="app">
-                <boss-component :name='{{json_encode($user_name)}}' :last_name='{{json_encode($last_name)}}'></boss-component>
+                <boss-component :name='{{json_encode($user_name)}}' :last_name='{{json_encode($last_name)}}' :area='{{json_encode($area)}}'></boss-component>
             </div>
         </div>
         @extends('layouts.script')

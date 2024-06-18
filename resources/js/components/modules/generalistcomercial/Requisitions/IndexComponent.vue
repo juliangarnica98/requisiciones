@@ -77,7 +77,8 @@
                             <div class="card border-none" :class="{ estado_abierto: rq.status == 'ABIERTA', estado_cerrado: rq.status == 'CERRADA' ,estado_engestion: rq.status == 'EN GESTION',estado_cancelado: rq.status == 'CANCELAR',estado_cancelado: rq.status == 'CANCELADA',estado_suspendido: rq.status == 'SUSPENDIDA'  }">
                                 <div class="card-body">
                                     <div class="row ">
-                                        <div class="col-md-3 text-center"> <b style="text-transform: uppercase;"> {{rq.requisition.user.name}} {{rq.requisition.user.last_name}} - {{ rq.created_at | fecha}}</b></div>
+                                        
+                                        <div class="col-md-3 text-center"> <b style="text-transform: uppercase;"> ( {{ rq.id }} ) {{rq.requisition.user.name}} {{rq.requisition.user.last_name}} - {{ rq.created_at | fecha}}</b></div>
                                         <div class="col-md-1 text-center d-flex justify-content-center aling-items-center"><b> 
                             
                                             <div class="" v-if="rq.status == 'EN GESTION'">
@@ -87,15 +88,18 @@
                                                 {{ rq.status }}
                                             </div>
                                         </b></div>
+                                       
                                         <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
                                         <div class="col-md-2 text-center"><b  style="text-transform: uppercase;">{{rq.city.description}}</b> </div>
                                         <div class="col-md-2 text-center" v-if="rq.aprobacion ===0 && rq.rechazo ===0"><b style="text-transform: uppercase;" >SIN ASIGNACIÓN</b> </div>
-                                        <div class="col-md-2 text-center" v-if="rq.aprobacion ===1"><b style="text-transform: uppercase;" v-if="rq.aprobacion ===1">ACEPTADA</b> </div>
+                                        <div class="col-md-2 text-center" v-if="rq.aprobacion ===1"><b style="text-transform: uppercase;" v-if="rq.aprobacion ===1">ACEPTADA</b>  <div> <b>{{rq.reclutador}}</b></div></div>
                                         <div class="col-md-2 text-center" v-if="rq.rechazo ===1"><b style="text-transform: uppercase;" >RECHAZADA</b> </div>
                                         <div class="col-md-2 text-center">
                                                 
                                                 <div class="col-md-12 h4">
+                                                   
                                                     <div class="row d-flex justify-content-center">
+                                                        
                                                         <div class="col-md-2 text-white">
                                                             <div  v-if="rq.aprobacion ===0 && rq.rechazo ===0">                                                                
                                                                 <Edit @traerdata="getRequisitions2" :substate="rq.substate" :estado="rq.status" :area="area" :id="rq.id" :creador="comCreador(rq.requisition.user_id)"/>
@@ -108,12 +112,6 @@
                                                                 </span>
                                                             </router-link>
                                                         </div>
-                                                        <!-- <div class="col-md-2 text-white" >
-                                                            <div v-if="rq.status== 'CERRADA' && rq.nombre_ingreso == null" class="text-white">
-                                                                
-                                                                <Edit2 @traerdata="getRequisitions2" :estado="rq.status" :area="area" :id="rq.id"/>
-                                                            </div>
-                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </div>

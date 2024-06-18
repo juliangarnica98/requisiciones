@@ -12,6 +12,11 @@
                         </div>
                     </div>
                     <div>
+                      <div class="input-group mb-3">
+                          <input v-model="form.hanna" type="number" class="form-control"  aria-describedby="basic-addon3" placeholder="NOMBRE DE LA TIENDA">
+                      </div>
+                  </div>
+                    <div>
                         <div class="input-group mb-3">
                             <select v-model="form.regional" class="form-select" aria-label="Default select example">
                                 <option value="" selected>REGIONAL</option>
@@ -45,6 +50,7 @@
                 return {
                   form:{
                     description:"",
+                    hanna:0,
                     regional:""
                   },
                 }

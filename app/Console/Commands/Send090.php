@@ -51,10 +51,9 @@ class Send090 extends Command
                     $email->week = $semanas;
                     $email->save();
                 }
-                
             }
            
         }
-        return response()->json($emails);
+        return true;
     }
 }

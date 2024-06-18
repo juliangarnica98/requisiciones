@@ -60,7 +60,7 @@
                             <div class="card border-none" :class="{ estado_abierto: rq.status == 'ABIERTA', estado_cerrado: rq.status == 'CERRADA' ,estado_engestion: rq.status == 'EN GESTION',estado_cancelado: rq.status == 'CANCELAR',estado_cancelado: rq.status == 'CANCELADA',estado_suspendido: rq.status == 'SUSPENDIDA'  }">
                                 <div class="card-body">
                                     <div class="row ">
-                                        <div class="col-md-3 text-center"> <b style="text-transform: uppercase;"> {{rq.requisition.user.name}} {{rq.requisition.user.last_name}} - {{ rq.created_at | fecha}}</b></div>
+                                        <div class="col-md-3 text-center"> <b style="text-transform: uppercase;">( {{ rq.id }} )  {{rq.requisition.user.name}} {{rq.requisition.user.last_name}} - {{ rq.created_at | fecha}}</b></div>
                                         <div class="col-md-1 text-center d-flex justify-content-center aling-items-center"><b> 
                             
                                             <div class="" v-if="rq.status == 'EN GESTION'">

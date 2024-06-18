@@ -9,6 +9,9 @@
                         <div class="input-group mb-3">
                             <input v-model="form.description" type="text" class="form-control"  aria-describedby="basic-addon3">
                         </div>
+                        <div class="input-group mb-3">
+                          <input v-model="form.hanna" type="number" class="form-control"  aria-describedby="basic-addon3">
+                      </div>
                     </div>
     
                 </div>
@@ -37,6 +40,9 @@
               },
               description:{
                 type:String,
+              },
+              hanna:{
+                type:Number
               }
 
             },
@@ -45,6 +51,7 @@
                   form:{
                     id: this.$props.id,
                     description: this.$props.description,
+                    hanna: this.$props.hanna,
                     
                   },
                 }
@@ -63,6 +70,7 @@
                 console.log('cambio id' + this.id);
                 this.form.id =  Object.assign(this.id, {});
                 this.form.description =  Object.assign(this.description, {});
+                this.form.hanna =  Object.assign(this.hanna, {});
               
               }
             },

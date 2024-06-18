@@ -30,6 +30,7 @@ class TiendaController extends Controller
     {
         $data=Tienda::where('id',$request->id)->first();
         $data->description = $request->description;
+        $data->hanna = $request->hanna;
         $data->save();
         return "Se ha modificado tienda con exito";
     }
@@ -37,6 +38,7 @@ class TiendaController extends Controller
     {
         $data=new Tienda();
         $data->description = strtoupper($request->description);
+        $data->hanna = $request->hanna;
         $data->regional_id = $request->regional;
         $data->save();
         return "Se ha ha creado tienda correctamente";
@@ -54,10 +56,15 @@ class TiendaController extends Controller
         if($request->regional){
             $regional = $request->regional;
             $data['tienda']=Tienda::with('regional')->whereHas('regional',
-            function ($q) use ($regional) {$q->where('description',$regional);})->where('description', 'like', '%'.$request->buscar_tienda .'%' )->paginate();
+            function ($q) use ($regional) {$q->where('description',$regional);})
+            ->where('description', 'like', '%'.$request->buscar_tienda .'%' )
+            ->paginate();
             return response()->json($data);
         }else{
-            $data['tienda']=Tienda::with('regional')->where('description', 'like', '%'.$request->buscar_tienda .'%' )->paginate();
+            $data['tienda']=Tienda::with('regional')
+            ->where('description', 'like', '%'.$request->buscar_tienda .'%' )
+            ->orWhere('hanna', 'like', '%'.$request->buscar_tienda .'%' )
+            ->paginate();
             return response()->json($data);
         }
         

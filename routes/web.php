@@ -93,6 +93,7 @@ Route::group(['prefix' => 'boss','middleware' => ['auth','handle403','role:Boss'
     //rutas de navegacion
     Route::get('/requisiciones', [App\Http\Controllers\boss\HomeController::class, 'index'])->name('boss.requisiciones');
     Route::get('/crear-requisicion', [App\Http\Controllers\boss\HomeController::class, 'index'])->name('boss.crarrequisicion');
+    Route::get('/ver-tiendas', [App\Http\Controllers\boss\HomeController::class, 'index'])->name('boss.vertiendas');
     //rutas de requisicion
     Route::get('/getdatarequisition', [App\Http\Controllers\boss\RequisitionController::class, 'getData']);
     Route::post('/requisicion/store', [App\Http\Controllers\boss\RequisitionController::class, 'store']);
@@ -100,6 +101,12 @@ Route::group(['prefix' => 'boss','middleware' => ['auth','handle403','role:Boss'
     Route::get('/requisicion/{id}',[App\Http\Controllers\boss\HomeController::class, 'index']);
     Route::get('/getrequisicion/{id}',[App\Http\Controllers\boss\RequisitionController::class, 'show']);
     Route::post('/requisicion/edit', [App\Http\Controllers\boss\RequisitionController::class, 'update']);
+
+    //rutas de tiendas de jefes
+    Route::get('/getdatatiendas',[App\Http\Controllers\boss\TiendaController::class, 'getdata']);
+    Route::get('/getdatatiendas2/{regional}',[App\Http\Controllers\boss\TiendaController::class, 'getdata2']);
+    //rutas de busqyeda
+    Route::post('/store/search',[App\Http\Controllers\boss\TiendaController::class, 'search']);
 });
 
 Route::group(['prefix' => 'director','middleware' => ['auth','handle403','role:Director','CheckRoute:web']], function() {

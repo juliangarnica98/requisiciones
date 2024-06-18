@@ -60,7 +60,7 @@
                                 <h6 class="text-center">NOMBRE DE LA TIENDA<small class="h5 text-danger" >*</small></h6>
                                 
                                 <select class=" form-select" name="filtro_regional" id="filtro_regional" v-model="form.nombre" >
-                                    <option value="" v-for="tiendas in lista_tiendas" :value="tiendas.description"> {{ tiendas.description }}</option>
+                                    <option style="text-align: left;" value="" v-for="tiendas in lista_tiendas" :value="tiendas.description"> {{ tiendas.description }} ----- <small class="text-right">{{tiendas.hanna}}</small></option>
                                 </select>
                                 <small>CATEGORIA DE LA TIENDA</small><small class="h5 text-danger" >*</small>
                                 <select v-model="form.categoria" class="form-select" aria-label="Default select example" @change="onChageCast(2,form.categoria)">
@@ -133,7 +133,7 @@
 
 
                 <template id="step6">
-                    <div v-if="form.tipo_vacante == '1'" class="row card card-cont ">
+                    <div v-if="form.tipo_vacante == '1'|| form.tipo_vacante == '6'||form.tipo_vacante == '7'" class="row card card-cont ">
                         <div class="card-body">
                             <div class="mb-3">
                                 <h6 class="text-center">NOMBRE DE A QUIEN REEMPLAZA<small class="h5 text-danger" >*</small></h6>
@@ -284,9 +284,20 @@
 
 
                 <template id="step9">
-                    <div v-if="form.cargo_activacion != ''" class="row card card-cont ">
+                    <div v-if="form.cargo_activacion != ''" class="row card card-cont">
                         <div class="card-body">
-                            <div class="mb-3">
+                            <div class="mb-3" v-if="form.area == 1 || form.area ==5">
+                                <h6 class="text-center">SELECCIONA TU GENERALISTA</h6>
+                                <select v-model="form.generalista" class="form-select" style="text-transform: uppercase;" aria-label="Default select example" @change="onChageCast(6,form.cargo_activacion)">
+                                    <option selected value="">SELECCIONA UNA OPCION</option>
+                                    <option v-for="generalista in generalistas" :value="generalista.email" style="text-transform: uppercase;">{{generalista.name}}  {{generalista.last_name}} </option>
+                                </select>
+                            </div>
+                            <div class="mb-3" v-if="form.area == 1 && form.generalista != ''">
+                                <h6 class="text-center">COMENTARIOS</h6>
+                                <textarea v-model="form.comentarios" class="form-control" placeholder="( Campo Opcional) Si tiene personal referido para cubirir esta vacante por favor dejar aqui nombre y número de contacto" id=""></textarea>
+                            </div>
+                            <div class="mb-3" v-if="form.area != 1">
                                 <h6 class="text-center">COMENTARIOS</h6>
                                 <textarea v-model="form.comentarios" class="form-control" placeholder="( Campo Opcional) Si tiene personal referido para cubirir esta vacante por favor dejar aqui nombre y número de contacto" id=""></textarea>
                             </div>
@@ -297,7 +308,15 @@
 
 
                 <template id="" class="">
-                    <div v-if="form.cargo_activacion != ''" class="row ">
+                    <div v-if="form.cargo_activacion != '' && form.area != 1" class="row ">
+                        <div class="col-md-12 d-grid gap-2">
+                            <button  @click="createRequisition" type="button"  class="btn btn-lili  mb-5">REGISTRAR</button>
+                        </div>
+                    </div>
+                </template>
+
+                <template id="" class="">
+                    <div v-if="form.generalista != '' && form.area == 1" class="row ">
                         <div class="col-md-12 d-grid gap-2">
                             <button  @click="createRequisition" type="button"  class="btn btn-lili  mb-5">REGISTRAR</button>
                         </div>
@@ -340,7 +359,8 @@
                     sexo_vacante:"",
                     cargo_activacion:"",
                     comentarios:"",
-                    person:""
+                    person:"",
+                    generalista:""
                     
                 },
                 regionales:[],
@@ -355,6 +375,7 @@
                 lista_sexos:[],
                 lista_cargos:[],
                 lista_tiendas:[],
+                generalistas:[],
                 currentStep:1,
                 progress:0,
             }
@@ -377,16 +398,21 @@
                       this.form.area=res.data.area;
                       this.form.regional=res.data.regional;
                       this.lista_tiendas=res.data.tiendas;
+                      this.generalistas=res.data.generalistas;
                       
                     
                 });
             },
             createRequisition(){
-                axios.post('/boss/requisicion/store', this.form).then((res) => {
-                this.$toast.success(res.data);
-                this.$router.push('/boss/requisiciones');
+                if(this.form.area == 1 && this.form.generalista == ''){
+                    this.$toast.error("Seleccione su generalista");
+                }else{
 
-            });
+                    axios.post('/boss/requisicion/store', this.form).then((res) => {
+                    this.$toast.success(res.data);
+                    this.$router.push('/boss/requisiciones');
+                    });
+                }
             },
             onChageCast(key, value){
                 switch (key) {

@@ -14,13 +14,15 @@ class TypeActivationSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('type_activations')->truncate();
+        //DB::table('type_activations')->truncate();
         $data = [
             ['description' => 'REEMPLAZO (VACANTE)'],
             ['description' => 'PLAN DE CAMBIO'],
-            ['description' => 'NUEVO CARGO'],
+            ['description' => 'NUEVO CARGO/TEMPORADA'],
             ['description' => 'REINTEGRO'],
-            ['description' => 'APERTURA DE TIENDA'],  
+            ['description' => 'APERTURA DE TIENDA'],
+            ['description' => 'CRECIMIENTO'],  
+            ['description' => 'INCAPACIDAD/LICENCIA'],  
         ];
         DB::table('type_activations')->insert($data); 
     }

@@ -59,6 +59,10 @@ export default new Router({
             path: '/boss/requisicion/:id', 
             component: require('./components/modules/user/Requisitions/ShowComponent').default 
         },
+        { 
+            path: '/boss/ver-tiendas', 
+            component: require('./components/modules/user/Tiendas/IndexComponent').default 
+        },
         //rutas director
         { 
             path: '/director/requisiciones', 

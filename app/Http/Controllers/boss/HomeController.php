@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\boss;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -16,7 +17,9 @@ class HomeController extends Controller
     {
         $user_name = auth()->user()->name;   
         $last_name = auth()->user()->last_name;
-        return view('boss',compact('user_name','last_name'));
+        $usuario =  User::where('id',auth()->id())->first();
+        $area = $usuario->area;
+        return view('boss',compact('user_name','last_name','area'));
 
     }
 

@@ -9,18 +9,13 @@
                     <div class="text header-text">
                         <span class="name">{{ name }}</span>
                         <span class="profesion">{{ last_name }}</span>
+                        
                     </div>
                 </div>
                 <i class="bx bx-chevron-right toggle"></i>
             </header>
             <div class="menu-bar">
                 <div class="menu">
-                    <!-- <li class="search-box">
-                        <i class="bx bx-search icon"></i>
-                        <input type="text" placeholder="Search..." />
-                    </li> -->
-                 
-
                     <ul class="menu-links pt-5">
                         <li class="nav-link">
                             <router-link
@@ -43,11 +38,20 @@
                                     >CREAR REQUISICIONES</span
                                 >
                             </router-link>
-                        
-                                
-                            
                         </li>
                     </ul>
+                    <ul class="menu-links" v-if="area == 1">
+                        <li class="nav-link">
+                            <router-link class="router-link" to="/boss/ver-tiendas" aria-expanded="false" >
+                                <i class='bx bxs-bank icon'></i>
+                                <span class="text nav-text"
+                                    >VER TIENDAS</span
+                                >
+                            </router-link>
+                        </li>
+                    </ul>
+                   
+                    
                 </div>
                 <div class="bottom-content">
                     <li class="">
@@ -87,16 +91,13 @@
         </nav>
 
         <section class="home" >
-            <!-- <div class="text">Dashboard</div> -->
-           
-                <router-view></router-view>
-            
+            <router-view></router-view>
         </section>
     </div>
 </template>
 <script>
 export default {
-    props: ["token", "name","last_name"],
+    props: ["token", "name","last_name","area"],
     data() {
         return {
             image: "/images/lili.png",

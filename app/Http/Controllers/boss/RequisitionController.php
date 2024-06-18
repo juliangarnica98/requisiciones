@@ -29,11 +29,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use LDAP\Result;
 use App\Traits\SendEmailA;
-
+use App\Traits\SendEmailRQ;
+use App\Traits\SendEmailRQA;
+use App\Traits\SendEmailRQS;
+use App\Traits\SendEmailRQV;
+use Illuminate\Support\Facades\Log;
 
 class RequisitionController extends Controller
 {
-    use SendEmailA;
+    use SendEmailA, SendEmailRQA,SendEmailRQS,SendEmailRQV;
     public function index()
     {
         $userId = auth()->id();    
@@ -86,6 +90,7 @@ class RequisitionController extends Controller
         $data['area_factories']=Area_factory::all();
         $data['center_distributions']=Center_distribution::all();
         $usuario=User::find(auth()->id());
+        $data['generalistas']=User::where('type','web')->role('Generalist_comercial')->get();
         $data['area'] = $usuario->area;
         $regional = $usuario->regional;
         $data['regional'] = ($usuario->regional != null) ? $usuario->regional : '';
@@ -142,6 +147,14 @@ class RequisitionController extends Controller
                 $store->person = $request->person;
                 $store->ano_solicitud = date("Y");
                 $store->mes_solicitud = date("m");
+
+                $userSendEmail = User::where('type','web')->where('email',$request->generalista)->first();
+                try {
+                    $this->send_email_rqs($subject,$usuario->name,$userSendEmail->email,'200000000095609', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id,$request->nombre);
+                } catch (\Throwable $th) {
+                    Log::error($th->getMessage());
+                }
+
                 $store->save();
             }
             if($request->area == 2){
@@ -160,6 +173,14 @@ class RequisitionController extends Controller
                 $admin->ano_solicitud = date("Y");
                 $admin->mes_solicitud = date("m");
                 $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
+
+                $userSendEmail = User::where('type','web')->where('email','generalista.admin@fastmoda.com.co')->first();
+                try {
+                    $this->send_email_rqa($subject,$usuario->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
+                } catch (\Throwable $th) {
+                    Log::error($th->getMessage());
+                }
+
                 $admin->save();
             }
             if($request->area == 3){
@@ -177,6 +198,14 @@ class RequisitionController extends Controller
                 $cedi->ano_solicitud = date("Y");
                 $cedi->mes_solicitud = date("m");
                 $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
+
+                $userSendEmail = User::where('type','web')->where('email','generalista.cedis@fastmoda.com.co')->first();
+                try {
+                    $this->send_email_rqa($subject,$usuario->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
+                } catch (\Throwable $th) {
+                    Log::error($th->getMessage());
+                }
+
                 $cedi->save();
             }
             if($request->area == 4){
@@ -194,6 +223,14 @@ class RequisitionController extends Controller
                 $factory->ano_solicitud = date("Y");
                 $factory->mes_solicitud = date("m");
                 $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
+                
+                $userSendEmail = User::where('type','web')->where('email','generalista.cedis@fastmoda.com.co')->first();
+                try {
+                    $this->send_email_rqa($subject,$usuario->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
+                } catch (\Throwable $th) {
+                    Log::error($th->getMessage());
+                }
+
                 $factory->save();
             }
             if($request->area == 5){
@@ -203,6 +240,7 @@ class RequisitionController extends Controller
                 // $store->regional_id= $request->regional;
                 $national_sale->charge_id= $request->cargo_uniq;
                 $national_sale->city_id= $request->ciudad;
+                $ciudad = City::where('id',$request->ciudad)->first();
                 $national_sale->sex_id= $request->sexo_vacante;
                 $national_sale->activation_id= $activation->id;
                 $national_sale->activation_charge_id= $request->cargo_activacion;
@@ -210,6 +248,12 @@ class RequisitionController extends Controller
                 $national_sale->person = $request->person;
                 $national_sale->ano_solicitud = date("Y");
                 $national_sale->mes_solicitud = date("m");
+                $userSendEmail = User::where('type','web')->where('email',$request->generalista)->first();
+                try {
+                    $this->send_email_rqv($subject,$usuario->name,$userSendEmail->email,'200000000095705', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id,$ciudad->description);
+                } catch (\Throwable $th) {
+                    Log::error($th->getMessage());
+                }
                 $national_sale->save();
             }
             // DB::commit();

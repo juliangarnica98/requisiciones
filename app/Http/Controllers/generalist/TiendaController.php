@@ -30,6 +30,7 @@ class TiendaController extends Controller
     {
         $data=Tienda::where('id',$request->id)->first();
         $data->description = $request->description;
+        $data->hanna = $request->hanna;
         $data->save();
         return "Se ha modificado tienda con exito";
     }
@@ -37,6 +38,7 @@ class TiendaController extends Controller
     {
         $data=new Tienda();
         $data->description = strtoupper($request->description);
+        $data->hanna = $request->hanna;
         $data->regional_id = $request->regional;
         $data->save();
         return "Se ha ha creado tienda correctamente";

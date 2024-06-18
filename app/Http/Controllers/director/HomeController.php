@@ -19,6 +19,7 @@ class HomeController extends Controller
         $last_name = auth()->user()->last_name;
         $usuario =  User::where('id',auth()->id())->first();
         $area = $usuario->area;
+        dd($area);
         return view('director',compact('user_name','last_name','area'));
     }
 }

@@ -34,9 +34,11 @@
                             <div class="card-body ">
                                 <div class="row">
                                     
-                                    <div class="col-md-4 text-center"><b>DESCRIPCION</b></div>
-                                    <div class="col-md-4 text-center"><b>REGIONAL</b> </div>
-                                    <div class="col-md-4 text-center"><b>ACCIONES</b> </div>
+                                    <div class="col-md-3 text-center"><b>DESCRIPCION</b></div>
+                                    <div class="col-md-3 text-center"><b>HANNA</b> </div>
+                                    <div class="col-md-3 text-center"><b>REGIONAL</b> </div>
+                                    
+                                    <div class="col-md-3 text-center"><b>ACCIONES</b> </div>
                                 </div>
                             </div>
                         </div>
@@ -47,14 +49,15 @@
                                 <div class="card-body">
                                     <div class="row " >
                                        
-                                        <div class="col-md-4 text-center"><b>{{ cargo.description }}</b> </div>
-                                        <div class="col-md-4 text-center "><b>{{ cargo.regional.description }}</b> </div>
+                                        <div class="col-md-3 text-center"><b>{{ cargo.description }}</b> </div>
+                                        <div class="col-md-3 text-center"><b>{{ cargo.hanna }}</b> </div>
+                                        <div class="col-md-3 text-center "><b>{{ cargo.regional.description }}</b> </div>
                                         
-                                        <div class="col-md-4 text-center h5">
+                                        <div class="col-md-3 text-center h5">
                                             <div class="row d-flex justify-content-center">
                                                 <div class="col-md-3">
                                                     <a class="link text-white" data-bs-toggle="modal" :data-bs-target="'#'+cargo.id"><i class="fas fa-pencil-alt"></i></a>
-                                                    <ModalEdit  :id="cargo.id" :description="cargo.description" :efectividad="cargo.effectiveness" @traerdata="getCharges"></ModalEdit>
+                                                    <ModalEdit  :id="cargo.id" :hanna="cargo.hanna" :description="cargo.description" :efectividad="cargo.effectiveness" @traerdata="getCharges"></ModalEdit>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <a class="link" @click="deleteCharge(cargo.id)" style="cursor: pointer;"> 
