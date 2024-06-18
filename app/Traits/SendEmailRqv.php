@@ -26,7 +26,7 @@ trait SendEmailRQV{
         'multipart' => [
           [
             'name' => 'from',
-            'contents' => '090@liligestionhumana.com'
+            'contents' => 'seleccion@liligestionhumana.com'
           ],
           [
             'name' => 'to',
