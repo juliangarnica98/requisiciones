@@ -30,14 +30,14 @@ use Illuminate\Support\Facades\DB;
 use LDAP\Result;
 use App\Traits\SendEmailA;
 use App\Traits\SendEmailRQ;
-use App\Traits\SendEmailRQA;
-use App\Traits\SendEmailRQS;
-use App\Traits\SendEmailRQV;
+use App\Traits\SendEmailRQA as sendemailrqa;
+use App\Traits\SendEmailRQS as sendemailrqs;
+use App\Traits\SendEmailRQV as sendemailrqv;
 use Illuminate\Support\Facades\Log;
 
 class RequisitionController extends Controller
 {
-    use SendEmailA, SendEmailRQA,SendEmailRQS,SendEmailRQV;
+    use SendEmailA, sendemailrqa,sendemailrqs,sendemailrqv;
     public function index()
     {
         $userId = auth()->id();    
