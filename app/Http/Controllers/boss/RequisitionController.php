@@ -29,10 +29,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use LDAP\Result;
 use App\Traits\SendEmailA;
-use App\Traits\SendEmailRQ;
-use App\Traits\SendEmailRQA as sendemailrqa;
-use App\Traits\SendEmailRQS as sendemailrqs;
-use App\Traits\SendEmailRQV as sendemailrqv;
+use App\Traits\SendEmailRqa as sendemailrqa;
+use App\Traits\SendEmailRqs as sendemailrqs;
+use App\Traits\SendEmailRqv as sendemailrqv;
 use Illuminate\Support\Facades\Log;
 
 class RequisitionController extends Controller

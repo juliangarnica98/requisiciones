@@ -5,7 +5,7 @@ namespace App\Traits;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Http;
 
-trait SendEmailRQV{
+trait SendEmailRqv{
 
     public function send_email_rqv($subject,$name,$email,$idtemplate, $nombre,$vacante, $nombre_jefe,$num, $ciudad) {
         $client = new \GuzzleHttp\Client();
