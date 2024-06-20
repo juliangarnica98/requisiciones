@@ -179,6 +179,25 @@
                     </div>
                 </div>
             </div>
+            <!-- <div class="row" v-if="this.area != '' &&  this.init_date != '' && this.end_date != ''">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h3 class="card-title"><strong>COMENTARIOS</strong></h3>
+                                </div>
+                               
+                                <span class="" v-for="(comentario,index) in this.comentarios" :key="index" >
+                                    <div class="mb-3" v-if="index != ''">
+                                        {{comentario}} - {{index}}
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
     
         </div>
        </div>

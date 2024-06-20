@@ -144,6 +144,7 @@ class RequisitionController extends Controller
                 $store->activation_charge_id= $request->cargo_activacion;
                 $store->comentaries= $request->comentarios;
                 $store->person = $request->person;
+                $store->boss = $usuario->name." ".$usuario->last_name;
                 $store->ano_solicitud = date("Y");
                 $store->mes_solicitud = date("m");
 

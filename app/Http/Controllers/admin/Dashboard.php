@@ -199,7 +199,7 @@ class Dashboard extends Controller
 
         try {
             $requisition['administartion_efectividad']= $requisition['administartion_num_efectivos']*100 / $requisition['administartion_cerrada'];
-        } catch (\ErrorException $th) {
+        } catch (DivisionByZeroError $th) {
             $requisition['administartion_efectividad']= 0;
         }
 

@@ -58,10 +58,12 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <h6 class="text-center">NOMBRE DE LA TIENDA<small class="h5 text-danger" >*</small></h6>
-                                
+
+                                <input type="text" v-model="searchTerm" @input="filterOptions" placeholder="Buscar..." class="form-control mb-3" >
                                 <select class=" form-select" name="filtro_regional" id="filtro_regional" v-model="form.nombre" >
-                                    <option style="text-align: left;" value="" v-for="tiendas in lista_tiendas" :value="tiendas.description"> {{ tiendas.description }} ----- <small class="text-right">{{tiendas.hanna}}</small></option>
+                                    <option style="text-align: left;" value="" v-for="option in filteredOptions" :value="option.description"> {{ option.description }}  ---- <small>{{option.hanna}}</small></option>
                                 </select>
+
                                 <small>CATEGORIA DE LA TIENDA</small><small class="h5 text-danger" >*</small>
                                 <select v-model="form.categoria" class="form-select" aria-label="Default select example" @change="onChageCast(2,form.categoria)">
                                     <option selected value="">SELECCIONA UNA OPCION</option>
@@ -376,8 +378,11 @@
                 lista_cargos:[],
                 lista_tiendas:[],
                 generalistas:[],
+                filteredOptions: [],
                 currentStep:1,
                 progress:0,
+                searchTerm: '',
+              
             }
         },
         methods:{
@@ -399,7 +404,7 @@
                       this.form.regional=res.data.regional;
                       this.lista_tiendas=res.data.tiendas;
                       this.generalistas=res.data.generalistas;
-                      
+                      this.filteredOptions =this.lista_tiendas;
                     
                 });
             },
@@ -582,16 +587,36 @@
                     default:
                         break;
                 }
-            }
+            },
+            filterOptions() {
+                if (this.searchTerm.trim() === '') {
+                    this.filteredOptions =this.lista_tiendas;
+                } else {
+                    const searchTermLowerCase = this.searchTerm.trim().toLowerCase();
+                    this.filteredOptions = this.lista_tiendas.filter(option =>
+                    option.description.toLowerCase().includes(searchTermLowerCase) ||
+                    option.hanna.toString().includes(searchTermLowerCase)
+                    
+                );
+                    }
+                },
         },
         computed:{
             progreso(){
                 return this.progress+'%';
-            }
+            },
+            
+            
         },
         mounted () {
             this.getData();
+            
         },
+        watch: {
+            searchTerm() {
+                this.filterOptions();
+            }
+        }
     }
 </script>
 <style scoped>

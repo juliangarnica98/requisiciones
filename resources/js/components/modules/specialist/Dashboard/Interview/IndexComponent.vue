@@ -188,19 +188,23 @@
                                     <h3 class="card-title"><strong>COMENTARIOS</strong></h3>
                                 </div>
                                 <!-- {{ this.comentarios }} -->
-                                <small class="" v-for="(comentario,index) in this.comentarios" :key="index" >
-                                    <div class="" v-if="index != ''">
+                                <span class="" v-for="(comentario,index) in this.comentarios" :key="index" >
+                                    <div class="mb-3" v-if="index != ''">
                                         {{comentario}} - {{index}}
                                     </div>
-                                </small>
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>    
     </div>
+    
+    
+    </div>
+    
+    
 </template>
 <style scoped>
 .card{

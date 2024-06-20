@@ -62,11 +62,11 @@
                             <div class="card-body ">
                                 <div class="row"> 
                                     <!-- <div class="col-md-3 text-center"><b> <a href="#" class="btn btn-light" @click="getRequisitions"><i class="fas fa-users"></i></a> CREADOR </b> <a href="#" class="btn btn-light" @click="getRequisitions3"><i class="fas fa-user"></i></a></div> -->
-                                    <div class="col-md-3 text-center"><b>CREADOR</b></div>
-                                    <div class="col-md-1 text-center"><b>ESTADO</b></div>
-                                    <div class="col-md-2 text-center"><b>CARGO</b> </div>
-                                    <div class="col-md-2 text-center"><b>CIUDAD</b> </div>
-                                    <div class="col-md-2 text-center"><b>APROBACIÓN</b></div>
+                                    <div class="col-md-1 text-center"><b>N° RQ</b></div>
+                                    <div class="col-md-1 text-center"><b>CARGO</b></div>
+                                    <div class="col-md-2 text-center"><b>CENTRO DE COSTOS</b> </div>
+                                    <div class="col-md-4 text-center"><b>JEFE DE ZONA</b> </div>
+                                    <div class="col-md-2 text-center"><b>ESTATUS/ANALISTA</b></div>
                                     <div class="col-md-2 text-center"><b>ACCIONES</b></div>
                                 </div>
                             </div>
@@ -78,19 +78,12 @@
                                 <div class="card-body">
                                     <div class="row ">
                                         
-                                        <div class="col-md-3 text-center"> <b style="text-transform: uppercase;"> ( {{ rq.id }} ) {{rq.requisition.user.name}} {{rq.requisition.user.last_name}} - {{ rq.created_at | fecha}}</b></div>
-                                        <div class="col-md-1 text-center d-flex justify-content-center aling-items-center"><b> 
-                            
-                                            <div class="" v-if="rq.status == 'EN GESTION'">
-                                                {{ rq.status }} - {{ rq.substate }}
-                                            </div>
-                                            <div class="" v-else>
-                                                {{ rq.status }}
-                                            </div>
-                                        </b></div>
-                                       
-                                        <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
-                                        <div class="col-md-2 text-center"><b  style="text-transform: uppercase;">{{rq.city.description}}</b> </div>
+                                        <div class="col-md-1 text-center"> <b class="h4" style="text-transform: uppercase;"> {{ rq.id }} </b></div>
+                                        <div class="col-md-1 text-center"><b>{{rq.activation_charge.description}}</b> </div>
+                                        <div class="col-md-2 text-center"><b>{{rq.name_store}}</b> </div>
+                                        
+                                        
+                                        <div class="col-md-4 text-center"><b  style="text-transform: uppercase;">{{rq.requisition.user.name}} {{rq.requisition.user.last_name}}</b> </div>
                                         <div class="col-md-2 text-center" v-if="rq.aprobacion ===0 && rq.rechazo ===0"><b style="text-transform: uppercase;" >SIN ASIGNACIÓN</b> </div>
                                         <div class="col-md-2 text-center" v-if="rq.aprobacion ===1"><b style="text-transform: uppercase;" v-if="rq.aprobacion ===1">ACEPTADA</b>  <div> <b>{{rq.reclutador}}</b></div></div>
                                         <div class="col-md-2 text-center" v-if="rq.rechazo ===1"><b style="text-transform: uppercase;" >RECHAZADA</b> </div>
