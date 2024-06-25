@@ -19,7 +19,8 @@ class AuthController extends Controller
     use SendEmail090;
 
     public function register(Request $request){
-     
+        
+        
       
         $exist = User::where('email',$request->email)->where('type','api')->first();
         if ($exist) {
@@ -37,7 +38,9 @@ class AuthController extends Controller
             return response()->json( [ 'errors' =>$validator->errors()],500);
         }
         if($request->store){
-            
+            if (!$request->store) {
+                return response()->json( [ 'errors' =>['cedula'=>['La cedula es obligatoria']]],500);
+            }
             $user = User::create([
                 'name' =>$request['name'],
                 'last_name' =>$request['last_name'],
@@ -45,6 +48,8 @@ class AuthController extends Controller
                 'regional' =>$request['regional'],
                 'password' => bcrypt($request['password']),
                 'store_id' => $request['store'],
+                'cedula' => $request['cedula'],
+                'fecha_ingreso'=> $request['fecha_ingreso'],
                 'type' => 'api',
             ]);
             $user->assignRole($request['role']);
@@ -98,7 +103,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()] ,500);
         }
-        $user = User::where('email', $request->email)->where('type','api')->first();
+        $user = User::where('email', $request->email)->where('status',1)->where('type','api')->first();
         
         if ($user->hasRole('Admin')) {
             $rol = 'Admin';

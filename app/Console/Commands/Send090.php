@@ -44,7 +44,7 @@ class Send090 extends Command
         foreach ($emails as $email) {
             $fechaRegistro = Carbon::parse($email->created_user_at);
             $semanas = $fechaRegistro->diffInWeeks(Carbon::now())+1;
-            $user = User::find($email->user_id);
+            $user = User::where('type','api')->where('id',$email->user_id)->where('status',1)->first();
             if($email->week != $semanas){
                 if($email->week<12){
                     $this->send_email_90('RECORDATORIO PROGRAMA 0-90', $user->name, $user->email, '200000000094167', $user->name);

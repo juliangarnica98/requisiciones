@@ -54,6 +54,8 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::get("/getanswer/{id}", [App\Http\Controllers\Api\Admin\AnswersController::class,"show"]);
     //ruta para consultar tiendas
     Route::post("/search", [App\Http\Controllers\Api\Admin\UsersController::class,"search"]);
+    //ruta para consultar usuarios
+    Route::post("/searchuser", [App\Http\Controllers\Api\Admin\UsersController::class,"searchuser"]);
 });
 
 

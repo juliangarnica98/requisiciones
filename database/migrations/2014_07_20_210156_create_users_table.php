@@ -23,6 +23,10 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('cedula')->nullable();
+            $table->string('fecha_ingreso')->nullable();
+            $table->string('fecha_retiro')->nullable();
+            $table->string('razon_retiro')->nullable();
             $table->boolean('status')->default(1);
             $table->rememberToken();
             $table->foreignId('store_id')->nullable();

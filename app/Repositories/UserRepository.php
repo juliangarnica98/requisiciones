@@ -25,6 +25,11 @@ Class UserRepository
             'last_name' =>$userData['last_name'],
             'email' =>strtolower($userData['email']),
             'regional' =>$userData['regional'],
+            'cedula' =>$userData['cedula'],
+            'status' =>$userData['status'],
+            'razon_retiro' =>$userData['razon_retiro'],
+            'fecha_retiro' =>$userData['fecha_retiro'],
+            'cedula' =>$userData['cedula'],
             'store_id' => $store,
             'password' => bcrypt($userData['password']),
         ]);

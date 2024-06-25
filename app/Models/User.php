@@ -28,7 +28,12 @@ class User extends Authenticatable
         'password',
         'regional',
         'type',
-        'store_id'
+        'store_id',
+        'cedula',
+        'fecha_ingreso',
+        'fecha_retiro',
+        'razon_retiro',
+        'status'
     ];
 
     /**

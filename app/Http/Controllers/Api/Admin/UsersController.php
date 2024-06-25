@@ -51,14 +51,23 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
+        //return response()->json(['errors' => $request->all()] ,500);
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'last_name' => 'required|string',
             'email' =>'required|email',
             'regional' => 'required',
-            'password'=>'required|min:8|confirmed',
+            'cedula' => 'required',
+            
         ]);
-        
+        if ($request->status=="0") {
+            if($request->fecha_retiro == null ){
+                return response()->json(['errors' => ['fecha_retiro'=>['la fecha de retiro es obligatoria']]] ,500);
+            }
+            if($request->razon_retiro == null ){
+                return response()->json(['errors' => ['fecha_retiro'=>['la razon de retiro es obligatoria']]] ,500);
+            }
+        }
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()] ,500);
         }
@@ -87,6 +96,14 @@ class UsersController extends Controller
         $id = Auth::id();
         $user = User::where('type','api')->find($id);
         $response=Store::where('regional_id',$user->regional)->where('description', 'like', '%'.$request->store .'%' )->paginate();
+        return response()->json($response);
+        
+    }
+    public function searchuser(Request $request)
+    {
+        $id = Auth::id();
+        $user = User::where('type','api')->find($id);
+        $response=User::where('regional',$user->regional)->where('type','api')->where('name', 'like', '%'.$request->cedula .'%' )->paginate();
         return response()->json($response);
         
     }
