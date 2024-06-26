@@ -176,7 +176,7 @@
                 })
         },
         search(){
-                if (this.buscar_usuario == '') {
+                if (this.form.buscar_usuario == '') {
                     this.getUsers();
                     // window.reload
                 } else {

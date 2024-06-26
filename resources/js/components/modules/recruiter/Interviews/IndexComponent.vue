@@ -19,6 +19,11 @@
             <div class="col-md-4 text-center pt-3 pb-3 border-left" style="background-color: rgb(97, 102,175);color:white;">SIN REALIZAR <i class="fas fa-window-close"></i></div>
             <div class="col-md-4 text-center pt-3 pb-3 border-right" style="background-color: #a87bc7 ;color:white">REALIZADA <i class="far fa-check-circle "></i></div>
         </div>
+        <div class="row justify-content-center pt-2">
+            <div class="col-md-6">
+                <input class="form-control" type="text" v-model="form.buscar_entrevista" placeholder="INGRESA EL DOCUMENTO" @input="search" style="text-transform: uppercase;">
+            </div>
+        </div>  
         <div class="padding  pt-4">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
@@ -91,6 +96,9 @@
         data() {
             return {
                 lista_entrevista:{},
+                form:{
+                    buscar_entrevista:"",
+                }
             }
         },
         methods:{
@@ -104,6 +112,18 @@
                 });
                 console.log("Entrevistas");
             },
+            search(){
+                if (this.form.buscar_entrevista == '') {
+                    this.getRequisitions();
+                    // window.reload
+                } else {
+                    axios.post('/interview/search',this.form)
+                    .then((res) => {
+                        this.lista_entrevista = {},
+                        this.lista_entrevista = Object.assign(res.data.retreal, {});
+                    });
+                }
+            }
             
         },
         mounted() {

@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth','CheckRoute:web']], function() {
     Route::get('/admin/export/{inicio}/{fin}', [App\Http\Controllers\ReportController::class, 'export_admin']);
 });
 
-
+//rutas jefe
 Route::group(['middleware' => ['auth','handle403','role:Admin','CheckRoute:web']], function() {
     
     //rutas de navegacion
@@ -126,7 +126,7 @@ Route::group(['prefix' => 'director','middleware' => ['auth','handle403','role:D
     Route::post('/requisicion/edit', [App\Http\Controllers\director\RequisitionController::class, 'update']);
 });
 
-
+//rutas analista
 Route::group(['prefix' => 'recruiter','middleware' => ['auth','handle403','role:Recruiter','CheckRoute:web']], function() {
     //rutas de navegacion
     Route::get('/dashboard', [App\Http\Controllers\recruiter\HomeController::class, 'index']);
@@ -155,7 +155,7 @@ Route::group(['prefix' => 'recruiter','middleware' => ['auth','handle403','role:
     Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
 });
 
-
+//rutas generalista
 Route::group(['prefix' => 'generalist','middleware' => ['auth','handle403','role:Generalist','CheckRoute:web']], function() {
     //rutas de navegacion
     Route::get('/dashboard', [App\Http\Controllers\generalist\HomeController::class, 'index']);
@@ -254,8 +254,9 @@ Route::group(['prefix' => 'specialist','middleware' => ['auth','handle403','role
     //rutas de busqyeda
     Route::post('/charge/search',[App\Http\Controllers\generalist\ChargeController::class, 'search']);
     Route::post('/store/search',[App\Http\Controllers\generalist\TiendaController::class, 'search']);
+    
 });
-
+//rutas generalista comercial
 Route::group(['prefix' => 'generalistcomercial','middleware' => ['auth','handle403','role:Generalist_comercial']], function() {
     //rutas de navegacion
     Route::get('/dashboard', [App\Http\Controllers\generalistcomercial\HomeController::class, 'index']);
@@ -306,5 +307,5 @@ Route::group(['prefix' => 'generalistcomercial','middleware' => ['auth','handle4
     Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
 });
 
-
+Route::post('/interview/search',[App\Http\Controllers\Admin\InterviewController::class, 'search']);
 Route::get('/traerjefe',[App\Http\Controllers\Api\Admin\UsersController::class, 'UserBoss']);

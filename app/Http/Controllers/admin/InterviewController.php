@@ -67,4 +67,9 @@ class InterviewController extends Controller
     {
         //
     }
+    public function search(Request $request)
+    {
+        $data['retreal']=Retreal::where('num_document', 'like', '%'.$request->buscar_entrevista.'%' )->orderBy('id', 'DESC')->paginate(15);
+        return response()->json($data) ; 
+    }
 }

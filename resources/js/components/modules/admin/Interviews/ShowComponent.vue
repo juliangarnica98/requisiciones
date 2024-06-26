@@ -334,7 +334,22 @@
                     </div>
                 </div>
             </div>
+
             <div class="row d-flex justify-content-center pt-0 ">
+                <div class="col-md-10 rounded">
+                    <div class="card ">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-5 table-head rounded p-3 text-center">
+                                COMENTARIOS
+                            </div>
+                            <div class="col-md-5 table-body rounded p-3 text-center">
+                                {{ respuesta_entrevista.comentaries }}
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row d-flex justify-content-center pt-0 ">
                 <div class="col-md-8 rounded">
                     <div class="card ">
                         <div class="row d-flex justify-content-center">
@@ -347,32 +362,27 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
+
+
             <div class="row d-flex justify-content-center pt-0 " v-for="pregunta in preguntas_satisfaccion">
-                <div class="col-md-10 rounded">
-                    <div class="card"  >
-                        
-                            <div  class="row d-flex justify-content-center" >
-                                <div class="col-md-5 table-head rounded p-3 text-center">
+                <div class="col-md-8 rounded">
+                    <div class="card ">
+                        <div class=" ">
+                            <div  class=" row d-flex justify-content-center" >
+                                <div class="col-md-6 table-head rounded p-3 text-center">
                                     {{pregunta.question_satifactions[0].description}}
                                 </div>
-                                <div class="col-md-5 table-body rounded p-3 text-center">
+                                <div class="col-md-6 table-body rounded p-3 text-center">
                                     {{pregunta.level_satifactions[0].description}}
                                 </div>                        
                             </div>
-                     
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>    
-
-
-        
-        
-
-
-
     </div>
 </template>
 

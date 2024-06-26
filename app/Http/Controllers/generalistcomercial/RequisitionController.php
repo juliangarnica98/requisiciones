@@ -135,6 +135,7 @@ class RequisitionController extends Controller
                     $data->created_at = date('Y-m-d H:i:s');
                     try {
                         $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,'Generalista');
+                        $this->send_email_a($subject,$usuario->name,"sofia.gonzalez@fastmoda.com.co",'200000000094172', $usuario->name,$cargo->description,'Generalista');
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }
@@ -162,6 +163,7 @@ class RequisitionController extends Controller
                     $data->created_at = date('Y-m-d H:i:s'); 
                     try {
                         $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
+                        $this->send_email_a($subject,$usuario->name,'sofia.gonzalez@fastmoda.com.co','200000000094172', $usuario->name,$cargo->description,$usuario->email);
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }
