@@ -307,5 +307,5 @@ Route::group(['prefix' => 'generalistcomercial','middleware' => ['auth','handle4
     Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
 });
 
-Route::post('/interview/search',[App\Http\Controllers\Admin\InterviewController::class, 'search']);
-Route::get('/traerjefe',[App\Http\Controllers\Api\Admin\UsersController::class, 'UserBoss']);
+Route::post('/interview/search',[App\Http\Controllers\admin\InterviewController::class, 'search']);
+Route::get('/traerjefe',[App\Http\Controllers\Api\admin\UsersController::class, 'UserBoss']);

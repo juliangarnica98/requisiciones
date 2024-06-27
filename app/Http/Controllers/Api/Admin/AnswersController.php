@@ -80,10 +80,11 @@ class AnswersController extends Controller
     }
     public function update(Request $request)
     {
-        return response()->json(['data'=> $request->all()],500);
-        // $comentary = Comentary::where('week',$request->week)->where('user',$request->user)->first();
-        // $comentary->description=$request->description;
-        // $comentary->save();
+       
+        $comentary = Comentary::where('week',$request->week)->where('user',$request->user)->first();
+        $comentary->description=$request->description;
+        $comentary->save();
+        return response()->json(['status'=> 'success','data'=> $comentary],200);
     }
 
    
