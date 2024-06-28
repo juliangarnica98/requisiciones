@@ -56,11 +56,12 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post("/search", [App\Http\Controllers\Api\Admin\UsersController::class,"search"]);
     //ruta para consultar usuarios
     Route::post("/searchuser", [App\Http\Controllers\Api\Admin\UsersController::class,"searchuser"]);
-    //ruta para exportar data
-    // Route::get('retreat/export/{inicio}/{fin}', [App\Http\Controllers\ReportController::class, 'export_090']);
     //ruta para actualizar comentarios
     Route::post("/comentario", [App\Http\Controllers\Api\Admin\AnswersController::class,"update"]);
+    
 });
 
-
+//ruta para exportar data
+Route::get('/answer/{id}', [App\Http\Controllers\Api\Admin\AnswersController::class, 'export_answer']);
+//ruta login
 Route::post('/login', [\App\Http\Controllers\Api\Auth\AuthController::class, 'login']);
