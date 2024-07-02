@@ -29,6 +29,7 @@ class CreateCedisTable extends Migration
             $table->string('ano_cierre')->nullable();
             $table->string('mes_solicitud')->nullable();
             $table->string('mes_cierre')->nullable();
+            $table->text('comentarios')->nullable();
 
             $table->string('substate')->default('RECLUTAMIENTO');
 

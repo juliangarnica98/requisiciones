@@ -28,11 +28,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\SendEmailA;
 use App\Traits\SendEmailR;
+use App\Traits\comercial\SendAprobacion;
+use App\Traits\comercial\SendRechazo;
+use App\Traits\comercial\SendEspecialista;
 use Illuminate\Support\Facades\Log;
 
 class RequisitionController extends Controller
 {
-    use SendEmailA , SendEmailR;
+    use SendEmailA , SendEmailR, SendRechazo, SendAprobacion, SendEspecialista;
     public function __construct()
     {
         $this->middleware('auth');
@@ -119,6 +122,8 @@ class RequisitionController extends Controller
                 $data=Store::where('id',$request->id)->first();
                 $requisition=Requisition::find($data->requisition_id);
                 $usuario = User::find($requisition->user_id);
+                $generalista = User::find(auth()->id());
+                $store = Store::where('requisition_id',$data->requisition_id)->first();
                 $cargo = Activation_charge::find($data->activation_charge_id);
                 $subject = 'SOLICITUD DE VACANTE';
                 if($request->state == 'RECHAZADA'){
@@ -126,7 +131,7 @@ class RequisitionController extends Controller
                     $data->reason_rechazo=$request->comments;
                     $data->status= 'CANCELADA';
                     try {
-                        $this->send_email_r($subject,$usuario->name,$usuario->email,'200000000094183',$usuario->name,$cargo->description,'Generalista',$request->comments);
+                        $this->send_rechazo("Rechazo de solicitud",$usuario->name,$usuario->email,'200000000099375',$cargo->description,$store->name_store,$request->comments);
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }
@@ -134,8 +139,8 @@ class RequisitionController extends Controller
                     $data->aprobacion= 1 ;
                     $data->created_at = date('Y-m-d H:i:s');
                     try {
-                        $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,'Generalista');
-                        $this->send_email_a($subject,$usuario->name,"sofia.gonzalez@fastmoda.com.co",'200000000094172', $usuario->name,$cargo->description,'Generalista');
+                        $this->send_aprobacion("Aprobación de solicitud",$usuario->name,$usuario->email,'200000000099374',$cargo->description,$store->name_store);
+                        $this->send_especialista("Aprobación de solicitud","sofia","sofia.gonzalez@fastmoda.com.co",'200000000099378',$generalista->name,$store->boss,$cargo->description,$store->name_store);
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }
@@ -149,6 +154,7 @@ class RequisitionController extends Controller
                 $usuario = User::find($requisition->user_id);
                 $cargo = Activation_charge::find($data->activation_charge_id);
                 $subject = 'SOLICITUD DE VACANTE';
+                $generalista = User::find(auth()->id());
                 if($request->state == 'RECHAZADA'){
                     $data->rechazo= 1 ;
                     $data->reason_rechazo=$request->comments;
@@ -163,7 +169,7 @@ class RequisitionController extends Controller
                     $data->created_at = date('Y-m-d H:i:s'); 
                     try {
                         $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
-                        $this->send_email_a($subject,$usuario->name,'sofia.gonzalez@fastmoda.com.co','200000000094172', $usuario->name,$cargo->description,$usuario->email);
+                        $this->send_especialista("Aprobación de solicitud","sofia","sofia.gonzalez@fastmoda.com.co",'200000000099378',$generalista->name,$usuario->name,$cargo->description,"venta nacional");
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }

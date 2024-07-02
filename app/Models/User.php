@@ -33,7 +33,8 @@ class User extends Authenticatable
         'fecha_ingreso',
         'fecha_retiro',
         'razon_retiro',
-        'status'
+        'status',
+        'direccion'
     ];
 
     /**

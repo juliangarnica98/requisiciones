@@ -30,6 +30,7 @@ class CreateStoresTable extends Migration
             $table->string('ano_cierre')->nullable();
             $table->string('mes_solicitud')->nullable();
             $table->string('mes_cierre')->nullable();
+            $table->text('comentarios')->nullable();
 
             $table->string('person')->nullable();
             $table->string('reason_sus')->nullable();

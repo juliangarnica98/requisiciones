@@ -78,7 +78,7 @@
                                 <div class="card-body">
                                     <div class="row ">
                                         
-                                        <div class="col-md-1 text-center"> <b class="h4" style="text-transform: uppercase;"> {{ rq.id }} </b></div>
+                                        <div class="col-md-1 text-center"> <b class="h4" style="text-transform: uppercase;"> {{ rq.activation.id }} </b></div>
                                         <div class="col-md-1 text-center"><b>{{rq.activation_charge.description}}</b> </div>
                                         <div class="col-md-2 text-center"><b>{{rq.name_store}}</b> </div>
                                         

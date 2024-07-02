@@ -26,9 +26,12 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Traits\comercial\SendAnalista;
 
 class RequisitionController extends Controller
 {
+    use SendAnalista;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -196,10 +199,15 @@ class RequisitionController extends Controller
     }
     public function update(Request $request)
     {
+        $reclutador = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Recruiter');
+        })->whereRaw("CONCAT(name, ' ', last_name) LIKE ?", ["%$request->reclutador%"])
+        ->first();
         switch ($request->area) {
 
             case 'tienda':
                 $data=Store::where('id',$request->id)->first();
+                $cargo = Activation_charge::find($data->activation_charge_id);
                 if($request->substate){
                     $data->status=$request->estado_envio;
                     $data->substate=$request->substate;
@@ -208,11 +216,13 @@ class RequisitionController extends Controller
                 }
                 if($request->reclutador != ""){
                     $data->reclutador = $request->reclutador;
+                    $this->send_analista("Asignación de vacante",$reclutador->name,$reclutador->email,'200000000099380',$cargo->description,$data->name_store);
                 }
                 $data->save();
                 break;
             case 'venta_nal':
                 $data=National_sale::where('id',$request->id)->first();
+                $cargo = Activation_charge::find($data->activation_charge_id);
                 if($request->substate){
                     $data->status=$request->estado_envio;
                     $data->substate=$request->substate;
@@ -221,6 +231,7 @@ class RequisitionController extends Controller
                 }
                 if($request->reclutador != ""){
                     $data->reclutador = $request->reclutador;
+                    $this->send_analista("Asignación de vacante",$reclutador->name,$reclutador->email,'200000000099380',$cargo->description,"Venta nacional");
                 }
                 $data->save();
                 break;

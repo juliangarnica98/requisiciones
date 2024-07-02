@@ -78,7 +78,7 @@ class AnswersController extends Controller
 
 
         $usuario_log = User::where('id', $id)->first();
-        $data['fecha'] = date("d/m/Y", strtotime($usuario_log->created_at)); 
+        $data['fecha'] = $usuario_log->fecha_ingreso; 
 
         return response()->json(['status'=> 'success','data'=> $data],200);
     }
