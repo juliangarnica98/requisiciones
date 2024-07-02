@@ -98,7 +98,7 @@
                                                 <div class="col-md-2">
                                                     <div v-if="rq.fecha_ingreso == null && rq.status== 'EN GESTION'" >
                                                         <a class="link text-white" data-bs-toggle="modal" :data-bs-target="'#'+area+'-'+rq.id"><i class="fas fa-pencil-alt"></i></a>    
-                                                        <Edit @traerdata="getRequisitions2" :substate="rq.substate" :estado="rq.status" :area="area" :id="rq.id"/>
+                                                        <Edit @traerdata="getRequisitions2" :comentarios="rq.comentarios" :substate="rq.substate" :estado="rq.status" :area="area" :id="rq.id"/>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">

@@ -218,6 +218,7 @@ class RequisitionController extends Controller
                 }else{
                     $data->status=$request->estado_envio;
                 }
+                $data->comentarios=$request->comentarios;
                 $data->save();
                 break;
             case 'tienda':
@@ -228,6 +229,7 @@ class RequisitionController extends Controller
                 }else{
                     $data->status=$request->estado_envio;
                 }
+                $data->comentarios=$request->comentarios;
                 $data->save();
                 break;
             case 'cedi':
@@ -238,6 +240,7 @@ class RequisitionController extends Controller
                 }else{
                     $data->status=$request->estado_envio;
                 }
+                $data->comentarios=$request->comentarios;
                 $data->save();
                 break;
             case 'factory':
@@ -248,6 +251,7 @@ class RequisitionController extends Controller
                 }else{
                     $data->status=$request->estado_envio;
                 }
+                $data->comentarios=$request->comentarios;
                 $data->save();
                 break;
             case 'venta_nal':
@@ -258,6 +262,7 @@ class RequisitionController extends Controller
                 }else{
                     $data->status=$request->estado_envio;
                 }
+                $data->comentarios=$request->comentarios;
                 $data->save();
                 break;
             default:

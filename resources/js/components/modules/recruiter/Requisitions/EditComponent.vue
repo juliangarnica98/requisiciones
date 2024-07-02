@@ -40,6 +40,13 @@
 
                 </div>
 
+                <div class="">
+                  <h5 class="text-center title mt-3">COMENTARIOS</h5>
+                  <textarea class="form-control" v-model="form.comentarios"  name="" id="" cols="15" rows="5"></textarea>
+                </div>
+
+
+
 
 
 
@@ -67,6 +74,9 @@
     export default {  
         
         props:{
+          comentarios:{
+            type:String,
+          },
           estado:{
             type:String,
           },
@@ -90,7 +100,8 @@
                 id_modal:this.$props.area+'-'+this.$props.id,
                 substate:this.$props.substate,
                 estado_envio:"",
-                substate:""
+                substate:"",
+                comentarios:this.$props.comentarios,
               },
             }
         },
@@ -102,7 +113,7 @@
                 this.form.estado = this.form.estado_envio;
                 if(this.form.estado == ""  ){
                       this.form.estado = 'EN GESTION'
-                      console.log(1);
+
                     }
                 this.$refs.Close2.click();
                 // setTimeout(() => {
@@ -117,7 +128,8 @@
             this.form.area = this.area
             this.form.id = this.id
             this.form.substate = this.substate
-            this.form.id_modal = this.area+'-'+this.id           
+            this.form.id_modal = this.area+'-'+this.id  
+            this.form.comentarios = this.comentarios         
           }
         },
     

@@ -131,7 +131,7 @@ class RequisitionController extends Controller
                     $data->reason_rechazo=$request->comments;
                     $data->status= 'CANCELADA';
                     try {
-                        $this->send_rechazo("Rechazo de solicitud",$usuario->name,$usuario->email,'200000000099375',$cargo->description,$store->name_store,$request->comments);
+                        $this->send_rechazo("Rechazo de solicitud N° ".$requisition->id,$usuario->name,$usuario->email,'200000000099375',$cargo->description,$store->name_store,$request->comments);
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }
@@ -139,8 +139,8 @@ class RequisitionController extends Controller
                     $data->aprobacion= 1 ;
                     $data->created_at = date('Y-m-d H:i:s');
                     try {
-                        $this->send_aprobacion("Aprobación de solicitud",$usuario->name,$usuario->email,'200000000099374',$cargo->description,$store->name_store);
-                        $this->send_especialista("Aprobación de solicitud","sofia","sofia.gonzalez@fastmoda.com.co",'200000000099378',$generalista->name,$store->boss,$cargo->description,$store->name_store);
+                        $this->send_aprobacion("Aprobación de solicitud N° ".$requisition->id,$usuario->name,$usuario->email,'200000000099374',$cargo->description,$store->name_store);
+                        $this->send_especialista("Aprobación de solicitud N° ".$requisition->id,"sofia","sofia.gonzalez@fastmoda.com.co",'200000000099378',$generalista->name,$store->boss,$cargo->description,$store->name_store);
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }
@@ -160,7 +160,7 @@ class RequisitionController extends Controller
                     $data->reason_rechazo=$request->comments;
                     $data->status= 'CANCELADA';
                     try {
-                        $this->send_email_r($subject,$usuario->name,$usuario->email,'200000000094183',$usuario->name,$cargo->description,$usuario->email,$request->comments);
+                        $this->send_email_r("Rechazo de solicitud N° ".$requisition->id,$usuario->name,$usuario->email,'200000000094183',$usuario->name,$cargo->description,$usuario->email,$request->comments);
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }
@@ -168,8 +168,8 @@ class RequisitionController extends Controller
                     $data->aprobacion= 1 ;
                     $data->created_at = date('Y-m-d H:i:s'); 
                     try {
-                        $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
-                        $this->send_especialista("Aprobación de solicitud","sofia","sofia.gonzalez@fastmoda.com.co",'200000000099378',$generalista->name,$usuario->name,$cargo->description,"venta nacional");
+                        $this->send_email_a("Aprobación de solicitud N° ".$requisition->id,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
+                        $this->send_especialista("Aprobación de solicitud N° ".$requisition->id,"sofia","sofia.gonzalez@fastmoda.com.co",'200000000099378',$generalista->name,$usuario->name,$cargo->description,"venta nacional");
                     } catch (\Throwable $th) {
                         Log::error($th->getMessage());
                     }

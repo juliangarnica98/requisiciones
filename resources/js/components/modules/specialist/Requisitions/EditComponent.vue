@@ -44,6 +44,10 @@
                       <option v-for="rc in this.reclutadores" :value="rc.name+' '+rc.last_name">{{ rc.name }} {{ rc.last_name }}</option>
                   </select>
                 </div>
+                <div class="">
+                  <h5 class="text-center title mt-3">COMENTARIOS</h5>
+                  <textarea class="form-control" v-model="form.comentarios"  name="" id="" cols="15" rows="5"></textarea>
+                </div>
             </div>
             <div class="row d-flex justify-content-center pb-2">
               <div class="col-md-5 d-grid gap-2">
@@ -63,6 +67,9 @@
     export default {  
         
         props:{
+          comentarios:{
+            type:String,
+          },
           estado:{
             type:String,
           },
@@ -91,7 +98,8 @@
                 id_modal:this.$props.area+'-'+this.$props.id,
                 reclutador:"",
                 estado_envio:"",
-                substate:""
+                substate:"",
+                comentarios:this.$props.comentarios,
               },
               reclutadores:{},
             }
@@ -125,7 +133,8 @@
             this.form.area = this.area
             this.form.id = this.id
             this.form.id_modal = this.area+'-'+this.id       
-            this.form.substate = this.substate    
+            this.form.substate = this.substate  
+            this.form.comentarios = this.comentarios      
           }
         },
         mounted(){

@@ -208,6 +208,7 @@ class RequisitionController extends Controller
             case 'tienda':
                 $data=Store::where('id',$request->id)->first();
                 $cargo = Activation_charge::find($data->activation_charge_id);
+                $requisition = Requisition::find($data->requisition_id);
                 if($request->substate){
                     $data->status=$request->estado_envio;
                     $data->substate=$request->substate;
@@ -216,13 +217,15 @@ class RequisitionController extends Controller
                 }
                 if($request->reclutador != ""){
                     $data->reclutador = $request->reclutador;
-                    $this->send_analista("Asignación de vacante",$reclutador->name,$reclutador->email,'200000000099380',$cargo->description,$data->name_store);
+                    $this->send_analista("Asignación de vacante n° ".$requisition->id,$reclutador->name,$reclutador->email,'200000000099380',$cargo->description,$data->name_store);
                 }
+                $data->comentarios=$request->comentarios;
                 $data->save();
                 break;
             case 'venta_nal':
                 $data=National_sale::where('id',$request->id)->first();
                 $cargo = Activation_charge::find($data->activation_charge_id);
+                $requisition = Requisition::find($data->requisition_id);
                 if($request->substate){
                     $data->status=$request->estado_envio;
                     $data->substate=$request->substate;
@@ -231,8 +234,9 @@ class RequisitionController extends Controller
                 }
                 if($request->reclutador != ""){
                     $data->reclutador = $request->reclutador;
-                    $this->send_analista("Asignación de vacante",$reclutador->name,$reclutador->email,'200000000099380',$cargo->description,"Venta nacional");
+                    $this->send_analista("Asignación de vacante n° ".$requisition->id,$reclutador->name,$reclutador->email,'200000000099380',$cargo->description,"Venta nacional");
                 }
+                $data->comentarios=$request->comentarios;
                 $data->save();
                 break;
             default:

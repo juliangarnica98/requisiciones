@@ -152,8 +152,8 @@ class RequisitionController extends Controller
 
                 $userSendEmail = User::where('type','web')->where('email',$request->generalista)->first();
                 try {
-                    $this->send_email_rqs($subject,$userSendEmail->name,$userSendEmail->email,'200000000095609', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id,$request->nombre);
-                    $this->send_jefe("Activación de vacante",$usuario->name,$usuario->email,'200000000099371',$cargo->description,$request->nombre,$usuario->name);
+                    $this->send_email_rqs("Activación de vacante N°".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095609', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id,$request->nombre);
+                    $this->send_jefe("Activación de vacante N°".$requisition->id,$usuario->name,$usuario->email,'200000000099371',$cargo->description,$request->nombre,$usuario->name);
                 } catch (\Throwable $th) {
                     Log::error($th->getMessage());
                 }
@@ -175,11 +175,11 @@ class RequisitionController extends Controller
                 $admin->person = $request->person;
                 $admin->ano_solicitud = date("Y");
                 $admin->mes_solicitud = date("m");
-                $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
+                $this->send_email_a("Activación de vacante N° ".$requisition->id,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
 
                 $userSendEmail = User::where('type','web')->where('email','generalista.admin@fastmoda.com.co')->first();
                 try {
-                    $this->send_email_rqa($subject,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
+                    $this->send_email_rqa("Activación de vacante N° ".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
                 } catch (\Throwable $th) {
                     Log::error($th->getMessage());
                 }
@@ -200,11 +200,11 @@ class RequisitionController extends Controller
                 $cedi->person = $request->person;
                 $cedi->ano_solicitud = date("Y");
                 $cedi->mes_solicitud = date("m");
-                $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
+                $this->send_email_a("Activación de vacante N° ".$requisition->id,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
 
                 $userSendEmail = User::where('type','web')->where('email','generalista.cedis@fastmoda.com.co')->first();
                 try {
-                    $this->send_email_rqa($subject,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
+                    $this->send_email_rqa("Activación de vacante N° ".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
                 } catch (\Throwable $th) {
                     Log::error($th->getMessage());
                 }
@@ -225,11 +225,11 @@ class RequisitionController extends Controller
                 $factory->person = $request->person;
                 $factory->ano_solicitud = date("Y");
                 $factory->mes_solicitud = date("m");
-                $this->send_email_a($subject,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
+                $this->send_email_a("Activación de vacante N° ".$requisition->id,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
                 
                 $userSendEmail = User::where('type','web')->where('email','generalista.cedis@fastmoda.com.co')->first();
                 try {
-                    $this->send_email_rqa($subject,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
+                    $this->send_email_rqa("Activación de vacante N° ".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
                 } catch (\Throwable $th) {
                     Log::error($th->getMessage());
                 }
@@ -253,8 +253,8 @@ class RequisitionController extends Controller
                 $national_sale->mes_solicitud = date("m");
                 $userSendEmail = User::where('type','web')->where('email',$request->generalista)->first();
                 try {
-                    $this->send_national("Activación de vacante",$usuario->name,$usuario->email,'200000000099405',$cargo->description,$ciudad->description);
-                    $this->send_email_rqv($subject,$userSendEmail->name,$userSendEmail->email,'200000000095705', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id,$ciudad->description);
+                    $this->send_national("Activación de vacante N° ".$requisition->id,$usuario->name,$usuario->email,'200000000099405',$cargo->description,$ciudad->description);
+                    $this->send_email_rqv("Activación de vacante N° ".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095705', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id,$ciudad->description);
                 } catch (\Throwable $th) {
                     Log::error($th->getMessage());
                 }
