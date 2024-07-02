@@ -74,6 +74,7 @@
                     </div>
                     <div class="row">
                         <div v-for="rq in listaRequisition.data" class="card-requition">
+                            
                             <div class="card border-none" v-if="rq.reclutador == nombre_usuario"  :class="{ estado_abierto: rq.status == 'ABIERTA', estado_cerrado: rq.status == 'CERRADA' ,estado_engestion: rq.status == 'EN GESTION',estado_cancelado: rq.status == 'CANCELADA' ,estado_suspendido: rq.status == 'SUSPENDIDA' }">
                                 <div class="card-body">
                                     <!--  -->
@@ -168,7 +169,7 @@ import Edit2 from './EditComponent2.vue'
             getRequisitions(page = 1){
                 axios.get('/recruiter/getrequisition?page='+page)
                 .then((res) => { 
-                    this.nombre_usuario = res.data.nombre;
+                    this.nombre_usuario = res.data.nombre.trim() ;
                     if (this.area == 'tienda') {
                         this.listaRequisition = res.data.store;  
                     } else if(this.area == 'admin') {
