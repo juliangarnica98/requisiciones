@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'handle403' => \App\Http\Middleware\Handle403::class,
         'CheckRoute' => \App\Http\Middleware\CheckRoute::class,
+        'redirectIfAuthenticated' => \App\Http\Middleware\RedirectIfAuthenticated::class,
     ];
 }

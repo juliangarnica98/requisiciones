@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/getDiasHabiles',[App\Http\Controllers\recruiter\RequisitionController::class, 'getDiasHabiles']);
 
 Route::get('/', function () {
-    // return view('welcome');
     return redirect('/login');
+});
+Route::get('/login', function () {
+    return url()->previous();
 });
 
 Auth::routes(['register' => false]);

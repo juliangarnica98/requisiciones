@@ -32,7 +32,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    //protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = '/';
 
     public function redirectTo(){
     
@@ -55,6 +55,7 @@ class LoginController extends Controller
                 elseif(Auth::user()->hasRole('Generalist_comercial')){
                     return '/generalistcomercial/dashboard';
                 }
+                
             
         } catch (UnauthorizedException $e) {
             Auth::logout();
