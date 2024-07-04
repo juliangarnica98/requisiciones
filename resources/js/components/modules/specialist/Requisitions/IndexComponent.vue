@@ -139,6 +139,9 @@
                                                                 <Edit2 @traerdata="getRequisitions2" :estado="rq.status" :area="area" :id="rq.id"/>
                                                             </div>
                                                         </div>
+                                                        <div class="col-md-2 text-white" >
+                                                            <a href="" class="link text-white "><i class="fas fa-window-close"></i></a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,6 +206,13 @@ import Edit2 from './EditComponent2.vue'
                 return emitModal1 = !emitModal1
             },
 
+            cancelr(id,area){
+                // axios.post('/specialist/requisicion/store', this.form).then((res) => {
+                // this.$toast.success(res.data);
+                // this.$router.push('/specialist/requisiciones');
+                // });
+                console.log(id);
+            },
             getRequisitions(page = 1){
                 axios.get('/specialist/getrequisition?page='+page)
                 .then((res) => { 
