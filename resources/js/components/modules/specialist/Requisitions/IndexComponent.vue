@@ -139,8 +139,8 @@
                                                                 <Edit2 @traerdata="getRequisitions2" :estado="rq.status" :area="area" :id="rq.id"/>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-2 text-white" >
-                                                            <a href="" class="link text-white "><i class="fas fa-window-close"></i></a>
+                                                        <div class="col-md-2 text-white" v-if="rq.status!= 'CANCELADA' &&  rq.status != 'CERRADA'" >
+                                                            <a @click.prevent="cancelr(rq.id)" class="link text-white "><i class="fas fa-window-close"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -198,6 +198,10 @@ import Edit2 from './EditComponent2.vue'
                 listaRequisitionFactory:{},
 
                 emitModal1:false,
+                form:{
+                    area:this.area,
+                    id:null
+                }
             }
         },
         methods:{
@@ -206,12 +210,26 @@ import Edit2 from './EditComponent2.vue'
                 return emitModal1 = !emitModal1
             },
 
-            cancelr(id,area){
-                // axios.post('/specialist/requisicion/store', this.form).then((res) => {
+            cancelr(id){
+                this.form.id = id;
+                this.form.area = this.area;
+                this.$swal({
+                title: '¿Estas seguro de cancelar solicitud?',
+                showCancelButton: true,
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post('/specialist/requisicion/detele', this.form)
+                    .then((res) => {
+                        this.$toast.success(res.data);
+                        this.getRequisitions();
+                    });
+                }
+                })
+                // axios.post('/specialist/requisicion/detele', this.form).then((res) => {
                 // this.$toast.success(res.data);
-                // this.$router.push('/specialist/requisiciones');
+                // this.getRequisitions();
                 // });
-                console.log(id);
+                
             },
             getRequisitions(page = 1){
                 axios.get('/specialist/getrequisition?page='+page)
@@ -390,6 +408,9 @@ import Edit2 from './EditComponent2.vue'
             },
             comCreador(params){
                 return params == this.id_usuario ? 1 : 0;
+            },
+            resetForm(){
+                this.form.id=null
             }
 
         },
@@ -402,8 +423,7 @@ import Edit2 from './EditComponent2.vue'
             }
         },
         computed:{
-        }
-        
+        },        
     }
 </script>
 <style scoped>

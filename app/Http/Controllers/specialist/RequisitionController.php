@@ -423,4 +423,28 @@ class RequisitionController extends Controller
         }
         return count($diashabiles);
     }
+
+    public function delete(Request $request){
+        switch ($request->area) {
+            case 'tienda':
+                $data=Store::find($request->id);
+                $data->status = 'CANCELADA';
+                $data->reclutador = 'SIN ASIGNACIÓN';
+                $data->rechazo = 0;
+                $data->aprobacion =0;
+                $data->save();
+                break;
+            case 'venta_nal':
+                $data=National_sale::find($request->id);
+                $data->status = 'CANCELADA';
+                $data->reclutador = 'SIN ASIGNACIÓN';
+                $data->rechazo = 0;
+                $data->aprobacion =0;
+                $data->save();
+                break;
+            default:
+                break;
+        }
+        return "Se ha cancelado con exito";
+    }
 }

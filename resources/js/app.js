@@ -39,7 +39,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import VueApexCharts from 'vue-apexcharts'
 
 const options = {
-  confirmButtonColor: '#81D3D0',
+  confirmButtonColor: '#6166AF',
   cancelButtonColor: '#E52B7F',
   confirmButtonText: 'CONFIRMAR',
   cancelButtonText: `CANCELAR`,

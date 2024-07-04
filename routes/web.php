@@ -232,6 +232,7 @@ Route::group(['prefix' => 'specialist','middleware' => ['auth','handle403','role
     Route::post('/requisicion/edit2', [App\Http\Controllers\specialist\RequisitionController::class, 'update2']);
     Route::get('/getrequisitions', [App\Http\Controllers\specialist\RequisitionController::class, 'getDataRq']);
     Route::get('/getreclutadoras',[App\Http\Controllers\specialist\RequisitionController::class, 'getreclutadoras']);
+    Route::post('/requisicion/detele',[App\Http\Controllers\specialist\RequisitionController::class, 'delete']);
     //rutas de entrevista
     Route::post('/entrevista/store', [App\Http\Controllers\specialist\InterviewController::class, 'store']);
     Route::get('/entrevistas/{id}',[App\Http\Controllers\specialist\HomeController::class, 'index']);
