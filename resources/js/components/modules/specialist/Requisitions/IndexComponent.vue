@@ -122,8 +122,8 @@
                                                 <div class="col-md-12 h4">
                                                     <div class="row d-flex justify-content-center">
                                                         <div class="col-md-2 text-white" v-if="rq.aprobacion ==1">
-                                                            <div v-if="rq.fecha_ingreso == null && rq.status !='CANCELADA'" >                                                                
-                                                                <Edit @traerdata="getRequisitions2" :comentarios="rq.comentarios" :substate="rq.substate" :estado="rq.status" :area="area" :id="rq.id" :creador="comCreador(rq.requisition.user_id)"/>
+                                                            <div v-if="rq.fecha_ingreso == null && rq.status !='CANCELADA'" >
+                                                                <Edit :ref="rq.id" @traerdata="getRequisitions2" :comentarios="rq.comentarios" :substate="rq.substate" :estado="rq.status" :area="area" :id="rq.id" :creador="comCreador(rq.requisition.user_id)"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-2 text-white">
@@ -222,6 +222,7 @@ import Edit2 from './EditComponent2.vue'
                     }else{
                         this.listaRequisition = res.data.store;  
                     }
+                    // console.log("listaRequisition::",this.listaRequisition);
                     this.listaRequisitionAdmin = res.data.admin; 
                     this.listaRequisitionCedi = res.data.cedi;
                     this.listaRequisitionFactory = res.data.factory;   

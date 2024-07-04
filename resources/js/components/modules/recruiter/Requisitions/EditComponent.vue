@@ -130,6 +130,14 @@
             this.form.substate = this.substate
             this.form.id_modal = this.area+'-'+this.id  
             this.form.comentarios = this.comentarios         
+          },
+          id(){
+            this.form.estado = this.estado
+            this.form.area = this.area
+            this.form.id = this.id
+            this.form.id_modal = this.area+'-'+this.id       
+            this.form.substate = this.substate  
+            this.form.comentarios = this.comentarios 
           }
         },
     

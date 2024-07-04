@@ -125,7 +125,14 @@
             this.form.area = this.area
             this.form.id = this.id
             this.form.id_modal = this.area+'-'+this.id       
-            this.form.substate = this.substate    
+            this.form.substate = this.substate      
+          },
+          id(){
+            this.form.estado = this.estado
+            this.form.area = this.area
+            this.form.id = this.id
+            this.form.id_modal = this.area+'-'+this.id       
+            this.form.substate = this.substate  
           }
         },
         mounted(){

@@ -50,7 +50,6 @@
         data() {
             return {
               form:{
-                
                 area:this.$props.area,
                 id:this.$props.id,
                 id_modal:this.$props.area+'-'+this.$props.id,
@@ -74,6 +73,23 @@
                 });
               }
             },
+        },
+        watch: {
+          area(){
+            this.form.estado = this.estado
+            this.form.area = this.area
+            this.form.id = this.id
+            this.form.id_modal = this.area+'-'+this.id       
+            this.form.substate = this.substate  
+          
+          },
+          id(){
+            this.form.estado = this.estado
+            this.form.area = this.area
+            this.form.id = this.id
+            this.form.id_modal = this.area+'-'+this.id       
+            this.form.substate = this.substate  
+          }
         },
 
 

@@ -1,6 +1,9 @@
 <template>
 <div>
-  <a class="link text-white" data-bs-toggle="modal" :data-bs-target="'#'+area+'-'+id"><i class="fas fa-pencil-alt"></i></a>
+  <a class="link text-white" data-bs-toggle="modal" :data-bs-target="'#'+area+'-'+id">
+    <i class="fas fa-pencil-alt"></i>
+  </a>
+
   <div class="modal fade" :id="form.id_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content" >
@@ -104,6 +107,7 @@
               reclutadores:{},
             }
         },
+        
         methods:{
             EditInterview(){
               if (this.form.estado_envio == "EN GESTION" && this.form.reclutador == "" && this.form.substate == '' ) {
@@ -135,6 +139,14 @@
             this.form.id_modal = this.area+'-'+this.id       
             this.form.substate = this.substate  
             this.form.comentarios = this.comentarios      
+          },
+          id(){
+            this.form.estado = this.estado
+            this.form.area = this.area
+            this.form.id = this.id
+            this.form.id_modal = this.area+'-'+this.id       
+            this.form.substate = this.substate  
+            this.form.comentarios = this.comentarios 
           }
         },
         mounted(){

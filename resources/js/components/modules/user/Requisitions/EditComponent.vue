@@ -1,5 +1,7 @@
 <template>
-    <div class="modal fade" :id="form.id_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+  <div class="modal fade" :id="id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content" >
             <div class="modal-body">
@@ -75,6 +77,20 @@
                 }
               });
             },
+        },
+        watch: {
+          area(){
+            this.form.estado = this.estado
+            this.form.area = this.area
+            this.form.id = this.id
+            this.form.id_modal = this.area+'-'+this.id           
+          },
+          id(){
+            this.form.estado = this.estado
+            this.form.area = this.area
+            this.form.id = this.id
+            this.form.id_modal = this.area+'-'+this.id       
+          }
         },
     
     }

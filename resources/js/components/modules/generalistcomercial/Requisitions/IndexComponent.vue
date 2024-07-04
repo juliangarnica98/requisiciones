@@ -94,7 +94,7 @@
                                                     <div class="row d-flex justify-content-center">
                                                         
                                                         <div class="col-md-2 text-white">
-                                                            <div  v-if="rq.aprobacion ===0 && rq.rechazo ===0">                                                                
+                                                            <div  v-if="(rq.aprobacion ===0 && rq.rechazo ===0 && rq.status!='CANCELADA' && rq.status!='SUSPENDIDA' )">                                                                
                                                                 <Edit @traerdata="getRequisitions2" :substate="rq.substate" :estado="rq.status" :area="area" :id="rq.id" :creador="comCreador(rq.requisition.user_id)"/>
                                                             </div>
                                                         </div>
