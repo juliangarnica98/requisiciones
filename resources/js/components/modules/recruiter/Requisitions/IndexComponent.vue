@@ -110,9 +110,17 @@
                                             
                                             
                                             <div v-if="area == 'tienda' || area == 'venta_nal' " class="col-md-3 text-center"><b  style="text-transform: uppercase;">{{rq.requisition.user.name}} {{rq.requisition.user.last_name}}</b> </div>
-                                            <div class="col-md-2 text-center" v-if="rq.aprobacion ===0 && rq.rechazo ===0  && (area == 'tienda' || area == 'venta_nal' )"><b style="text-transform: uppercase;" >SIN ASIGNACIÓN</b> </div>
+                                            <div v-if="area == 'tienda' || area == 'venta_nal'" class="col-md-2 text-center d-flex justify-content-center aling-items-center"><b> 
+                                                <div class="" v-if="rq.status == 'EN GESTION'">
+                                                    {{ rq.status }} - {{ rq.substate }}
+                                                </div>
+                                                <div class="" v-else>
+                                                    {{ rq.status }}
+                                                </div>
+                                            </b></div>
+                                            <!-- <div class="col-md-2 text-center" v-if="rq.aprobacion ===0 && rq.rechazo ===0  && (area == 'tienda' || area == 'venta_nal' )"><b style="text-transform: uppercase;" >SIN ASIGNACIÓN</b> </div>
                                             <div class="col-md-2 text-center" v-if="rq.aprobacion ===1  && (area == 'tienda' || area == 'venta_nal' )"><b style="text-transform: uppercase;" v-if="rq.aprobacion ===1">ACEPTADA</b>  <div> <b>{{rq.reclutador}}</b></div></div>
-                                            <div class="col-md-2 text-center" v-if="rq.rechazo ===1  && (area == 'tienda' || area == 'venta_nal' )"><b style="text-transform: uppercase;" >RECHAZADA</b> </div>
+                                            <div class="col-md-2 text-center" v-if="rq.rechazo ===1  && (area == 'tienda' || area == 'venta_nal' )"><b style="text-transform: uppercase;" >RECHAZADA</b> </div> -->
                                         
                                     <div class="col-md-2 text-center">
                                             

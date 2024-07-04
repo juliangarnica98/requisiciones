@@ -19,11 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/getDiasHabiles',[App\Http\Controllers\recruiter\RequisitionController::class, 'getDiasHabiles']);
 
 Route::get('/', function () {
-    return redirect('/login');
-});
+    return redirect()->intended(url()->previous());
+})->middleware('redirectIfAuthenticated');
+
 Route::get('/login', function () {
-    return url()->previous();
-});
+    return redirect()->intended(url()->previous());
+})->middleware('redirectIfAuthenticated');
 
 Auth::routes(['register' => false]);
 
