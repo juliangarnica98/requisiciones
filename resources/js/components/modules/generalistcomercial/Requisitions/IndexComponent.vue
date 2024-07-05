@@ -38,7 +38,7 @@
             <div class="col-md-3">
                 <select class=" form-select" name="filtro_estado" id="filtro_estado" v-model="filtro_estado" @change="filtrarEstado($event)">
                     <option value="">SELECCIONAR ESTADO</option>
-                    <option value="CANCELAR">CANCELADA</option>
+                    <option value="CANCELADA">CANCELADA</option>
                     <option value="ABIERTA">ABIERTA</option>
                     <option value="EN GESTION">EN GESTION</option>
                     <option value="CERRADA">CERRADA</option>
@@ -79,13 +79,25 @@
                                     <div class="row ">
                                         
                                         <div class="col-md-1 text-center"> <b class="h4" style="text-transform: uppercase;"> {{ rq.activation.id }} </b></div>
-                                        <div class="col-md-1 text-center"><b>{{rq.activation_charge.description}}</b> </div>
+                                        <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
                                         <div class="col-md-2 text-center"><b>{{rq.name_store}}</b> </div>
                                         
                                         
-                                        <div class="col-md-4 text-center"><b  style="text-transform: uppercase;">{{rq.requisition.user.name}} {{rq.requisition.user.last_name}}</b> </div>
+                                        <div class="col-md-3 text-center"><b  style="text-transform: uppercase;">{{rq.requisition.user.name}} {{rq.requisition.user.last_name}}</b> </div>
                                         <div class="col-md-2 text-center" v-if="rq.aprobacion ===0 && rq.rechazo ===0"><b style="text-transform: uppercase;" >SIN ASIGNACIÓN</b> </div>
-                                        <div class="col-md-2 text-center" v-if="rq.aprobacion ===1"><b style="text-transform: uppercase;" v-if="rq.aprobacion ===1">ACEPTADA</b>  <div> <b>{{rq.reclutador}}</b></div></div>
+                                        <!-- <div class="col-md-2 text-center" v-if="rq.aprobacion ===1"><b style="text-transform: uppercase;" v-if="rq.aprobacion ===1">ACEPTADA</b>  <div> <b>{{rq.reclutador}}</b></div></div> -->
+                                        <div class="col-md-2 text-center" v-if="rq.aprobacion ===1"> <div> 
+                                            
+                                            <div class="border border-primary border-2 rounded-pill bg-primary" v-if="rq.status == 'EN GESTION' && rq.substate == 'RECLUTAMIENTO'">
+                                                {{rq.reclutador}} -{{ rq.substate }}
+                                            </div>
+                                            <div class="border border-warning border-2 rounded-pill bg-warning" v-if="rq.status == 'EN GESTION' && rq.substate == 'TERNA'">
+                                                {{rq.reclutador}}-{{ rq.substate }}
+                                            </div>
+                                            <div class="border border-success border-2 rounded-pill bg-success" v-if="rq.status == 'EN GESTION' && rq.substate == 'CONTRATACIÓN'">
+                                                {{rq.reclutador}}-{{ rq.substate }}
+                                            </div>
+                                        </div></div>
                                         <div class="col-md-2 text-center" v-if="rq.rechazo ===1"><b style="text-transform: uppercase;" >RECHAZADA</b> </div>
                                         <div class="col-md-2 text-center">
                                                 

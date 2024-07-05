@@ -21,7 +21,7 @@
             <div class="col-md-3">
                 <select class=" form-select" name="filtro_estado" id="filtro_estado" v-model="filtro_estado" @change="filtrarEstado($event)">
                     <option value="">SELECCIONAR ESTADO</option>
-                    <option value="CANCELAR">CANCELADA</option>
+                    <option value="CANCELADA">CANCELADA</option>
                     <option value="ABIERTA">ABIERTA</option>
                     <option value="EN GESTION">EN GESTION</option>
                     <option value="CERRADA">CERRADA</option>

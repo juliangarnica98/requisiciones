@@ -111,8 +111,14 @@
                                             
                                             <div v-if="area == 'tienda' || area == 'venta_nal' " class="col-md-3 text-center"><b  style="text-transform: uppercase;">{{rq.requisition.user.name}} {{rq.requisition.user.last_name}}</b> </div>
                                             <div v-if="area == 'tienda' || area == 'venta_nal'" class="col-md-2 text-center d-flex justify-content-center aling-items-center"><b> 
-                                                <div class="" v-if="rq.status == 'EN GESTION'">
-                                                    {{ rq.status }} - {{ rq.substate }}
+                                                <div class="border border-primary border-2 rounded-pill bg-primary" v-if="rq.status == 'EN GESTION' && rq.substate == 'RECLUTAMIENTO'">
+                                                    APROBADA -{{ rq.substate }}
+                                                </div>
+                                                <div class="border border-warning border-2 rounded-pill bg-warning" v-if="rq.status == 'EN GESTION' && rq.substate == 'TERNA'">
+                                                    APROBADA -{{ rq.substate }}
+                                                </div>
+                                                <div class="border border-success border-2 rounded-pill bg-success" v-if="rq.status == 'EN GESTION' && rq.substate == 'CONTRATACIÓN'">
+                                                    APROBADA -{{ rq.substate }}
                                                 </div>
                                                 <div class="" v-else>
                                                     {{ rq.status }}
