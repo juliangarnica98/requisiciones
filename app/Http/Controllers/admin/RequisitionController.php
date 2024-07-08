@@ -264,7 +264,28 @@ class RequisitionController extends Controller
 
     public function search(Request $request)
     {
-        dd($request->all());
-        // $data=Store::with(['activation_charge','category','regional','activation.type_activation','city','sex','requisition.user'])->first();
+        switch ($request->area) {
+            case 'admin':
+                $data['admin']=Administration::where('activation_id',$request->activation)->with(['activation_charge','activation.type_activation','city','sex','requisition.user','area_management','management'])->paginate(15);
+                break;
+            case 'tienda':
+                $data['store']=Store::where('activation_id',$request->activation)->with(['activation_charge','category','regional','activation.type_activation','city','sex','requisition.user'])->paginate(15);
+                break;
+            case 'cedi':
+                $data['cedi']=Cedi::where('activation_id',$request->activation)->with(['activation_charge','center_distribution','activation.type_activation','city','sex','requisition.user'])->paginate(15);
+                break;
+            case 'factory':
+                $data['factory']=Factory::where('activation_id',$request->activation)->with(['activation_charge','activation.type_activation','city','sex','requisition.user','area_factory'])->paginate(15);
+                break;
+            case 'venta_nal':
+                $data['national_sale']=National_sale::where('activation_id',$request->activation)->with(['activation_charge','activation.type_activation','city','sex','requisition.user','charge'])->paginate(15);
+        
+                break;
+            default:
+                break;
+        }
+        $data['regional']=Regional::get();
+
+        return response()->json($data);
     }
 }

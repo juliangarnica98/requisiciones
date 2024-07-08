@@ -24,7 +24,7 @@
 
         <div class="row d-flex justify-content-center pt-3"   >
             <div class="col-md-3">
-                <input type="text" class="form-control" v-model="formb.buscador_rq" @input="filtar">
+                <input type="text" class="form-control" v-model="buscador_rq" @input="filtar">
             </div>
             <div class="col-md-3">
                 <select v-if="area == 'tienda'" class=" form-select" name="filtro_regional" id="filtro_regional" v-model="filtro_regional" @change="traerJefesRegional($event)">
@@ -56,7 +56,7 @@
             <div class="col-md-2 text-center pt-3 pb-3" style="background-color: #f252a7;color:white">CANCELADA <i class="fas fa-window-close"></i></div>
             <div class="col-md-2 text-center pt-3 pb-3 border-right" style="background-color: #b0b0b0;color:white">SUSPENDIDA <i class="fas fa-grip-lines"></i></div>
         </div>
-
+        <!-- {{ this.listaRequisition.data }} -->
         <div class="padding  pt-3">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
@@ -216,9 +216,7 @@ import Edit2 from './EditComponent2.vue'
                     area:this.area,
                     id:null
                 },
-                // formb:{
-                //     buscador_rq:""
-                // }
+                buscador_rq:"",
 
             }
         },
@@ -267,7 +265,6 @@ import Edit2 from './EditComponent2.vue'
                     }else{
                         this.listaRequisition = res.data.store;  
                     }
-                    // console.log("listaRequisition::",this.listaRequisition);
                     this.listaRequisitionAdmin = res.data.admin; 
                     this.listaRequisitionCedi = res.data.cedi;
                     this.listaRequisitionFactory = res.data.factory;   
@@ -370,15 +367,42 @@ import Edit2 from './EditComponent2.vue'
                 
             },
             filtar(){
-                if (this.formb.buscador_rq == '') {
+                if (this.buscador_rq == '') {
                     this.getRequisitions();
                 } else {
-                    console.log(this.form.area);
-                    // axios.post('/requisiton/search/esp',this.formb)
-                    // .then((res) => {
-                        // this.listaRequisition = {},
-                        // this.listaRequisition = Object.assign(res.data.requisition, {});
-                    // });
+             
+                    axios.post('/requisiton/search/esp',
+                    {
+                        activation: this.buscador_rq,
+                        area : this.area
+                    })
+                    .then((res) => {
+                        this.listaRequisition = {};
+                        if (this.area == 'tienda') {
+                            this.listaRequisition = res.data.store;  
+                        } else if(this.area == 'admin') {
+                            this.listaRequisition = res.data.admin;  
+                        }
+                        else if(this.area == 'cedi') {
+                            this.listaRequisition = res.data.cedi; 
+                        }
+                        else if(this.area == 'factory') {
+                            this.listaRequisition = res.data.factory; 
+                        }
+                        else if(this.area == 'venta_nal') {
+                            this.listaRequisition = res.data.national_sale; 
+                        }else{
+                            this.listaRequisition = res.data.store;  
+                        }
+                        this.listaRequisitionAdmin = res.data.admin; 
+                        this.listaRequisitionCedi = res.data.cedi;
+                        this.listaRequisitionFactory = res.data.factory;   
+                        this.listaRequisitionNational_sale = res.data.national_sale;
+                        this.listaRequisitionStore= res.data.store;
+                        this.regionales=res.data.regional;
+                        this.id_usuario=res.data.user;
+                        
+                    });
                 }
 
             },
@@ -456,6 +480,7 @@ import Edit2 from './EditComponent2.vue'
 
         },
         watch:{
+
         }        
     }
 </script>
