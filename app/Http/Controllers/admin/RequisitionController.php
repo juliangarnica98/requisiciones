@@ -261,4 +261,10 @@ class RequisitionController extends Controller
         }
         return "Se ha modificado estado con exito";
     }
+
+    public function search(Request $request)
+    {
+        dd($request->all());
+        // $data=Store::with(['activation_charge','category','regional','activation.type_activation','city','sex','requisition.user'])->first();
+    }
 }

@@ -312,4 +312,5 @@ Route::group(['prefix' => 'generalistcomercial','middleware' => ['auth','handle4
 });
 
 Route::post('/interview/search',[App\Http\Controllers\admin\InterviewController::class, 'search']);
+Route::post('/requisiton/search/esp',[App\Http\Controllers\admin\RequisitionController::class, 'search']);
 Route::get('/traerjefe',[App\Http\Controllers\Api\admin\UsersController::class, 'UserBoss']);

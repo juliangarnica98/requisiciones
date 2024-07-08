@@ -24,6 +24,9 @@
 
         <div class="row d-flex justify-content-center pt-3"   >
             <div class="col-md-3">
+                <input type="text" class="form-control" v-model="formb.buscador_rq" @input="filtar">
+            </div>
+            <div class="col-md-3">
                 <select v-if="area == 'tienda'" class=" form-select" name="filtro_regional" id="filtro_regional" v-model="filtro_regional" @change="traerJefesRegional($event)">
                     <option value="">SELEECIONAR REGIONAL</option>
                     <option value="" v-for="regi in regionales" :value="regi.description"> {{ regi.description }}</option>
@@ -188,13 +191,13 @@ import Edit2 from './EditComponent2.vue'
                 filtro_regional:"",
                 filtro_jefe:"",
                 filtro_estado:"",
-
+                
                 creador:"",
                 id_usuario:"",
 
                 regionales:{},
                 jefes_zona:{},
-
+                // buscador_rq:"",
                 area:"tienda",
                 admin:false,
                 tienda:true,
@@ -212,7 +215,11 @@ import Edit2 from './EditComponent2.vue'
                 form:{
                     area:this.area,
                     id:null
-                }
+                },
+                // formb:{
+                //     buscador_rq:""
+                // }
+
             }
         },
         methods:{
@@ -220,7 +227,6 @@ import Edit2 from './EditComponent2.vue'
             {
                 return emitModal1 = !emitModal1
             },
-
             cancelr(id){
                 this.form.id = id;
                 this.form.area = this.area;
@@ -363,6 +369,19 @@ import Edit2 from './EditComponent2.vue'
                 }
                 
             },
+            filtar(){
+                if (this.formb.buscador_rq == '') {
+                    this.getRequisitions();
+                } else {
+                    console.log(this.form.area);
+                    // axios.post('/requisiton/search/esp',this.formb)
+                    // .then((res) => {
+                        // this.listaRequisition = {},
+                        // this.listaRequisition = Object.assign(res.data.requisition, {});
+                    // });
+                }
+
+            },
             traerJefesRegional(event){
                 axios.get(`/specialist/getjefes/`+event.target.value+`/`+this.area)
                 .then((res) => { 
@@ -434,7 +453,10 @@ import Edit2 from './EditComponent2.vue'
             }
         },
         computed:{
-        },        
+
+        },
+        watch:{
+        }        
     }
 </script>
 <style scoped>

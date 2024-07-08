@@ -262,6 +262,7 @@ export default {
             end_date:"",
             cargos_comercial:['ASESOR PUNTO DE COMPRA',
                     'ASESOR INTEGRAL TEMPORADA',
+                    'ASESOR INTEGRAL',
                     'AUXILIAR INTEGRAL',
                     'CAJERO',
                     'COORDINADOR DE TIENDA',

@@ -31,7 +31,7 @@
                                 <!-- <i class="bx bxs-user-account icon"></i> -->
                                 <i class='bx bxs-user-detail icon'></i>
                                 <span v-if="area =='1'" class="text nav-text"
-                                    >REGIONALES</span
+                                    >REGIONAL</span
                                 >
                                 <span v-if="area =='5'" class="text nav-text"
                                     >VENTA NAL</span

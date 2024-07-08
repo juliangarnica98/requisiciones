@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\director;
+namespace App\Http\Controllers\boss;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -15,10 +15,13 @@ class HomeController extends Controller
 
     public function index()
     {
-        $user_name = auth()->user()->name;
+        $user_name = auth()->user()->name;   
         $last_name = auth()->user()->last_name;
         $usuario =  User::where('id',auth()->id())->first();
         $area = $usuario->area;
-        return view('director',compact('user_name','last_name','area'));
+        return view('boss',compact('user_name','last_name','area'));
+
     }
+
+  
 }
