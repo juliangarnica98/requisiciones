@@ -24,7 +24,7 @@
 
         <div class="row d-flex justify-content-center pt-3"   >
             <div class="col-md-3">
-                <input type="text" class="form-control" v-model="buscador_rq" @input="filtar">
+                <input type="text" class="form-control" v-model="buscador_rq" @input="filtar" placeholder="N° RQ">
             </div>
             <div class="col-md-3">
                 <select v-if="area == 'tienda'" class=" form-select" name="filtro_regional" id="filtro_regional" v-model="filtro_regional" @change="traerJefesRegional($event)">
@@ -404,7 +404,6 @@ import Edit2 from './EditComponent2.vue'
                         
                     });
                 }
-
             },
             traerJefesRegional(event){
                 axios.get(`/specialist/getjefes/`+event.target.value+`/`+this.area)
@@ -532,6 +531,16 @@ import Edit2 from './EditComponent2.vue'
         background-color: var(--primary-color);
         color: var(--toggle-color);
     } 
+    input{
+        background-color: transparent;
+        border-top:none ;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: var(--primary-color) 2px solid;
+        color: var(--text-dark-color);
+        border-radius: 0;
+        text-align: center;
+    }
     select{
         background-color: transparent;
         border-top:none ;
