@@ -105,7 +105,10 @@
                                                 ACEPTADA -{{ rq.substate }}
                                             </div>
                                         </div></div>
-                                        <div class="col-md-2 text-center" v-if="rq.rechazo ===1"><b style="text-transform: uppercase;" >RECHAZADA</b> </div>
+                                        <div class="col-md-2 text-center" v-if="rq.rechazo ===1 && rq.status =='CANCELADA'">
+                                            <div class="border border-danger border-2 rounded-pill bg-danger" >RECHAZADA/CANCELADA </div> 
+                                        </div>
+                           
                                         <!-- <div class="col-md-3 text-center"> <b style="text-transform: uppercase;"> {{rq.requisition.user.name}} {{rq.requisition.user.last_name}} - {{ rq.created_at | fecha}}</b></div>
                                         <div class="col-md-1 text-center d-flex justify-content-center aling-items-center" v-if="rq.rechazo"><b> 
                                             <div class="" v-if="rq.rechazo == 1">RECHAZADA</div>

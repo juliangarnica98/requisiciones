@@ -120,6 +120,9 @@
                                                 <div class="border border-success border-2 rounded-pill bg-success" v-if="rq.status == 'EN GESTION' && rq.substate == 'CONTRATACIÓN'">
                                                     APROBADA -{{ rq.substate }}
                                                 </div>
+                                                <div class="col-md-2 text-center" v-if="rq.rechazo ===1 && rq.status =='CANCELADA'">
+                                                    <div class="border border-danger border-2 rounded-pill bg-danger" >RECHAZADA/CANCELADA </div> 
+                                                </div>
                                                 <div class="" v-else>
                                                     {{ rq.status }}
                                                 </div>
