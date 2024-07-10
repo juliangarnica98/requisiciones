@@ -21,6 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \App\Http\Middleware\HandleForbidden::class,
         
     ];
 
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'handle403' => \App\Http\Middleware\Handle403::class,
         'CheckRoute' => \App\Http\Middleware\CheckRoute::class,
         'redirectIfAuthenticated' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'forbidden' => \App\Http\Middleware\HandleForbidden::class,
     ];
 }
