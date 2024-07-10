@@ -12,13 +12,22 @@
                     <div class="row pt-2" >
                         <div class="card border-none  table-head">
                             <div class="card-body ">
-                                <div class="row">
                                 
-                                    <div class="col-md-2 text-center"><b>FECHA</b></div>
-                                    <div class="col-md-2 text-center"><b>CARGO</b> </div>
+                                <div class="row" v-if="this.area != 1 && this.area != 5">
+                                
+                                    <div class="col-md-1 text-center"><b>FECHA</b></div>
+                                    <div class="col-md-4 text-center"><b>CARGO</b> </div>
                                     <div class="col-md-2 text-center"><b>CIUDAD</b> </div>
-                                    <div class="col-md-2 text-center"><b>SEXO</b></div>
-                                    <div class="col-md-2 text-center"><b>ESTADO</b></div>
+                                    <div class="col-md-1 text-center"><b>SEXO</b></div>
+                                    <div class="col-md-2 text-center"><b>ESTATUS</b></div>
+                                    <div class="col-md-2 text-center"><b>ACCIONES</b></div>
+                                </div>
+                                <div class="row" v-else>
+                                    <div class="col-md-1 text-center"><b>N° RQ</b></div>
+                                    <div class="col-md-4 text-center"><b>CARGO</b></div>
+                                    <div class="col-md-2 text-center"><b>CENTRO DE COSTOS</b> </div>
+                                    <div class="col-md-1 text-center"><b>SEXO</b> </div>
+                                    <div class="col-md-2 text-center"><b>ESTATUS</b></div>
                                     <div class="col-md-2 text-center"><b>ACCIONES</b></div>
                                 </div>
                             </div>
@@ -29,15 +38,37 @@
                             <div class="card-body card-requ">
                                 <div class="row ">
                                     
-                                    <div class="col-md-2 text-center"><b>{{ rq.created_at | fecha}} </b></div>
-                                    <div class="col-md-2 text-center"><b>{{rq.activation_charge.description}}</b> </div>
-                                    <div class="col-md-2 text-center"><b>{{rq.city.description}}</b> </div>
-                                    <div class="col-md-2 text-center"><b>{{rq.sex.description}}</b> </div>
-                                    <div class="col-md-2 text-center" v-if="rq.rechazo">
-                                        <b v-if="rq.rechazo == 1">RECHAZADA</b>
-                                        <b v-else>{{rq.status}}</b>
+                                    <div v-if="area != 1 && area != 5 " class="col-md-1 text-center"><b>{{ rq.created_at | fecha}} </b></div>
+                                    <div v-if="area != 1 && area != 5 " class="col-md-4 text-center"><b>{{rq.activation_charge.description}}</b> </div>
+                                    <div v-if="area != 1 && area != 5 " class="col-md-2 text-center"><b>{{rq.city.description}}</b> </div>
+                                    
+
+                                    <div v-if="area == 1 || area == 5" class="col-md-1 text-center"> <b class="h4" style="text-transform: uppercase;"> {{ rq.activation.id }} </b></div>
+                                    <div v-if="area == 1 || area == 5" class="col-md-4 text-center"><b>{{rq.activation_charge.description}}</b> </div>            
+                                    <div v-if="area == 1 || area == 5" class="col-md-2 text-center"><b>{{rq.name_store}}</b> <b v-if="area == 'venta_nal'">{{rq.city.description}}</b> </div>
+
+                                    <div class="col-md-1 text-center"><b>{{rq.sex.description}}</b> </div>
+                                    <div class="col-md-2 text-center">
+                                        <!-- <b v-if="rq.rechazo == 1">RECHAZADA</b>
+                                        <b v-else>{{rq.status}}</b> -->
+                                        <div class="border border-primary border-2 rounded-pill bg-primary" v-if="rq.status == 'EN GESTION' && rq.substate == 'RECLUTAMIENTO' && rq.aprobacion ===1">
+                                            APROBADA -{{ rq.substate }}
+                                        </div>
+                                        <div class="border border-warning border-2 rounded-pill bg-warning" v-if="rq.status == 'EN GESTION' && rq.substate == 'TERNA' && rq.aprobacion ===1">
+                                            APROBADA -{{ rq.substate }}
+                                        </div>
+                                        <div class="border border-success border-2 rounded-pill bg-success" v-if="rq.status == 'EN GESTION' && rq.substate == 'CONTRATACIÓN' && rq.aprobacion ===1">
+                                            APROBADA -{{ rq.substate }}
+                                        </div>
+                                        <div class="text-center" v-if="rq.rechazo ===1 || rq.status =='CANCELADA'">
+                                            <div class="border border-danger border-2 rounded-pill bg-danger" >RECHAZADA/CANCELADA </div> 
+                                        </div>
+                                        <div class="text-center" v-if="rq.status =='CERRADA'">
+                                            <div class="border border-light border-2 rounded-pill bg-light text-dark" >CERRADA</div> 
+                                        </div>
+                                        <div class="" v-if="rq.status =='ABIERTA'">{{rq.status}}</div>
                                     </div>
-                                    <div class="col-md-2 text-center" v-else><div><b> {{rq.status}}</b></div>  </div>
+                                    <!-- <div class="col-md-2 text-center" v-else><div><b> {{rq.status}}</b></div>  </div> -->
                                     <div class="col-md-2 text-center">
                                         <div class="col-md-12 h5">
                                                 <a v-if="rq.status!='CANCELADA'" class="link text-white" data-bs-toggle="modal" :data-bs-target="'#'+rq.id"><i class="fas fa-edit"></i></a>    

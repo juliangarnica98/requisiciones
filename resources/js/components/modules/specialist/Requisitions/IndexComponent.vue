@@ -93,7 +93,7 @@
                                         
                                         <div class="col-md-3 text-center"><b  style="text-transform: uppercase;">{{rq.requisition.user.name}} {{rq.requisition.user.last_name}}</b> </div>
                                         <div class="col-md-2 text-center" v-if="rq.aprobacion ===0 && rq.rechazo ===0"><b style="text-transform: uppercase;" >SIN ASIGNACIÓN</b> </div>
-                                        <div class="col-md-2 text-center" v-if="rq.aprobacion ===1"> <div> 
+                                        <div class="col-md-2 text-center" v-if="rq.aprobacion ===1 && rq.status == 'EN GESTION'"> <div> 
                                             
                                             <div class="border border-primary border-2 rounded-pill bg-primary" v-if="rq.status == 'EN GESTION' && rq.substate == 'RECLUTAMIENTO'">
                                                 ACEPTADA -{{ rq.substate }}
@@ -107,6 +107,9 @@
                                         </div></div>
                                         <div class="col-md-2 text-center" v-if="rq.rechazo ===1 && rq.status =='CANCELADA'">
                                             <div class="border border-danger border-2 rounded-pill bg-danger" >RECHAZADA/CANCELADA </div> 
+                                        </div>
+                                        <div class="col-md-2 text-center" v-if="rq.status =='CERRADA'">
+                                            <div class="border border-light border-2 rounded-pill bg-light text-dark" >CERRADA</div> 
                                         </div>
                            
                                         <!-- <div class="col-md-3 text-center"> <b style="text-transform: uppercase;"> {{rq.requisition.user.name}} {{rq.requisition.user.last_name}} - {{ rq.created_at | fecha}}</b></div>

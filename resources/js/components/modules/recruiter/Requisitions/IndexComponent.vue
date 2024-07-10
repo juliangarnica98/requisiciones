@@ -110,23 +110,26 @@
                                             
                                             
                                             <div v-if="area == 'tienda' || area == 'venta_nal' " class="col-md-3 text-center"><b  style="text-transform: uppercase;">{{rq.requisition.user.name}} {{rq.requisition.user.last_name}}</b> </div>
-                                            <div v-if="area == 'tienda' || area == 'venta_nal'" class="col-md-2 text-center d-flex justify-content-center aling-items-center"><b> 
-                                                <div class="border border-primary border-2 rounded-pill bg-primary" v-if="rq.status == 'EN GESTION' && rq.substate == 'RECLUTAMIENTO'">
+                                            <div v-if="(area == 'tienda' || area == 'venta_nal')  " class="col-md-2 text-center" >
+                                                <div class="border border-primary border-2 rounded-pill bg-primary" v-if="rq.status == 'EN GESTION' && rq.substate == 'RECLUTAMIENTO' && rq.aprobacion ===1">
                                                     APROBADA -{{ rq.substate }}
                                                 </div>
-                                                <div class="border border-warning border-2 rounded-pill bg-warning" v-if="rq.status == 'EN GESTION' && rq.substate == 'TERNA'">
+                                                <div class="border border-warning border-2 rounded-pill bg-warning" v-if="rq.status == 'EN GESTION' && rq.substate == 'TERNA' && rq.aprobacion ===1">
                                                     APROBADA -{{ rq.substate }}
                                                 </div>
-                                                <div class="border border-success border-2 rounded-pill bg-success" v-if="rq.status == 'EN GESTION' && rq.substate == 'CONTRATACIÓN'">
+                                                <div class="border border-success border-2 rounded-pill bg-success" v-if="rq.status == 'EN GESTION' && rq.substate == 'CONTRATACIÓN' && rq.aprobacion ===1">
                                                     APROBADA -{{ rq.substate }}
                                                 </div>
-                                                <div class="col-md-2 text-center" v-if="rq.rechazo ===1 && rq.status =='CANCELADA'">
+                                                <div class="text-center" v-if="rq.rechazo ===1 || rq.status =='CANCELADA'">
                                                     <div class="border border-danger border-2 rounded-pill bg-danger" >RECHAZADA/CANCELADA </div> 
                                                 </div>
-                                                <div class="" v-else>
-                                                    {{ rq.status }}
+                                                <div class="text-center" v-if="rq.status =='CERRADA'">
+                                                    <div class="border border-light border-2 rounded-pill bg-light text-dark" >CERRADA</div> 
                                                 </div>
-                                            </b></div>
+                                                <!-- <div class="" v-else>
+                                                    {{ rq.status }}
+                                                </div> -->
+                                            </div>
                                             <!-- <div class="col-md-2 text-center" v-if="rq.aprobacion ===0 && rq.rechazo ===0  && (area == 'tienda' || area == 'venta_nal' )"><b style="text-transform: uppercase;" >SIN ASIGNACIÓN</b> </div>
                                             <div class="col-md-2 text-center" v-if="rq.aprobacion ===1  && (area == 'tienda' || area == 'venta_nal' )"><b style="text-transform: uppercase;" v-if="rq.aprobacion ===1">ACEPTADA</b>  <div> <b>{{rq.reclutador}}</b></div></div>
                                             <div class="col-md-2 text-center" v-if="rq.rechazo ===1  && (area == 'tienda' || area == 'venta_nal' )"><b style="text-transform: uppercase;" >RECHAZADA</b> </div> -->
