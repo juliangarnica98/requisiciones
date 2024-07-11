@@ -332,7 +332,7 @@ import Edit from './EditComponent.vue'
 
             filtrarEstado(page = 1){
                 if (this.filtro_jefe == '') {
-                    axios.get(`/specialist/getfiltro/`+this.area+`/sin_jefe/`+this.filtro_estado+'?page='+page)
+                    axios.get(`/generalistcomercial/getfiltro/`+this.area+`/sin_jefe/`+this.filtro_estado+'?page='+page)
                     .then((res) => { 
                         if (res.data.store) {
                             this.listaRequisitionStore= res.data.store;
@@ -356,7 +356,7 @@ import Edit from './EditComponent.vue'
        
                     });
                 } else {
-                    axios.get(`/specialist/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+this.filtro_estado+'?page='+page)
+                    axios.get(`/generalistcomercial/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+this.filtro_estado+'?page='+page)
                     .then((res) => { 
                         if (res.data.store) {
                             this.listaRequisitionStore= res.data.store;

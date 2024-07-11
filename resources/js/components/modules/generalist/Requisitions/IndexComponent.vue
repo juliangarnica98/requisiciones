@@ -257,7 +257,7 @@ import Edit2 from './EditComponent2.vue'
 
             filtrarEstado(page = 1){
                 if (this.filtro_jefe == '') {
-                    axios.get(`/specialist/getfiltro/`+this.area+`/sin_jefe/`+this.filtro_estado+'?page='+page)
+                    axios.get(`/generalist/getfiltro/`+this.area+`/sin_jefe/`+this.filtro_estado+'?page='+page)
                     .then((res) => { 
                         if (res.data.store) {
                             this.listaRequisitionStore= res.data.store;
@@ -281,7 +281,7 @@ import Edit2 from './EditComponent2.vue'
        
                     });
                 } else {
-                    axios.get(`/specialist/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+this.filtro_estado+'?page='+page)
+                    axios.get(`/generalist/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+this.filtro_estado+'?page='+page)
                     .then((res) => { 
                         if (res.data.store) {
                             this.listaRequisitionStore= res.data.store;
