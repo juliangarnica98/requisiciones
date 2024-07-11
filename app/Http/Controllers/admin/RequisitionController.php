@@ -77,6 +77,7 @@ class RequisitionController extends Controller
 
     public function getfilter($area,$jefe,$estado = null){
 
+        
         if($area == "tienda" && $jefe != "sin_jefe"){
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
             function ($q) use($jefe){$q->where('user_id', $jefe);})->orderBy('id', 'DESC')->paginate(15);

@@ -56,7 +56,8 @@
             <div class="col-md-2 text-center pt-3 pb-3" style="background-color: #f252a7;color:white">CANCELADA <i class="fas fa-window-close"></i></div>
             <div class="col-md-2 text-center pt-3 pb-3 border-right" style="background-color: #b0b0b0;color:white">SUSPENDIDA <i class="fas fa-grip-lines"></i></div>
         </div>
-        <!-- {{ this.listaRequisition.data }} -->
+  
+          
         <div class="padding  pt-3">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
@@ -175,7 +176,12 @@
                     
                 </div>
             </div>
-            <pagination class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="getRequisitions">
+            <pagination v-if="filtro_estado== ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="getRequisitions">
+                <span slot="prev-nav">ANTERIOR</span>
+                <span slot="next-nav">SIGUIENTE</span>
+            </pagination>
+
+            <pagination v-if="filtro_estado!= ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="filtrarEstado">
                 <span slot="prev-nav">ANTERIOR</span>
                 <span slot="next-nav">SIGUIENTE</span>
             </pagination>
@@ -430,33 +436,21 @@ import Edit2 from './EditComponent2.vue'
                 }
             },
 
-            filtrarEstado(event){
+            filtrarEstado(page = 1){
                 if (this.filtro_jefe == '') {
-                    axios.get(`/specialist/getfiltro/`+this.area+`/sin_jefe/`+event.target.value)
+                    axios.get(`/specialist/getfiltro/`+this.area+`/sin_jefe/`+this.filtro_estado+'?page='+page)
                     .then((res) => { 
                         if (res.data.store) {
                             this.listaRequisitionStore= res.data.store;
                             this.listaRequisition = this.listaRequisitionStore;
-                        }else if(res.data.admin){
-                            this.listaRequisitionAdmin= res.data.admin;
-                            this.listaRequisition = this.listaRequisitionAdmin;
-                        }
-                        else if(res.data.cedi){
-                            this.listaRequisitionCedi= res.data.cedi;
-                            this.listaRequisition = this.listaRequisitionCedi;
-                        }
-                        else if(res.data.factory){
-                            this.listaRequisitionFactory= res.data.factory;
-                            this.listaRequisition = this.listaRequisitionFactory;
-                        }
-                        else if(res.data.national_sale){
+                        }else if(res.data.national_sale){
                             this.listaRequisitionNational_sale= res.data.national_sale;
                             this.listaRequisition = this.listaRequisitionNational_sale;
                         }
        
                     });
                 } else {
-                    axios.get(`/specialist/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+event.target.value)
+                    axios.get(`/specialist/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+this.filtro_estado+'?page='+page)
                     .then((res) => { 
                         if (res.data.store) {
                             this.listaRequisitionStore= res.data.store;

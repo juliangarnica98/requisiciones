@@ -108,7 +108,12 @@
                     
                 </div>
             </div>
-            <pagination class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="getRequisitions">
+            <pagination v-if="filtro_estado== ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="getRequisitions">
+                <span slot="prev-nav">ANTERIOR</span>
+                <span slot="next-nav">SIGUIENTE</span>
+            </pagination>
+
+            <pagination v-if="filtro_estado!= ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="filtrarEstado">
                 <span slot="prev-nav">ANTERIOR</span>
                 <span slot="next-nav">SIGUIENTE</span>
             </pagination>
@@ -250,9 +255,9 @@ import Edit2 from './EditComponent2.vue'
                 
             },
 
-            filtrarEstado(event){
+            filtrarEstado(page = 1){
                 if (this.filtro_jefe == '') {
-                    axios.get(`/generalist/getfiltro/`+this.area+`/sin_jefe/`+event.target.value)
+                    axios.get(`/specialist/getfiltro/`+this.area+`/sin_jefe/`+this.filtro_estado+'?page='+page)
                     .then((res) => { 
                         if (res.data.store) {
                             this.listaRequisitionStore= res.data.store;
@@ -276,7 +281,7 @@ import Edit2 from './EditComponent2.vue'
        
                     });
                 } else {
-                    axios.get(`/generalist/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+event.target.value)
+                    axios.get(`/specialist/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+this.filtro_estado+'?page='+page)
                     .then((res) => { 
                         if (res.data.store) {
                             this.listaRequisitionStore= res.data.store;

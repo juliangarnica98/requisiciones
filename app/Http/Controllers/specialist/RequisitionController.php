@@ -58,8 +58,8 @@ class RequisitionController extends Controller
     public function index()
     {
         $usuario = User::where('id',auth()->id())->first();
-        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
-        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(2);
+        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(2);
         $data['regional']=Regional::get();
         $data['user']=$usuario->id;
         return response()->json($data);
@@ -337,6 +337,7 @@ class RequisitionController extends Controller
 
     public function getfilter($area,$jefe,$estado = null){
 
+   
         if($area == "tienda" && $jefe != "sin_jefe"){
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
             function ($q) use($jefe){$q->where('user_id', $jefe);})->orderBy('id', 'DESC')->paginate(15);
@@ -349,15 +350,6 @@ class RequisitionController extends Controller
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
 
-        else if($area == "admin"){
-            $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
-        }
-        else if($area == "cedi"){
-            $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
-        }
-        else if($area == "factory"){
-            $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
-        }
         else if($area == "venta_nal"){
             $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }

@@ -244,8 +244,8 @@ Route::group(['prefix' => 'specialist','middleware' => ['auth','handle403','role
     Route::post('/charge/store',[App\Http\Controllers\specialist\ChargeController::class, 'store']);
     Route::delete('/deletecharge/{id}',[App\Http\Controllers\specialist\ChargeController::class, 'delete']);
     //rutas filtros
-    Route::get('/getjefes/{regional}/{area}', [App\Http\Controllers\admin\RequisitionController::class, 'getboss']);
-    Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
+    Route::get('/getjefes/{regional}/{area}', [App\Http\Controllers\specialist\RequisitionController::class, 'getboss']);
+    Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\specialist\RequisitionController::class, 'getfilter']);
     //rutas de festivos
     Route::get('/getholidays', [App\Http\Controllers\HolidaysController::class, 'getdata']);
     Route::put('/edit/holidays', [App\Http\Controllers\HolidaysController::class, 'update']);
