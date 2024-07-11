@@ -63,7 +63,7 @@
                         <div
                             v-if="
                                 form.cargo != '' &&
-                                (form.area == '1' || form.area == '2')
+                                (form.area == '1' || form.area == '2' ||  form.area == '3' ||  form.area == '4')
                             "
                         >
                             <div
@@ -244,6 +244,9 @@
                                             <option value="salud">SALUD</option>
                                             <option value="calamidad familiar">CALAMIDAD FAMILIAR</option>
                                             <option value="distancia de la residencia al lugar de trabajo">DISTANCIA DE LA RESIDENCIA AL LUGAR DE TRABAJO</option>
+                                            <option value="motivos familiares o personales">MOTIVOS PERSONALES O FAMILIARES</option>
+                                            <option value="viaje">VIAJE</option>
+                                            <option value="Clima Laboral (Relación con compañeros ojefe directo, Carga Laboral)">CLIMA LABORAL(RELACIÓN CON COMPAÑEROS O JEFE DIRECTO, CARGA LABORAL)</option>
                                             <option value="otro">OTRO</option>
                                     </select>
                                     <div class="" v-if="form.motivoRetiro == 'otro'">
@@ -264,6 +267,9 @@
                                         <option value="salud">SALUD</option>
                                         <option value="calamidad familiar">CALAMIDAD FAMILIAR</option>
                                         <option value="distancia de la residencia al lugar de trabajo">DISTANCIA DE LA RESIDENCIA AL LUGAR DE TRABAJO</option>
+                                        <option value="motivos familiares o personales">MOTIVOS PERSONALES O FAMILIARES</option>
+                                        <option value="viaje">VIAJE</option>
+                                        <option value="Clima Laboral (Relación con compañeros ojefe directo, Carga Laboral)">CLIMA LABORAL(RELACIÓN CON COMPAÑEROS O JEFE DIRECTO, CARGA LABORAL)</option>
                                         <option value="otro">OTRO</option>
                                     </select>
                                     <div class="" v-if="form.motivoRetiro == 'otro'">
@@ -433,6 +439,7 @@ export default {
                 marca:"",
                 fechaingreso: "",
                 fecharetiro: "",
+                month_retral:"",
                 ciudad: "",
                 tiempo: "",
                 cargoJefe: "",
@@ -539,6 +546,7 @@ export default {
                 marca:"",
                 fechaingreso: "",
                 fecharetiro: "",
+                month_retral:"",
                 ciudad: "",
                 tiempo: "",
                 cargoJefe: "",
