@@ -62,7 +62,11 @@
             EditInterview(){
               if (this.form.state == ""  ) {
                 this.$toast.error("DEBE SELECCIONAR UN ESTADO");
-              } else {
+              }
+              else if(this.form.state == 'RECHAZADA' && this.form.comments == ""){
+                this.$toast.error("LOS COMENTARIOS SON OBLIGATORIOS");
+              } 
+              else {
                 axios.post('/generalistcomercial/requisicion/edit', this.form).then((res) => {
                     this.$toast.success(res.data);
                     this.$emit('traerdata');

@@ -15,7 +15,7 @@ class HandleForbidden
         $response = $next($request);
         
 
-        if ($response->status() == 403) {
+        if ($response->getStatusCode() == 403) {
             // Borra la caché si es necesario
             Cache::flush();
 

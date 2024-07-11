@@ -35,7 +35,7 @@ Route::post('/entrevista/crear', [App\Http\Controllers\InterviewController::clas
 // Route::post('/entrevista/store', [App\Http\Controllers\admin\RequisitionController::class, 'store']);
 
 
-Route::group(['middleware' => ['auth','CheckRoute:web','forbidden']], function() {
+Route::group(['middleware' => ['auth','CheckRoute:web']], function() {
     Route::get('/getdatainterview/{id}/{init}/{end}/{marca?}/{cargo?}',[App\Http\Controllers\admin\Dashboard::class, 'getdata']);
     Route::get('/getdatarequisition/{init}/{end}',[App\Http\Controllers\admin\Dashboard::class, 'getdata2']);
 
