@@ -82,7 +82,7 @@ class RequisitionController extends Controller
         $data['type_activations']= Type_activation::all();
         $data['activation_charges']= Activation_charge::orderBy('description','ASC')->get();
         $data['sexes']= Sex::all();
-        $data['cities']= City::all();
+        $data['cities']= City::orderBy('description')->get();
         $data['management']=Management::all();
         $data['area_managements']=Area_management::all();
         $data['categories']=Category::all();
@@ -381,6 +381,15 @@ class RequisitionController extends Controller
         if($area == "1" && $jefe != "sin_jefe" && $estado != null){
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
             function ($q) use($jefe){$q->where('user_id', $jefe);})->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
+        }
+        else if($area == "2"){
+            $data['admin']=Administration::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
+        }
+        else if($area == "3"){
+            $data['cedi']=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
+        }
+        else if($area == "4"){
+            $data['factory']=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
         }
 
         else if($area == "5"){
