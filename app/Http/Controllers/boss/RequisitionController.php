@@ -371,4 +371,22 @@ class RequisitionController extends Controller
             return "Se ha modificado estado con exito";
         }
     }
+    public function getfilter($area,$jefe,$estado = null){
+
+        $jefe = auth()->id();   
+        if($area == "1" && $jefe != "sin_jefe"){
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) use($jefe){$q->where('user_id', $jefe);})->orderBy('id', 'DESC')->paginate(15);
+        }
+        if($area == "1" && $jefe != "sin_jefe" && $estado != null){
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) use($jefe){$q->where('user_id', $jefe);})->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
+        }
+
+        else if($area == "5"){
+            $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(15);
+        }
+    
+        return response()->json($data);
+    }
 }

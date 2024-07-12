@@ -1,11 +1,21 @@
 <template>
     <div class="" id="page-content">
-        <!-- <Nav :actual="this.rut_act"></Nav> -->
         <div>
             <h1 class="text-start title">MIS REQUISICIONES </h1>
             
         </div>
 
+        <div class="row d-flex justify-content-center pt-3"   >
+            <div class="col-md-3">
+                <select class=" form-select" name="filtro_estado" id="filtro_estado" v-model="filtro_estado" @change="filtrarEstado($event)">
+                    <option value="">SELECCIONAR ESTADO</option>
+                    <option value="CANCELADA">CANCELADA</option>
+                    <option value="ABIERTA">ABIERTA</option>
+                    <option value="EN GESTION">EN GESTION</option>
+                    <option value="CERRADA">CERRADA</option>
+                </select>
+            </div>
+        </div>
         <div class="padding  pt-4">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
@@ -88,7 +98,13 @@
                     
                 </div>
             </div>
-            <pagination class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="getRequisitions">
+
+            <pagination v-if="filtro_estado== ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="getRequisitions">
+                <span slot="prev-nav">ANTERIOR</span>
+                <span slot="next-nav">SIGUIENTE</span>
+            </pagination>
+
+            <pagination v-if="filtro_estado!= ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="filtrarEstado">
                 <span slot="prev-nav">ANTERIOR</span>
                 <span slot="next-nav">SIGUIENTE</span>
             </pagination>
@@ -105,7 +121,8 @@ import Edit from './EditComponent.vue'
         data() {
             return {
                 listaRequisition:{},
-                area:0
+                area:0,
+                filtro_estado:"",
             }
         },
         methods:{
@@ -115,6 +132,19 @@ import Edit from './EditComponent.vue'
                     this.listaRequisition = res.data.requisition;
                     this.area = res.data.area;
                 });
+            },
+            filtrarEstado(page = 1){
+                axios.get(`/boss/getfiltro/`+this.area+`/sin_jefe/`+this.filtro_estado+'?page='+page)
+                .then((res) => { 
+                    if (res.data.store) {
+                        this.listaRequisitionStore= res.data.store;
+                        this.listaRequisition = this.listaRequisitionStore;
+                    }else if(res.data.national_sale){
+                        this.listaRequisitionNational_sale= res.data.national_sale;
+                        this.listaRequisition = this.listaRequisitionNational_sale;
+                    }
+                });
+                
             },
         },
         mounted() {
@@ -178,5 +208,19 @@ import Edit from './EditComponent.vue'
         background-color: var(--primary-color);
         color: var(--toggle-color);
     } 
-    
+    select{
+        background-color: transparent;
+        border-top:none ;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: var(--primary-color) 2px solid;
+        color: var(--text-dark-color);
+        border-radius: 0;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    option{
+        text-transform: uppercase;
+        color: #00aB9f;
+    }
 </style>

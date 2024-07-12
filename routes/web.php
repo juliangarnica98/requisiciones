@@ -18,9 +18,14 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/getDiasHabiles',[App\Http\Controllers\recruiter\RequisitionController::class, 'getDiasHabiles']);
 
+
 Route::get('/', function () {
-    return redirect()->intended(url()->previous());
-})->middleware('redirectIfAuthenticated');
+    if (Auth::check()) {
+        return redirect()->intended(url()->previous());
+    }else{
+        return redirect()->route('login');
+    }
+})->middleware(['redirectIfAuthenticated']);
 
 Route::get('/login', function () {
     return redirect()->intended(url()->previous());
@@ -110,6 +115,8 @@ Route::group(['prefix' => 'boss','middleware' => ['auth','handle403','role:Boss'
     Route::get('/getdatatiendas2/{regional}',[App\Http\Controllers\boss\TiendaController::class, 'getdata2']);
     //rutas de busqyeda
     Route::post('/store/search',[App\Http\Controllers\boss\TiendaController::class, 'search']);
+    //ruta de filtro
+    Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\boss\RequisitionController::class, 'getfilter']);
 });
 
 Route::group(['prefix' => 'director','middleware' => ['auth','handle403','role:Director','CheckRoute:web','forbidden']], function() {
