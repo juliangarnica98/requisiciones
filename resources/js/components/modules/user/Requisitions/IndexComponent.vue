@@ -142,6 +142,15 @@ import Edit from './EditComponent.vue'
                     }else if(res.data.national_sale){
                         this.listaRequisitionNational_sale= res.data.national_sale;
                         this.listaRequisition = this.listaRequisitionNational_sale;
+                    }else if(res.data.admin){
+                        this.listaRequisitionAdmin= res.data.admin;
+                        this.listaRequisition = this.listaRequisitionAdmin;
+                    }else if(res.data.cedi){
+                        this.listaRequisitionCedi= res.data.cedi;
+                        this.listaRequisition = this.listaRequisitionCedi;
+                    }else if(res.data.factory){
+                        this.listaRequisitionFactory= res.data.factory;
+                        this.listaRequisition = this.listaRequisitionFactory;
                     }
                 });
                 

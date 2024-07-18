@@ -27,9 +27,18 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use LDAP\Result;
+use Illuminate\Support\Facades\Log;
+
+use App\Traits\SendEmailA;
+use App\Traits\SendEmailRqa as sendemailrqa;
+use App\Traits\SendEmailRqs as sendemailrqs;
+use App\Traits\SendEmailRqv as sendemailrqv;
+use App\Traits\comercial\SendJefe;
+use App\Traits\national\SendNational;
 
 class RequisitionController extends Controller
 {
+    use SendEmailA, sendemailrqa,sendemailrqs,sendemailrqv, SendJefe, SendNational;
     public function index()
     {
         $userId = auth()->id();
@@ -75,7 +84,16 @@ class RequisitionController extends Controller
         if ($user->area == '5') {
             $data=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
             return response()->json($data);
-        }else {
+        }
+        if ($user->area == '3') {
+            $data=Cedi::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+            return response()->json($data);
+        }
+        if ($user->area == '4') {
+            $data=Factory::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+            return response()->json($data);
+        }
+        if ($user->area == '1') {
             $regional = Regional::where('description',$user->regional)->first();
             $data=Store::with(['activation_charge','activation','city','sex','requisition.user'])->where('regional_id',$regional->id)->orderBy('id', 'DESC')->paginate(15);
             return response()->json($data);
@@ -85,7 +103,7 @@ class RequisitionController extends Controller
     public function getData()
     {
         $data['type_activations']= Type_activation::all();
-        $data['activation_charges']= Activation_charge::all();
+        $data['activation_charges']= Activation_charge::orderBy('description','ASC')->get();
         $data['sexes']= Sex::all();
         $data['cities']= City::all();
         $data['management']=Management::all();
@@ -96,6 +114,7 @@ class RequisitionController extends Controller
         $data['area_factories']=Area_factory::all();
         $data['center_distributions']=Center_distribution::all();
         $usuario=User::find(auth()->id());
+        $data['generalistas']=User::where('type','web')->role('Generalist_comercial')->get();
         $data['area'] = $usuario->area;
         $regional = $usuario->regional;
         $data['regional'] = ($usuario->regional != null) ? $usuario->regional : '';
@@ -110,6 +129,10 @@ class RequisitionController extends Controller
         DB::beginTransaction();
 
         try {
+
+            $usuario = User::find(auth()->id());
+            $subject = 'SOLICITUD DE VACANTE';
+            $cargo = Activation_charge::find($request->cargo_activacion);
 
             $requisition = new Requisition();
             $requisition->user_id=auth()->id();
@@ -136,7 +159,6 @@ class RequisitionController extends Controller
                 $store->requisition_id = $requisition->id;
                 $regional = Regional::where('description',$request->regional)->first();
                 $store->regional_id= $regional->id;
-                // $store->regional_id= $request->regional;
                 $store->name_store = $request->nombre;
                 $store->category_id= $request->categoria;
                 $store->city_id= $request->ciudad;
@@ -144,8 +166,18 @@ class RequisitionController extends Controller
                 $store->activation_id= $activation->id;
                 $store->activation_charge_id= $request->cargo_activacion;
                 $store->comentaries= $request->comentarios;
+                $store->person = $request->person;
+                $store->boss = $usuario->name." ".$usuario->last_name;
                 $store->ano_solicitud = date("Y");
                 $store->mes_solicitud = date("m");
+
+                $userSendEmail = User::where('type','web')->where('email',$request->generalista)->first();
+                try {
+                    $this->send_email_rqs("Activación de vacante N°".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095609', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id,$request->nombre);
+                    $this->send_jefe("Activación de vacante N°".$requisition->id,$usuario->name,$usuario->email,'200000000099371',$cargo->description,$request->nombre,$usuario->name);
+                } catch (\Throwable $th) {
+                    Log::error($th->getMessage());
+                }
                 
                 $store->save();
             }
@@ -159,8 +191,17 @@ class RequisitionController extends Controller
                 $admin->activation_id= $activation->id;
                 $admin->activation_charge_id= $request->cargo_activacion;
                 $admin->comentaries= $request->comentarios;
+                $admin->person = $request->person;
                 $admin->ano_solicitud = date("Y");
                 $admin->mes_solicitud = date("m");
+                $this->send_email_a("Activación de vacante N° ".$requisition->id,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
+
+                $userSendEmail = User::where('type','web')->where('email','generalista.admin@fastmoda.com.co')->first();
+                try {
+                    $this->send_email_rqa("Activación de vacante N° ".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
+                } catch (\Throwable $th) {
+                    Log::error($th->getMessage());
+                }
                 $admin->save();
             }
             if($request->area == 3){
@@ -175,6 +216,15 @@ class RequisitionController extends Controller
                 $cedi->person = $request->person;
                 $cedi->ano_solicitud = date("Y");
                 $cedi->mes_solicitud = date("m");
+
+                $this->send_email_a("Activación de vacante N° ".$requisition->id,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
+
+                $userSendEmail = User::where('type','web')->where('email','generalista.cedis@fastmoda.com.co')->first();
+                try {
+                    $this->send_email_rqa("Activación de vacante N° ".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
+                } catch (\Throwable $th) {
+                    Log::error($th->getMessage());
+                }
                 $cedi->save();
             }
             if($request->area == 4){
@@ -186,8 +236,18 @@ class RequisitionController extends Controller
                 $factory->activation_id= $activation->id;
                 $factory->activation_charge_id= $request->cargo_activacion;
                 $factory->comentaries= $request->comentarios;
+                $factory->person = $request->person;
                 $factory->ano_solicitud = date("Y");
                 $factory->mes_solicitud = date("m");
+                $this->send_email_a("Activación de vacante N° ".$requisition->id,$usuario->name,$usuario->email,'200000000094172', $usuario->name,$cargo->description,$usuario->email);
+                
+                $userSendEmail = User::where('type','web')->where('email','generalista.cedis@fastmoda.com.co')->first();
+                try {
+                    $this->send_email_rqa("Activación de vacante N° ".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
+                } catch (\Throwable $th) {
+                    Log::error($th->getMessage());
+                }
+
                 $factory->save();
             }
             if($request->area == 5){
@@ -199,8 +259,16 @@ class RequisitionController extends Controller
                 $national_sale->activation_id= $activation->id;
                 $national_sale->activation_charge_id= $request->cargo_activacion;
                 $national_sale->comentaries= $request->comentarios;
+                $national_sale->person = $request->person;
                 $national_sale->ano_solicitud = date("Y");
                 $national_sale->mes_solicitud = date("m");
+                $userSendEmail = User::where('type','web')->where('email',$request->generalista)->first();
+                try {
+                    $this->send_national("Activación de vacante N° ".$requisition->id,$usuario->name,$usuario->email,'200000000099405',$cargo->description,$ciudad->description);
+                    $this->send_email_rqv("Activación de vacante N° ".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095705', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id,$ciudad->description);
+                } catch (\Throwable $th) {
+                    Log::error($th->getMessage());
+                }
                 $national_sale->save();
             }
             DB::commit();

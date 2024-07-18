@@ -135,12 +135,22 @@
                     
                 </div>
             </div>
-            <pagination v-if="filtro_estado== ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="getRequisitions">
+            <pagination v-if="filtro_estado== '' && filtro_jefe == '' && filtro_regional == ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="getRequisitions">
                 <span slot="prev-nav">ANTERIOR</span>
                 <span slot="next-nav">SIGUIENTE</span>
             </pagination>
 
-            <pagination v-if="filtro_estado!= ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="filtrarEstado">
+            <pagination v-if="filtro_regional != ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="traerJefesRegional">
+                <span slot="prev-nav">ANTERIOR</span>
+                <span slot="next-nav">SIGUIENTE</span>
+            </pagination>
+
+            <pagination v-if="filtro_jefe != ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="filtrarEstado">
+                <span slot="prev-nav">ANTERIOR</span>
+                <span slot="next-nav">SIGUIENTE</span>
+            </pagination>
+
+            <pagination v-if="filtro_estado!= ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="filtrarJefe">
                 <span slot="prev-nav">ANTERIOR</span>
                 <span slot="next-nav">SIGUIENTE</span>
             </pagination>
@@ -311,18 +321,18 @@ import Edit from './EditComponent.vue'
                 }
                 
             },
-            traerJefesRegional(event){
-                axios.get(`/generalistcomercial/getjefes/`+event.target.value+`/`+this.area)
+            traerJefesRegional(page = 1){
+                axios.get(`/generalistcomercial/getjefes/`+this.filtro_regional+`/`+this.area+'?page='+page)
                 .then((res) => { 
                     this.jefes_zona = res.data.jefe;  
                     this.listaRequisitionStore= res.data.store;
                     this.listaRequisition = this.listaRequisitionStore;
                 });
             },
-            filtrarJefe(event){
+            filtrarJefe(page = 1){
                 
-                if (event.target.value){
-                    axios.get(`/generalistcomercial/getfiltro/`+this.area+`/`+event.target.value+`/`+this.filtro_estado)
+                if (this.filtro_jefe){
+                    axios.get(`/generalistcomercial/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+this.filtro_estado+'?page='+page)
                     .then((res) => { 
                         this.listaRequisitionStore= res.data.store;
                         this.listaRequisition = this.listaRequisitionStore;

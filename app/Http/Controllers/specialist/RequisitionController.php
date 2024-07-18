@@ -58,8 +58,8 @@ class RequisitionController extends Controller
     public function index()
     {
         $usuario = User::where('id',auth()->id())->first();
-        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(2);
-        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(2);
+        $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
+        $data['national_sale']=National_sale::with(['activation_charge','activation','city','sex','requisition.user'])->orderBy('id', 'DESC')->paginate(15);
         $data['regional']=Regional::get();
         $data['user']=$usuario->id;
         return response()->json($data);
@@ -356,6 +356,7 @@ class RequisitionController extends Controller
     
         return response()->json($data);
     }
+    
     public function getDataRq(){
         $userId = auth()->id();    
         $user = User::find($userId);

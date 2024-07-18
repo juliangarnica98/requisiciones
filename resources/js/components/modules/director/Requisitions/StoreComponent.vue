@@ -46,8 +46,8 @@
                                     <option selected value="">SELECCIONA UNA OPCION</option>
                                     <option v-for="cedi in cedis" :value="cedi.id">{{ cedi.description }}</option>
                                 </select>
-                                <h6 class="text-center">PERSONA QUE APROBO LA VACANTE<small class="h5 text-danger" >*</small></h6>
-                                <input v-model="form.person" type="text" class="form-control" id="" placeholder="">
+                                <!-- <h6 class="text-center">PERSONA QUE APROBO LA VACANTE<small class="h5 text-danger" >*</small></h6>
+                                <input v-model="form.person" type="text" class="form-control" id="" placeholder=""> -->
                             </div>
                         </div>
                     </div>
@@ -73,9 +73,14 @@
                             <div class="mb-3">
                                 <h6 class="text-center">NOMBRE DE LA TIENDA<small class="h5 text-danger" >*</small></h6>
                                 
-                                <select class=" form-select" name="filtro_regional" id="filtro_regional" v-model="form.nombre" >
+                                <!-- <select class=" form-select" name="filtro_regional" id="filtro_regional" v-model="form.nombre" >
                                     <option value="" v-for="tiendas in lista_tiendas" :value="tiendas.description"> {{ tiendas.description }}</option>
+                                </select> -->
+                                <input type="text" v-model="searchTerm" @input="filterOptions" placeholder="Buscar..." class="form-control mb-3" >
+                                <select class=" form-select" name="filtro_regional" id="filtro_regional" v-model="form.nombre" >
+                                    <option style="text-align: left;" value="" v-for="option in filteredOptions" :value="option.description"> {{ option.description }}  ---- <small>{{option.hanna}}</small></option>
                                 </select>
+
                                 <small>CATEGORIA DE LA TIENDA</small><small class="h5 text-danger" >*</small>
                                 <select v-model="form.categoria" class="form-select" aria-label="Default select example" @change="onChageCast(2,form.categoria)">
                                     <option selected value="">SELECCIONA UNA OPCION</option>
@@ -101,7 +106,7 @@
 
 
                 <template id="step4">
-                    <div v-if="((form.categoria != '') && (form.nombre != '')) || form.area_gerencia != '' || (form.centro_distribucion != '' && form.person !='')
+                    <div v-if="((form.categoria != '') && (form.nombre != '')) || form.area_gerencia != '' || (form.centro_distribucion != '')
                     || form.area_facroty != '' || form.area == '5'" class="row card card-cont ">
                         <div class="card-body">
                             <div class="mb-3">
@@ -136,13 +141,18 @@
                                     <option value="4">REINTEGRO</option>
                                 </select>
                             </div>
+                            <div class="mb-3" v-if="form.tipo_vacante == 3">
+                              
+                                <h6 class="text-center">PERSONA QUE APROBO LA VACANTE<small class="h5 text-danger" >*</small></h6>
+                                <input v-model="form.person" type="text" class="form-control" id="" placeholder="">
+                            </div>
                         </div>
                     </div>
                 </template>
 
 
                 <template id="step6">
-                    <div v-if="form.tipo_vacante == '1'" class="row card card-cont ">
+                    <div v-if="form.tipo_vacante == '1'|| form.tipo_vacante == '6'||form.tipo_vacante == '7'" class="row card card-cont ">
                         <div class="card-body">
                             <div class="mb-3">
                                 <h6 class="text-center">NOMBRE DE A QUIEN REEMPLAZA<small class="h5 text-danger" >*</small></h6>
@@ -202,7 +212,8 @@
                     || (form.change_ide!= '' && form.change_name !='' && form.change_reason != '')
                     || (form.refund_date_retirement!='' && form.refund_date !='' && form.refund_ide!=''&&form.refund_name!='')
                     || (form.opening_category!=''&& form.opening_date !=''&& form.opening_store!=''
-                    || form.tipo_vacante == '3')" class="row card card-cont ">
+                    || (form.tipo_vacante == '3' && form.person != '')
+                    )" class="row card card-cont ">
                         <div class="card-body">
                             <div class="mb-3">
                                 <h6 class="text-center">SELECCIONA EL SEXO DEL COLABORADOR SOLICITADO<small class="h5 text-danger" >*</small></h6>
@@ -292,7 +303,18 @@
                 <template id="step9">
                     <div v-if="form.cargo_activacion != ''" class="row card card-cont ">
                         <div class="card-body">
-                            <div class="mb-3">
+                            <div class="mb-3" v-if="form.area == 1 || form.area ==5">
+                                <h6 class="text-center">SELECCIONA TU GENERALISTA</h6>
+                                <select v-model="form.generalista" class="form-select" style="text-transform: uppercase;" aria-label="Default select example" @change="onChageCast(6,form.cargo_activacion)">
+                                    <option selected value="">SELECCIONA UNA OPCION</option>
+                                    <option v-for="generalista in generalistas" :value="generalista.email" style="text-transform: uppercase;">{{generalista.name}}  {{generalista.last_name}} </option>
+                                </select>
+                            </div>
+                            <div class="mb-3" v-if="form.area == 1 && form.generalista != ''">
+                                <h6 class="text-center">COMENTARIOS</h6>
+                                <textarea v-model="form.comentarios" class="form-control" placeholder="( Campo Opcional) Si tiene personal referido para cubirir esta vacante por favor dejar aqui nombre y número de contacto" id=""></textarea>
+                            </div>
+                            <div class="mb-3" v-if="form.area != 1">
                                 <h6 class="text-center">COMENTARIOS</h6>
                                 <textarea v-model="form.comentarios" class="form-control" placeholder="( Campo Opcional) Si tiene personal referido para cubirir esta vacante por favor dejar aqui nombre y número de contacto" id=""></textarea>
                             </div>
@@ -303,7 +325,15 @@
 
 
                 <template id="" class="">
-                    <div v-if="form.cargo_activacion != ''" class="row ">
+                    <div v-if="form.cargo_activacion != '' && form.area != 1" class="row ">
+                        <div class="col-md-12 d-grid gap-2">
+                            <button  @click="createRequisition" type="button"  class="btn btn-lili  mb-5">REGISTRAR</button>
+                        </div>
+                    </div>
+                </template>
+
+                <template id="" class="">
+                    <div v-if="form.generalista != '' && form.area == 1" class="row ">
                         <div class="col-md-12 d-grid gap-2">
                             <button  @click="createRequisition" type="button"  class="btn btn-lili  mb-5">REGISTRAR</button>
                         </div>
@@ -346,7 +376,8 @@
                     sexo_vacante:"",
                     cargo_activacion:"",
                     comentarios:"",
-                    person:""
+                    person:"",
+                    generalista:""
                     
                 },
                 regionales:[],
@@ -361,8 +392,11 @@
                 lista_sexos:[],
                 lista_cargos:[],
                 lista_tiendas:[],
+                generalistas:[],
+                filteredOptions: [],
                 currentStep:1,
                 progress:0,
+                searchTerm: '',
             }
         },
         methods:{
@@ -383,16 +417,23 @@
                       this.form.area=res.data.area;
                       this.form.regional=res.data.regional;
                       this.lista_tiendas=res.data.tiendas;
+                      this.generalistas=res.data.generalistas;
+                      this.filteredOptions =this.lista_tiendas;
                       
                     
                 });
             },
             createRequisition(){
-                axios.post('/director/requisicion/store', this.form).then((res) => {
-                this.$toast.success(res.data);
-                this.$router.push('/director/requisiciones');
+                if(this.form.area == 1 && this.form.generalista == ''){
+                    this.$toast.error("Seleccione su generalista");
+                }else{
 
-            });
+                    axios.post('/director/requisicion/store', this.form).then((res) => {
+                    this.$toast.success(res.data);
+                    this.$router.push('/director/requisiciones');
+                    });
+                }
+            
             },
             onChageCast(key, value){
                 switch (key) {
@@ -425,7 +466,8 @@
 
                             this.form.sexo_vacante="",
                             this.form.cargo_activacion="",
-                            this.form.comentarios=""
+                            this.form.comentarios="",
+                            this.form.person=""
                         }
                         break;
                     case 1:
@@ -449,7 +491,8 @@
                             this.form.opening_category="",
                             this.form.sexo_vacante="",
                             this.form.cargo_activacion="",
-                            this.form.comentarios=""
+                            this.form.comentarios="",
+                            this.form.person=""
                         }
                         break;
                     case 2:
@@ -470,7 +513,8 @@
                             this.form.opening_category="",
                             this.form.sexo_vacante="",
                             this.form.cargo_activacion="",
-                            this.form.comentarios=""
+                            this.form.comentarios="",
+                            this.form.person=""
                         }
                         break;
                     case 3:
@@ -490,7 +534,8 @@
                             this.form.opening_category="",
                             this.form.sexo_vacante="",
                             this.form.cargo_activacion="",
-                            this.form.comentarios=""
+                            this.form.comentarios="",
+                            this.form.person=""
                         }
                         break;
                     case 4:
@@ -509,7 +554,8 @@
                             this.form.opening_category="",
                             this.form.sexo_vacante="",
                             this.form.cargo_activacion="",
-                            this.form.comentarios=""
+                            this.form.comentarios="",
+                            this.form.person=""
                         }
                         else if(value == 5){
                             this.form.opening_store = this.form.nombre;
@@ -526,7 +572,17 @@
                             this.form.opening_date="",
                             this.form.sexo_vacante="",
                             this.form.cargo_activacion="",
-                            this.form.comentarios=""
+                            this.form.comentarios="",
+                            this.form.person=""
+                        }
+                        else if(value == 1){
+                            this.form.person=""
+                        }
+                        else if(value == 2){
+                            this.form.person=""
+                        }
+                        else if(value == 4){
+                            this.form.person=""
                         }
                         break;
                     case 5:
@@ -547,16 +603,37 @@
                     default:
                         break;
                 }
-            }
-        },
+            },
+            filterOptions() {
+                if (this.searchTerm.trim() === '') {
+                    this.filteredOptions =this.lista_tiendas;
+                } else {
+                    const searchTermLowerCase = this.searchTerm.trim().toLowerCase();
+                    this.filteredOptions = this.lista_tiendas.filter(option =>
+                    option.description.toLowerCase().includes(searchTermLowerCase) ||
+                    option.hanna.toString().includes(searchTermLowerCase)
+                    
+                );
+                    }
+            },
+        }
+        ,
         computed:{
             progreso(){
                 return this.progress+'%';
-            }
+            },
+            
+            
         },
         mounted () {
             this.getData();
+            
         },
+        watch: {
+            searchTerm() {
+                this.filterOptions();
+            }
+        }
     }
 </script>
 <style scoped>
