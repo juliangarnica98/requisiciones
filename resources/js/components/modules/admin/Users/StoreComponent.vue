@@ -27,7 +27,7 @@
                                     SELECCIONA UNA OPCIÓN
                                 </option>
                                 <option value="Recruiter">ANALISTA DE SELECCIÓN</option>
-                                <!-- <option value="Director">DIRECTOR</option>  -->
+                                <option value="Director">DIRECTOR</option> 
                                 <option value="Specialist">ESPECIALISTA</option>
                                 <option value="Generalist">GENERALISTA</option>
                                 <option value="Generalist_comercial">GENERALISTA COMERCIAL</option>

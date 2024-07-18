@@ -136,7 +136,7 @@ Route::group(['prefix' => 'director','middleware' => ['auth','handle403','role:D
     Route::post('/requisicion/edit', [App\Http\Controllers\director\RequisitionController::class, 'update']);
     //rutas de filtros
     Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\director\RequisitionController::class, 'getfilter']);
-    Route::get('/getfiltro2/{area}/{jefe}/{estado?}', [App\Http\Controllers\director\RequisitionController::class, 'getfilter2']);
+    Route::get('/getfiltro2/{area}/{estado?}', [App\Http\Controllers\director\RequisitionController::class, 'getfilter2']);
 });
 
 //rutas analista

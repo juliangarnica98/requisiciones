@@ -3,7 +3,17 @@
         <div>
             <h1 class="text-start title">REQUISICIONES TOTAL </h1>
         </div>
-
+        <div class="row d-flex justify-content-center pt-3"   >
+            <div class="col-md-3">
+                <select class=" form-select" name="filtro_estado" id="filtro_estado" v-model="filtro_estado" @change="filtrarEstado($event)">
+                    <option value="">SELECCIONAR ESTADO</option>
+                    <option value="CANCELADA">CANCELADA</option>
+                    <option value="ABIERTA">ABIERTA</option>
+                    <option value="EN GESTION">EN GESTION</option>
+                    <option value="CERRADA">CERRADA</option>
+                </select>
+            </div>
+        </div>
         <div class="padding  pt-4">
             <div class="d-flex justify-content-center">
                 <div class="col-lg-12 grid-margin">
@@ -68,8 +78,8 @@
                                     <!-- <div class="col-md-2 text-center" v-else><div><b> {{rq.status}}</b></div>  </div> -->
                                     <div class="col-md-2 text-center">
                                         <div class="col-md-12 h5">
-                                                <a v-if="rq.status!='CANCELADA'" class="link text-white" data-bs-toggle="modal" :data-bs-target="'#'+rq.id"><i class="fas fa-edit"></i></a>    
-                                                <Edit  @traerdata="getRequisitions" :estado="rq.status" :id="rq.id" :area="area"></Edit>
+                                                <!-- <a v-if="rq.status!='CANCELADA'" class="link text-white" data-bs-toggle="modal" :data-bs-target="'#'+rq.id"><i class="fas fa-edit"></i></a>    
+                                                <Edit  @traerdata="getRequisitions" :estado="rq.status" :id="rq.id" :area="area"></Edit> -->
                                                 <router-link class="link text-white" :to="{name:'directorrequisicion',params:{ id: rq.id}}" aria-expanded="false" >        
                                                         <i class="fas fa-eye"></i>
                                                 </router-link>
@@ -85,7 +95,16 @@
                     
                 </div>
             </div>
-            <pagination class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="getRequisitions">
+            <!-- <pagination class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="getRequisitions">
+                <span slot="prev-nav">ANTERIOR</span>
+                <span slot="next-nav">SIGUIENTE</span>
+            </pagination> -->
+            <pagination v-if="filtro_estado== ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="getRequisitions">
+                <span slot="prev-nav">ANTERIOR</span>
+                <span slot="next-nav">SIGUIENTE</span>
+            </pagination>
+
+            <pagination v-if="filtro_estado!= ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="filtrarEstado">
                 <span slot="prev-nav">ANTERIOR</span>
                 <span slot="next-nav">SIGUIENTE</span>
             </pagination>
@@ -100,7 +119,9 @@ import moment from 'moment'
         data() {
             return {
                 listaRequisition:{},
-                titulo:""
+                titulo:"",
+                filtro_estado:"",
+                area:0
             }
         },
         methods:{
@@ -108,8 +129,26 @@ import moment from 'moment'
                 console.log(11);
                 axios.get('/director/getrequisicion-regional?page='+page)
                 .then((res) => { 
-                    this.listaRequisition = res.data;
+                    this.listaRequisition = res.data.requisition;
+                    this.area=res.data.area
                 });
+            },
+            filtrarEstado(page = 1){
+                axios.get(`/director/getfiltro2/`+this.area+'/'+this.filtro_estado+'?page='+page)
+                .then((res) => { 
+                    if (res.data.store) {
+                        this.listaRequisition = res.data.store
+                    }else if(res.data.national_sale){
+                        this.listaRequisition = res.data.national_sale;
+                    }else if(res.data.admin){
+                        this.listaRequisition =  res.data.admin;
+                    }else if(res.data.cedi){ 
+                        this.listaRequisition =res.data.cedi;
+                    }else if(res.data.factory){
+                        this.listaRequisition = res.data.factory;
+                    }
+                });
+                
             },
         },
         mounted() {
@@ -169,5 +208,19 @@ import moment from 'moment'
         background-color: var(--primary-color);
         color: var(--toggle-color);
     } 
-    
+    select{
+        background-color: transparent;
+        border-top:none ;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: var(--primary-color) 2px solid;
+        color: var(--text-dark-color);
+        border-radius: 0;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    option{
+        text-transform: uppercase;
+        color: #00aB9f;
+    }
 </style>
