@@ -13,7 +13,7 @@ class TiendaController extends Controller
     public function getdata()
     {
         $data['regionals']=Regional::all();
-        $data['tiendas']=Tienda::with('regional')->orderBy('regional_id','asc')->paginate(15);
+        $data['tiendas']=Tienda::with('regional')->orderBy('regional_id','asc')->paginate(25);
         return response()->json($data);
         
     }

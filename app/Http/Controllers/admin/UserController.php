@@ -23,7 +23,7 @@ class UserController extends Controller
     public function index()
     {
         
-        $data['users'] = User::with('roles')->where('type','web')->orderBy('id', 'DESC')->paginate(15);
+        $data['users'] = User::with('roles')->where('type','web')->orderBy('id', 'DESC')->paginate(25);
         return $data;    
     }
 

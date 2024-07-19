@@ -7,7 +7,7 @@ use App\Models\Api\Question;
 class QuestionRepository{
     public function index()
     {
-        return Question::with('header')->paginate(15);
+        return Question::with('header')->paginate(25);
     }
     public function create(Header $header,array $questionData)
     {

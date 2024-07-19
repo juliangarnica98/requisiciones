@@ -47,31 +47,31 @@ class RequisitionController extends Controller
         if ($user->area == '1') {
             $data['requisition']=Store::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
                 function ($q) use($userId){$q->where('user_id', $userId);}
-            )->orderBy('id', 'DESC')->paginate(15);
+            )->orderBy('id', 'DESC')->paginate(25);
             $data['area']=1;
         }
         elseif ($user->area == '2') {
             $data['requisition']=Administration::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
                 function ($q) use($userId){$q->where('user_id', $userId);}
-            )->orderBy('id', 'DESC')->paginate(15);
+            )->orderBy('id', 'DESC')->paginate(25);
             $data['area']=2;
         }
         elseif ($user->area == '3') {
             $data['requisition']=Cedi::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
                 function ($q) use($userId){$q->where('user_id', $userId);}
-            )->orderBy('id', 'DESC')->paginate(15);
+            )->orderBy('id', 'DESC')->paginate(25);
             $data['area']=3;
         }
         elseif ($user->area == '4') {
             $data['requisition']=Factory::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
                 function ($q) use($userId){$q->where('user_id', $userId);}
-            )->orderBy('id', 'DESC')->paginate(15);
+            )->orderBy('id', 'DESC')->paginate(25);
             $data['area']=4;
         }
         elseif ($user->area == '5') {
             $data['requisition']=National_sale::with(['activation_charge','activation','city','sex'])->whereHas('requisition',
                 function ($q) use($userId){$q->where('user_id', $userId);}
-            )->orderBy('id', 'DESC')->paginate(15);
+            )->orderBy('id', 'DESC')->paginate(25);
             $data['area']=5;
         }
         return response()->json($data);

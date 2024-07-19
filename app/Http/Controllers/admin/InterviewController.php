@@ -12,7 +12,7 @@ class InterviewController extends Controller
 
     public function getData()
     {
-        $data['retreal']=Retreal::with(['retirement_cities','retirement_positions'])->orderBy('id', 'DESC')->paginate(15);
+        $data['retreal']=Retreal::with(['retirement_cities','retirement_positions'])->orderBy('id', 'DESC')->paginate(25);
         return response()->json($data) ;
     }
 
@@ -69,7 +69,7 @@ class InterviewController extends Controller
     }
     public function search(Request $request)
     {
-        $data['retreal']=Retreal::where('num_document', 'like', '%'.$request->buscar_entrevista.'%' )->orderBy('id', 'DESC')->paginate(15);
+        $data['retreal']=Retreal::where('num_document', 'like', '%'.$request->buscar_entrevista.'%' )->orderBy('id', 'DESC')->paginate(25);
         return response()->json($data) ; 
     }
 }

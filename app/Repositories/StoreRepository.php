@@ -7,7 +7,7 @@ use App\Models\Api\Store;
 class StoreRepository{
     public function index($regional)
     {   
-        return Store::where('regional_id',$regional)->with('regional')->orderBy('id','asc')->paginate(15);
+        return Store::where('regional_id',$regional)->with('regional')->orderBy('id','asc')->paginate(25);
     }
 
     public function create(Regional $regional,array $storeData)

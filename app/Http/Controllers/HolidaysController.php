@@ -10,7 +10,7 @@ class HolidaysController extends Controller
 
     public function getdata()
     {
-        $data['holidays']=Holidays::orderBy('id', 'ASC')->paginate(15);
+        $data['holidays']=Holidays::orderBy('id', 'ASC')->paginate(25);
         return response()->json($data);
     }
 
