@@ -31,20 +31,36 @@
                                 <option value="Specialist">ESPECIALISTA</option>
                                 <option value="Generalist">GENERALISTA</option>
                                 <option value="Generalist_comercial">GENERALISTA COMERCIAL</option>
+                                <option value="Gerente">GERENTE</option> 
                                 <option value="Boss">JEFE</option>
                             </select>
                         </div>
-                        <div class="form-group" v-if="form.rol=='Boss' ||form.rol=='Director'">
+                        <div class="form-group" v-if="form.rol=='Boss' ||form.rol=='Director'||form.rol=='Gerente'">
                             <label class="col-auto col-form-label title">ÁREA</label>
                             <select name="area"  class="form-select" aria-label="Default select example" id="area" v-model="form.area">
                                 <option selected value="">
                                     SELECCIONA UNA OPCIÓN
                                 </option>
-                                <option value="1">TIENDA</option>
-                                <option value="2">ADMINISTRATIVO</option>
-                                <option value="3">CEDI</option>
-                                <option value="4">FACTORY</option>
-                                <option value="5">VENTA NAL</option>
+                                <option value="1" v-if="form.rol!='Gerente'">TIENDA</option>
+                                <option value="2" v-if="form.rol!='Director'">ADMINISTRATIVO</option>
+                                <option value="3" v-if="form.rol!='Gerente'">CEDI</option>
+                                <option value="4" v-if="form.rol!='Gerente'">FACTORY</option>
+                                <option value="5" v-if="form.rol!='Gerente'">VENTA NAL</option>
+                            </select>
+                        </div>
+                        <div class="form-group" v-if="form.rol=='Gerente' && form.area != ''">
+                            <label class="col-auto col-form-label title">GERENCIA</label>
+                            <select name="area"  class="form-select" aria-label="Default select example" id="area" v-model="form.direccion">
+                                <option selected value="">
+                                    SELECCIONA UNA OPCIÓN
+                                </option>
+                                <option value="1">GESTIÓN HUMANA</option>
+                                <option value="2">COMERCIAL</option>
+                                <option value="3">EXPANSIÓN Y VISUAL</option>
+                                <option value="4">MERCADEO Y PRODUCTO DIGITAL</option>
+                                <option value="5">OPERACIONES</option>
+                                <option value="6">FINANCIERA</option>
+                                <option value="7">GERENCIA GENERAL</option>
                             </select>
                         </div>
 
@@ -63,7 +79,7 @@
                                     <!-- <option value="CANAL WHOLESALE / VENTA NACIONAL">CANAL WHOLESALE / VENTA NACIONAL</option> -->
                                 </select>
                             </div>
-                            <!-- <div v-if="form.area == '5'">
+                            <div v-if="form.area == '5'">
                                 <label class="col-auto col-form-label title">REGIONAL</label>
                                 <select name="regional" class="form-select"  aria-label="Default select example" id="regional" v-model="form.regional">
                                     <option selected value="">
@@ -73,7 +89,7 @@
                                     <option value="CENTRO NORTE">CENTRO NORTE</option>
                                     <option value="SUR">SUR</option>
                                 </select>
-                            </div> -->
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -116,6 +132,7 @@ export default {
               name: "",
               regional: "",
               rol: "",
+              direccion: "",
               laravel_error: {},
             }
         };

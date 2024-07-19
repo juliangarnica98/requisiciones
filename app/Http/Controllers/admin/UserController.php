@@ -29,20 +29,33 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        
         $find = User::where('type','web')->where('email',$request->email)->first();
         if($find){
             return 'error';
         }else{
-            User::create(
-                ['name' => $request->name,
-                'last_name' => $request->last_name,
-                'area' => $request->area,
-                'type' => 'web',
-                'regional' => $request->regional,
-                'email'=> $request->email, 
-                'password' => Hash::make($request->password)]
-            )->assignRole($request->rol);
+            if($request->rol== 'Gerente'){
+                User::create(
+                    ['name' => $request->name,
+                    'last_name' => $request->last_name,
+                    'area' => $request->area,
+                    'type' => 'web',
+                    'direccion' => $request->direccion,
+                    'email'=> $request->email, 
+                    'password' => Hash::make($request->password)]
+                )->assignRole('Director');
+            }else{
+                User::create(
+                    ['name' => $request->name,
+                    'last_name' => $request->last_name,
+                    'area' => $request->area,
+                    'type' => 'web',
+                    'regional' => $request->regional,
+                    'email'=> $request->email, 
+                    'password' => Hash::make($request->password)]
+                )->assignRole($request->rol);
+            }
+            
     
             return 'Se ha creado el usuario correctamente';        
         }

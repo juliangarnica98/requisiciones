@@ -20,7 +20,7 @@
                         <input type="text" placeholder="Search..." />
                     </li> -->
                     <div class="pt-5"></div>
-                    <ul v-if="area =='1' || area =='5' || area =='3' || area =='4'  "  class="menu-links ">
+                    <ul v-if="area =='1' || area =='5' || area =='3' || area =='4' || area == '2' "  class="menu-links ">
                         <!-- <ul v-if="area =='1' || area =='5'"  class="menu-links "></ul> -->
                         <li class="nav-link">
                             <router-link
@@ -32,6 +32,9 @@
                                 <i class='bx bxs-user-detail icon'></i>
                                 <span v-if="area =='1'" class="text nav-text"
                                     >REGIONAL</span
+                                >
+                                <span v-if="area =='2'" class="text nav-text"
+                                    >GERENCIA</span
                                 >
                                 <span v-if="area =='3'" class="text nav-text"
                                     >CEDI</span
