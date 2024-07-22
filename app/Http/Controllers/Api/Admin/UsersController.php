@@ -95,7 +95,7 @@ class UsersController extends Controller
     {
         $id = Auth::id();
         $user = User::where('type','api')->find($id);
-        $response=Store::where('regional_id',$user->regional)->where('description', 'like', '%'.$request->store .'%' )->paginate();
+        $response=Store::where('regional_id',$user->regional)->where('description', 'like', '%'.$request->store .'%' )->paginate(25);
         return response()->json($response);
         
     }
@@ -103,7 +103,7 @@ class UsersController extends Controller
     {
         $id = Auth::id();
         $user = User::where('type','api')->find($id);
-        $response=User::where('regional',$user->regional)->where('type','api')->where('name', 'like', '%'.$request->cedula .'%' )->paginate();
+        $response=User::where('regional',$user->regional)->where('type','api')->where('name', 'like', '%'.$request->cedula .'%' )->paginate(25);
         return response()->json($response);
         
     }

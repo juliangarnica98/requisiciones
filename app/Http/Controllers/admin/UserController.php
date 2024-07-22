@@ -158,8 +158,7 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        $data['users']=User::where('type','web')->with('roles')->orderBy('id', 'DESC')->where('name', 'like', '%'.$request->buscar_usuario .'%' )->paginate();
-        // $data['users']=User::where('type','web')->with('roles')->orderBy('id', 'DESC')->where('name', 'like', '%'.$request->buscar_usuario .'%' )->Where('last_name', 'like', '%'.$request->buscar_usuario .'%' )->paginate();
+        $data['users']=User::where('type','web')->with('roles')->orderBy('id', 'DESC')->where('name', 'like', '%'.$request->buscar_usuario .'%' )->paginate(25);
         return response()->json($data);
         
     }

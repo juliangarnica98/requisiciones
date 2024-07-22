@@ -22,7 +22,7 @@ class TiendaController extends Controller
     {
         $data['regionals']=Regional::all();
         $data['tiendas']=Tienda::with('regional')->whereHas('regional',
-        function ($q) use ($regional) {$q->where('description',$regional);})->orderBy('regional_id','asc')->paginate();
+        function ($q) use ($regional) {$q->where('description',$regional);})->orderBy('regional_id','asc')->paginate(25);
         return response()->json($data);
     }
 
@@ -58,13 +58,13 @@ class TiendaController extends Controller
             $data['tienda']=Tienda::with('regional')->whereHas('regional',
             function ($q) use ($regional) {$q->where('description',$regional);})
             ->where('description', 'like', '%'.$request->buscar_tienda .'%' )
-            ->paginate();
+            ->paginate(25);
             return response()->json($data);
         }else{
             $data['tienda']=Tienda::with('regional')
             ->where('description', 'like', '%'.$request->buscar_tienda .'%' )
             ->orWhere('hanna', 'like', '%'.$request->buscar_tienda .'%' )
-            ->paginate();
+            ->paginate(25);
             return response()->json($data);
         }
         

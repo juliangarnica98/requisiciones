@@ -140,17 +140,17 @@
                 <span slot="next-nav">SIGUIENTE</span>
             </pagination>
 
-            <pagination v-if="filtro_regional != ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="traerJefesRegional">
+            <pagination  v-else-if="filtro_regional != '' && filtro_estado== '' && filtro_jefe == ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="traerJefesRegional">
                 <span slot="prev-nav">ANTERIOR</span>
                 <span slot="next-nav">SIGUIENTE</span>
             </pagination>
 
-            <pagination v-if="filtro_jefe != ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="filtrarEstado">
+            <pagination v-else-if="filtro_jefe != '' && filtro_estado == ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="filtrarJefe">
                 <span slot="prev-nav">ANTERIOR</span>
                 <span slot="next-nav">SIGUIENTE</span>
             </pagination>
 
-            <pagination v-if="filtro_estado!= ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="filtrarJefe">
+            <pagination v-else-if="filtro_estado!= ''" class="d-flex justify-content-center" :limit="5" :data="listaRequisition" @pagination-change-page="filtrarEstado">
                 <span slot="prev-nav">ANTERIOR</span>
                 <span slot="next-nav">SIGUIENTE</span>
             </pagination>
@@ -332,7 +332,7 @@ import Edit from './EditComponent.vue'
             filtrarJefe(page = 1){
                 
                 if (this.filtro_jefe){
-                    axios.get(`/generalistcomercial/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+this.filtro_estado+'?page='+page)
+                    axios.get(`/generalistcomercial/getjefes2/`+this.filtro_regional+`/`+this.area+`/`+this.filtro_jefe+'?page='+page)
                     .then((res) => { 
                         this.listaRequisitionStore= res.data.store;
                         this.listaRequisition = this.listaRequisitionStore;
@@ -342,7 +342,7 @@ import Edit from './EditComponent.vue'
 
             filtrarEstado(page = 1){
                 if (this.filtro_jefe == '') {
-                    axios.get(`/generalistcomercial/getfiltro/`+this.area+`/sin_jefe/`+this.filtro_estado+'?page='+page)
+                    axios.get(`/generalistcomercial/getfiltro/`+this.area+`/sin_jefe/`+this.filtro_estado+`/`+this.filtro_regional+'?page='+page)
                     .then((res) => { 
                         if (res.data.store) {
                             this.listaRequisitionStore= res.data.store;
@@ -366,7 +366,7 @@ import Edit from './EditComponent.vue'
        
                     });
                 } else {
-                    axios.get(`/generalistcomercial/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+this.filtro_estado+'?page='+page)
+                    axios.get(`/generalistcomercial/getfiltro/`+this.area+`/`+this.filtro_jefe+`/`+this.filtro_estado+`/`+this.filtro_regional+'?page='+page)
                     .then((res) => { 
                         if (res.data.store) {
                             this.listaRequisitionStore= res.data.store;

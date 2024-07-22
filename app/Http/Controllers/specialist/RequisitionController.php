@@ -334,19 +334,40 @@ class RequisitionController extends Controller
         $data['jefe'] = User::where('regional',$regional)->get(); 
         return response()->json($data);
     }
+    public function getboss2($regional,$area,$jefe){
 
-    public function getfilter($area,$jefe,$estado = null){
+        $reional = Regional::where('description',$regional)->first();
+        if($area == "tienda"){
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
+            function ($q) use($jefe){$q->where('user_id', $jefe);})->where('regional_id',$reional->id)->orderBy('id', 'DESC')->paginate(25);
+        }
+        return response()->json($data);
+    }
 
-   
-        if($area == "tienda" && $jefe != "sin_jefe"){
+    public function getfilter($area,$jefe,$estado = null,$regional =null){
+
+        
+        $reional = Regional::where('description',$regional)->first();
+        if($area == "tienda" && $jefe != "sin_jefe" && $regional == null){
+         
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
             function ($q) use($jefe){$q->where('user_id', $jefe);})->orderBy('id', 'DESC')->paginate(25);
         }
-        if($area == "tienda" && $jefe != "sin_jefe" && $estado != null){
+
+        if($area == "tienda" && $jefe == "sin_jefe" && $estado != null && $regional != null){
+          
+            $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('regional_id',$reional->id)->where('status',$estado)->orderBy('id', 'DESC')->paginate(25);
+        }
+
+        if($area == "tienda" && $jefe != "sin_jefe" && $estado != null ){
+         
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->whereHas('requisition',
             function ($q) use($jefe){$q->where('user_id', $jefe);})->where('status',$estado)->orderBy('id', 'DESC')->paginate(25);
         }
-        else if($area == "tienda" && $jefe == "sin_jefe"){
+
+        
+        if($area == "tienda" && $jefe == "sin_jefe" && $regional == null){
+            
             $data['store']=Store::with(['activation_charge','category','regional','activation','city','sex','requisition.user'])->where('status',$estado)->orderBy('id', 'DESC')->paginate(25);
         }
 

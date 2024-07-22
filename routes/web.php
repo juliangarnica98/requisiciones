@@ -165,7 +165,9 @@ Route::group(['prefix' => 'recruiter','middleware' => ['auth','handle403','role:
 
     //rutas filtros
     Route::get('/getjefes/{regional}/{area}', [App\Http\Controllers\admin\RequisitionController::class, 'getboss']);
-    Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
+    Route::get('/getjefes2/{regional}/{area}/{jefe}', [App\Http\Controllers\admin\RequisitionController::class, 'getboss2']);
+    Route::get('/getfiltro/{area}/{jefe}/{estado?}/{regional?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
+    
 });
 
 //rutas generalista
@@ -255,7 +257,8 @@ Route::group(['prefix' => 'specialist','middleware' => ['auth','handle403','role
     Route::delete('/deletecharge/{id}',[App\Http\Controllers\specialist\ChargeController::class, 'delete']);
     //rutas filtros
     Route::get('/getjefes/{regional}/{area}', [App\Http\Controllers\specialist\RequisitionController::class, 'getboss']);
-    Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\specialist\RequisitionController::class, 'getfilter']);
+    Route::get('/getjefes2/{regional}/{area}/{jefe}', [App\Http\Controllers\specialist\RequisitionController::class, 'getboss2']);
+    Route::get('/getfiltro/{area}/{jefe}/{estado?}/{regional?}', [App\Http\Controllers\specialist\RequisitionController::class, 'getfilter']);
     //rutas de festivos
     Route::get('/getholidays', [App\Http\Controllers\HolidaysController::class, 'getdata']);
     Route::put('/edit/holidays', [App\Http\Controllers\HolidaysController::class, 'update']);
@@ -316,9 +319,10 @@ Route::group(['prefix' => 'generalistcomercial','middleware' => ['auth','handle4
     //rutas de busqyeda
     Route::post('/charge/search',[App\Http\Controllers\generalistcomercial\ChargeController::class, 'search']);
     Route::post('/store/search',[App\Http\Controllers\generalistcomercial\TiendaController::class, 'search']);
-
+    //filtros de generalista
     Route::get('/getjefes/{regional}/{area}', [App\Http\Controllers\admin\RequisitionController::class, 'getboss']);
-    Route::get('/getfiltro/{area}/{jefe}/{estado?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
+    Route::get('/getjefes2/{regional}/{area}/{jefe}', [App\Http\Controllers\admin\RequisitionController::class, 'getboss2']);
+    Route::get('/getfiltro/{area}/{jefe}/{estado?}/{regional?}', [App\Http\Controllers\admin\RequisitionController::class, 'getfilter']);
 });
 
 Route::post('/interview/search',[App\Http\Controllers\admin\InterviewController::class, 'search']);

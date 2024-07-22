@@ -61,7 +61,7 @@ class ChargeController extends Controller
 
     public function search(Request $request)
     {
-        $data['charge']=Activation_charge::where('description', 'like', '%'.$request->buscar_cargo .'%' )->paginate();
+        $data['charge']=Activation_charge::where('description', 'like', '%'.$request->buscar_cargo .'%' )->paginate(25);
         return response()->json($data);
         
         
