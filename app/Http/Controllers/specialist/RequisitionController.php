@@ -23,6 +23,7 @@ use App\Models\Sex;
 use App\Models\Store;
 use App\Models\Type_activation;
 use App\Models\User;
+use App\Traits\admin\SendAnalistaAdmin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +31,7 @@ use App\Traits\comercial\SendAnalista;
 
 class RequisitionController extends Controller
 {
-    use SendAnalista;
+    use SendAnalistaAdmin;
 
     public function __construct()
     {

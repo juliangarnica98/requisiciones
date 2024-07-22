@@ -23,12 +23,14 @@ use App\Models\Sex;
 use App\Models\Store;
 use App\Models\Type_activation;
 use App\Models\User;
+use App\Traits\admin\SendAnalistaAdmin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class RequisitionController extends Controller
 {
+    use SendAnalistaAdmin;
     public function __construct()
     {
         $this->middleware('auth');
@@ -206,9 +208,16 @@ class RequisitionController extends Controller
     }
     public function update(Request $request)
     {
+        $reclutador = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Recruiter');
+        })->whereRaw("CONCAT(name, ' ', last_name) LIKE ?", ["%$request->reclutador%"])
+        ->first();
         switch ($request->area) {
             case 'admin':
                 $data=Administration::where('id',$request->id)->first();
+                $area =Area_management::where('id',$data->area_management_id)->first();
+                $cargo = Activation_charge::find($data->activation_charge_id);
+                $requisition = Requisition::find($data->requisition_id);
                 if($request->substate){
                     $data->status=$request->estado_envio;
                     $data->substate=$request->substate;
@@ -217,24 +226,16 @@ class RequisitionController extends Controller
                 }
                 if($request->reclutador != ""){
                     $data->reclutador = $request->reclutador;
+                    $this->send_analista_admin("Asignación de vacante n° ".$requisition->id,$reclutador->name,$reclutador->email,'200000000105127',$cargo->description,$area->description);
                 }
                 $data->save();
                 break;
-            case 'tienda':
-                $data=Store::where('id',$request->id)->first();
-                if($request->substate){
-                    $data->status=$request->estado_envio;
-                    $data->substate=$request->substate;
-                }else{
-                    $data->status=$request->estado_envio;
-                }
-                if($request->reclutador != ""){
-                    $data->reclutador = $request->reclutador;
-                }
-                $data->save();
-                break;
+
             case 'cedi':
                 $data=Cedi::where('id',$request->id)->first();
+                $cargo = Activation_charge::find($data->activation_charge_id);
+                $centro = Center_distribution::find($data->center_distribution_id);
+                $requisition = Requisition::find($data->requisition_id);
                 if($request->substate){
                     $data->status=$request->estado_envio;
                     $data->substate=$request->substate;
@@ -243,11 +244,14 @@ class RequisitionController extends Controller
                 }
                 if($request->reclutador != ""){
                     $data->reclutador = $request->reclutador;
+                    $this->send_analista_admin("Asignación de vacante n° ".$requisition->id,$reclutador->name,$reclutador->email,'200000000105127',$cargo->description,$centro->description);
                 }
                 $data->save();
                 break;
             case 'factory':
                 $data=Factory::where('id',$request->id)->first();
+                $cargo = Activation_charge::find($data->activation_charge_id);
+                $requisition = Requisition::find($data->requisition_id);
                 if($request->substate){
                     $data->status=$request->estado_envio;
                     $data->substate=$request->substate;
@@ -256,23 +260,9 @@ class RequisitionController extends Controller
                 }
                 if($request->reclutador != ""){
                     $data->reclutador = $request->reclutador;
+                    $this->send_analista_admin("Asignación de vacante n° ".$requisition->id,$reclutador->name,$reclutador->email,'200000000105127',$cargo->description,"Factory");
                 }
                 $data->save();
-                break;
-            case 'venta_nal':
-                $data=National_sale::where('id',$request->id)->first();
-                if($request->substate){
-                    $data->status=$request->estado_envio;
-                    $data->substate=$request->substate;
-                }else{
-                    $data->status=$request->estado_envio;
-                }
-                if($request->reclutador != ""){
-                    $data->reclutador = $request->reclutador;
-                }
-                $data->save();
-                break;
-            default:
                 break;
         }
         return "Se ha modificado estado con exito";
