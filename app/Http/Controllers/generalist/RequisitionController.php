@@ -446,4 +446,30 @@ class RequisitionController extends Controller
         }
         return count($diashabiles);
     }
+
+    public function delete(Request $request){
+        switch ($request->area) {
+            case 'admin':
+                $data=Administration::find($request->id);
+                $data->status = 'CANCELADA';
+                $data->reclutador = 'SIN ASIGNACIÓN';
+                $data->save();
+                break;
+            case 'cedi':
+                $data=Cedi::find($request->id);
+                $data->status = 'CANCELADA';
+                $data->reclutador = 'SIN ASIGNACIÓN';
+                $data->save();
+                break;
+            case 'factory':
+                $data=Factory::find($request->id);
+                $data->status = 'CANCELADA';
+                $data->reclutador = 'SIN ASIGNACIÓN';
+                $data->save();
+                break;
+            default:
+                break;
+        }
+        return "Se ha cancelado con exito";
+    }
 }

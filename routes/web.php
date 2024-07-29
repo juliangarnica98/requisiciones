@@ -194,6 +194,7 @@ Route::group(['prefix' => 'generalist','middleware' => ['auth','handle403','role
     Route::post('/requisicion/edit2', [App\Http\Controllers\generalist\RequisitionController::class, 'update2']);
     Route::get('/getrequisitions', [App\Http\Controllers\generalist\RequisitionController::class, 'getDataRq']);
     Route::get('/getreclutadoras',[App\Http\Controllers\generalist\RequisitionController::class, 'getreclutadoras']);
+    Route::post('/requisicion/detele',[App\Http\Controllers\generalist\RequisitionController::class, 'delete']);
     //rutas de entrevista
     Route::post('/entrevista/store', [App\Http\Controllers\generalist\InterviewController::class, 'store']);
     Route::get('/entrevistas/{id}',[App\Http\Controllers\generalist\HomeController::class, 'index']);

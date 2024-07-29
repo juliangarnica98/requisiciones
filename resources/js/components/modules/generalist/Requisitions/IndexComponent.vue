@@ -95,6 +95,9 @@
                                                                 <Edit2 @traerdata="getRequisitions2" :estado="rq.status" :area="area" :id="rq.id"/>
                                                             </div>
                                                         </div>
+                                                        <div class="col-md-2 text-white" v-if="rq.status!= 'CANCELADA' &&  rq.status != 'CERRADA'" >
+                                                            <a @click.prevent="cancelr(rq.id)" class="link text-white "><i class="fas fa-window-close"></i></a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -155,6 +158,10 @@ import Edit2 from './EditComponent2.vue'
                 listaRequisitionFactory:{},
 
                 emitModal1:false,
+                form:{
+                    area:this.area,
+                    id:null
+                },
             }
         },
         methods:{
@@ -289,6 +296,23 @@ import Edit2 from './EditComponent2.vue'
                         }
                     });
                 }
+            },
+            cancelr(id){
+                this.form.id = id;
+                this.form.area = this.area;
+                this.$swal({
+                title: '¿Estas seguro de cancelar solicitud?',
+                showCancelButton: true,
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.post('/generalist/requisicion/detele', this.form)
+                    .then((res) => {
+                        this.$toast.success(res.data);
+                        this.getRequisitions();
+                    });
+                }
+                })
+                
             },
             comCreador(params){
                 return params == this.id_usuario ? 1 : 0;
