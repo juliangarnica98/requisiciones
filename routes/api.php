@@ -58,6 +58,8 @@ Route::group(['middleware' => 'auth:sanctum'], function ($router) {
     Route::post("/searchuser", [App\Http\Controllers\Api\Admin\UsersController::class,"searchuser"]);
     //ruta para actualizar comentarios
     Route::post("/comentario", [App\Http\Controllers\Api\Admin\AnswersController::class,"update"]);
+    //ruta para consultar data de dashboard
+    Route::get("/getdata/{mes}", [App\Http\Controllers\Api\Admin\DashboardController::class,"getdata"]);
     
 });
 
