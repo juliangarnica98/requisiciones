@@ -98,7 +98,7 @@
                                                 {{rq.reclutador}}-{{ rq.substate }}
                                             </div>
                                         </div></div>
-                                        <div class="col-md-2 text-center" v-if="rq.rechazo ===1 && rq.status =='CANCELADA'">
+                                        <div class="col-md-2 text-center" v-if="rq.rechazo ===1 || rq.status =='CANCELADA'">
                                             <div class="border border-danger border-2 rounded-pill bg-danger" >RECHAZADA/CANCELADA </div> 
                                         </div>
                                         <div class="col-md-2 text-center" v-if="rq.status =='CERRADA'">
