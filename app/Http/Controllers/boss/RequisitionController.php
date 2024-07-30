@@ -202,7 +202,7 @@ class RequisitionController extends Controller
 
                 $userSendEmail = User::where('type','web')->where('email','generalista.cedis@fastmoda.com.co')->first();
                 try {
-                    // $this->send_email_rqa("Activación de vacante N° ".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
+                    $this->send_email_rqa("Activación de vacante N° ".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
                 } catch (\Throwable $th) {
                     Log::error($th->getMessage());
                 }
