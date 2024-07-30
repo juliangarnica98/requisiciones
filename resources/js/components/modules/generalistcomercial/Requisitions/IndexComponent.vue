@@ -84,7 +84,7 @@
                                         
                                         
                                         <div class="col-md-3 text-center"><b  style="text-transform: uppercase;">{{rq.requisition.user.name}} {{rq.requisition.user.last_name}}</b> </div>
-                                        <div class="col-md-2 text-center" v-if="rq.aprobacion ===0 && rq.rechazo ===0"><b style="text-transform: uppercase;" >SIN ASIGNACIÓN</b> </div>
+                                        <div class="col-md-2 text-center" v-if="rq.aprobacion ===0 && rq.rechazo ===0 && (rq.rechazo !=1 || rq.status !='CANCELADA')"><b style="text-transform: uppercase;" >SIN ASIGNACIÓN</b> </div>
                                         <!-- <div class="col-md-2 text-center" v-if="rq.aprobacion ===1"><b style="text-transform: uppercase;" v-if="rq.aprobacion ===1">ACEPTADA</b>  <div> <b>{{rq.reclutador}}</b></div></div> -->
                                         <div class="col-md-2 text-center" v-if="rq.aprobacion ===1 && rq.status == 'EN GESTION'"> <div> 
                                             
