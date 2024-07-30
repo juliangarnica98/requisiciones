@@ -15,7 +15,8 @@ Class UserRepository
     }
     public function index2()
     {
-        return User::where('type','api')->with('roles')->whereHas('roles', function ($query) { return $query->where('name', '=', 'Boss');})->with('store')->get();
+        $user = User::find(auth()->id());
+        return User::where('type','api')->where('regional',$user->regional)->with('roles')->whereHas('roles', function ($query) { return $query->where('name', '=', 'Boss');})->with('store')->get();
     }
     public function update(User $user,$store,array $userData)
     {

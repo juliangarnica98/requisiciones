@@ -106,10 +106,10 @@ class RequisitionController extends Controller
         // DB::beginTransaction();
 
         // try {
-        
+            // dd($request->all());
 
             $usuario = User::find(auth()->id());
-            $subject = 'SOLICITUD DE VACANTE';
+           
             $cargo = Activation_charge::find($request->cargo_activacion);
             
 
@@ -164,7 +164,6 @@ class RequisitionController extends Controller
                 $admin = new Administration();
                 $admin->requisition_id = $requisition->id;
                 $regional = Regional::where('description',$request->regional)->first();
-                // $store->regional_id= $regional->id;
                 $admin->management_id= $request->gerencia;//admin
                 $admin->area_management_id= $request->area_gerencia;//admin
                 $admin->city_id= $request->ciudad;
@@ -190,7 +189,6 @@ class RequisitionController extends Controller
                 $cedi = new Cedi();
                 $cedi->requisition_id = $requisition->id;
                 $regional = Regional::where('description',$request->regional)->first();
-                // $store->regional_id= $regional->id;
                 $cedi->center_distribution_id= $request->centro_distribucion;//cedi
                 $cedi->city_id= $request->ciudad;
                 $cedi->sex_id= $request->sexo_vacante;
@@ -204,7 +202,7 @@ class RequisitionController extends Controller
 
                 $userSendEmail = User::where('type','web')->where('email','generalista.cedis@fastmoda.com.co')->first();
                 try {
-                    $this->send_email_rqa("Activación de vacante N° ".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
+                    // $this->send_email_rqa("Activación de vacante N° ".$requisition->id,$userSendEmail->name,$userSendEmail->email,'200000000095704', $userSendEmail->name ,$cargo->description, $usuario->name,$requisition->id);
                 } catch (\Throwable $th) {
                     Log::error($th->getMessage());
                 }
@@ -215,7 +213,6 @@ class RequisitionController extends Controller
                 $factory = new Factory();
                 $factory->requisition_id = $requisition->id;
                 $regional = Regional::where('description',$request->regional)->first();
-                // $store->regional_id= $regional->id;
                 $factory->area_factory_id= $request->area_facroty;//factory
                 $factory->city_id= $request->ciudad;
                 $factory->sex_id= $request->sexo_vacante;
@@ -240,7 +237,6 @@ class RequisitionController extends Controller
                 $national_sale=new National_sale();
                 $national_sale->requisition_id = $requisition->id;
                 $regional = Regional::where('description',$request->regional)->first();
-                // $store->regional_id= $request->regional;
                 $national_sale->charge_id= $request->cargo_uniq;
                 $national_sale->city_id= $request->ciudad;
                 $ciudad = City::where('id',$request->ciudad)->first();

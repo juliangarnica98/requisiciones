@@ -28,6 +28,8 @@ class UsersController extends Controller
 
     public function index()
     {
+
+        
         $id = Auth::id();
         $user = User::find($id);
         $role = $user->roles()->first()->name;

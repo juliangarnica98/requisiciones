@@ -303,6 +303,11 @@
                                 <h6 class="text-center">COMENTARIOS</h6>
                                 <textarea v-model="form.comentarios" class="form-control" placeholder="( Campo Opcional) Si tiene personal referido para cubirir esta vacante por favor dejar aqui nombre y número de contacto" id=""></textarea>
                             </div>
+                            <!-- <div class="mb-3 d-flex justify-content-center" v-if="form.area != 1" >
+                                <input class="custom-file-input" type="file" @change="handleFileChange($event)" />
+                            </div> -->
+
+                            
                         </div>
 
                     </div>       
@@ -362,7 +367,8 @@
                     cargo_activacion:"",
                     comentarios:"",
                     person:"",
-                    generalista:""
+                    generalista:"",
+                    // file: null,
                     
                 },
                 regionales:[],
@@ -386,6 +392,9 @@
             }
         },
         methods:{
+            handleFileChange(event) {
+                this.form.file = event.target.files[0];
+                },
             getData(){
                 axios.get('/boss/getdatarequisition')
                 .then((res) => {
@@ -409,11 +418,48 @@
                 });
             },
             createRequisition(){
+          
+                //const formData = new FormData();
+                
+                // formData.append('file', this.form.file);
+                // formData.append('area', this.form.area);
+                // formData.append('regional', this.form.name);
+                // formData.append('gerencia', this.form.surname);
+                // formData.append('centro_distribucion', this.form.centro_distribucion);
+                // formData.append('area_facroty', this.form.password);
+                // formData.append('cargo_uniq', this.form.password);
+                // formData.append('nombre', this.form.password);
+                // formData.append('categoria', this.form.password);
+                // formData.append('area_gerencia', this.form.password);  
+                // formData.append('ciudad', this.form.password); 
+                // formData.append('tipo_vacante', this.form.tipo_vacante); 
+                // formData.append('replacement_ide', this.form.replacement_ide); 
+                // formData.append('replacement_name', this.form.replacement_name);                   
+                // formData.append('change_name', this.form.password);   
+                // formData.append('change_ide', this.form.password);   
+                // formData.append('change_reason', this.form.password);      
+                // formData.append('refund_date_retirement', this.form.password);       
+                // formData.append('refund_date', this.form.password);    
+                // formData.append('refund_ide', this.form.password);   
+                // formData.append('refund_name', this.form.password);  
+                // formData.append('opening_store', this.form.password);    
+                // formData.append('opening_date', this.form.password);   
+                // formData.append('opening_category', this.form.password); 
+                // formData.append('sexo_vacante', this.form.password);    
+                // formData.append('cargo_activacion', this.form.password);   
+                // formData.append('comentarios', this.form.password);    
+                // formData.append('person', this.form.password);    
+                // formData.append('generalista', this.form.password);    
+
                 if(this.form.area == 1 && this.form.generalista == ''){
                     this.$toast.error("Seleccione su generalista");
                 }else{
-
-                    axios.post('/boss/requisicion/store', this.form).then((res) => {
+                    
+                    axios.post('/boss/requisicion/store', this.form)
+                    // { 
+                    //     headers: {'Content-Type': 'multipart/form-data'}
+                    // })
+                    .then((res) => {
                     this.$toast.success(res.data);
                     this.$router.push('/boss/requisiciones');
                     });
@@ -620,6 +666,32 @@
     }
 </script>
 <style scoped>
+.custom-file-input {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 500px;
+    height: 40px;
+    background-color: #d13674;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 40px;
+}
+
+.custom-file-input input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.custom-file-input:hover {
+    background-color: #BF125D;
+}
 .title{
     color: var(--text-dark-color);
     font-size: 1.5rem;
